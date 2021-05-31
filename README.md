@@ -19,21 +19,21 @@ Our vision is to develop a specialized software package capable of creating patt
 ## Project Management Tools
 
 * :open_book: [GitHub](https://github.com/COS301-SE-2021/Surface-Pattern-Accelerator/projects/1)
-* :bust_in_silhouette: [Discord]()
-* :calendar: [Clickup]()
+* :bust_in_silhouette: [Discord](https://discord.gg/MEbdacPW)
+* :calendar: [Clickup](https://clickup.up.ac.za/ultra/courses/_140238_1/cl/outline)
 
 ## Github branching 
 We will be using monorepo with gitflow
 - We will have multiple feature branches for code development
-- We will have development branches for our integration and regression testing'
-- We will have a master branch for our final product
+- We will have development branches for our integration and regression testing
+- We will have a master branch for our working prototypes
 
 ## Delta Devs Team Members
 
 | **Team Member** | **Profiles** | **Skills/Interest**
 | :----------: | :----------: | :----------: |
 ![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> (Team Leader) | [GitHub](https://github.com/XXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
-![Olivia MAngwanda](https://via.placeholder.com/150 "Olivia Mangwanda") <br/> Olivia Mangwanda <br/> u18262547 <br/> | [GitHub](https://github.com/olivia9469) <br/> [Profile Page](https://olivia9469.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/olivia-mangwanda-858446160/) <br/> | Something |
+![Olivia MAngwanda](https://via.placeholder.com/150 "Olivia Mangwanda") <br/> Olivia Mangwanda <br/> u18262547 <br/> | [GitHub](https://github.com/olivia9469) <br/> [Profile Page](https://olivia9469.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/olivia-mangwanda-858446160/) <br/> | <ul> <li>HTML, PHP, JavaScript, CSS, Bootstrap </li> <li>AWS, MySQL, PostgreSQL, MongoDB</li> <li>Angular, Flutter</li> <li>C++, Java, Python</li> </ul>|
 ![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> | [GitHub](https://github.com/XXXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
 ![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> | [GitHub](https://github.com/XXXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
 ![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> | [GitHub](https://github.com/XXXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
