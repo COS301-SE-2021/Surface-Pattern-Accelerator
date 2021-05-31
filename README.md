@@ -1,43 +1,27 @@
-# Surface-Pattern-Accelerator
+# SPA
 
-Surface Pattern Accelerator is a vector graphics editor that is built under a lightweight server. It aims to be an editor capable of generating vector-based collections and patterns much faster than its competitors such as Affinity Designer and Inkscape.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
 
-## Vision
+## Development server
 
-Our vision is to develop a specialized software package capable of creating patterns comparable to patterns created in software like Inkscape and Adobe Illustrator. The system should cater for all users, regardless of their experience in design. This software will have features exclusively geared towards pattern generation; it will only be able to generate patterns but in having such a specific vision it will do it in a much more efficient way than other software not meant to create patterns but used as such.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Project demos
+## Code scaffolding
 
-* :tv: [Demo1 Video](https://drive.google.com/open?id=)
-* :tv: [Demo2 Video](https://drive.google.com/open?id=)
-* :tv: [Demo3 Video](https://drive.google.com/open?id=)
-* :tv: [Demo4 Video](https://drive.google.com/open?id=)
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Documentation
-* :open_book: [Overleaf Document](https://www.overleaf.com/project/60a24b4cea153ccd4668a39b)
+## Build
 
-## Project Management Tools
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-* :open_book: [GitHub](https://github.com/COS301-SE-2021/Surface-Pattern-Accelerator/projects/1)
-* :bust_in_silhouette: [Discord](https://discord.gg/MEbdacPW)
-* :calendar: [Clickup](https://clickup.up.ac.za/ultra/courses/_140238_1/cl/outline)
+## Running unit tests
 
-## Github branching 
-We will be using monorepo with gitflow
-- We will have multiple feature branches for code development
-- We will have development branches for our integration and regression testing
-- We will have release brances for different versions of our working prototypes
-- We will have a master branch for our working prototypes
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Delta Devs Team Members
+## Running end-to-end tests
 
-| **Team Member** | **Profiles** | **Skills/Interest**
-| :----------: | :----------: | :----------: |
-![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> (Team Leader) | [GitHub](https://github.com/XXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
-![Olivia MAngwanda](https://via.placeholder.com/150 "Olivia Mangwanda") <br/> Olivia Mangwanda <br/> u18262547 <br/> | [GitHub](https://github.com/olivia9469) <br/> [Profile Page](https://olivia9469.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/olivia-mangwanda-858446160/) <br/> | <ul> <li>HTML, PHP, JavaScript, CSS, Bootstrap </li> <li>AWS, MySQL, PostgreSQL, MongoDB</li> <li>Angular, Flutter</li> <li>C++, Java, Python</li> </ul>|
-![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> | [GitHub](https://github.com/XXXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
-![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> | [GitHub](https://github.com/XXXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
-![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> | [GitHub](https://github.com/XXXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
-![Your name](https://via.placeholder.com/150 "Your name") <br/> Your name <br/> u1XXXXXXX <br/> | [GitHub](https://github.com/XXXXXX) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn]() <br/> | Something |
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
----
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
