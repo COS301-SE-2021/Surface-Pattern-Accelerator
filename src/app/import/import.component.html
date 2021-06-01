@@ -14,9 +14,20 @@
 
 <p>Please choose a motif to import, choose your file or drag and drop it into the window.</p>
 <div id="div1"></div>
+
 <label for="myfile">Select a file:</label>
 <input type="file" id="myfile" name="myfile"><br><br>
-<button [disabled]="clicked" (click)="handleclick()">
+
+<form>
+    <div class="form-group">
+        <label for="formFile" class="form-label mt-4">Select a file:</label>
+        <input class="form-control" type="file" id="formFile">
+    </div>
+</form>
+
+
+<!-- The class is used for the bootswatch styling-->
+<button [disabled]="clicked" (click)="handleclick() " class="btn btn-primary">
     Click Me
 </button>
 

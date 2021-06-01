@@ -3,4 +3,15 @@
     height: 70px;
     padding: 10px;
     border: 1px solid #aaaaaa;
+    background: #ececec;
+    /*
+    margin: auto;
+    width: 100%;
+    */
 }
+
+.form-group {
+    width: 350px;
+    padding-bottom: 50px;
+}
+
