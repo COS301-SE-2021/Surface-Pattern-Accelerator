@@ -1,1 +1,19 @@
-<p>import works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="import.component.css">
+</head>
+<body>
+
+<h1> {{ title}}</h1>
+
+<p>Please choose a motif to import, choose your file or drag and drop it into the window.</p>
+<div id="div1"></div>
+<label for="myfile">Select a file:</label>
+<input type="file" id="myfile" name="myfile"><br><br>
+<button [disabled]="clicked" (click)="handleclick()">
+    Click Me
+</button>
+
+</body>
+</html>
