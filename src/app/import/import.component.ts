@@ -5,11 +5,20 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.css']
 })
-export class ImportComponent implements OnInit {
+export class ImportComponent implements OnInit   {
+
+  clicked = false;
+  title = "import";
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
+
+  handleclick()
+  {
+      this.clicked = true;
+  }
+
 
 }
