@@ -1,3 +1,7 @@
+/*
+    #div1 is the id for the div
+    where the canvas will be
+ */
 #div1 {
     width: 350px;
     height: 70px;
@@ -10,8 +14,13 @@
     */
 }
 
+/*
+    .form-group is the class of div
+    container for the choose file button
+*/
 .form-group {
     width: 350px;
     padding-bottom: 50px;
 }
+
 

@@ -10,23 +10,27 @@
 </head>
 <body>
 
-<h1> {{ title}}</h1>
+<div id="center">
+    <h1> {{ title}}</h1>
 
-<p>Please choose a motif to import, choose your file or drag and drop it into the window.</p>
-<div id="div1"></div>
+    <p>Please choose a motif to import, choose your file or drag and drop it into the window.</p>
+    <div id="div1"></div>
 
-<label for="myfile">Select a file:</label>
-<input type="file" id="myfile" name="myfile"><br><br>
+    <label for="myfile">Select a file:</label>
+    <input type="file" id="myfile" name="myfile"><br><br>
 
-<form>
-    <div class="form-group">
-        <label for="formFile" class="form-label mt-4">Select a file:</label>
-        <input class="form-control" type="file" id="formFile">
-    </div>
-</form>
+    <form>
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Select a file:</label>
+            <input class="form-control" type="file" id="formFile">
+        </div>
+    </form>
+</div>
 
 
-<!-- The class is used for the bootswatch styling-->
+
+
+<!-- The attribute class="btn btn-primary" is used for the bootswatch styling -->
 <button [disabled]="clicked" (click)="handleclick() " class="btn btn-primary">
     Click Me
 </button>
