@@ -27,7 +27,7 @@ We will be using monorepo with gitflow
 - We will have multiple feature branches for code development
 - We will have development branches for our integration and regression testing
 - We will have release brances for different versions of our working prototypes
-- We will have a master branch for our working prototypes
+- We will have a master branch for our most recent working prototype
 
 ## Delta Devs Team Members
 
