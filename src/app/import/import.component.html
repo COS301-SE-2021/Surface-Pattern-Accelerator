@@ -27,6 +27,11 @@
     </form>
 </div>
 
+<!-- The attribute class="btn btn-primary" is used for the bootswatch styling -->
+<button [disabled]="clicked" (click)="handleclick() " class="btn btn-primary">
+    Click Me
+</button>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 m-auto">
@@ -134,10 +139,7 @@
 </div>
 
 
-<!-- The attribute class="btn btn-primary" is used for the bootswatch styling -->
-<button [disabled]="clicked" (click)="handleclick() " class="btn btn-primary">
-    Click Me
-</button>
+
 
 
 <script src="import.js"></script>
