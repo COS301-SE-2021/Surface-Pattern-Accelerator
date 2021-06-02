@@ -32,7 +32,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/import/Caman.js",
+              "src/app/import/import.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.css']
 })
-export class ImportComponent implements OnInit   {
+export class ImportComponent implements OnInit {
 
   clicked = false;
   title = "Import";
@@ -21,4 +21,22 @@ export class ImportComponent implements OnInit   {
   }
 
 
+  // onFileUpload(event){
+  //   const file = event.target.files[0];
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+

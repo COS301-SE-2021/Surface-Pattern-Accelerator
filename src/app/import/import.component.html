@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+
 <head>
     <title>SPA</title>
     <link rel="stylesheet" href="import.component.css">
@@ -16,17 +18,17 @@
     <p>Please choose a motif to import, choose your file or drag and drop it into the window.</p>
     <div id="div1"></div>
 
-    <label for="myfile">Select a file:</label>
-    <input type="file" id="myfile" name="myfile"><br><br>
+<!--    <label for="myfile">Select a file:</label>-->
+<!--    <input type=”file” id="myFile" (change)="onFileUpload($event)">-->
 
-    <form>
-        <div class="form-group">
-            <label for="formFile" class="form-label mt-4">Select a file:</label>
-            <input class="form-control" type="file" id="formFile">
-        </div>
-    </form>
+
+
 </div>
-
+<nav class="navbar navbar-dark bg-info mb-5">
+    <div class="container">
+        <a href="#" class="navbar-brand">Import Image</a>
+    </div>
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-md-8 m-auto">
@@ -139,7 +141,8 @@
     Click Me
 </button>
 
-
 <script src="import.js"></script>
+<script src="Caman.js"></script>
+
 </body>
 </html>
