@@ -1,1 +1,7 @@
-<h2>{{collection}}</h2>
+<h2>Collections</h2>
+
+<ul class="collections">
+    <li *ngFor="let collection of collections">
+      <span class="badge">{{collection.name}}</span> 
+    </li>
+  </ul>

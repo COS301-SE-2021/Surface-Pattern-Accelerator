@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Collection } from '../collection'
+import { COLLECTIONS } from '../mock-collections'
+import { CollectionsService } from '../collections.service'
+
 
 @Component({
   selector: 'app-collections',
@@ -7,11 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollectionsComponent implements OnInit {
 
-  constructor() { }
+  collections: Collection[] = [];
 
-  collection = "some collection";
+  constructor(private collectionsService: CollectionsService) { }
 
-  ngOnInit(): void {
+  getCollections(): void
+  {
+    this.collections = this.collectionsService.getCollections();
+  }
+
+  ngOnInit(): void
+  {
+    this.getCollections();
   }
 
 }
