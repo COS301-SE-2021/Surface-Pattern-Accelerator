@@ -1,0 +1,50 @@
+
+body {
+    font-family: "Lato", sans-serif;
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+}
+#myCanvas{
+    background-color: #E5E5E5;
+}
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #FCA311;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+#download-btn{
+    background-color: #FCA311;
+    padding: 10px;
+    color:#14213D;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #E5E5E5;
+    display: block;
+    background-color: #14213D;
+    margin-bottom: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
