@@ -62,17 +62,34 @@ ul li{
 
   /* flexbox */
   display: flex;
-  flex-direction: row;
+  /*flex-direction: row;*/
   flex-wrap: wrap;
-  justify-content: space-around;
+ /* justify-content: space-around;*/
+  /*align-content: space-between;*/
   /* align-content: flex-start; */
   /* align-items: flex-start; */
 }
 
 a {
-  background-color: #3f525c;
+  background: white;
   border-radius: 2px;
-  padding: 1rem;
+  padding: 5rem;
+  width: 20%;
+  min-width: 70px;
+  height: 100px;
+  margin: 10px;
+  text-decoration: none;
+  line-height: 100px;
+  color: black;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  border: solid 2px black;
+}
+/*
+background-color: red;
+  border-radius: 2px;
+  padding: 5rem;
   font-size: 1.2rem;
   text-decoration: none;
   display: inline-block;
@@ -84,10 +101,11 @@ a {
   box-sizing: border-box;
 
   /* flexbox */
-  order: 0;
-  flex: 0 1 auto;
-  align-self: auto;
-}
+/*
+order: 0;
+flex: 0 1 auto;
+align-self: auto;
+ */
 
 @media (min-width: 600px) {
   a {
@@ -98,4 +116,15 @@ a {
 
 a:hover {
   background-color: #000;
+  color: white;
+}
+#addCollection{
+  font-size: 5rem;
+  color: gray;
+  transition: transform .5s ease-in;
+}
+#addCollection:hover{
+  font-size: 5rem;
+  color: white;
+  transform: rotateY(180deg);
 }
