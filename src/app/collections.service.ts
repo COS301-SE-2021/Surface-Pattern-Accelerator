@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Collection } from './collection';
 import { COLLECTIONS } from './mock-collections';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root' //root level creates a single sharable instance
 })
 export class CollectionsService {
 
-  constructor() { }
+  private collectionsUrl = 'api/collections';
 
-  getCollections(): Collection[]
+  constructor(private http: HttpClient) { }
+
+  //non http getCollections:
+  getCollections(): Observable< Collection[]>
   {
-    return COLLECTIONS;
+    const collections = of(COLLECTIONS);
+    return collections; // returns observable
   }
+
+
 }

@@ -11,13 +11,14 @@ import { CollectionsService } from '../collections.service'
 })
 export class CollectionsComponent implements OnInit {
 
-  collections: Collection[] = [];
+  collections: Collection[] = []; //the collections that get displayed
 
   constructor(private collectionsService: CollectionsService) { }
 
-  getCollections(): void
+  getCollections(): void //this funct gets called each time this component gets initialized
   {
-    this.collections = this.collectionsService.getCollections();
+    this.collectionsService.getCollections()                      //this is an asyncronous operation because it gets data from a server, a server does not return instantly
+      .subscribe(collections => this.collections = collections);  //assigns data from server to local collections variable, gets an Observable
   }
 
   ngOnInit(): void

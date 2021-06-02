@@ -1,4 +1,5 @@
 /* Collections Component's private CSS styles */
+/*
 ul li{
     display: inline-table;
 }
@@ -7,7 +8,7 @@ ul li{
     margin: 0 0 2em 0; 
      list-style-type: none; 
      padding: 0;
-    /* width: 15em; */
+
   }
   
   .collections li {
@@ -41,21 +42,60 @@ ul li{
     background-color: black;
     color: white;
   }
-  /* .collections .badge {
-    display: inline-block;
-    font-size: small;
-    color: white;
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color:#405061;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    height: 1.8em;
-    margin-right: .8em;
-    border-radius: 4px 0 0 4px;
-  } */
+
   
   input {
     padding: .5rem;
   } 
+  */
+
+  /* DashboardComponent's private CSS styles */
+
+/* h2 {
+  text-align: center;
+} */
+
+.collections-menu {
+  /* padding: 0; */
+  /* margin: auto; */
+  /* max-width: 1000px; */
+
+  /* flexbox */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* align-content: flex-start; */
+  /* align-items: flex-start; */
+}
+
+a {
+  background-color: #3f525c;
+  border-radius: 2px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  min-width: 70px;
+  margin: .5rem auto;
+  box-sizing: border-box;
+
+  /* flexbox */
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+}
+
+@media (min-width: 600px) {
+  a {
+    width: 18%;
+    box-sizing: content-box;
+  }
+}
+
+a:hover {
+  background-color: #000;
+}
