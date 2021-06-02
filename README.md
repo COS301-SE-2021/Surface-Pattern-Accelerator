@@ -14,7 +14,7 @@ Our vision is to develop a specialized software package capable of creating patt
 * :tv: [Demo4 Video](https://drive.google.com/open?id=)
 
 ## Documentation
-* :open_book: [Overleaf Document](https://www.overleaf.com/project/60a24b4cea153ccd4668a39b)
+* :open_book: [Overleaf Document](https://www.overleaf.com/read/ncybnhfbfqjn)
 
 ## Project Management Tools
 
