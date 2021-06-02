@@ -126,5 +126,5 @@ a:hover {
 #addCollection:hover{
   font-size: 5rem;
   color: white;
-  transform: rotateY(180deg);
+  /* transform: rotateY(180deg); */
 }

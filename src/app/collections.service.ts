@@ -10,6 +10,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class CollectionsService {
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   private collectionsUrl = 'api/collections'; //this is the endpoint for the collections array in the "in-memory-data.service"
 
   constructor(private http: HttpClient) { }
@@ -23,8 +27,10 @@ export class CollectionsService {
 
   getCollections(): Observable< Collection[]>
   {
-    //TODO: add pipe for error handeling
-    return this.http.get<Collection[]>(this.collectionsUrl);
+
+    return this.http.get<Collection[]>(this.collectionsUrl)
+      .pipe(catchError(this.handleError<Collection[]>('getHeroes', []))
+      )
   }
 
   // GET collection by id.
@@ -33,14 +39,39 @@ export class CollectionsService {
     return this.http.get<Collection>(url);
   }
 
-  /** POST: add a new hero to the server */
-  // addHero(collection: Collection): Observable<Collection> {
-  //   return this.http.post<Collection>(this.collectionsUrl, collection, this.httpOptions).pipe(
-  //     tap((newCollection: Collection) => this.log(`added hero w/ id=${newHero.id}`)),
-  //     catchError(this.handleError<Collection>('addCollection'))
-  //   );
-  // }
 
+    /** POST: add a new hero to the server */
+    addHero(collection: Collection): Observable<Collection> {
+      return this.http.post<Collection>(this.collectionsUrl, collection, this.httpOptions).pipe(
+        tap((newCollection: Collection) => this.log(`added collection w/ id=${newCollection.id}`)),
+        catchError(this.handleError<Collection>('addCollection'))
+      );
+    }
+ 
+
+  /**
+ * Handle Http operation that failed.
+ * Let the app continue.
+ * @param operation - name of the operation that failed
+ * @param result - optional value to return as the observable result
+ */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  private log(message: string) {
+    console.log(message); //display some error
+  }
 
 
 

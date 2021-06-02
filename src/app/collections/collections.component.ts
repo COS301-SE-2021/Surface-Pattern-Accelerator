@@ -21,6 +21,16 @@ export class CollectionsComponent implements OnInit {
       .subscribe(collections => this.collections = collections);  //assigns data from server to local collections variable, gets an Observable
   }
 
+  //add new collection
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.collectionsService.addHero({ name } as Collection)
+      .subscribe((collection: Collection) => {
+        this.collections.push(collection);
+      });
+  }
+
   ngOnInit(): void
   {
     this.getCollections();
