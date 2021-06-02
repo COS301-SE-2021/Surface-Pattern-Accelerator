@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-exporting',
-  templateUrl: './exporting.component.html',
-  styleUrls: ['./exporting.component.css']
+  templateUrl: './pattern.component.html',
+  styleUrls: ['./pattern.component.css']
 })
-export class ExportingComponent implements OnInit {
+export class PatternComponent implements OnInit {
 
   title = 'testAngular';
   username: string | undefined;

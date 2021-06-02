@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExportingComponent } from './exporting.component';
+import { PatternComponent } from './pattern.component';
 
 describe('ExportingComponent', () => {
-  let component: ExportingComponent;
-  let fixture: ComponentFixture<ExportingComponent>;
+  let component: PatternComponent;
+  let fixture: ComponentFixture<PatternComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExportingComponent ]
+      declarations: [ PatternComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExportingComponent);
+    fixture = TestBed.createComponent(PatternComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
