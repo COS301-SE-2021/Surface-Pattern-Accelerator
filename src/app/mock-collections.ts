@@ -1,3 +1,4 @@
+//this file no longer used, to delete or not to delete?
 import { Collection } from './collection';
 
 export const COLLECTIONS: Collection[] = [
