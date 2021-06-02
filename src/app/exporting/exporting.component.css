@@ -81,6 +81,16 @@ body {
     width: 80%;
 }
 
-#name #rotate{
+#name{
+    margin: 10px;
+    padding: 10px;
+    border-color: #000;
+    font-size: 14px;
+}
 
+#rotate{
+    margin: 10px;
+    padding: 10px;
+    border-color: #000;
+    font-size: 14px;
 }
