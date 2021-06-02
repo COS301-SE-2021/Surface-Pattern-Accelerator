@@ -9,12 +9,14 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { PatternComponent } from './pattern/pattern.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CollectionsComponent,
-    CollectionCreatorComponent
+    CollectionCreatorComponent,
+    PatternComponent
   ],
   imports: [
     BrowserModule,
