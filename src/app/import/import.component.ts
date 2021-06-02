@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.css']
 })
+
 export class ImportComponent implements OnInit {
 
   clicked = false;
