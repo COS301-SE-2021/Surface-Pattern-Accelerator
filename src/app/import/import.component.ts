@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import * as caman from 'src/app/import/Caman.js';
 
 @Component({
   selector: 'app-import',
@@ -7,11 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ImportComponent implements OnInit {
-
   clicked = false;
-  title = "Import";
+  //title = "Import";
 
-  constructor() { }
+  constructor() {
+    let img = new Image();
+    let fileName  = "";
+    const canvas  = <HTMLElement>document.getElementById("canvas");
+    //const ctx = (canvas).getContext("2d");
+  }
 
   ngOnInit() {
   }
