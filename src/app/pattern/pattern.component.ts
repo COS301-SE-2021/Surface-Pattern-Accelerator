@@ -68,7 +68,6 @@ export class PatternComponent implements OnInit {
       for(let i = 0 ; i < 100; i++){
         k=1;
 
-        ///////work /////////////yes
         for(let j = 0 ; j < 100 ; j++){
           if(l*5<window.innerWidth || k*8<window.innerHeight)
             ctx.drawImage(motif, l*5, /*-340*/8*k, /*150*/180, /*c.height*2*/150);
