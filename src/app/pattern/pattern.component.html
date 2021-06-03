@@ -16,8 +16,8 @@
                     Your browser does not support the HTML canvas tag.</canvas>
             </div>
             <input type="number" id="name" name="name" placeholder="Change spacing">
-            <input type="number" step="0.00000001" value="0.00000000" id="rotate" name="rotate" placeholder="Rotate pattern">
-            <input type="text" id="scale" name="scale" placeholder="Scale pattern">
+            <input type="number"  step="0.001" value="0.000" id="rotate" name="rotate" placeholder="Rotate pattern">
+            <input type="text" id="scale" name="scale" placeholder="Scale pattern" [defaultValue]="0.7">
         </div>
     </div>
 
