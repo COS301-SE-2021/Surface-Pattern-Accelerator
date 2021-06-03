@@ -22,7 +22,6 @@ export class PatternComponent implements OnInit {
       this.rotate = (<HTMLInputElement>document.getElementById("rotate")).value;
       this.rotateNum = +this.rotate;
 
-      console.log(this.spacing);
       this.setSize(this.spacing, this.rotateNum);
 
     })
@@ -48,7 +47,6 @@ export class PatternComponent implements OnInit {
 
 
   setSize(spacing: number, rotateNum: number) {
-    console.log("yes");
     let c = <HTMLCanvasElement> document.getElementById("myCanvas");
     c.width = (window.innerWidth);
 
