@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PatternComponent } from './pattern.component';
 
-describe('ExportingComponent', () => {
+describe('PatternComponent', () => {
   let component: PatternComponent;
   let fixture: ComponentFixture<PatternComponent>;
 
