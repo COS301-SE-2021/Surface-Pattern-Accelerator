@@ -1,6 +1,6 @@
 //refernce https://codepen.io/bradtraversy/pen/qoJZBy
 
-
+document.addEventListener("click", e => {
 //window.onLoad=function() {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
@@ -163,7 +163,7 @@
 
 
 //}
-
+});
 
 
 
