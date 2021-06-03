@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ImportComponent implements OnInit {
 
   clicked = false;
-  title = "Import";
+  //title = "Import";
 
   constructor() { }
 
