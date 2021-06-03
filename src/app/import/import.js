@@ -160,8 +160,6 @@ document.addEventListener("click", e => {
         link.dispatchEvent(e);
     }
 
-
-
 //}
 });
 
