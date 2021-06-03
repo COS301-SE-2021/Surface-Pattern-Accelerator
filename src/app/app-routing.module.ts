@@ -5,8 +5,8 @@ import { ImportComponent} from "./import/import.component";
 
 
 const routes: Routes = [
-  { path: 'import', component: ImportComponent },
-  // { path: 'pattern', component: PatternComponent}
+  { path: 'import', component: ImportComponent }
+  //, { path: 'pattern', component: PatternComponent}
 ];
 
 @NgModule({
