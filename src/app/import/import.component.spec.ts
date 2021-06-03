@@ -29,4 +29,5 @@ describe('ImportComponent', () => {
     const data  = fixture.nativeElement;
     expect(data.querySelector(".custom-file-label").textContent).toContain("Choose Image");
   })
+
 });
