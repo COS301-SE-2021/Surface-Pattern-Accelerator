@@ -54,7 +54,6 @@ export class PatternComponent implements OnInit {
 
     var motif = new Image();
     motif.style.width = "1";
-    console.log(motif.width);
     ctx.rotate(rotateNum);
 
     motif.onload = function () {
