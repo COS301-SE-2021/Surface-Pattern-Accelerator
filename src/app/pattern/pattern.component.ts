@@ -12,6 +12,8 @@ export class PatternComponent implements OnInit {
   spacing: number = 18;
   rotate : string | undefined;
   rotateNum: number = 0;
+  scale : string | undefined;
+  scaleNum: number = 0.7;
 
   ngOnInit(){
     document.addEventListener("change", ()=>{
@@ -22,10 +24,13 @@ export class PatternComponent implements OnInit {
       this.rotate = (<HTMLInputElement>document.getElementById("rotate")).value;
       this.rotateNum = +this.rotate;
 
-      this.setSize(this.spacing, this.rotateNum);
+      this.scale = (<HTMLInputElement>document.getElementById("scale")).value;
+      this.scaleNum = +this.scale;
+
+      this.setSize(this.spacing, this.rotateNum, this.scaleNum);
 
     })
-    this.setSize(this.spacing, this.rotateNum);
+    this.setSize(this.spacing, this.rotateNum, this.scaleNum);
     let downloadBtn = <HTMLElement> document.getElementById("download-btn");
     if(downloadBtn){
       downloadBtn.addEventListener("click", () => {
@@ -46,7 +51,7 @@ export class PatternComponent implements OnInit {
   }
 
 
-  setSize(spacing: number, rotateNum: number) {
+  setSize(spacing: number, rotateNum: number, scaleNum: number) {
     let c = <HTMLCanvasElement> document.getElementById("myCanvas");
     c.width = (window.innerWidth);
 
@@ -61,13 +66,15 @@ export class PatternComponent implements OnInit {
 
       k=1;
       let l = 1;
-      ctx.scale(0.7, 0.7);
+      ctx.scale(1,1);
+      ctx.scale(scaleNum, scaleNum);
       for(let i = 0 ; i < 100; i++){
         k=1;
 
         for(let j = 0 ; j < 100 ; j++){
-          if(l*5<window.innerWidth || k*8<window.innerHeight)
+          //if(l*5<window.innerWidth || k*8<window.innerHeight)
             ctx.drawImage(motif, l*5, /*-340*/8*k, /*150*/180, /*c.height*2*/150);
+         // else break;
 
           k+=spacing;
         } l+=20;
