@@ -82,21 +82,6 @@ export class PatternComponent implements OnInit {
   }
 
 // Download
-  download(canvas : HTMLCanvasElement, filename : string) {
-    // Init event
-    let e;
-    // Create link
-    const link = document.createElement("a");
-
-    // Set props
-    link.download = filename;
-    link.href = canvas.toDataURL("image/jpeg", 0.8);
-    // New mouse event
-    e = new MouseEvent("click");
-    // Dispatch event
-    link.dispatchEvent(e);
-  }
-
   downloadCanvas(canvas : HTMLCanvasElement){
     // get canvas data
     var image = canvas.toDataURL();
