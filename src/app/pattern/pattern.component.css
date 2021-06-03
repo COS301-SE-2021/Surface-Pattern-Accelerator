@@ -81,7 +81,7 @@ body {
     width: 80%;
 }
 
-#name{
+#name,#scale{
     margin: 10px;
     padding: 10px;
     border-color: #000;
