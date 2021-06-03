@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-exporting',
+  selector: 'app-pattern',
   templateUrl: './pattern.component.html',
   styleUrls: ['./pattern.component.css']
 })
