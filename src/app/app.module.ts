@@ -3,16 +3,34 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CollectionsComponent } from './collections/collections.component';
+import { CollectionCreatorComponent } from './collection-creator/collection-creator.component';
+import { HttpClientModule } from '@angular/common/http'
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
+import { PatternComponent } from './pattern/pattern.component';
+import {ImportComponent} from "./import/import.component";
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CollectionsComponent,
+    CollectionCreatorComponent,
+    PatternComponent,
+    AppComponent,
+    ImportComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, ImportComponent]
 })
 export class AppModule { }
