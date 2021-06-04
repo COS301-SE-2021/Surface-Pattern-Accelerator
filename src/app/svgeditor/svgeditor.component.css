@@ -1,0 +1,9 @@
+svg {
+    margin: auto;
+    background: #ececec;
+    width: 100%;
+}
+
+.file-input {
+    display: none;
+}

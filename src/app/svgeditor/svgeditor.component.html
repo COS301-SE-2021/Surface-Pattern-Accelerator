@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 m-auto">
+            <!--
+            <div class="custom-file mb-3">
+                <input type="file" class="custom-file-input" id="upload-file"  onchange="console.log(event.target.files)">
+                <label for="upload-file" class="custom-file-label">Choose SVG Image</label>
+            </div>
+               -->
+
+            <!--
+            Resources used to understand this implementation:
+            https://blog.angular-university.io/angular-file-upload/
+            -->
+
+            <input type="file" class="file-input"
+                   (change)="onFileSelected($event)" #fileUpload>
+
+            <div class="file-upload custom-file mb-3">
+
+                {{fileName || "No file uploaded yet."}}
+
+                <button mat-mini-fab color="primary" class="upload-btn"
+                        (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </div>
+
+            <!-- User inputs an SVG image into this tag that can be edited -->
+            <svg id="SVGimage" ></svg>
+
+            <div class="custom-file mb-3">
+                <label for="favcolor">Select a color for your motif:</label>
+                <br>
+                <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+            </div>
+        </div>
+    </div>
+</div>

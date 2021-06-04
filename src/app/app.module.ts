@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ImportComponent} from "./import/import.component";
 import { SVGeditorComponent } from './svgeditor/svgeditor.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -13,10 +15,12 @@ import { SVGeditorComponent } from './svgeditor/svgeditor.component';
       ImportComponent,
       SVGeditorComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatIconModule
+    ],
   providers: [],
   bootstrap: [AppComponent, ImportComponent]
 })
