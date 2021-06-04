@@ -20,10 +20,13 @@
 
                 {{fileName || "No file uploaded yet."}}
 
-                <button mat-mini-fab color="primary" class="upload-btn"
-                        (click)="fileUpload.click()">
-                    <mat-icon>attach_file</mat-icon>
-                </button>
+                <div class="button-container">
+                    <button mat-mini-fab color="primary" class="upload-btn"
+                            (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                </div>
+
             </div>
 
             <!-- User inputs an SVG image into this tag that can be edited -->

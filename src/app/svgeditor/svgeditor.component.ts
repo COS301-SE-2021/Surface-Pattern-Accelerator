@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+/*
+  Resources used to understand and install Angular material:
+  https://material.angular.io/guide/getting-started
+  https://material.angular.io/components/button/api
+ */
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
