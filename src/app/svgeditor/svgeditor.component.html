@@ -13,6 +13,13 @@
             https://blog.angular-university.io/angular-file-upload/
             -->
 
+            <!--
+            Notice in the component template how the upload purple button and the invisible file input are linked.
+            When the user clicks on the purple button, a click handler triggers the file input via fileUpload.click().
+
+            The user will then choose a file from the file upload dialog,
+            and the change event will be triggered and handled by onFileSelected().
+            -->
             <input type="file" class="file-input"
                    (change)="onFileSelected($event)" #fileUpload>
 
