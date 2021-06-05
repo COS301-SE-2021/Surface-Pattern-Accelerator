@@ -1,17 +1,12 @@
+<!--
+            Resources used to understand this implementation:
+            https://blog.angular-university.io/angular-file-upload/
+            https://angular.io/guide/event-binding
+-->
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 m-auto">
-            <!--
-            <div class="custom-file mb-3">
-                <input type="file" class="custom-file-input" id="upload-file"  onchange="console.log(event.target.files)">
-                <label for="upload-file" class="custom-file-label">Choose SVG Image</label>
-            </div>
-               -->
-
-            <!--
-            Resources used to understand this implementation:
-            https://blog.angular-university.io/angular-file-upload/
-            -->
 
             <!--
             Notice in the component template how the upload purple button and the invisible file input are linked.
@@ -21,11 +16,12 @@
             and the change event will be triggered and handled by onFileSelected().
             -->
             <input type="file" class="file-input"
+                   [accept]="requiredFileType"
                    (change)="onFileSelected($event)" #fileUpload>
 
             <div class="file-upload custom-file mb-3">
 
-                {{fileName || "No file uploaded yet."}}
+                {{fileName || "No SVG file uploaded yet."}}
 
                 <div class="button-container">
                     <button mat-mini-fab color="primary" class="upload-btn"
