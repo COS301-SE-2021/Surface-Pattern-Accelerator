@@ -1,59 +1,4 @@
-/* Collections Component's private CSS styles */
-/*
-ul li{
-    display: inline-table;
-}
 
- .collections {
-    margin: 0 0 2em 0;
-     list-style-type: none;
-     padding: 0;
-
-  }
-
-  .collections li {
-    cursor: pointer;
-    position: relative;
-    left: 0;
-    background-color: #EEE;
-    margin: .5em;
-    padding: 3em 3em;
-    height: 1.6em;
-    border-radius: 4px;
-  }
-
-  .collections li:hover {
-    color: #2c3a41;
-    background-color: #e6e6e6;
-    left: .1em;
-  }
-
-  .collections li.selected {
-    background-color: black;
-    color: white;
-  }
-
-  .collections li.selected:hover {
-    background-color: #505050;
-    color: white;
-  }
-
-  .collections li.selected:active {
-    background-color: black;
-    color: white;
-  }
-
-
-  input {
-    padding: .5rem;
-  }
-  */
-
-/* DashboardComponent's private CSS styles */
-
-/* h2 {
-  text-align: center;
-} */
 
 .collections-menu {
   /* padding: 0; */
@@ -86,26 +31,7 @@ a {
   text-align: center;
   border: solid 2px black;
 }
-/*
-background-color: red;
-  border-radius: 2px;
-  padding: 5rem;
-  font-size: 1.2rem;
-  text-decoration: none;
-  display: inline-block;
-  color: #fff;
-  text-align: center;
-  width: 100%;
-  min-width: 70px;
-  margin: .5rem auto;
-  box-sizing: border-box;
 
-  /* flexbox */
-/*
-order: 0;
-flex: 0 1 auto;
-align-self: auto;
- */
 
 @media (min-width: 600px) {
   a {
