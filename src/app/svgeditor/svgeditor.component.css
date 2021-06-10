@@ -1,14 +1,20 @@
+.file-input {
+    display: none;
+}
+
+canvas {
+    margin: auto;
+    background: #ececec;
+    width: 100%;
+}
+
+/*
 svg {
     margin: auto;
     background: #ececec;
     width: 100%;
 }
 
-.file-input {
-    display: none;
-}
-
-/*
 .button-container {
     display: flex;
     justify-content: center;

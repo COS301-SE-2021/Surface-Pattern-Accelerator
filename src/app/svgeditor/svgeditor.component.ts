@@ -22,7 +22,9 @@ export class SVGeditorComponent implements OnInit {
    */
 
   fileName = "";
-  requiredFileType: any;
+  //mime type for svg to only accept svg files in the input html element.
+  requiredFileType  = "image/svg+xml";
+  url = "";
 
   constructor() {
   }
@@ -36,6 +38,7 @@ export class SVGeditorComponent implements OnInit {
     //The event is also type-casted as a HTMLInputElement, so the compiler can assess the files element
     // @ts-ignore
     const file:File = ($event.target as HTMLInputElement).files[0];
+    this.url  = URL.createObjectURL(file);
     if (file) {
       this.fileName = file.name;
     }
