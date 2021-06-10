@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fb538c7d-9c62-4e19-891d-e4f939282dd5" name="Default Changelist" comment="Kind-of-works phase">
+      <change beforePath="$PROJECT_DIR$/.browserslistrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/capacitor.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/protractor.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/src/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/src/app.po.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ionic.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/karma.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/db.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/collection.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/import/Caman.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/import/import.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/import/import.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/import/import.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/import/import.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/import/import.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/home/home-routing.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/home/home.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/home/home.page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/home/home.page.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/home/home.page.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/home/home.page.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/in-memory-data.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/in-memory-data.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/icon/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/shapes.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environments/environment.prod.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environments/environment.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/polyfills.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/theme/variables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zone-flags.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.spec.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main-ionic" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1tkUTUK60dczPcUZWKGkevHG2P2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\SPA_Ionic\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Delta\Documents\Development\SPA_Ionic\src\app" />
+      <recent name="C:\Users\Delta\Documents\Development\SPA_Ionic\src\app\components\import" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="E2E Tests (app)" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fb538c7d-9c62-4e19-891d-e4f939282dd5" name="Default Changelist" comment="" />
+      <created>1623312592044</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623312592044</updated>
+      <workItem from="1623312595166" duration="4844000" />
+      <workItem from="1623321513062" duration="2296000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial phase of Porting project to Ionic">
+      <created>1623315791399</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623315791399</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Kind-of-works phase">
+      <created>1623316303690</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623316303690</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial phase of Porting project to Ionic" />
+    <MESSAGE value="Kind-of-works phase" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kind-of-works phase" />
+  </component>
+</project>
