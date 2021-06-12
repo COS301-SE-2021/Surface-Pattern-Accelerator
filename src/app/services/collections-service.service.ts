@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Collection } from '../collection';
+import { CollectionsInterface } from '../Interfaces/collectionsInterface';
 import { Observable, of } from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -15,8 +15,8 @@ export class CollectionsServiceService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  //private collectionsUrl = 'api/collections'; //this is the endpoint for the collections array in the "in-memory-data.service"
-  private collectionsUrl = 'http://localhost:3000/api/collections';
+  //private serverURL = 'api/collections'; //this is the endpoint for the collections array in the "in-memory-data.service"
+  private serverURL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
@@ -30,30 +30,26 @@ export class CollectionsServiceService {
   }
 
 
-  getCollections(): Observable< Collection>
+  getCollections(): Observable< CollectionsInterface>
   {
-    return this.http.get<Collection>(this.collectionsUrl); //GET request
+    const getCollectionsURL = this.serverURL + '/api/collections';
+    return this.http.get<CollectionsInterface>(getCollectionsURL); //GET request
 
-    // return this.http.get<Collection[]>(this.collectionsUrl)
+    // return this.http.get<Collection[]>(this.serverURL)
     //   .pipe(catchError(this.handleError<Collection[]>('getHeroes', []))
     //   );
   }
 
-  // GET collection by id.
-  getCollection(id: number): Observable<Collection>
-  {
-    const url = `${this.collectionsUrl}/${id}`;
-    return this.http.get<Collection>(url);
-  }
-
-
-  /** POST: add a new hero to the server */
-  // addHero(collection: Collection): Observable<Collection> {
-  //   return this.http.post<Collection>(this.collectionsUrl, collection, this.httpOptions).pipe(
-  //     tap((newCollection: Collection) => this.log(`added collection w/ id=${newCollection.id}`)),
-  //     catchError(this.handleError<Collection>('addCollection'))
-  //   );
-  // }
+  /** POST: add a new collection to the server */
+   createNewCollection(collectionName: string) {
+     // return this.http.post<CollectionsInterface>(this.serverURL, collection, this.httpOptions).pipe(
+     //   tap((newCollection: CollectionsInterface) => this.log(`added collection w/ id=${newCollection}`)),
+     //   catchError(this.handleError<CollectionsInterface>('addCollection'))
+     // );
+    const newCollectionURL = this.serverURL + '/api/newCollection/' + collectionName;
+    console.log(newCollectionURL)
+    return this.http.get<any>(newCollectionURL);
+   }
 
 
   /**
@@ -85,8 +81,3 @@ export class CollectionsServiceService {
 
 }
 
-interface Config {
-  heroesUrl: string;
-  textfile: string;
-  date: any;
-}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Collection } from '../../collection';
+import { CollectionsInterface } from '../../Interfaces/collectionsInterface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CollectionsServiceService } from '../../services/collections-service.se
 })
 export class CollectionsComponent implements OnInit {
 
-  collections?: Collection; //the collections that get displayed, marked as optional
+  collections?: CollectionsInterface; //the collections that get displayed, marked as optional
 
   constructor(private collectionsService: CollectionsServiceService) { }
 
