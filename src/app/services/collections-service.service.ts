@@ -33,7 +33,8 @@ export class CollectionsServiceService {
   }
 
   // GET collection by id.
-  getCollection(id: number): Observable<Collection> {
+  getCollection(id: number): Observable<Collection> 
+  {
     const url = `${this.collectionsUrl}/${id}`;
     return this.http.get<Collection>(url);
   }
