@@ -22,17 +22,24 @@ app.get('/api/collections', (req, res) => {
             
           console.log(file);
         });
-        console.log(JSON.stringify(obj));
-        res.json(obj); // already parsed
+        console.log(JSON.stringify(obj)); //log stringified obj for triublehsooting, yes I cant spell
+        res.json(obj); // already parsed, send
       });
-
-    // fs.readFile('./db.json', (err, json) => {
-    //     let obj = JSON.parse(json);
-    //     res.json(obj);
-    // });
-
-
 });
+
+app.get('/api/newCollection/:tagId', function(req, res) {
+    let rawdata = fs.readFileSync('collectionTemplate.json');
+    console.log(JSON.parse(rawdata));
+
+    fs.copyFile('collectionTemplate.json', './testFolder/' + req.params.tagId + '.json', () =>
+    {
+        console.log("file coppied");
+    });
+
+    //res.sendStatus(200);
+    res.status(220);
+
+  });
 
 
 app.listen(port, () => {
