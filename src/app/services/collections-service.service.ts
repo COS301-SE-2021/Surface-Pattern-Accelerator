@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Collection } from '../collection';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import {SourceCode} from "eslint";
+// import Config = SourceCode.Config;
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +15,32 @@ export class CollectionsServiceService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private collectionsUrl = 'api/collections'; //this is the endpoint for the collections array in the "in-memory-data.service"
+  //private collectionsUrl = 'api/collections'; //this is the endpoint for the collections array in the "in-memory-data.service"
+  private collectionsUrl = 'http://localhost:3000/api/collections';
 
   constructor(private http: HttpClient) { }
 
-  //non http getCollections:
-  // getCollections(): Observable< Collection[]>
-  // {
-  //   const collections = of(COLLECTIONS);
-  //   return collections; // returns observable
-  // }
+  options: {
+    headers?: HttpHeaders | {[header: string]: string | string[]},
+    observe?: 'body', //| 'events' | 'response', //specifies how much of the response to return.
+    params?: HttpParams|{[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>},
+    reportProgress?: boolean,
+    responseType?: 'arraybuffer'|'blob'|'json'|'text', //specifies the format in which to return data.
+    withCredentials?: boolean,
+  }
 
-  getCollections(): Observable< Collection[]>
+
+  getCollections(): Observable< Collection>
   {
+    return this.http.get<Collection>(this.collectionsUrl); //GET request
 
-    return this.http.get<Collection[]>(this.collectionsUrl)
-      .pipe(catchError(this.handleError<Collection[]>('getHeroes', []))
-      );
+    // return this.http.get<Collection[]>(this.collectionsUrl)
+    //   .pipe(catchError(this.handleError<Collection[]>('getHeroes', []))
+    //   );
   }
 
   // GET collection by id.
-  getCollection(id: number): Observable<Collection> 
+  getCollection(id: number): Observable<Collection>
   {
     const url = `${this.collectionsUrl}/${id}`;
     return this.http.get<Collection>(url);
@@ -41,12 +48,12 @@ export class CollectionsServiceService {
 
 
   /** POST: add a new hero to the server */
-  addHero(collection: Collection): Observable<Collection> {
-    return this.http.post<Collection>(this.collectionsUrl, collection, this.httpOptions).pipe(
-      tap((newCollection: Collection) => this.log(`added collection w/ id=${newCollection.id}`)),
-      catchError(this.handleError<Collection>('addCollection'))
-    );
-  }
+  // addHero(collection: Collection): Observable<Collection> {
+  //   return this.http.post<Collection>(this.collectionsUrl, collection, this.httpOptions).pipe(
+  //     tap((newCollection: Collection) => this.log(`added collection w/ id=${newCollection.id}`)),
+  //     catchError(this.handleError<Collection>('addCollection'))
+  //   );
+  // }
 
 
   /**
@@ -76,4 +83,10 @@ export class CollectionsServiceService {
 
 
 
+}
+
+interface Config {
+  heroesUrl: string;
+  textfile: string;
+  date: any;
 }

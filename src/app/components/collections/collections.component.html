@@ -5,8 +5,16 @@
      routerLink="/collectionCreator">
     +
   </a>
-  <a *ngFor="let collection of collections"
-     routerLink="/pattern">
-    {{collection.name}}
-  </a>
+
+  <div *ngIf="collections">
+    <div *ngFor="let collectionName of collections.collectionNames" >
+      <a
+         routerLink="/pattern">
+        {{collectionName}}
+      </a>
+    </div>
+  </div>
+
+
 </div>
+

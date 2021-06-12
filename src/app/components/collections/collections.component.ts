@@ -9,7 +9,7 @@ import { CollectionsServiceService } from '../../services/collections-service.se
 })
 export class CollectionsComponent implements OnInit {
 
-  collections: Collection[] = []; //the collections that get displayed
+  collections?: Collection; //the collections that get displayed, marked as optional
 
   constructor(private collectionsService: CollectionsServiceService) { }
 
@@ -20,13 +20,14 @@ export class CollectionsComponent implements OnInit {
   }
 
   //add new collection
+  //TODO: create collection on server
   add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.collectionsService.addHero({ name } as Collection)
-      .subscribe((collection: Collection) => {
-        this.collections.push(collection);
-      });
+    // name = name.trim();
+    // if (!name) { return; }
+    // this.collectionsService.addHero({ name } as Collection)
+    //   .subscribe((collection: Collection) => {
+    //     this.collections.push(collection);
+    //   });
   }
 
   ngOnInit(): void
