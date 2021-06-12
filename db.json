@@ -1,16 +1,6 @@
 {
-  "eBooks":[
-    {
-      "language":"Pascal",
-      "edition":"third"
-    },
-    {
-      "language":"Python",
-      "edition":"four"
-    },
-    {
-      "language":"SQL",
-      "edition":"second"
-    }
-  ]
+  "heroesUrl": "api/heroes",
+  "textfile": "assets/textfile.txt",
+  "date": "2020-01-29",
+  "arr": ["val1", "val2", "val3"]
 }
