@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import {FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
@@ -33,6 +34,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),

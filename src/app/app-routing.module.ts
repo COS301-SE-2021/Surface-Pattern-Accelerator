@@ -4,9 +4,11 @@ import { CollectionsComponent } from './components/collections/collections.compo
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
+import { LoginComponent } from './components/login/login.component'
 
 const routes: Routes = [
   { path: 'home',    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)  },
+  { path: 'login', component: LoginComponent},
   { path: '',    redirectTo: 'collections',    pathMatch: 'full'  },
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
