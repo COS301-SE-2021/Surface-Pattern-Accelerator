@@ -1,9 +1,75 @@
 const express = require('express')
+const session = require('express-session');
+const bodyParser = require('body-parser');
 const  fs = require('fs')
 const cors = require('cors');
 const app = express()
-app.use(cors());
+//app.use(cors());
 const port = 3000
+
+app.use(cors({origin: //cors so it can work with application on another domain
+  ["http://localhost:8100"],
+  credentials: true}));
+
+app.use(session({
+  secret: "super secret secret",
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(bodyParser.json()); //parse request body for when its a JSON file
+/////////////////////////////////////////////////////////////////////////////////
+//mock DB
+
+const appUsers = {
+  'max@gmail.com': {
+      email: 'max@gmail.com',
+      name: 'Max Miller',
+      pw: '1234'
+  },
+  'lilly@gmail.com': {
+      email: 'lilly@gmail.com',
+      name: 'Lilly Walter',
+      pw: '1234'
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+//middleware to check if payload is present
+
+const validatePayload = (req, res, next) => {
+  if( req.body )
+  {
+      next();
+  }
+  else
+  {
+      res.status(403).send({
+          errorMessage: 'You must be signed in'
+      });
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////
+
+app.post('/api/login', validatePayload, (req, res) => { //read about express middlewares, like validatePayload
+  const user = appUsers[req.body.email]; //access DB like an array
+  console.log("login called");
+  if(user && user.pw === req.body.password)
+  {
+      const userWithoutPassword = {...user}; //spread operator
+      delete userWithoutPassword.pw;
+      req.session.user = userWithoutPassword;
+      res.status(200).send({
+          user: userWithoutPassword
+      });
+  }
+  else
+  {
+      res.status(403).send({
+          errorMessage: 'Permission denied!'
+      });
+  }
+});
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
