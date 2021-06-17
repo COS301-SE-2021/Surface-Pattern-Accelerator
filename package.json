@@ -25,6 +25,7 @@
     "@capacitor/keyboard": "1.0.1",
     "@ionic/angular": "^5.5.2",
     "angular-in-memory-web-api": "^0.11.0",
+    "angularx-social-login": "^3.5.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
