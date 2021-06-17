@@ -42,6 +42,14 @@ export class CollorPalletComponent implements OnInit {
     const elem = document.getElementById(id);
     let prev: HTMLElement;
     let next: HTMLElement;
+    if(elem) {
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      prev = <HTMLElement>elem.previousElementSibling;
+      console.log('color div class: ' + prev.className);
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      next = <HTMLElement>elem.nextElementSibling;
+      console.log('p class: ' + next.className);
+    }
     
   }
 
