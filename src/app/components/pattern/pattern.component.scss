@@ -1,3 +1,4 @@
+/*
 *{
   margin: 0;
   padding: 0;
@@ -5,12 +6,7 @@
   font-family: 'Josefin Sans', sans-serif;
 }
 
-body {
-}
 
-#myCanvas{
-  background-color: #E5E5E5;
-}
 
 .wrapper{
   position: relative;
@@ -76,9 +72,14 @@ body {
   margin-bottom: 20px;
 }
 
+ */
+#myCanvas{
+  top : 58px;
+  background-color: #E5E5E5;
+}
+
 #canvas{
-  margin: auto;
-  background: #bdb8d7;
+  //margin: auto;
   width: 80%;
 }
 
@@ -94,6 +95,45 @@ body {
   padding: 10px;
   border-color: #000;
   font-size: 14px;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 58px;
+  left: 0;
+  //background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0 10px;
 }
 
 
