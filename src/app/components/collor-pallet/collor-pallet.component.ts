@@ -38,6 +38,12 @@ export class CollorPalletComponent implements OnInit {
     }
   }
   
+  lockColour(id: string){
+    const elem = document.getElementById(id);
+    let prev: HTMLElement;
+    let next: HTMLElement;
+    
+  }
 
   
 }
