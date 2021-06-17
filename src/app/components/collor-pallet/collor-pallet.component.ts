@@ -11,7 +11,14 @@ export class CollorPalletComponent implements OnInit {
 
   ngOnInit() {}
 
-  colorGen(){}
-  
-  lockColor(){}
+  colorGen() {
+    const code = document.querySelectorAll('.code');
+
+    const color = document.querySelectorAll('.color');
+
+    const letters = '0123456789abcdef';
+
+    const hashtag = ['#', '#', '#', '#', '#', '#'];
+
+  }
 }
