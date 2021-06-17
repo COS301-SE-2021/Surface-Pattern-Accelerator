@@ -52,7 +52,13 @@ body {
 }
 
 .contentBox .colorBox button{
-
+  padding: 12px 60px;
+  background-color: #020024;
+  border-radius: 10px;
+  border: 10px #ffd700;
+  font-size: 1.2rem;
+  color: #fff;
+  transition: 0.3s;
 }
 
 .stay-color{
