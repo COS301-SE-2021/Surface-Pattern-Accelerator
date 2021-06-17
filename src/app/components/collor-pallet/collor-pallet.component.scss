@@ -3,7 +3,7 @@
   margin:0;
   padding: 0;
   box-sizing: border-box;
-  font-family: righteous, sans-serif;
+  font-family: righteous;
 
 }
 
@@ -52,33 +52,24 @@ body {
 .stay-color{
 
   width:100%;
-
   height: 80%;
-
   border-radius: 10px 10px  0 0;
 
 }
 
 .contentBox .colorBox button{
-  padding: 12px 60px;
 
   background-color: #212121;
-
   font-size: 1.2rem;
-
   color: #fff;
-
   margin: 0 25px;
-
   transition: 0.3s;
 }
 
 .contentBox .colorBox .code{
 
   width:100%;
-
   text-align: center;
-
   margin-bottom: 30px;
 
 }
@@ -86,13 +77,9 @@ body {
 .actions {
 
   width: 100%;
-
   height: 20%;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
 
 }
@@ -100,17 +87,11 @@ body {
 
 .actions button{
 
-
   padding: 12px 60px;
-
   background-color: #212121;
-
   font-size: 1.2rem;
-
   color: #fff;
-
   margin: 0 25px;
-
   transition: 0.3s;
 
 }
@@ -118,9 +99,7 @@ body {
 .actions button:hover {
 
   background-color: skyblue;
-
   color:#212121;
-
   cursor: pointer;
 
 }
