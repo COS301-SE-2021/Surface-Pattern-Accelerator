@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CollectionsInterface } from '../../Interfaces/collectionsInterface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
