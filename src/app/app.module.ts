@@ -17,7 +17,7 @@ import { LoginComponent } from "./components/login/login.component";
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import {GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
+import {GoogleLoginProvider, SocialAuthService, SocialLoginModule} from "angularx-social-login";
 
 
 
@@ -38,6 +38,7 @@ import {GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    SocialLoginModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
@@ -46,11 +47,14 @@ import {GoogleLoginProvider, SocialAuthService} from "angularx-social-login";
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: true, //keeps the user signed in
+        autoLogin: false,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com')
+            provider: new GoogleLoginProvider(
+              // replace this with your google client id
+              '838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com'
+            )
           }
         ]
       }

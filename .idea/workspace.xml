@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="APP Google ID with Authentication Guard service for Google Log In,">
+    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Working AWS Connection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collections/collections.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/services/login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/login.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +83,7 @@
       <workItem from="1623595985249" duration="1491000" />
       <workItem from="1623658174225" duration="676000" />
       <workItem from="1623663887842" duration="7668000" />
-      <workItem from="1623915845158" duration="5976000" />
+      <workItem from="1623915845158" duration="10881000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>
@@ -127,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623917002979</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Working AWS Connection">
+      <created>1623927804109</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1623927804109</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,6 +159,7 @@
     <MESSAGE value="Simple login form, login implementation started" />
     <MESSAGE value="Login Post Request implemented" />
     <MESSAGE value="APP Google ID with Authentication Guard service for Google Log In," />
-    <option name="LAST_COMMIT_MESSAGE" value="APP Google ID with Authentication Guard service for Google Log In," />
+    <MESSAGE value="Working AWS Connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working AWS Connection" />
   </component>
 </project>
