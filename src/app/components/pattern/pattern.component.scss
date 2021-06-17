@@ -17,9 +17,10 @@ body {
 }
 
 .wrapper .sidebar{
+  top: 58px;
   width: 200px;
   height: 100%;
-  background: #000;
+  //background: #000;
   padding: 30px 0;
   position: absolute;
 }
@@ -94,3 +95,5 @@ body {
   border-color: #000;
   font-size: 14px;
 }
+
+

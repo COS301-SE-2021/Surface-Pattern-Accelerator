@@ -25,3 +25,8 @@
 #container a {
   text-decoration: none;
 }
+
+//attempt at adding a scrollbar
+body {
+  overflow: scroll; /* Show scrollbars */
+}
