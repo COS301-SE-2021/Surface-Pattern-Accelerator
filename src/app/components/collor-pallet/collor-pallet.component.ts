@@ -12,5 +12,6 @@ export class CollorPalletComponent implements OnInit {
   ngOnInit() {}
 
   colorGen(){}
-
+  
+  lockColor(){}
 }
