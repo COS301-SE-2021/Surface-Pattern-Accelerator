@@ -50,6 +50,15 @@ export class CollorPalletComponent implements OnInit {
       next = <HTMLElement>elem.nextElementSibling;
       console.log('p class: ' + next.className);
     }
+    if(prev.className === 'color'){
+      prev.classList.remove('color');
+      prev.classList.add('stay-color');
+      prev.style.backgroundColor = next.innerHTML;
+      console.log('prev.style.backgroundColor: ' + prev.style.backgroundColor);
+      next.classList.remove('code');
+      next.classList.add('new-code');
+      elem.innerHTML = 'Unlock colour';
+    }
     
   }
 
