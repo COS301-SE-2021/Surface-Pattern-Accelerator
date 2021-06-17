@@ -9,6 +9,7 @@ export class SidenavPage implements OnInit {
 
 
   ngOnInit() {
+
   }
 
 }
