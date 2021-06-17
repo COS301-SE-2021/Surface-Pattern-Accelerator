@@ -8,7 +8,8 @@ import { Router } from '@angular/router'
 })
 export class LoginService {
 
-  private serverAPIURL = 'http://localhost:3000/api';
+  //private serverAPIURL = 'http://localhost:3000/api';
+  private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000/api';
 
   loggedIn: Subject<boolean>; //read up on subject observable
 
