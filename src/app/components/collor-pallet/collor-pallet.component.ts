@@ -59,7 +59,14 @@ export class CollorPalletComponent implements OnInit {
       next.classList.add('new-code');
       elem.innerHTML = 'Unlock colour';
     }
-    
+    else{
+      prev.classList.remove('stay-color');
+      prev.classList.add('color');
+      prev.style.backgroundColor = next.innerHTML;
+      next.classList.remove('new-code');
+      next.classList.add('code');
+      elem.innerHTML = 'Lock colour';
+    }
   }
 
   
