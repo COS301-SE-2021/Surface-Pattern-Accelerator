@@ -11,14 +11,16 @@ export class CollorPalletComponent implements OnInit {
 
   ngOnInit() {}
 
-  colorGen() {
+  colorGen(){
+
     const code = document.querySelectorAll('.code');
 
     const color = document.querySelectorAll('.color');
 
     const letters = '0123456789abcdef';
 
-    const hashtag = ['#', '#', '#', '#', '#', '#'];
+    const hashtag = ['#','#','#','#','#','#'];
+
     for (let i=0;i<6;i++){
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
@@ -37,7 +39,7 @@ export class CollorPalletComponent implements OnInit {
       c.style.backgroundColor = hashtag[i];
     }
   }
-  
+
   lockColour(id: string){
     const elem = document.getElementById(id);
     let prev: HTMLElement;
@@ -50,6 +52,7 @@ export class CollorPalletComponent implements OnInit {
       next = <HTMLElement>elem.nextElementSibling;
       console.log('p class: ' + next.className);
     }
+
     if(prev.className === 'color'){
       prev.classList.remove('color');
       prev.classList.add('stay-color');
@@ -57,7 +60,7 @@ export class CollorPalletComponent implements OnInit {
       console.log('prev.style.backgroundColor: ' + prev.style.backgroundColor);
       next.classList.remove('code');
       next.classList.add('new-code');
-      elem.innerHTML = 'Unlock colour';
+      elem.innerHTML = 'Unlock';
     }
     else{
       prev.classList.remove('stay-color');
@@ -65,7 +68,7 @@ export class CollorPalletComponent implements OnInit {
       prev.style.backgroundColor = next.innerHTML;
       next.classList.remove('new-code');
       next.classList.add('code');
-      elem.innerHTML = 'Lock colour';
+      elem.innerHTML = 'Lock';
     }
   }
 
