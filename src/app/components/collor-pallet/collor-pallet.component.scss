@@ -32,3 +32,13 @@ body {
 
 }
 
+.contentBox .colorBox {
+
+  width:100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+}
