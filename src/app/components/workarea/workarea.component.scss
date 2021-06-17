@@ -1,3 +1,5 @@
+
+
 *{
   margin: 0;
   padding: 0;
@@ -5,8 +7,36 @@
   font-family: 'Josefin Sans', sans-serif;
 }
 
-body {
+html, body {
+  height : 100%;
+  margin: 0;
 }
+#page{
+  position: fixed;
+  height : 100%;
+  width : 100%;
+}
+
+
+#side{
+  background-color: white;
+  width : 30%;
+  height : 100%;
+  padding : 20px;
+  float : left;
+  height : 100%;
+}
+
+#canvasContained{
+  background-color: silver;
+  width : 70%;
+  float : left;
+  height : 100%;
+  overflow : auto;
+}
+
+
+
 
 
 #border{
