@@ -1,3 +1,12 @@
+// Colors
+$bg-color: hsl(0,1,90);
+$dot-color: hsl(255,71,34);
+
+// Dimensions
+$dot-size: 1.5px;
+$dot-space: 15px;
+
+
 
 
 *{
@@ -33,9 +42,27 @@ html, body {
   float : left;
   height : 100%;
   overflow : auto;
+
+  background:
+    linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+    $dot-color;
+  background-size: $dot-space $dot-space;
+
+
+
 }
 
-
+#canvasFrame{
+  margin : 20px;
+  padding : 20px;
+  background-color: white;
+  border : 5px;
+  border-radius: 40px;
+  height : 540px;
+  width : 540px;
+  overflow : auto;
+}
 
 
 
@@ -46,10 +73,9 @@ html, body {
 }
 
 #myCanvas{
-  background-color: #E5E5E5;
+  background-color: darkblue;
+  border-radius: 40px;
   float : left;
-  margin-left: 300px;
-
 }
 
 .wrapper{
