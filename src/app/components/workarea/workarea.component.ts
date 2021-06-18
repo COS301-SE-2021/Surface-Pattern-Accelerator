@@ -13,6 +13,10 @@ export class WorkareaComponent implements OnInit {
   ngOnInit()
   {}
 
+  saveCanvasImage()
+  {
+
+  }
   // ionViewDidEnter() {
   //   dragMoveListener(event) {
   //     var target = event.target,
