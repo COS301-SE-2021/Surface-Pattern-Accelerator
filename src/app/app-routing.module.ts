@@ -5,6 +5,7 @@ import { CollectionCreatorComponent } from './components/collection-creator/coll
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { LoginComponent } from './components/login/login.component'
+import { LoginResponseComponent} from './components/login-response/login-response.component'
 
 const routes: Routes = [
   { path: 'home',    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)  },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'pattern', component: PatternComponent},
   { path: 'import', component: ImportComponent },
+  { path: 'loginResponse', component: LoginResponseComponent },
 ];
 
 @NgModule({

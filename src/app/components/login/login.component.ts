@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
     //this.loginService.login(this.email, this.password);
-    this.loginService.signInWithGoogle();
+    this.loginService.loginWithGoogle();
   }
 
   loginWithGoogle() {
