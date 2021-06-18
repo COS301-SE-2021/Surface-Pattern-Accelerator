@@ -6,7 +6,9 @@ $dot-color: hsl(255,71,34);
 $dot-size: 1.5px;
 $dot-space: 15px;
 
-
+h2{
+  color : #0d0d0d;
+}
 
 
 *{
@@ -29,7 +31,7 @@ html, body {
 
 #side{
   background-color: white;
-  width : 30%;
+  width : 20%;
   height : 100%;
   padding : 20px;
   float : left;
@@ -38,7 +40,7 @@ html, body {
 
 #canvasContained{
   background-color: silver;
-  width : 70%;
+  width : 80%;
   float : left;
   height : 100%;
   overflow : auto;
@@ -88,7 +90,7 @@ html, body {
 
 
 .fig_motif{
-  width : 100px;
+  width : 150px;
   height : 150px;
   background-color: #86888f;
   border:solid 1px #4d4d4d;
