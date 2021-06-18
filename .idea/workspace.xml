@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Google sign in popup">
+    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Google drive access token implementation and login window routing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/login.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,17 +42,6 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="E2E Tests (app)" type="JavaScriptTestRunnerProtractor">
       <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
       <node-interpreter value="project" />
@@ -94,7 +80,8 @@
       <workItem from="1623658174225" duration="676000" />
       <workItem from="1623663887842" duration="7668000" />
       <workItem from="1623915845158" duration="15196000" />
-      <workItem from="1624000633592" duration="8357000" />
+      <workItem from="1624000633592" duration="9066000" />
+      <workItem from="1624024521658" duration="1533000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>
@@ -152,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623934443392</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Google drive access token implementation and login window routing">
+      <created>1624012909018</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1624012909018</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,6 +173,7 @@
     <MESSAGE value="APP Google ID with Authentication Guard service for Google Log In," />
     <MESSAGE value="Working AWS Connection" />
     <MESSAGE value="Google sign in popup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Google sign in popup" />
+    <MESSAGE value="Google drive access token implementation and login window routing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Google drive access token implementation and login window routing" />
   </component>
 </project>
