@@ -18,6 +18,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import {GoogleLoginProvider, SocialAuthService, SocialLoginModule} from "angularx-social-login";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -42,7 +43,7 @@ import {GoogleLoginProvider, SocialAuthService, SocialLoginModule} from "angular
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
-    IonicModule.forRoot(), AppRoutingModule],
+    IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: 'SocialAuthServiceConfig',
