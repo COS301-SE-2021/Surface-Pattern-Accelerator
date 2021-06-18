@@ -81,8 +81,8 @@ export class PatternComponent implements OnInit {
       }
 
     };
-    motif.src = "../assets/thread.svg";
-
+    //motif.src = "../assets/thread.svg";
+    motif.src = "../assets/shapes.svg";
   }
 
 // Download
