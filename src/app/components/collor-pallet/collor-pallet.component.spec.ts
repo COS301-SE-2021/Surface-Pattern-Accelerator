@@ -27,5 +27,9 @@ describe('CollorPalletComponent', () => {
     spyOn(component, 'colorGen');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#gen-btn');
     btnElement.click();
+    // @ts-ignore
+    fixture.whenStable().then(() => {
+      expect(component.colorGen()).toHaveBeenCalled();
+    })
   });
 });
