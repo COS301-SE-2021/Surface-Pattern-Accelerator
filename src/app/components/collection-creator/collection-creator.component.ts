@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionsInterface } from '../../Interfaces/collectionsInterface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
 
+import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-collection-creator',
   templateUrl: './collection-creator.component.html',
@@ -12,6 +13,10 @@ export class CollectionCreatorComponent implements OnInit {
 
   //the collections that get displayed
   //collections: CollectionsInterface;
+  collectionForm = this.formBuilder.group({
+    name: '',
+    address: ''
+  });
 
   statusCode: string;
 
