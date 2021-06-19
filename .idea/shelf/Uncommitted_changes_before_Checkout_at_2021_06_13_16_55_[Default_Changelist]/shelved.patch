@@ -1,0 +1,18 @@
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>node_modules\r\nSurface-Pattern-Accelerator.iml\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision a20b5b2afdf1a322595bba4d5c06e32410262ea1)
++++ b/.gitignore	(date 1623596077155)
+@@ -1,2 +1,7 @@
+ node_modules
+ Surface-Pattern-Accelerator.iml
++/.idea/inspectionProfiles/Project_Default.xml
++/.idea/misc.xml
++/.idea/.gitignore
++/.idea/modules.xml
++/.idea/vcs.xml

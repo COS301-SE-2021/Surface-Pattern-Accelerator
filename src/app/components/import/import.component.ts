@@ -13,7 +13,7 @@ export class ImportComponent implements OnInit {
   constructor() {
     const img = new Image();
     const fileName  = '';
-    const canvas  = <HTMLElement>document.getElementById('canvas');
+    //const canvas  = <HTMLElement>document.getElementById('canvas');
     //const ctx = (canvas).getContext("2d");
   }
 

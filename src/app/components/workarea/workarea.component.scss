@@ -1,0 +1,206 @@
+// Colors
+$bg-color: hsl(0,1,90);
+$dot-color: hsl(255,71,34);
+
+// Dimensions
+$dot-size: 1.5px;
+$dot-space: 15px;
+
+h2{
+  color : #0d0d0d;
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+html, body {
+  height : 100%;
+  margin: 0;
+}
+#page{
+  position: fixed;
+  height : 100%;
+  width : 100%;
+}
+
+
+#frame{
+  width : 20%;
+  height : 100%;
+  float : right;
+  padding : 20px;
+  text-align : center;
+
+
+  .ion-button{
+    margin: 10px;
+  }
+
+
+}
+
+#side{
+  background-color: white;
+  width : 20%;
+  height : 100%;
+  padding : 20px;
+  float : left;
+  height : 100%;
+}
+
+#canvasContained{
+  background-color: silver;
+  width : 60%;
+  float : left;
+  height : 100%;
+  overflow : auto;
+
+  background:
+    linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+    $dot-color;
+  background-size: $dot-space $dot-space;
+
+
+
+}
+
+#canvasFrame{
+  margin : 20px;
+  padding : 20px;
+  background-color: white;
+  border : 5px;
+  border-radius: 40px;
+  width : 540px;
+  height : 540px;
+  overflow : auto;
+}
+
+
+
+#border{
+  width : 520px;
+  height : 520px;
+  background-color: #000000;
+}
+
+#myCanvas{
+  background-color: darkblue;
+  float : left;
+}
+
+
+
+//CLASSES
+
+.bord{
+  border:solid 5px #9CD3F7;
+}
+
+
+.fig_motif{
+  width : 150px;
+  height : 150px;
+  background-color: #86888f;
+  border:solid 1px #4d4d4d;
+  margin: 5px;
+
+}
+
+.drop-area{
+  user-select : none;
+}
+
+
+
+.wrapper{
+  position: relative;
+  margin: 25px;
+}
+
+.wrapper .sidebar{
+  width: 400px;
+  height: 600px;
+  background: #000;
+  padding: 30px 0;
+  position: absolute;
+}
+.wrapper .sidebar h2{
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wrapper .sidebar ul li{
+  padding: 15px;
+  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #bdb8d7;
+  border-top: 1px solid #bdb8d7;
+}
+
+.wrapper .sidebar ul li a{
+  color: #bdb8d7;
+  display: block;
+}
+
+.wrapper .sidebar ul li a .fas{
+  width: 25px;
+}
+
+.wrapper .sidebar ul li:hover{
+  background-color: #bdb8d7;
+}
+
+.wrapper .sidebar ul li:hover a{
+  color: #000;
+}
+
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 200px;
+}
+
+.wrapper .main_content .header{
+  position: center;
+  padding: 20px;
+  background: #000;
+  color: #fff;
+  border-bottom: 1px solid #000;
+}
+
+
+
+
+.wrapper .main_content .info{
+  margin: 5px;
+}
+
+.wrapper .main_content .info div{
+  margin-bottom: 20px;
+}
+
+#canvas{
+  margin: auto;
+  background: #bdb8d7;
+  width: 80%;
+}
+
+#name,#scale{
+  margin: 10px;
+  padding: 10px;
+  border-color: #000;
+  font-size: 14px;
+}
+
+#rotate{
+  margin: 10px;
+  padding: 10px;
+  border-color: #000;
+  font-size: 14px;
+}

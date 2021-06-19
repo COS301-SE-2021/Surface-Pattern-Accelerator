@@ -1,0 +1,80 @@
+<title>{{title}}</title>
+
+
+<!--<div class="wrapper">-->
+
+<!--  <div class="sidebar">-->
+<!--    <h2>Motifs</h2>-->
+
+<!--  </div>-->
+<!--  <div class="main_content">-->
+
+<!--    <div class="info">-->
+<!--      <div id="border">-->
+<!--        <canvas id="myCanvas" width="500" height="500" class="center">-->
+<!--          Your browser does not support the HTML canvas tag.</canvas>-->
+<!--      </div>-->
+
+<!--      Change spacing<input type="number" id="name" name="name" [defaultValue]="18">-->
+<!--      Rotate pattern: <input type="number"  step="0.001" value="0.000" id="rotate" name="rotate" [defaultValue]="0.000">-->
+<!--      Scale pattern: <input type="number" step="0.01" value="0.00" id="scale" name="scale" [defaultValue]="0.7">-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+
+<!--</div>>-->
+
+<ion-content [scrollY]="contentScrollActive">
+<div id="page">
+
+  <div id = "side" class="bord item-group">
+    <h2 class="fixed">Motifs</h2>
+    <br>
+    <p>Drag and drop onto Canvas</p>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="item-group">
+
+    </div>
+
+  </div>
+
+  <div id="canvasContained" class="bord">
+    <div id="canvasFrame">
+      <canvas id="myCanvas" width="{{width}}" height="{{height}}" class="drop-area" #dropzoneA>
+        Your browser does not support the HTML canvas tag.</canvas>
+    </div>
+
+
+
+  </div>
+
+  <div id = "frame" class = "bord">
+
+    <ion-button (click)='chooseCanvasSymbol(false)' color="dark" >Rectangle Frame</ion-button>
+    <br>
+    <ion-button (click)='chooseCanvasSymbol(true)' color="dark">Square Frame</ion-button>
+
+  </div>
+
+</div>
+  </ion-content>
