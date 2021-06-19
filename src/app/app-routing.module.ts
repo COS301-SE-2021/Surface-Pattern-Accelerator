@@ -5,15 +5,16 @@ import { CollectionCreatorComponent } from './components/collection-creator/coll
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { WorkareaComponent} from './components/workarea/workarea.component';
+import { CollorPalletComponent } from './components/collor-pallet/collor-pallet.component';
 
 const routes: Routes = [
-  { path: 'home',    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)  },
   { path: '',    redirectTo: 'collections',    pathMatch: 'full'  },
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'pattern', component: PatternComponent},
   { path: 'import', component: ImportComponent },
   { path: 'workarea', component: WorkareaComponent },
+  { path: 'colorpallet', component: CollorPalletComponent}
 ];
 
 @NgModule({
