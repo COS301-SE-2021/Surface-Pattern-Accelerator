@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { ExportPopoverComponent } from '../export-popover/export-popover.component';
 import { PreviewComponent } from '../preview/preview.component';
 
 @Component({
@@ -91,6 +92,9 @@ export class PatternComponent implements OnInit {
 
 // Download
   downloadCanvas(canvas : HTMLCanvasElement){
+    //better UI experience for downloading, by generating a popover dialogue
+    this.createPopover();
+
     // get canvas data
     let image = canvas.toDataURL();
 
@@ -111,8 +115,12 @@ export class PatternComponent implements OnInit {
   /*
     ModalController object is intialised as this component is constructed.
     The ModalController object is used in openModal() to open the ionic component modal.
+
+    The PopoverController object is intialised as this component is constructed.
+    The PopoverController object is used in createPopover() to open the ionic popover component.
    */
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController,
+              private popover: PopoverController) {}
 
   /*
       When the preview button is clicked,
@@ -131,4 +139,10 @@ export class PatternComponent implements OnInit {
     return true;
   }
 
+  createPopover() {
+    this.popover.create({component: ExportPopoverComponent,
+    showBackdrop: false}).then((popoverElement)=>{
+      popoverElement.present();
+    })
+  }
 }

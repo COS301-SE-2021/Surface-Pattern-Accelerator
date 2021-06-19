@@ -15,6 +15,7 @@ import {ImportComponent} from './components/import/import.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { PreviewComponent } from './components/preview/preview.component';
+import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 
 
 
@@ -27,7 +28,8 @@ import { PreviewComponent } from './components/preview/preview.component';
     PatternComponent,
     AppComponent,
     ImportComponent,
-    PreviewComponent
+    PreviewComponent,
+    ExportPopoverComponent
   ],
   entryComponents: [PreviewComponent],
   imports: [
@@ -37,7 +39,8 @@ import { PreviewComponent } from './components/preview/preview.component';
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
-    IonicModule.forRoot(), AppRoutingModule],
+    IonicModule.forRoot(),
+    AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
