@@ -29,69 +29,61 @@ describe('CollorPalletComponent tests', () => {
     btnElement.click();
 
     fixture.whenStable().then(() => {
-      expect(component.colorGen()).toHaveBeenCalled();
+      expect(component.colorGen).toHaveBeenCalled();
     })
   });
 
-
   it('Test 2: Testing if the lock1 button calls the lock colour method', () => {
+
     spyOn(component, 'lockColour');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#lock1');
     btnElement.click();
 
-    fixture.whenStable().then(() => {
-      expect(component.lockColour('lock1')).toHaveBeenCalled();
-    })
+    expect(component.lockColour).toHaveBeenCalled();
   });
 
   it('Test 3: Testing if the lock2 button calls the lock colour method', () => {
+
     spyOn(component, 'lockColour');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#lock2');
     btnElement.click();
 
-    fixture.whenStable().then(() => {
-      expect(component.lockColour('lock2')).toHaveBeenCalled();
-    })
+      expect(component.lockColour).toHaveBeenCalled();
   });
 
   it('Test 4: Testing if the lock3 button calls the lock colour method', () => {
+
     spyOn(component, 'lockColour');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#lock3');
     btnElement.click();
 
-    fixture.whenStable().then(() => {
-      expect(component.lockColour('lock3')).toHaveBeenCalled();
-    })
+    expect(component.lockColour).toHaveBeenCalled();
   });
 
   it('Test 5: Testing if the lock4 button calls the lock colour method', () => {
+
     spyOn(component, 'lockColour');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#lock4');
     btnElement.click();
 
-    fixture.whenStable().then(() => {
-      expect(component.lockColour('lock4')).toHaveBeenCalled();
-    })
+    expect(component.lockColour).toHaveBeenCalled();
   });
 
   it('Test 6: Testing if the lock5 button calls the lock colour method', () => {
+
     spyOn(component, 'lockColour');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#lock5');
     btnElement.click();
 
-    fixture.whenStable().then(() => {
-      expect(component.lockColour('lock5')).toHaveBeenCalled();
-    })
+    expect(component.lockColour).toHaveBeenCalled();
   });
 
   it('Test 7: Testing if the lock6 button calls the lock colour method', () => {
+
     spyOn(component, 'lockColour');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#lock6');
     btnElement.click();
 
-    fixture.whenStable().then(() => {
-      expect(component.lockColour('lock6')).toHaveBeenCalled();
-    })
+    expect(component.lockColour).toHaveBeenCalled();
   });
-
 });
