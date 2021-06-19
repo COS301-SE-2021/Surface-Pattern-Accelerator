@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
@@ -33,17 +34,17 @@ import { MaterialModule } from './material/material.module';
     LoginComponent
   ],
   entryComponents: [],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    SocialLoginModule,
-    MaterialModule,
-    // HttpClientInMemoryWebApiModule.forRoot(
-    //   InMemoryDataService, { dataEncapsulation: false }
-    // ),
-    IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        SocialLoginModule,
+        MaterialModule,
+        // HttpClientInMemoryWebApiModule.forRoot(
+        //   InMemoryDataService, { dataEncapsulation: false }
+        // ),
+        IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, ReactiveFormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: 'SocialAuthServiceConfig',

@@ -1,9 +1,10 @@
-
+import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { CollectionsInterface } from '../../Interfaces/collectionsInterface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
+import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
 
-import { FormBuilder } from '@angular/forms';
+
 @Component({
   selector: 'app-collection-creator',
   templateUrl: './collection-creator.component.html',
@@ -11,17 +12,16 @@ import { FormBuilder } from '@angular/forms';
 })
 export class CollectionCreatorComponent implements OnInit {
 
+  collectionForm = new FormGroup({
+    name : new FormControl('', [Validators.required]),
+    story : new FormControl('', [Validators.required]),
+    theme : new FormControl('', [Validators.required]),
+  });
   //the collections that get displayed
   //collections: CollectionsInterface;
-  collectionForm = this.formBuilder.group({
-    name: '',
-    address: ''
-  });
-
   statusCode: string;
 
   constructor(private collectionsService: CollectionsServiceService) { }
-
   //this func gets called each time this component gets initialized
   // getCollections(): void
   // {
@@ -42,11 +42,12 @@ export class CollectionCreatorComponent implements OnInit {
   ngOnInit(): void
   {
     //this.getCollections();
+    console.log('neqnewcollection');
   }
 
   newCollection(value: string) {
     //this.collectionsService.createNewCollection(value);
-    console.log("newcollection");
+
 
     this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
       .subscribe();

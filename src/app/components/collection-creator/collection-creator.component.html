@@ -24,25 +24,25 @@
             <h4 class="card-title">Create a collection</h4>
           </div>
           <div class="card-body">
-            <form [formGroup]="collectionForm">>
+            <form [formGroup]="collectionForm">
               <div class="row">
                 <div class="col-md-5">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Collection name" >
+                    <input matInput placeholder="Collection name"  formControlName="name">
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Collection Story" type="text">
+                    <input matInput placeholder="Collection Story" type="text" formControlName="story">
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Collection Theme" type="text">
+                    <input matInput placeholder="Collection Theme" type="text"  formControlName="theme">
                   </mat-form-field>
                 </div>
               </div>
@@ -57,3 +57,5 @@
     </div>
   </div>
 </div>
+
+
