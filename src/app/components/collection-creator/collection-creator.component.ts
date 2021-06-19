@@ -44,6 +44,10 @@ export class CollectionCreatorComponent implements OnInit {
     //this.getCollections();
     console.log('neqnewcollection');
   }
+  processCollectionForm(){
+    console.log(this.collectionForm.value);
+    ////SEND DATA TO API OR DATABASE
+  }
 
   newCollection(value: string) {
     //this.collectionsService.createNewCollection(value);

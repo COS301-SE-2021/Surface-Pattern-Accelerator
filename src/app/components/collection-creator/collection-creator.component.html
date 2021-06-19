@@ -20,11 +20,11 @@
     <div class="row">
       <div class="col-md-8">
 
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-primary">
             <h4 class="card-title">Create a collection</h4>
           </div>
           <div class="card-body">
-            <form [formGroup]="collectionForm">
+            <form [formGroup]="collectionForm" (ngSubmit)="processCollectionForm()">
               <div class="row">
                 <div class="col-md-5">
                   <mat-form-field class="example-full-width">
