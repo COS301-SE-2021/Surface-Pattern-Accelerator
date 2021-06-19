@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Google drive access token implementation and login window routing">
+    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Access Code gets generated successfully now (Client)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +82,9 @@
       <workItem from="1623663887842" duration="7668000" />
       <workItem from="1623915845158" duration="15196000" />
       <workItem from="1624000633592" duration="9066000" />
-      <workItem from="1624024521658" duration="1533000" />
+      <workItem from="1624024521658" duration="3048000" />
+      <workItem from="1624032564637" duration="610000" />
+      <workItem from="1624103547195" duration="3346000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>
@@ -146,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624012909018</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Access Code gets generated successfully now (Client)">
+      <created>1624028824102</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1624028824102</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +184,7 @@
     <MESSAGE value="Working AWS Connection" />
     <MESSAGE value="Google sign in popup" />
     <MESSAGE value="Google drive access token implementation and login window routing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Google drive access token implementation and login window routing" />
+    <MESSAGE value="Access Code gets generated successfully now (Client)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Access Code gets generated successfully now (Client)" />
   </component>
 </project>

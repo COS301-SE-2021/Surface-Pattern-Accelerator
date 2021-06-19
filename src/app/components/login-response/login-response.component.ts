@@ -17,8 +17,6 @@ export class LoginResponseComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
     this.route.queryParams.subscribe(params => {
       this.accessCode = params['code'];
-
-
     });
   }
 
