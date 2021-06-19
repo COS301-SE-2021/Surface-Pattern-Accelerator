@@ -4,7 +4,7 @@ import { By } from 'protractor';
 
 import { CollorPalletComponent } from './collor-pallet.component';
 
-describe('CollorPalletComponent', () => {
+describe('CollorPalletComponent tests', () => {
   let component: CollorPalletComponent;
   let fixture: ComponentFixture<CollorPalletComponent>;
 
@@ -32,4 +32,7 @@ describe('CollorPalletComponent', () => {
       expect(component.colorGen()).toHaveBeenCalled();
     })
   });
+
+
+
 });
