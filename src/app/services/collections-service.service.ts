@@ -17,6 +17,7 @@ export class CollectionsServiceService {
 
   //private serverURL = 'api/collections'; //this is the endpoint for the collections array in the "in-memory-data.service"
   private serverURL = 'http://localhost:3000';
+  //private serverURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000';
 
   constructor(private http: HttpClient) { }
 

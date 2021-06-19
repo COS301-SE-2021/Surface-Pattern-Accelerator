@@ -6,8 +6,12 @@ import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { WorkareaComponent} from './components/workarea/workarea.component';
 import { CollorPalletComponent } from './components/collor-pallet/collor-pallet.component';
+import { LoginComponent } from './components/login/login.component'
+import { LoginResponseComponent} from './components/login-response/login-response.component'
 
 const routes: Routes = [
+  { path: 'home',    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)  },
+  { path: 'login', component: LoginComponent},
   { path: '',    redirectTo: 'collections',    pathMatch: 'full'  },
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
@@ -15,6 +19,7 @@ const routes: Routes = [
   { path: 'import', component: ImportComponent },
   { path: 'workarea', component: WorkareaComponent },
   { path: 'colorpallet', component: CollorPalletComponent}
+  { path: 'loginResponse', component: LoginResponseComponent },
 ];
 
 @NgModule({

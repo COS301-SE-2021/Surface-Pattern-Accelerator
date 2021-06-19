@@ -1,0 +1,152 @@
+Index: src/app/services/collections-service.service.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { Injectable } from '@angular/core';\r\nimport { CollectionsInterface } from '../Interfaces/collectionsInterface';\r\nimport { Observable, of } from 'rxjs';\r\nimport {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';\r\nimport { catchError, map, tap } from 'rxjs/operators';\r\nimport {SourceCode} from \"eslint\";\r\n// import Config = SourceCode.Config;\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class CollectionsServiceService {\r\n\r\n  httpOptions = {\r\n    headers: new HttpHeaders({ 'Content-Type': 'application/json' })\r\n  };\r\n\r\n  //private serverURL = 'api/collections'; //this is the endpoint for the collections array in the \"in-memory-data.service\"\r\n  //private serverURL = 'http://localhost:3000';\r\n  private serverURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000';\r\n\r\n  constructor(private http: HttpClient) { }\r\n\r\n  options: {\r\n    headers?: HttpHeaders | {[header: string]: string | string[]},\r\n    observe?: 'body', //| 'events' | 'response', //specifies how much of the response to return.\r\n    params?: HttpParams|{[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>},\r\n    reportProgress?: boolean,\r\n    responseType?: 'arraybuffer'|'blob'|'json'|'text', //specifies the format in which to return data.\r\n    withCredentials?: boolean,\r\n  }\r\n\r\n\r\n  getCollections(): Observable< CollectionsInterface>\r\n  {\r\n    const getCollectionsURL = this.serverURL + '/api/collections';\r\n    return this.http.get<CollectionsInterface>(getCollectionsURL); //GET request\r\n\r\n    // return this.http.get<Collection[]>(this.serverURL)\r\n    //   .pipe(catchError(this.handleError<Collection[]>('getHeroes', []))\r\n    //   );\r\n  }\r\n\r\n  /** POST: add a new collection to the server */\r\n   createNewCollection(collectionName: string) {\r\n     // return this.http.post<CollectionsInterface>(this.serverURL, collection, this.httpOptions).pipe(\r\n     //   tap((newCollection: CollectionsInterface) => this.log(`added collection w/ id=${newCollection}`)),\r\n     //   catchError(this.handleError<CollectionsInterface>('addCollection'))\r\n     // );\r\n    const newCollectionURL = this.serverURL + '/api/newCollection/' + collectionName;\r\n    console.log(newCollectionURL)\r\n    return this.http.get<any>(newCollectionURL);\r\n   }\r\n\r\n\r\n  /**\r\n   * Handle Http operation that failed.\r\n   * Let the app continue.\r\n   *\r\n   * @param operation - name of the operation that failed\r\n   * @param result - optional value to return as the observable result\r\n   */\r\n  private handleError<T>(operation = 'operation', result?: T) {\r\n    return (error: any): Observable<T> => {\r\n\r\n      // TODO: send the error to remote logging infrastructure\r\n      console.error(error); // log to console instead\r\n\r\n      // TODO: better job of transforming error for user consumption\r\n      this.log(`${operation} failed: ${error.message}`);\r\n\r\n      // Let the app keep running by returning an empty result.\r\n      return of(result as T);\r\n    };\r\n  }\r\n\r\n  private log(message: string) {\r\n    console.log(message); //display some error\r\n  }\r\n\r\n\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/services/collections-service.service.ts b/src/app/services/collections-service.service.ts
+--- a/src/app/services/collections-service.service.ts	(revision 4b0a41cb129122542f1d7fd0d14db1fb05183793)
++++ b/src/app/services/collections-service.service.ts	(date 1623935647554)
+@@ -16,8 +16,8 @@
+   };
+ 
+   //private serverURL = 'api/collections'; //this is the endpoint for the collections array in the "in-memory-data.service"
+-  //private serverURL = 'http://localhost:3000';
+-  private serverURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000';
++  private serverURL = 'http://localhost:3000';
++  //private serverURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000';
+ 
+   constructor(private http: HttpClient) { }
+ 
+Index: src/app/components/login/login.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { Component, OnInit } from '@angular/core';\r\nimport { LoginService } from '../../services/login.service';\r\n\r\n@Component({\r\n  selector: 'app-login',\r\n  templateUrl: './login.component.html',\r\n  styleUrls: ['./login.component.scss'],\r\n})\r\nexport class LoginComponent implements OnInit {\r\n  loggedIn: boolean = false;\r\n  email?: string;\r\n  password?: string;\r\n\r\n\r\n\r\n  constructor(private loginService: LoginService) { }\r\n\r\n  ngOnInit() {}\r\n\r\n  doLogin() {\r\n    //this.loginService.login(this.email, this.password);\r\n    this.loginService.signInWithGoogle();\r\n  }\r\n\r\n  loginWithGoogle() {\r\n\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/components/login/login.component.ts b/src/app/components/login/login.component.ts
+--- a/src/app/components/login/login.component.ts	(revision 4b0a41cb129122542f1d7fd0d14db1fb05183793)
++++ b/src/app/components/login/login.component.ts	(date 1623935795332)
+@@ -19,7 +19,7 @@
+ 
+   doLogin() {
+     //this.loginService.login(this.email, this.password);
+-    this.loginService.signInWithGoogle();
++    this.loginService.loginWithGoogle();
+   }
+ 
+   loginWithGoogle() {
+Index: src/app/services/login.service.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { Injectable } from '@angular/core';\r\nimport {HttpClient, HttpHeaders} from '@angular/common/http';\r\nimport {Subject} from \"rxjs\";\r\nimport { Router } from '@angular/router'\r\nimport {GoogleLoginProvider, SocialAuthService, SocialUser} from \"angularx-social-login\";\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class LoginService {\r\n\r\n  //private serverAPIURL = 'http://localhost:3000/api';\r\n  private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000/api';\r\n\r\n  loggedIn: Subject<boolean>; //read up on subject observable\r\n  user: SocialUser | null;\r\n\r\n  constructor(private http: HttpClient, private router: Router, private authService: SocialAuthService) {\r\n    this.loggedIn = new Subject();\r\n    this.user = null;\r\n    this.authService.authState.subscribe((user: SocialUser) => {\r\n      console.log(user);\r\n      this.user = user;\r\n    });\r\n\r\n\r\n  }\r\n\r\n  login(email: string, password: string)\r\n  {\r\n    console.log(email);\r\n    console.log(password);\r\n    this.http.post(this.serverAPIURL + '/login',\r\n      { email: email, password: password},\r\n      {withCredentials: true\r\n      }).subscribe((resp: any) => {\r\n        this.loggedIn.next(true); //read up on next of a subject\r\n        console.log(\"Logged in success\");\r\n        this.router.navigate(['collections']);\r\n    }, (errorResp => {\r\n        this.loggedIn.next(false);\r\n      console.log(\"Logged in failed\");\r\n    }))\r\n  }\r\n\r\n  signInWithGoogle(): void {\r\n    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((x: any) => console.log(x));\r\n  }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/services/login.service.ts b/src/app/services/login.service.ts
+--- a/src/app/services/login.service.ts	(revision 4b0a41cb129122542f1d7fd0d14db1fb05183793)
++++ b/src/app/services/login.service.ts	(date 1624009688398)
+@@ -3,14 +3,15 @@
+ import {Subject} from "rxjs";
+ import { Router } from '@angular/router'
+ import {GoogleLoginProvider, SocialAuthService, SocialUser} from "angularx-social-login";
++import {CollectionsInterface} from "../Interfaces/collectionsInterface";
+ 
+ @Injectable({
+   providedIn: 'root'
+ })
+ export class LoginService {
+ 
+-  //private serverAPIURL = 'http://localhost:3000/api';
+-  private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000/api';
++  private serverAPIURL = 'http://localhost:3000/api';
++  //private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000/api';
+ 
+   loggedIn: Subject<boolean>; //read up on subject observable
+   user: SocialUser | null;
+@@ -47,5 +48,22 @@
+     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((x: any) => console.log(x));
+   }
+ 
++  loginWithGoogle()
++  {
++    console.log("Google sign in fired!");
++    const googleLoginURL = this.serverAPIURL + '/googleLogin';
++
++
++
++    this.http.get<any>(googleLoginURL, {withCredentials: true}) //with credentials sends cookie
++      .subscribe((resp: any) => {
++        window.location.href = resp.signInURL;
++        console.log(resp.signInURL);
++  }); //GET request
++  }
++
++
++
++
+ 
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"40eb1242-ca52-40bc-99ab-ea5901be4683\" name=\"Default Changelist\" comment=\"Working AWS Connection\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/package-lock.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/package-lock.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/package.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/package.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/app/app.module.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/app/app.module.ts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/app/components/login/login.component.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/app/components/login/login.component.ts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/app/services/login.service.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/app/services/login.service.ts\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main-ionic\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1tqHoHiuxoTVUwyKZ1AoCxUwAF6\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"Git.Branch.Popup.ShowAllRemotes\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.15\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Users\\Delta\\Documents\\Development\\Surface-Pattern-Accelerator\\node_modules\\typescript\\lib\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Delta\\Documents\\Development\\Surface-Pattern-Accelerator\\src\\app\\Interfaces\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"npm.Angular CLI Server\">\r\n    <configuration name=\"E2E Tests (app)\" type=\"JavaScriptTestRunnerProtractor\">\r\n      <config-file value=\"$PROJECT_DIR$/e2e/protractor.conf.js\" />\r\n      <node-interpreter value=\"project\" />\r\n      <protractor-options value=\"\" />\r\n      <envs />\r\n      <scope-kind value=\"ALL\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Angular Application\" type=\"JavascriptDebugType\" uri=\"http://localhost:4200\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Angular CLI Server\" type=\"js.build_tools.npm\">\r\n      <package-json value=\"$PROJECT_DIR$/package.json\" />\r\n      <command value=\"run\" />\r\n      <scripts>\r\n        <script value=\"start\" />\r\n      </scripts>\r\n      <node-interpreter value=\"project\" />\r\n      <envs />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"40eb1242-ca52-40bc-99ab-ea5901be4683\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1623489875250</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1623489875250</updated>\r\n      <workItem from=\"1623489879471\" duration=\"51000\" />\r\n      <workItem from=\"1623490008321\" duration=\"212000\" />\r\n      <workItem from=\"1623490238954\" duration=\"5502000\" />\r\n      <workItem from=\"1623505467502\" duration=\"9366000\" />\r\n      <workItem from=\"1623595985249\" duration=\"1491000\" />\r\n      <workItem from=\"1623658174225\" duration=\"676000\" />\r\n      <workItem from=\"1623663887842\" duration=\"7668000\" />\r\n      <workItem from=\"1623915845158\" duration=\"10881000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Made Changes to git ignore to fix a possible issue\">\r\n      <created>1623490453140</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1623490453140</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Implemented server connection, collections now fetched from server\">\r\n      <created>1623507382486</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1623507382486</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"implemented create collection on client side\">\r\n      <created>1623514691060</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1623514691060</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Simple login form, login implementation started\">\r\n      <created>1623664565767</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1623664565767</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Login Post Request implemented\">\r\n      <created>1623673138651</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1623673138651</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"APP Google ID with Authentication Guard service for Google Log In,\">\r\n      <created>1623917002979</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1623917002979</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Working AWS Connection\">\r\n      <created>1623927804109</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1623927804109</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Made Changes to git ignore to fix a possible issue\" />\r\n    <MESSAGE value=\"Implemented server connection, collections now fetched from server\" />\r\n    <MESSAGE value=\"implemented create collection on client side\" />\r\n    <MESSAGE value=\"Simple login form, login implementation started\" />\r\n    <MESSAGE value=\"Login Post Request implemented\" />\r\n    <MESSAGE value=\"APP Google ID with Authentication Guard service for Google Log In,\" />\r\n    <MESSAGE value=\"Working AWS Connection\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Working AWS Connection\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4b0a41cb129122542f1d7fd0d14db1fb05183793)
++++ b/.idea/workspace.xml	(date 1624009819480)
+@@ -1,12 +1,10 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Working AWS Connection">
++    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Google sign in popup">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.ts" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/app/services/login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/login.service.ts" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -83,7 +81,8 @@
+       <workItem from="1623595985249" duration="1491000" />
+       <workItem from="1623658174225" duration="676000" />
+       <workItem from="1623663887842" duration="7668000" />
+-      <workItem from="1623915845158" duration="10881000" />
++      <workItem from="1623915845158" duration="15196000" />
++      <workItem from="1624000633592" duration="5361000" />
+     </task>
+     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
+       <created>1623490453140</created>
+@@ -134,7 +133,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1623927804109</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <task id="LOCAL-00008" summary="Google sign in popup">
++      <created>1623934443392</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1623934443392</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -160,6 +166,7 @@
+     <MESSAGE value="Login Post Request implemented" />
+     <MESSAGE value="APP Google ID with Authentication Guard service for Google Log In," />
+     <MESSAGE value="Working AWS Connection" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Working AWS Connection" />
++    <MESSAGE value="Google sign in popup" />
++    <option name="LAST_COMMIT_MESSAGE" value="Google sign in popup" />
+   </component>
+ </project>
+\ No newline at end of file

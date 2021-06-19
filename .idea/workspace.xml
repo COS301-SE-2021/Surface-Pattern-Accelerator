@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Access Code gets generated successfully now (Client)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login-response/login-response.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main-ionic" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1tqHoHiuxoTVUwyKZ1AoCxUwAF6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator\src\app\Interfaces" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="E2E Tests (app)" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="" />
+      <created>1623489875250</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623489875250</updated>
+      <workItem from="1623489879471" duration="51000" />
+      <workItem from="1623490008321" duration="212000" />
+      <workItem from="1623490238954" duration="5502000" />
+      <workItem from="1623505467502" duration="9366000" />
+      <workItem from="1623595985249" duration="1491000" />
+      <workItem from="1623658174225" duration="676000" />
+      <workItem from="1623663887842" duration="7668000" />
+      <workItem from="1623915845158" duration="15196000" />
+      <workItem from="1624000633592" duration="9066000" />
+      <workItem from="1624024521658" duration="3048000" />
+      <workItem from="1624032564637" duration="610000" />
+      <workItem from="1624103547195" duration="3346000" />
+    </task>
+    <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
+      <created>1623490453140</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623490453140</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Implemented server connection, collections now fetched from server">
+      <created>1623507382486</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623507382486</updated>
+    </task>
+    <task id="LOCAL-00003" summary="implemented create collection on client side">
+      <created>1623514691060</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1623514691060</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Simple login form, login implementation started">
+      <created>1623664565767</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623664565767</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Login Post Request implemented">
+      <created>1623673138651</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623673138651</updated>
+    </task>
+    <task id="LOCAL-00006" summary="APP Google ID with Authentication Guard service for Google Log In,">
+      <created>1623917002979</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1623917002979</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Working AWS Connection">
+      <created>1623927804109</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1623927804109</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Google sign in popup">
+      <created>1623934443392</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1623934443392</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Google drive access token implementation and login window routing">
+      <created>1624012909018</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1624012909018</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Access Code gets generated successfully now (Client)">
+      <created>1624028824102</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1624028824102</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Made Changes to git ignore to fix a possible issue" />
+    <MESSAGE value="Implemented server connection, collections now fetched from server" />
+    <MESSAGE value="implemented create collection on client side" />
+    <MESSAGE value="Simple login form, login implementation started" />
+    <MESSAGE value="Login Post Request implemented" />
+    <MESSAGE value="APP Google ID with Authentication Guard service for Google Log In," />
+    <MESSAGE value="Working AWS Connection" />
+    <MESSAGE value="Google sign in popup" />
+    <MESSAGE value="Google drive access token implementation and login window routing" />
+    <MESSAGE value="Access Code gets generated successfully now (Client)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Access Code gets generated successfully now (Client)" />
+  </component>
+</project>
