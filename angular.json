@@ -32,7 +32,10 @@
               }
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": [],
+            "scripts": [
+              "src/assets/jsLibraries/Caman.js",
+              "src/assets/jsLibraries/import.js"
+            ],
             "aot": false,
             "vendorChunk": true,
             "extractLicenses": false,

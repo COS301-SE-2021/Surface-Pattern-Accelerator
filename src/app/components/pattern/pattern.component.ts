@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { ExportPopoverComponent } from '../export-popover/export-popover.component';
+import { PreviewComponent } from '../preview/preview.component';
 
 @Component({
   selector: 'app-pattern',
@@ -42,6 +45,10 @@ export class PatternComponent implements OnInit {
 
         // Call download
         canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
+
+        //better UI experience for downloading, by generating a popover dialogue
+        this.createPopover();
+
         //this.download(canvas, newFilename);
         this.downloadCanvas(canvas);
 
@@ -53,7 +60,7 @@ export class PatternComponent implements OnInit {
 
   setSize(spacing: number, rotateNum: number, scaleNum: number) {
     let c = <HTMLCanvasElement> document.getElementById("myCanvas");
-    c.width = (window.innerWidth);
+    //c.width = (window.innerWidth);
 
     const ctx =<CanvasRenderingContext2D> c.getContext("2d");
 
@@ -81,8 +88,10 @@ export class PatternComponent implements OnInit {
       }
 
     };
-    //motif.src = "../assets/thread.svg";
     motif.src = "../assets/shapes.svg";
+
+    //This is for unit testing
+    return motif.src;
   }
 
 // Download
@@ -99,7 +108,44 @@ export class PatternComponent implements OnInit {
     document.body.appendChild( tmpLink );
     tmpLink.click();
     document.body.removeChild( tmpLink );
+
+    //This is for unit testing
+    return true;
   }
 
+  /*
+    ModalController object is intialised as this component is constructed.
+    The ModalController object is used in openModal() to open the ionic component modal.
 
+    The PopoverController object is intialised as this component is constructed.
+    The PopoverController object is used in createPopover() to open the ionic popover component.
+   */
+  constructor(private modalCtrl: ModalController,
+              private popover: PopoverController) {}
+
+  /*
+      When the preview button is clicked,
+      this function is run to display the ionic modal
+      component with the preview image, from the preview component.
+   */
+  async openModal() {
+    // @ts-ignore
+    const modal = await this.modalCtrl.create({
+      component: PreviewComponent
+    });
+
+    await modal.present();
+
+    //This is for unit testing
+    return true;
+  }
+
+  createPopover() {
+    let popover = this.popover.create({component: ExportPopoverComponent,
+    showBackdrop: false}).then((popoverElement)=>{
+      popoverElement.present();
+    })
+
+
+  }
 }

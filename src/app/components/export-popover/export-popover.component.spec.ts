@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SidenavPage } from './sidenav.page';
+import { ExportPopoverComponent } from './export-popover.component';
 
-describe('SidenavPage', () => {
-  let component: SidenavPage;
-  let fixture: ComponentFixture<SidenavPage>;
+describe('ExportPopoverComponent', () => {
+  let component: ExportPopoverComponent;
+  let fixture: ComponentFixture<ExportPopoverComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidenavPage ],
+      declarations: [ ExportPopoverComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SidenavPage);
+    fixture = TestBed.createComponent(ExportPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

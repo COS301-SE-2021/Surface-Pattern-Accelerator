@@ -4,25 +4,13 @@ import { CollectionsComponent } from './components/collections/collections.compo
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
-import {CollorPalletComponent} from './components/collor-pallet/collor-pallet.component';
 
 const routes: Routes = [
-
-  { path: 'home',    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)  },
-  // I changed the path from '' to 'collect' just to develop the sidenav globally
-  // Can be reached from the navigation bar
-  { path: 'collect',    redirectTo: 'collections',    pathMatch: 'full'  },
+  { path: '',    redirectTo: 'collections',    pathMatch: 'full'  },
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'pattern', component: PatternComponent},
-  { path: 'import', component: ImportComponent },
-  {path: 'collor-pallet', component: CollorPalletComponent }
-
-
-  {
-    path: '',
-    loadChildren: () => import('./sidenav/sidenav.module').then( m => m.SidenavPageModule)
-  },
+  { path: 'import', component: ImportComponent }
 
 ];
 
