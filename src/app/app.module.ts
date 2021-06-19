@@ -11,7 +11,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { PatternComponent } from './components/pattern/pattern.component';
 import {ImportComponent} from './components/import/import.component';
-
+import {CollorPalletComponent} from './components/collor-pallet/collor-pallet.component';
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -26,7 +26,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
     CollectionCreatorComponent,
     PatternComponent,
     AppComponent,
-    ImportComponent
+    ImportComponent,
+    CollorPalletComponent
   ],
   entryComponents: [],
   imports: [

@@ -4,6 +4,7 @@ import { CollectionsComponent } from './components/collections/collections.compo
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
+import {CollorPalletComponent} from './components/collor-pallet/collor-pallet.component';
 
 const routes: Routes = [
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'pattern', component: PatternComponent},
   { path: 'import', component: ImportComponent },
+  {path: 'collor-pallet', component: CollorPalletComponent }
 
 
   {
