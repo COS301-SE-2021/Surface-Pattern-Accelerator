@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { PreviewComponent } from '../preview/preview.component';
 
 @Component({
   selector: 'app-pattern',
@@ -81,7 +83,7 @@ export class PatternComponent implements OnInit {
       }
 
     };
-    motif.src = "../assets/thread.svg";
+    motif.src = "../assets/shapes.svg";
 
   }
 
@@ -101,5 +103,24 @@ export class PatternComponent implements OnInit {
     document.body.removeChild( tmpLink );
   }
 
+  /*
+    ModalController object is intialised as this component is constructed.
+    The ModalController object is used in openModal() to open the ionic component modal.
+   */
+  constructor(private modalCtrl: ModalController) {}
+
+  /*
+      When the preview button is clicked,
+      this function is run to display the ionic modal
+      component with the preview image, from the preview component.
+   */
+  async openModal() {
+    // @ts-ignore
+    const modal = await this.modalCtrl.create({
+      component: PreviewComponent
+    });
+
+    await modal.present();
+  }
 
 }

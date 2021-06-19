@@ -4,8 +4,8 @@
 
 <!-- <div class="wrapper"> -->
 <div class="sidenav bg-primary">
-  <a href="">CHOOSE PATTERN</a>
-  <a href="">TILING</a>
+  <button class="dropdown-btn">CHOOSE PATTERN</button>
+  <button class="dropdown-btn">TILING</button>
   <button class="dropdown-btn" >COLORS
     <ion-icon name="caret-down-outline"></ion-icon>
   </button>
@@ -14,11 +14,11 @@
     <a href="">Link 2</a>
     <a href="">Link 3</a>
   </div>
-  <a href="">CUSTOMIZE</a>
-  <a href="">FILTERS</a>
-  <a href="">CANVAS SIZE</a>
-  <a href="" id="download-btn">DOWNLOAD PATTERN</a>
-  <button class="dropdown-btn">PREVIEW PATTERN</button>
+  <button class="dropdown-btn">CUSTOMIZE</button>
+  <button class="dropdown-btn">FILTERS</button>
+  <button class="dropdown-btn">CANVAS SIZE</button>
+  <button class="dropdown-btn" id="download-btn">DOWNLOAD PATTERN</button>
+  <button class="dropdown-btn" (click)="openModal()">PREVIEW PATTERN</button>
 </div>
 
   <div class="main_content main">

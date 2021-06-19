@@ -12,9 +12,9 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { PatternComponent } from './components/pattern/pattern.component';
 import {ImportComponent} from './components/import/import.component';
 
-
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { PreviewComponent } from './components/preview/preview.component';
 
 
 
@@ -26,9 +26,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
     CollectionCreatorComponent,
     PatternComponent,
     AppComponent,
-    ImportComponent
+    ImportComponent,
+    PreviewComponent
   ],
-  entryComponents: [],
+  entryComponents: [PreviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
