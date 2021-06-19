@@ -1,17 +1,26 @@
 <h1>Collection Creator</h1>
-<div>
-  <label for="new-collection">Collection name: </label><br>
-  <input id="new-collection" #collectionName /><br>
+<!--<div>-->
+<!--  <label for="new-collection">Collection name: </label><br>-->
+<!--  <input id="new-collection" #collectionName /><br>-->
 
-  <label for="story">Collection Story: </label><br>
-  <input id="story" #collectionStory /><br>
+<!--  <label for="story">Collection Story: </label><br>-->
+<!--  <input id="story" #collectionStory /><br>-->
 
-  <label for="themes">Collection Themes: </label><br>
-  <input id="themes" #collectionThemes /><br>
-  <br>
-  <br>
+<!--  <label for="themes">Collection Themes: </label><br>-->
+<!--  <input id="themes" #collectionThemes /><br>-->
+<!--  <br>-->
+<!--  <br>-->
 
-  <button class="add-button" (click)="newCollection(collectionName.value); collectionName.value=''">
-    Add Collection
-  </button>
-</div>
+<!--  <button class="add-button" (click)="newCollection(collectionName.value); collectionName.value=''">-->
+<!--    Add Collection-->
+<!--  </button>-->
+<!--</div>-->
+    <mat-form-field appearance="fill">
+      <mat-label> Collection name</mat-label>
+      <input id="new-collection">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label> Collection story </mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>

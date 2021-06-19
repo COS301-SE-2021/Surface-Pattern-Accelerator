@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Added angular material">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-    </list>
+    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Added angular material" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +34,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ts.external.directory.path" value="C:\Users\user\Documents\GitHub\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\Berna\Documents\GitHub\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -86,6 +83,7 @@
       <workItem from="1623959892748" duration="4716000" />
       <workItem from="1624020006465" duration="2793000" />
       <workItem from="1624080825467" duration="4033000" />
+      <workItem from="1624133471744" duration="3338000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>
