@@ -55,7 +55,7 @@ export class PatternComponent implements OnInit {
 
   setSize(spacing: number, rotateNum: number, scaleNum: number) {
     let c = <HTMLCanvasElement> document.getElementById("myCanvas");
-    c.width = (window.innerWidth);
+    //c.width = (window.innerWidth);
 
     const ctx =<CanvasRenderingContext2D> c.getContext("2d");
 
@@ -85,6 +85,8 @@ export class PatternComponent implements OnInit {
     };
     motif.src = "../assets/shapes.svg";
 
+    //This is for unit testing
+    return motif.src;
   }
 
 // Download
@@ -101,6 +103,9 @@ export class PatternComponent implements OnInit {
     document.body.appendChild( tmpLink );
     tmpLink.click();
     document.body.removeChild( tmpLink );
+
+    //This is for unit testing
+    return true;
   }
 
   /*
@@ -121,6 +126,9 @@ export class PatternComponent implements OnInit {
     });
 
     await modal.present();
+
+    //This is for unit testing
+    return true;
   }
 
 }
