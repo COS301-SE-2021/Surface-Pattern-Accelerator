@@ -23,7 +23,7 @@ describe('CollorPalletComponent tests', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Testing if correct method is called when generate button is clicked', () => {
+  it('Test 1: Testing if correct method is called when generate button is clicked', () => {
     spyOn(component, 'colorGen');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#gen-btn');
     btnElement.click();
@@ -34,7 +34,7 @@ describe('CollorPalletComponent tests', () => {
   });
 
 
-  it('Testing if the lock1 button calls the lock colour method', () => {
+  it('Test 2: Testing if the lock1 button calls the lock colour method', () => {
     spyOn(component, 'lockColour');
     let btnElement = fixture.debugElement.nativeElement.querySelector('#lock1');
     btnElement.click();
@@ -43,5 +43,16 @@ describe('CollorPalletComponent tests', () => {
       expect(component.lockColour('lock1')).toHaveBeenCalled();
     })
   });
+
+  it('Test 3: Testing if the lock2 button calls the lock colour method', () => {
+    spyOn(component, 'lockColour');
+    let btnElement = fixture.debugElement.nativeElement.querySelector('#lock2');
+    btnElement.click();
+
+    fixture.whenStable().then(() => {
+      expect(component.lockColour('lock2')).toHaveBeenCalled();
+    })
+  });
+
 
 });
