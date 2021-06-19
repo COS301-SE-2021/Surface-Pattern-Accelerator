@@ -44,8 +44,6 @@ export class CollorPalletComponent implements OnInit {
     const elem = document.getElementById(id);
     let prev: HTMLElement;
     let next: HTMLElement;
-    var testLock: boolean;
-    var testChange: boolean;
 
     if(elem) {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -54,7 +52,6 @@ export class CollorPalletComponent implements OnInit {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       next = <HTMLElement>elem.nextElementSibling;
       console.log('p class: ' + next.className);
-      testChange = true;
     }
 
     if(prev.className === 'color'){
@@ -65,7 +62,6 @@ export class CollorPalletComponent implements OnInit {
       next.classList.remove('code');
       next.classList.add('new-code');
       elem.innerHTML = 'Unlock';
-      testLock = true;
     }
     else if(prev.className === 'stay-color'){
       prev.classList.remove('stay-color');
@@ -74,10 +70,8 @@ export class CollorPalletComponent implements OnInit {
       next.classList.remove('new-code');
       next.classList.add('code');
       elem.innerHTML = 'Lock';
-      testLock = true;
     }
 
-    return testChange === testLock;
   }
 
 
