@@ -74,5 +74,15 @@ describe('CollorPalletComponent tests', () => {
     })
   });
 
+  it('Test 6: Testing if the lock5 button calls the lock colour method', () => {
+    spyOn(component, 'lockColour');
+    let btnElement = fixture.debugElement.nativeElement.querySelector('#lock5');
+    btnElement.click();
+
+    fixture.whenStable().then(() => {
+      expect(component.lockColour('lock5')).toHaveBeenCalled();
+    })
+  });
+
 
 });
