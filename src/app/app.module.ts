@@ -19,7 +19,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import {GoogleLoginProvider, SocialAuthService, SocialLoginModule} from "angularx-social-login";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {MatButtonModule} from '@angular/material';
 
 
 
@@ -40,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     SocialLoginModule,
+    MatButtonModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
