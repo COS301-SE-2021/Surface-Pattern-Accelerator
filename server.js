@@ -19,6 +19,8 @@ const SCOPES = ['https://www.googleapis.com/auth/drive'];
 const TOKEN_PATH = 'token.json'; //this file is the users access token for when they gave acccess
 
 let auth;
+var globalCredentials;
+loadCredentials();
 
 app.use(cors({origin: //cors so it can work with application on another domain
   ["http://localhost:8100"],
@@ -86,17 +88,14 @@ app.post('/api/login', validatePayload, (req, res) => { //read about express mid
 
 app.get('/', (req, res) => {
   
-  // if(req.session.accessToken)
-  // {
-  //   console.log("1 (return) Access token is set: " + req.session.accessToken);
-  // }
-  // else
-  // {
-  //   console.log("(return) access token not set");
-  // }
-
-  // console.log(req.url);
-  // console.log(req.query.code);
+  if(req.session.accessToken)
+  {
+    console.log("1 (return) Access token is set: " + req.session.accessToken);
+  }
+  else
+  {
+    console.log("(return) access token not set");
+  }
     res.send('Hello World!')
 })
 
@@ -126,8 +125,7 @@ app.get('/api/newCollection/:tagId', function(req, res) {
     {
         console.log("file coppied");
     });
-
-    //res.sendStatus(200);
+    listFiles(auth);
     res.status(220);
 
   });
@@ -137,74 +135,68 @@ app.get('/api/newCollection/:tagId', function(req, res) {
   ////////////////////////////////////////////google stuff
   app.get('/api/googleLogin', function(req, res)
 {
-  // if(req.session.accessToken)
-  // {
-  //   console.log("1 Access token is set: " + req.session.accessToken);
-  // }
-  // else
-  // {
-  //   req.session.accessToken = "some access token here";
-  //   console.log("2 Access token is set as: " + req.session.accessToken);
-  // }
-
-  //const strWindowFeatures = 'toolbar=no, menubar=no, width=600, height=700, top=100, left=100';
-  //window.open(authorize(JSON.parse(content)), 'sign in', strWindowFeatures);
-  // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => 
   {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Drive API.
     console.log("get url");
-    credentials = JSON.parse(content);
-    const {client_secret, client_id, redirect_uris} = credentials.installed; //disassemble JSON file
+
+    const {client_secret, client_id, redirect_uris} = globalCredentials.installed; //'installed' name in  json file
     const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
-    authUrl = oAuth2Client.generateAuthUrl({access_type: 'offline', scope: SCOPES});
-    auth = oAuth2Client;
+
+    const authUrl = oAuth2Client.generateAuthUrl({
+      access_type: 'offline',
+      scope: SCOPES,
+    });
+    
     res.json({ 'signInURL': authUrl}); //send JSON with sign in URL
   });
 
   //res.send("test");
 });
 
+app.post('/api/consumeAccessCode', (req, res) => { //read about express middlewares, like validatePayload
+  
 
 
+  
 
-/**
- * Create an OAuth2 client with the given credentials, and then execute the
- * given callback function.
- * @param {Object} credentials The authorization client credentials.
- * @param {function} callback The callback to call with the authorized client.
- */
-//authorize generates a URL used to get access to a users Drive
-function authorize(credentials) {
-  // const {client_secret, client_id, redirect_uris} = credentials.installed; //disassemble JSON file
-  // const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+  code = req.body.accessCode;
 
-    // return  authUrl = oAuth2Client.generateAuthUrl({
-    //   access_type: 'offline',
-    //   scope: SCOPES,
-    // });
+  //authorize(JSON.parse(content), listFiles);
+  const {client_secret, client_id, redirect_uris} = globalCredentials.installed; //'installed' name in  json file
+  const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
-    //did we previsoulsy store a token?
-    fs.readFile(TOKEN_PATH, (err, token) => { //token is the read buffer
-    if (err)
-    {
-      return getAccessToken(oAuth2Client);
-    }
+  oAuth2Client.getToken(code, (err, token) => {
+    if (err) return console.error('Error retrieving access token', err);
 
-    oAuth2Client.setCredentials(JSON.parse(token)); //convert buffer that is a json to an object
+    stringToken = JSON.stringify(token);
+    console.log(stringToken);
+    req.session.oToken = stringToken; //save oAuthToken as stringToken in Session
+    
+    console.log("access token: " + token.access_token);
+    oAuth2Client.setCredentials(token);
+
+    //req.session.oAuth2Client = oAuth2Client;
     auth = oAuth2Client;
+
+    req.session.save(); //use this if res.send is not used. Normally a session is saved on res.send
+    res.status(200).send({
+      Message: 'Access token is now set!'
+    });
+  });
+});
+
+function loadCredentials()
+{
+  fs.readFile('credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    // Authorize a client with credentials, then call the Google Drive API.
+    globalCredentials = JSON.parse(content);
   });
 }
 
 
-
-
-
-/**
- * Lists the names and IDs of up to 10 files.
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
 function listFiles(auth) {
   const drive = google.drive({version: 'v3', auth});
   drive.files.list({
@@ -224,51 +216,7 @@ function listFiles(auth) {
   });
 }
 
-
-
-app.post('/api/consumeAccessCode', (req, res) => { //read about express middlewares, like validatePayload
-  
-  // if(req.session.accessCode)
-  // {
-  //   req.session.accessToken = req.body.accessToken; //reset access token for now while in development
-  //   console.log("access token is already set " + req.session.accessToken);
-  //   res.status(200).send({
-  //     Message: 'Access token is already set!'
-  //   });
-
-  // }
-  // else
-  // {
-  //   req.session.accessToken = req.body.accessToken;
-  //   console.log("Access token is now set: " + req.body.accessToken);
-  //   res.status(200).send({
-  //     Message: 'Access token is now set!'
-  // });
-
-  // }
-
-  auth.getToken(req.body.accessCode, (err, token) => {
-    if(err)
-    {
-      return console.log('Error retreiving token', err);
-    }
-
-    //store token to disk
-    fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-      if(err)
-      {
-        return console.error(err);
-      }
-      console.log('Token stored to', TOKEN_PATH)
-    });
-    //auth = oAuth2Client;
-  });
-
-
-  
-});
-
-
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
+
