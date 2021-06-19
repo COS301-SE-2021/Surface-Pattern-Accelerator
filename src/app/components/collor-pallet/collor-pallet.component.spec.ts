@@ -1,5 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { By } from 'protractor';
 
 import { CollorPalletComponent } from './collor-pallet.component';
 
@@ -20,5 +21,11 @@ describe('CollorPalletComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Testing if correct method is called when generate button is clicked', () => {
+    spyOn(component, 'colorGen');
+    let btnElement = fixture.debugElement.nativeElement.querySelector('#gen-btn');
+    btnElement.click();
   });
 });
