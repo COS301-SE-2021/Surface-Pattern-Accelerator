@@ -11,10 +11,12 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { PatternComponent } from './components/pattern/pattern.component';
 import {ImportComponent} from './components/import/import.component';
-import {CollorPalletComponent} from './components/collor-pallet/collor-pallet.component';
 
+import {CollorPalletComponent} from './components/collor-pallet/collor-pallet.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { PreviewComponent } from './components/preview/preview.component';
+import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 
 
 
@@ -27,9 +29,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
     PatternComponent,
     AppComponent,
     ImportComponent,
-    CollorPalletComponent
+    CollorPalletComponent,
+    PreviewComponent,
+    ExportPopoverComponent
+
   ],
-  entryComponents: [],
+  entryComponents: [PreviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,7 +42,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
-    IonicModule.forRoot(), AppRoutingModule],
+    IonicModule.forRoot(),
+    AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -21,4 +21,22 @@ describe('PatternComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should make sure canvas motif is a svg'), () => {
+    let path = component.setSize(component.spacing, component.rotateNum, component.scaleNum);
+    expect(path).toContain('svg');
+  }
+
+  it('should make sure pattern exporting works'), () => {
+    let canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
+    expect(component.downloadCanvas(canvas)).toBe(true);
+  }
+
+  it('should make sure the pattern preview works'), () => {
+    expect(component.openModal() != null).toBe(true);
+  }
+
+  it('should expect necessary default attributes set'), () => {
+    expect(component.spacing != null && component.scaleNum != null).toBe(true);
+  }
 });

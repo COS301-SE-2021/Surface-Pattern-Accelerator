@@ -1,17 +1,30 @@
+<!--
 <title>{{title}}</title>
-<div class="wrapper">
-  <div class="sidebar">
-    <h2>Sidebar</h2>
-    <ul>
-      <li><a href="#">Import motif</a></li>
-      <li><a href="#" id="download-btn">Download pattern</a></li>
-    </ul>
-  </div>
-  <div class="main_content">
+-->
 
+<!-- <div class="wrapper"> -->
+<div class="sidenav bg-primary">
+  <button class="dropdown-btn">CHOOSE PATTERN</button>
+  <button class="dropdown-btn">TILING</button>
+  <button class="dropdown-btn" >COLORS
+    <ion-icon name="caret-down-outline"></ion-icon>
+  </button>
+  <div class="dropdown-container" id="myDropdown">
+    <a href="">Link 1</a>
+    <a href="">Link 2</a>
+    <a href="">Link 3</a>
+  </div>
+  <button class="dropdown-btn">CUSTOMIZE</button>
+  <button class="dropdown-btn">FILTERS</button>
+  <button class="dropdown-btn">CANVAS SIZE</button>
+  <button class="dropdown-btn" id="download-btn">DOWNLOAD PATTERN</button>
+  <button class="dropdown-btn" (click)="openModal()">PREVIEW PATTERN</button>
+</div>
+
+  <div class="main_content main">
     <div class="info">
       <div>
-        <canvas id="myCanvas" width="300" height="700">
+        <canvas id="myCanvas" width="1000" height="500">
           Your browser does not support the HTML canvas tag.</canvas>
       </div>
       Change spacing<input type="number" id="name" name="name" [defaultValue]="18">
@@ -20,4 +33,4 @@
     </div>
   </div>
 
-</div>
+<!-- </div> -->
