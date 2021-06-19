@@ -76,7 +76,6 @@ html, body {
 
 #myCanvas{
   background-color: darkblue;
-  border-radius: 40px;
   float : left;
 }
 
@@ -97,6 +96,11 @@ html, body {
   margin: 5px;
 
 }
+
+.drop-area{
+  user-select : none;
+}
+
 
 
 .wrapper{

@@ -26,13 +26,22 @@
 
 <!--</div>>-->
 
-<ion-content>
+<ion-content [scrollY]="contentScrollActive">
 <div id="page">
 
-  <div id = "side" class="bord drop-area" #dropzoneA>
+  <div id = "side" class="bord item-group">
     <h2 class="fixed">Motifs</h2>
     <br>
     <p>Drag and drop onto Canvas</p>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
 
     <div class="fig_motif drag">
     </div>
@@ -51,7 +60,7 @@
 
   <div id="canvasContained" class="bord">
     <div id="canvasFrame">
-      <canvas id="myCanvas" width="500" height="500" class="dropzone" #dropzoneB>
+      <canvas id="myCanvas" width="500" height="500" class="drop-area" #dropzoneA>
         Your browser does not support the HTML canvas tag.</canvas>
     </div>
   </div>
