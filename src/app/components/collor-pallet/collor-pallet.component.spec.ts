@@ -33,6 +33,14 @@ describe('CollorPalletComponent tests', () => {
     })
   });
 
-
+  it('Testing if the colour generator function changes the colour pallet correctly', () => {
+    spyOn(component, 'colorGen');
+    let btnElement = fixture.debugElement.nativeElement.querySelector('#gen-btn');
+    btnElement.click();
+    // @ts-ignore
+    fixture.whenStable().then(() => {
+      expect(component.colorGen()).toBeTruthy();
+    })
+  });
 
 });
