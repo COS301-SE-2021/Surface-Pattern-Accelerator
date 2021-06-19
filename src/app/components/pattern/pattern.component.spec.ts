@@ -33,6 +33,10 @@ describe('PatternComponent', () => {
   }
 
   it('should make sure the pattern preview works'), () => {
-    expect(component.openModal()).toBe(true);
+    expect(component.openModal() != null).toBe(true);
+  }
+
+  it('should expect necessary default attributes set'), () => {
+    expect(component.spacing != null && component.scaleNum != null).toBe(true);
   }
 });
