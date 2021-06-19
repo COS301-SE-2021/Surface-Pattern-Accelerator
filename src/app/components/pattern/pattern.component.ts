@@ -45,6 +45,10 @@ export class PatternComponent implements OnInit {
 
         // Call download
         canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
+
+        //better UI experience for downloading, by generating a popover dialogue
+        this.createPopover();
+
         //this.download(canvas, newFilename);
         this.downloadCanvas(canvas);
 
@@ -92,9 +96,6 @@ export class PatternComponent implements OnInit {
 
 // Download
   downloadCanvas(canvas : HTMLCanvasElement){
-    //better UI experience for downloading, by generating a popover dialogue
-    this.createPopover();
-
     // get canvas data
     let image = canvas.toDataURL();
 
@@ -140,9 +141,11 @@ export class PatternComponent implements OnInit {
   }
 
   createPopover() {
-    this.popover.create({component: ExportPopoverComponent,
+    let popover = this.popover.create({component: ExportPopoverComponent,
     showBackdrop: false}).then((popoverElement)=>{
       popoverElement.present();
     })
+
+
   }
 }
