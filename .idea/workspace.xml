@@ -2,18 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Font Changes for login">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_06_18_11_50__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collections/collections.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/login.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerSettings">
-    <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -36,15 +37,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ts.external.directory.path" value="C:\Users\27825\IdeaProjects\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -52,19 +49,6 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="E2E Tests (app)" type="JavaScriptTestRunnerProtractor">
       <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
       <node-interpreter value="project" />
