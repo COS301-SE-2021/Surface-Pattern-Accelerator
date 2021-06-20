@@ -20,6 +20,8 @@ Our vision is to develop a specialized software package capable of creating patt
 ## Documentation
 * :open_book: [Software Requirements Specification](https://www.overleaf.com/read/ncybnhfbfqjn)
 * :open_book: [Architectural Requirements]()
+* :open_book: [Coding Standards](https://www.overleaf.com/read/gcjfyjhhsrhg)
+* :open_book: [User manual](https://www.overleaf.com/read/tcnzswypsdzd)
 
 ## Project Management Tools
 
