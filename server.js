@@ -34,22 +34,8 @@ app.use(session({
 }));
 
 app.use(bodyParser.json()); //parse request body for when its a JSON file
-/////////////////////////////////////////////////////////////////////////////////
-//mock DB
 
-const appUsers = {
-  'max@gmail.com': {
-      email: 'max@gmail.com',
-      name: 'Max Miller',
-      pw: '1234'
-  },
-  'lilly@gmail.com': {
-      email: 'lilly@gmail.com',
-      name: 'Lilly Walter',
-      pw: '1234'
-  }
-}
-
+module.exports = app.listen(3001);
 /////////////////////////////////////////////////////////////////////////////////
 //middleware to check if payload is present
 
@@ -67,6 +53,7 @@ const validatePayload = (req, res, next) => {
 }
 //////////////////////////////////////////////////////////////////////////////////
 
+//deprecated login
 app.post('/api/login', validatePayload, (req, res) => { //read about express middlewares, like validatePayload
   const user = appUsers[req.body.email]; //access DB like an array
   console.log("login called");
@@ -87,35 +74,14 @@ app.post('/api/login', validatePayload, (req, res) => { //read about express mid
   }
 });
 
-app.get('/', (req, res) => {
+//simple test to see if the server is running
+app.get('/test', (req, res) => {
   
-  if(req.session.accessToken)
-  {
-    console.log("1 (return) Access token is set: " + req.session.accessToken);
-  }
-  else
-  {
-    console.log("(return) access token not set");
-  }
-    res.send('Hello World!')
+    res.send('The server is running')
 })
 
-app.get('/api/collections', (req, res) => {
+app.get('/api/getCollections', (req, res) => {
 
-    console.log("get fired");
-
-    // fs.readdir('./testFolder', (err, files) => {
-    //     collectionsSkeleton = '{"collectionNames": []}'; //create a "skeleton" JSON object into which all the other json object names will be placed in
-    //     const obj = JSON.parse(collectionsSkeleton);
-    //     files.forEach(file => {            
-            
-    //         obj["collectionNames"].push(file);
-            
-    //       console.log(file);
-    //     });
-    //     console.log(JSON.stringify(obj)); //log stringified obj for triublehsooting, yes I cant spell
-    //     res.json(obj); // already parsed, send
-    //   });
     collectionsSkeleton = '{"collectionNames": []}'; //create a "skeleton" JSON object into which all the other json object names will be placed in
     const obj = JSON.parse(collectionsSkeleton);
     const retOBJ = new Promise((success, failure) => {
@@ -153,22 +119,9 @@ app.get('/api/collections', (req, res) => {
       
       res.json(retValue);
     })
-    
-   
-
-   
-
 })
 
 app.get('/api/newCollection/:tagId', function(req, res) {
-    // let rawdata = fs.readFileSync('collectionTemplate.json');
-    // console.log(JSON.parse(rawdata));
-
-    // fs.copyFile('collectionTemplate.json', './testFolder/' + req.params.tagId + '.json', () =>
-    // {
-    //     console.log("file coppied");
-    // });
-    // listFiles(auth);
     const drive = google.drive({version: 'v3', auth});
 
     var fileMetadata = {
@@ -215,18 +168,16 @@ app.get('/api/newCollection/:tagId', function(req, res) {
       access_type: 'offline',
       scope: SCOPES,
     });
-    
+    console.log("sign in URL: " + authUrl);
     res.json({ 'signInURL': authUrl}); //send JSON with sign in URL
   });
 
-  //res.send("test");
 });
 
 app.post('/api/consumeAccessCode', (req, res) => { //read about express middlewares, like validatePayload
   
   code = req.body.accessCode;
 
-  //authorize(JSON.parse(content), listFiles);
   const {client_secret, client_id, redirect_uris} = globalCredentials.installed; //'installed' name in  json file
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
@@ -240,7 +191,12 @@ app.post('/api/consumeAccessCode', (req, res) => { //read about express middlewa
     console.log("access token: " + token.access_token);
     oAuth2Client.setCredentials(token);
 
-    //req.session.oAuth2Client = oAuth2Client;
+    // Store the token to disk for later program executions
+    fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+      if (err) return console.error(err);
+      console.log('Token stored to', TOKEN_PATH);
+    });
+
     auth = oAuth2Client;
 
     req.session.save(); //use this if res.send is not used. Normally a session is saved on res.send
