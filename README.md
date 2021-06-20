@@ -1,4 +1,4 @@
-![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Surface-Pattern-Accelerator) ![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FSurface-Pattern-Accelerator.git)
+
 
 # Surface-Pattern-Accelerator
 
