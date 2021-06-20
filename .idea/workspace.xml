@@ -2,19 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Font Changes for login">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021_06_18_11_50__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collections/collections.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/login.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -37,6 +35,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
