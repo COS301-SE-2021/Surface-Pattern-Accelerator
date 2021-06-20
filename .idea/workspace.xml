@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Font Changes for login">
+    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/workarea/workarea.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/export-popover/export-popover.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/export-popover/export-popover.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/export-popover/export-popover.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/export-popover/export-popover.component.spec.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +21,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/package.json" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="1tqHoHiuxoTVUwyKZ1AoCxUwAF6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -44,7 +46,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ts.external.directory.path" value="C:\Users\27825\IdeaProjects\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\oluwa\OneDrive\Desktop\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -52,15 +54,13 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -188,6 +188,11 @@
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="a75e7231-ade7-498c-8e47-83ac0c1816ef">
           <value>
             <State />
           </value>
