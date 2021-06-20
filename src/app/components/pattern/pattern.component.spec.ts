@@ -22,15 +22,21 @@ describe('PatternComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('Test 1: Testing if canvas download is executed when download button is called', () => {
+
+    spyOn(component, 'downloadCanvas');
+    let btnEl1 = fixture.debugElement.nativeElement.querySelector('#download-btn');
+    btnEl1.click();
+
+    expect(component.downloadCanvas).toHaveBeenCalled();
+  });
+
+  /*
   it('should make sure canvas motif is a svg'), () => {
     let path = component.setSize(component.spacing, component.rotateNum, component.scaleNum);
     expect(path).toContain('svg');
   }
 
-  it('should make sure pattern exporting works'), () => {
-    let canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
-    expect(component.downloadCanvas(canvas)).toBe(true);
-  }
 
   it('should make sure the pattern preview works'), () => {
     expect(component.openModal() != null).toBe(true);
@@ -39,4 +45,6 @@ describe('PatternComponent', () => {
   it('should expect necessary default attributes set'), () => {
     expect(component.spacing != null && component.scaleNum != null).toBe(true);
   }
+
+   */
 });
