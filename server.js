@@ -7,6 +7,7 @@ const url = require('url');
 const  fs = require('fs')
 const cors = require('cors');
 const { stringify } = require('querystring');
+const { file } = require('googleapis/build/src/apis/file');
 const app = express()
 //app.use(cors());
 const port = 3000
@@ -103,29 +104,95 @@ app.get('/api/collections', (req, res) => {
 
     console.log("get fired");
 
-    fs.readdir('./testFolder', (err, files) => {
-        collectionsSkeleton = '{"collectionNames": []}'; //create a "skeleton" JSON object into which all the other json object names will be placed in
-        const obj = JSON.parse(collectionsSkeleton);
-        files.forEach(file => {            
+    // fs.readdir('./testFolder', (err, files) => {
+    //     collectionsSkeleton = '{"collectionNames": []}'; //create a "skeleton" JSON object into which all the other json object names will be placed in
+    //     const obj = JSON.parse(collectionsSkeleton);
+    //     files.forEach(file => {            
             
-            obj["collectionNames"].push(file);
+    //         obj["collectionNames"].push(file);
             
-          console.log(file);
-        });
-        console.log(JSON.stringify(obj)); //log stringified obj for triublehsooting, yes I cant spell
-        res.json(obj); // already parsed, send
+    //       console.log(file);
+    //     });
+    //     console.log(JSON.stringify(obj)); //log stringified obj for triublehsooting, yes I cant spell
+    //     res.json(obj); // already parsed, send
+    //   });
+    collectionsSkeleton = '{"collectionNames": []}'; //create a "skeleton" JSON object into which all the other json object names will be placed in
+    const obj = JSON.parse(collectionsSkeleton);
+    const retOBJ = new Promise((success, failure) => {
+      const drive = google.drive({version: 'v3', auth});
+      drive.files.list({
+        q: "mimeType='application/json'",
+        spaces: 'drive',
+        pageSize: 20,
+        fields: 'nextPageToken, files(id, name)',
+      }, (err, res) => {
+        if (err) return console.log('The API returned an error: ' + err);
+        const files = res.data.files;
+        if (files.length) {
+          files.forEach(function(file)
+          {
+            //console.log('Found File: ', file.name, file.id);
+            obj["collectionNames"].push(file.name);
+          });
+          console.log(obj);
+          //res.end(obj);
+          success(obj);
+          
+        } else {
+          console.log('No files found.');
+          failure(obj);
+        }
       });
-});
+    }).then( data => {
+      console.log(data);
+      return data;
+    })
+
+    retOBJ.then(function(retValue){
+      console.log(retValue);
+      
+      res.json(retValue);
+    })
+    
+   
+
+   
+
+})
 
 app.get('/api/newCollection/:tagId', function(req, res) {
-    let rawdata = fs.readFileSync('collectionTemplate.json');
-    console.log(JSON.parse(rawdata));
+    // let rawdata = fs.readFileSync('collectionTemplate.json');
+    // console.log(JSON.parse(rawdata));
 
-    fs.copyFile('collectionTemplate.json', './testFolder/' + req.params.tagId + '.json', () =>
-    {
-        console.log("file coppied");
+    // fs.copyFile('collectionTemplate.json', './testFolder/' + req.params.tagId + '.json', () =>
+    // {
+    //     console.log("file coppied");
+    // });
+    // listFiles(auth);
+    const drive = google.drive({version: 'v3', auth});
+
+    var fileMetadata = {
+      'name': req.params.tagId+ '.json'
+    };
+
+    var media = {
+      mimeType: 'application/json',
+      body: fs.createReadStream('collectionTemplate.json')
+    };
+
+    drive.files.create({
+      resource: fileMetadata,
+      media: media,
+      fields: 'id'
+    }, function (err, file) {
+      if (err) {
+        // Handle error
+        console.error(err);
+      } else {
+        console.log('File Id: ', file.id);
+      }
     });
-    listFiles(auth);
+  
     res.status(220);
 
   });
@@ -157,10 +224,6 @@ app.get('/api/newCollection/:tagId', function(req, res) {
 
 app.post('/api/consumeAccessCode', (req, res) => { //read about express middlewares, like validatePayload
   
-
-
-  
-
   code = req.body.accessCode;
 
   //authorize(JSON.parse(content), listFiles);
@@ -197,24 +260,6 @@ function loadCredentials()
 }
 
 
-function listFiles(auth) {
-  const drive = google.drive({version: 'v3', auth});
-  drive.files.list({
-    pageSize: 20,
-    fields: 'nextPageToken, files(id, name)',
-  }, (err, res) => {
-    if (err) return console.log('The API returned an error: ' + err);
-    const files = res.data.files;
-    if (files.length) {
-      console.log('Files:');
-      files.map((file) => {
-        console.log(`${file.name} (${file.id})`);
-      });
-    } else {
-      console.log('No files found.');
-    }
-  });
-}
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
