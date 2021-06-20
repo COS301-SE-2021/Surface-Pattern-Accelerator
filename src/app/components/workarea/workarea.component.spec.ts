@@ -31,13 +31,24 @@ describe('WorkareaComponent', () => {
       expect(component.chooseCanvasSymbol).toHaveBeenCalled();
     });
   });
+  //
   it('Test 2: Testing if correct method is called when square button is clicked', () => {
     spyOn(component, 'chooseCanvasSymbol');
-    const btnElement = fixture.debugElement.nativeElement.querySelector('#rect');
+    const btnElement = fixture.debugElement.nativeElement.querySelector('#square');
     btnElement.click();
 
     fixture.whenStable().then(() => {
       expect(component.chooseCanvasSymbol).toHaveBeenCalled();
+    });
+  });
+  //
+  it('Test 3: Testing if canvas size has been changed', () => {
+    spyOn(component, 'changeSize');
+    const btnElement = fixture.debugElement.nativeElement.querySelector('#rect');
+    btnElement.click();
+
+    fixture.whenStable().then(() => {
+      expect(component.changeSize).toHaveBeenCalled();
     });
   });
 });
