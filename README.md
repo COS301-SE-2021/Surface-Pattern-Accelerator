@@ -9,7 +9,7 @@ Surface Pattern Accelerator is a vector graphics editor that is built under a li
 Our vision is to develop a specialized software package capable of creating patterns comparable to patterns created in software like Inkscape and Adobe Illustrator. The system should cater for all users, regardless of their experience in design. This software will have features exclusively geared towards pattern generation; it will only be able to generate patterns but in having such a specific vision it will do it in a much more efficient way than other software not meant to create patterns but used as such.
 
 ## User Manual
-* :open_book: [User manual]()
+* :open_book: [User manual](https://www.overleaf.com/read/tcnzswypsdzd)
 
 ## Project demos
 * :tv: [Demo1 Video](https://drive.google.com/file/d/1K6xgb0ALsqWLqd_uVz9dR12Jfqt4rZtr/view?usp=sharing)
@@ -21,7 +21,6 @@ Our vision is to develop a specialized software package capable of creating patt
 * :open_book: [Software Requirements Specification](https://www.overleaf.com/read/ncybnhfbfqjn)
 * :open_book: [Architectural Requirements]()
 * :open_book: [Coding Standards](https://www.overleaf.com/read/gcjfyjhhsrhg)
-* :open_book: [User manual](https://www.overleaf.com/read/tcnzswypsdzd)
 
 ## Project Management Tools
 
