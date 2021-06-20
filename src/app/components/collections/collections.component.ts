@@ -13,26 +13,15 @@ export class CollectionsComponent implements OnInit {
 
   constructor(private collectionsService: CollectionsServiceService) { }
 
+  ngOnInit(): void
+  {
+    this.getCollections();
+  }
+
   getCollections(): void //this func gets called each time this component gets initialized
   {
     this.collectionsService.getCollections()                      //this is an asynchronous operation
       .subscribe(collections => this.collections = collections);  //Observable
-  }
-
-  //add new collection
-  //TODO: create collection on server
-  add(name: string): void {
-    // name = name.trim();
-    // if (!name) { return; }
-    // this.collectionsService.addHero({ name } as Collection)
-    //   .subscribe((collection: Collection) => {
-    //     this.collections.push(collection);
-    //   });
-  }
-
-  ngOnInit(): void
-  {
-    this.getCollections();
   }
 
 }

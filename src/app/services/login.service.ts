@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Subject} from "rxjs";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject } from "rxjs";
 import { Router } from '@angular/router'
 import {GoogleLoginProvider, SocialAuthService, SocialUser} from "angularx-social-login";
-import {CollectionsInterface} from "../Interfaces/collectionsInterface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private serverAPIURL = 'http://localhost:3000/api';
-  //private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000/api';
+  private serverAPIURL = 'http://localhost:3000';
+  //private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000';
 
   loggedIn: Subject<boolean>; //read up on subject observable
   user: SocialUser | null;
@@ -23,15 +22,14 @@ export class LoginService {
       console.log(user);
       this.user = user;
     });
-
-
   }
 
+  //deprecated login
   login(email: string, password: string)
   {
     console.log(email);
     console.log(password);
-    this.http.post(this.serverAPIURL + '/login',
+    this.http.post(this.serverAPIURL + '/api/login',
       { email: email, password: password},
       {withCredentials: true
       }).subscribe((resp: any) => {
@@ -44,26 +42,17 @@ export class LoginService {
     }))
   }
 
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((x: any) => console.log(x));
-  }
-
   loginWithGoogle()
   {
     console.log("Google sign in fired!");
-    const googleLoginURL = this.serverAPIURL + '/googleLogin';
-
-
+    const googleLoginURL = this.serverAPIURL + '/api/googleLogin';
 
     this.http.get<any>(googleLoginURL, {withCredentials: true}) //with credentials sends cookie
       .subscribe((resp: any) => {
         window.location.href = resp.signInURL;
         console.log(resp.signInURL);
-  }); //GET request
+    });
   }
-
-
-
 
 
 }
