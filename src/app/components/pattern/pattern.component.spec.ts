@@ -31,15 +31,19 @@ describe('PatternComponent', () => {
     expect(component.downloadCanvas).toHaveBeenCalled();
   });
 
+  it('Test 2: Testing if pattern preview works', () => {
+
+    spyOn(component, 'openModal');
+    let btnEl2 = fixture.debugElement.nativeElement.querySelector('#preview-btn');
+    btnEl2.click();
+
+    expect(component.openModal).toHaveBeenCalled();
+  });
+
   /*
   it('should make sure canvas motif is a svg'), () => {
     let path = component.setSize(component.spacing, component.rotateNum, component.scaleNum);
     expect(path).toContain('svg');
-  }
-
-
-  it('should make sure the pattern preview works'), () => {
-    expect(component.openModal() != null).toBe(true);
   }
 
   it('should expect necessary default attributes set'), () => {
