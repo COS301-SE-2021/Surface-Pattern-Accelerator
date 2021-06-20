@@ -1,0 +1,20 @@
+<h2>Collections</h2>
+
+<div class="collections-menu">
+  <a id="addCollection"
+     routerLink="/collectionCreator">
+    +
+  </a>
+
+  <div *ngIf="collections">
+    <div *ngFor="let collectionName of collections.collectionNames" >
+      <a
+         routerLink="/pattern">
+        {{collectionName}}
+      </a>
+    </div>
+  </div>
+
+
+</div>
+

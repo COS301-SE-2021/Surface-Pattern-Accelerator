@@ -1,0 +1,51 @@
+<title>{{title}}</title>
+<ion-content [scrollY]="contentScrollActive">
+<div id="page">
+
+  <div id = "side" class="bord item-group">
+    <h2 class="fixed">Motifs</h2>
+    <br>
+    <p>Drag and drop onto Canvas</p>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="item-group">
+
+    </div>
+
+  </div>
+
+  <div id="canvasContained" class="bord">
+    <div id="canvasFrame">
+      <canvas id="myCanvas" width="{{width}}" height="{{height}}" class="drop-area" #dropzoneA>
+        Your browser does not support the HTML canvas tag.</canvas>
+    </div>
+
+  </div>
+
+  <div id = "frame" class = "bord">
+
+    <ion-button id="rect" (click)='chooseCanvasSymbol(false)' color="dark" >Rectangle Frame</ion-button>
+    <br>
+    <ion-button id="square" (click)='chooseCanvasSymbol(true)' color="dark">Square Frame</ion-button>
+
+  </div>
+
+</div>
+  </ion-content>

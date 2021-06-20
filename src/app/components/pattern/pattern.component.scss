@@ -1,0 +1,85 @@
+#myCanvas{
+  top : 58px;
+  background-color: #E5E5E5;
+}
+
+#canvas{
+  //margin: auto;
+  width: 80%;
+}
+
+#name,#scale{
+  margin: 10px;
+  padding: 10px;
+  border-color: #000;
+  font-size: 14px;
+}
+
+#rotate{
+  margin: 10px;
+  padding: 10px;
+  border-color: #000;
+  font-size: 14px;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 58px;
+  left: 0;
+  //background-color: #111;
+  //overflow-x: hidden;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdown-btn {
+  //float: left;
+  overflow: hidden;
+}
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0 10px;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color
+and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+  //z-index: 1;
+}
+
+.dropdown-btn:hover + .dropdown-container {
+  display: block;
+
+}
+
+.dropdown-content a:hover {
+  display: block;
+}

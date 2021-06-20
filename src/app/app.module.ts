@@ -2,15 +2,25 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { CollectionsComponent } from './collections/collections.component';
-import { CollectionCreatorComponent } from './collection-creator/collection-creator.component';
-import { HttpClientModule } from '@angular/common/http'
+import { CollectionsComponent } from './components/collections/collections.component';
+import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
-import { PatternComponent } from './pattern/pattern.component';
-import {ImportComponent} from "./import/import.component";
+// import { InMemoryDataService } from './in-memory-data.service';
+import { PatternComponent } from './components/pattern/pattern.component';
+import { ImportComponent} from './components/import/import.component';
+import { LoginComponent } from "./components/login/login.component";
+
+import { RouteReuseStrategy } from '@angular/router';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { PreviewComponent } from './components/preview/preview.component';
+import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
+import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "angularx-social-login";
+
+
 
 
 @NgModule({
@@ -20,17 +30,39 @@ import {ImportComponent} from "./import/import.component";
     CollectionCreatorComponent,
     PatternComponent,
     AppComponent,
-    ImportComponent
+    ImportComponent,
+    PreviewComponent,
+    ExportPopoverComponent,
+    LoginComponent
   ],
+  entryComponents: [PreviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
-  ],
-  providers: [],
-  bootstrap: [AppComponent, ImportComponent]
+    FormsModule,
+    SocialLoginModule,
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // ),
+    IonicModule.forRoot(), AppRoutingModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              // replace this with your google client id
+              '838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com'
+            )
+          }
+        ]
+      }
+    },
+    /*AuthGuardService*/], //auth guard / routing guard
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
