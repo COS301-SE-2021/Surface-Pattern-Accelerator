@@ -19,12 +19,11 @@ Our vision is to develop a specialized software package capable of creating patt
 
 ## Documentation
 * :open_book: [Software Requirements Specification](https://www.overleaf.com/read/ncybnhfbfqjn)
-* :open_book: [Architectural Requirements]()
 * :open_book: [Coding Standards](https://www.overleaf.com/read/gcjfyjhhsrhg)
 
 ## Project Management Tools
 
-* :open_book: [GitHub](https://github.com/COS301-SE-2021/Surface-Pattern-Accelerator/projects/1)
+* :open_book: [GitHub](https://github.com/COS301-SE-2021/Surface-Pattern-Accelerator/projects)
 * :bust_in_silhouette: [Discord](https://discord.gg/MEbdacPW)
 * :calendar: [Clickup](https://clickup.up.ac.za/ultra/courses/_140238_1/cl/outline)
 
