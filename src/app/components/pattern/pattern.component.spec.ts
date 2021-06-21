@@ -40,15 +40,4 @@ describe('PatternComponent', () => {
     expect(component.openModal).toHaveBeenCalled();
   });
 
-  /*
-  it('should make sure canvas motif is a svg'), () => {
-    let path = component.setSize(component.spacing, component.rotateNum, component.scaleNum);
-    expect(path).toContain('svg');
-  }
-
-  it('should expect necessary default attributes set'), () => {
-    expect(component.spacing != null && component.scaleNum != null).toBe(true);
-  }
-
-   */
 });

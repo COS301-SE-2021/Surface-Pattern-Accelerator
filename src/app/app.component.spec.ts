@@ -61,8 +61,4 @@ describe('AppComponent', () => {
       expect(elem.src).toBe('../../assets/pattern-preview.png');
     }
   });
-
-
-
-
 });
