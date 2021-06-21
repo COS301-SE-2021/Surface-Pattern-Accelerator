@@ -22,6 +22,7 @@ export class WorkareaComponent implements OnInit {
   {}
   // eslint-disable-next-line @typescript-eslint/member-ordering
   chooseCanvasSymbol(check){
+    this.myFrame = document.getElementById('canvasFrame');//get div of canvas frame
     if(check===true)//square is alright
     {
       check = true;

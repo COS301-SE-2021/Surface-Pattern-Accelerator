@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {  ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { ExportPopoverComponent } from './export-popover.component';
@@ -20,5 +20,15 @@ describe('ExportPopoverComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Test 1: Testing if correct method is called when ok button is clicked', () => {
+    spyOn(component, 'closePopover');
+    let btn1 = fixture.debugElement.nativeElement.querySelector('#ok-btn');
+    btn1.click();
+
+    fixture.whenStable().then(() => {
+      expect(component.closePopover).toHaveBeenCalled();
+    })
   });
 });
