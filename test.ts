@@ -16,8 +16,27 @@ const TOKEN_PATH = 'token.json';
 const port = 3000; // default port to listen
 ////////////////////////////////////////////////////
 
+//classes //////////////////////////////////////////
+
+class authClientObjectWrapper {
+    auth: OAuth2Client;
+    userID: string;
+
+    constructor(auth: OAuth2Client) {
+        this.auth = auth;
+        this.userID = auth._clientId;
+
+    }
+
+}
+
+///////////////////////////////////////////////////
+
 // global variables /////////////////////////////////
 let auth: OAuth2Client;
+
+let authArr = new Array<authClientObjectWrapper>(100);
+
 let globalCredentials: { installed: { client_secret: any; client_id: any; redirect_uris: any; }; };
 ////////////////////////////////////////////////////
 
@@ -142,7 +161,7 @@ app.get('/api/getCollections', (req, res) => {
 
     retOBJ.then((retValue) =>{
         console.log(retValue);
-
+        console.log('Client id is: ' + auth._clientId);
         res.json(retValue);
     })
 })
