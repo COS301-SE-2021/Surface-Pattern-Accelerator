@@ -29,8 +29,9 @@ export class CollectionsServiceService {
 
   getCollections(): Observable< CollectionsInterface>
   {
+    console.log("get collections fired!");
     const getCollectionsURL = this.serverURL + '/api/getCollections';
-    return this.http.get<CollectionsInterface>(getCollectionsURL); //GET request
+    return this.http.get<CollectionsInterface>(getCollectionsURL, {withCredentials: true}); //GET request
   }
 
   /** POST: add a new collection to the server */
