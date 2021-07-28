@@ -1,4 +1,7 @@
-![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Surface-Pattern-Accelerator) ![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FSurface-Pattern-Accelerator.git)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_Surface-Pattern-Accelerator&metric=alert_status)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_Surface-Pattern-Accelerator) ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Surface-Pattern-Accelerator) ![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FSurface-Pattern-Accelerator.git) ![Codecov](https://img.shields.io/codecov/c/github/COS301-SE-2021/Surface-Pattern-Accelerator)
+
+
+
 
 # Surface-Pattern-Accelerator
 
