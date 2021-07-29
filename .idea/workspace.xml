@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Added angular material">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/collection-creator.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +48,17 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="E2E Tests (app)" type="JavaScriptTestRunnerProtractor">
       <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
       <node-interpreter value="project" />
@@ -88,7 +101,7 @@
       <workItem from="1624020006465" duration="2793000" />
       <workItem from="1624080825467" duration="4033000" />
       <workItem from="1624133471744" duration="13277000" />
-      <workItem from="1627559334240" duration="3434000" />
+      <workItem from="1627559334240" duration="11457000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>

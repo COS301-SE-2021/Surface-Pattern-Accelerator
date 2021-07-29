@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionsInterface } from '../../Interfaces/collectionsInterface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
-
-
+import { CollectionThemeComponent } from './collection-theme/collection-theme.component'
+import {NewCollectionComponent} from './new-collection/new-collection.component'
 @Component({
   selector: 'app-collection-creator',
   templateUrl: './collection-creator.component.html',
@@ -22,22 +22,6 @@ export class CollectionCreatorComponent implements OnInit {
   statusCode: string;
 
   constructor(private collectionsService: CollectionsServiceService) { }
-  //this func gets called each time this component gets initialized
-  // getCollections(): void
-  // {
-  //   this.collectionsService.getCollections()                      //this is an asynchronous operation
-  //     .subscribe(collections => this.collections = collections);  //observable
-  // }
-
-  //add a new collection
-  // add(name: string): void {
-  //   name = name.trim();
-  //   if (!name) { return; }
-  //   this.collectionsService.addHero({ name } as Collection)
-  //     .subscribe((collection: Collection) => {
-  //       this.collections.push(collection);
-  //     });
-  // }
 
   ngOnInit(): void
   {
@@ -51,8 +35,6 @@ export class CollectionCreatorComponent implements OnInit {
 
   newCollection(value: string) {
     //this.collectionsService.createNewCollection(value);
-
-
     this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
       .subscribe();
   }
