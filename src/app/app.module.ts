@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
+import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component'
 import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -31,7 +32,8 @@ import { MaterialModule } from './material/material.module';
     PatternComponent,
     AppComponent,
     ImportComponent,
-    LoginComponent
+    LoginComponent,
+    NewCollectionComponent
   ],
   entryComponents: [],
     imports: [
