@@ -6,6 +6,7 @@ import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { LoginComponent } from './components/login/login.component';
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component'
+import { CollectionThemeComponent } from './components/collection-creator/collection-theme/collection-theme.component'
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'pattern', component: PatternComponent},
   { path: 'import', component: ImportComponent },
   { path: 'newCollection', component: NewCollectionComponent },
+  { path: 'collectionTheme', component: CollectionThemeComponent }
 ];
 
 @NgModule({
