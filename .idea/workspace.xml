@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Implemented Unit Tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/material/material.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/material/material.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +33,15 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1tqHoHiuxoTVUwyKZ1AoCxUwAF6" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -119,7 +124,7 @@
       <workItem from="1627370909956" duration="1803000" />
       <workItem from="1627377729115" duration="1207000" />
       <workItem from="1628016923392" duration="5284000" />
-      <workItem from="1628024063106" duration="3347000" />
+      <workItem from="1628024063106" duration="7337000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>
@@ -210,6 +215,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Made Changes to git ignore to fix a possible issue" />
     <MESSAGE value="Implemented server connection, collections now fetched from server" />
     <MESSAGE value="implemented create collection on client side" />

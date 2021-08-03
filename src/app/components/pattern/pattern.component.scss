@@ -109,10 +109,51 @@ and some left padding to change the design of the dropdown content */
 }
 .workArea{
   margin-left: 280px;
-  background-color: aqua;
+  //background-color: aqua;
   width: 800px;
   height: 500px;
-  border-radius: 20px;
-  border: solid black 1px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+}
+.workArea > h3{
+  padding: 10px;
+}
+.widgets{
+  //margin-left: 15px !important;
+  background-color: lightgrey;
+  width: 250px;
+  height: 100vh;
+  top: 58px;
+  position: absolute;
+  right: 0;
+}
+.widgetSide{
+  padding: 20px;
+}
+.Layers{
+  color: black;
+  font-size: small !important;
+}
+.LayerImage{
+  border: solid grey 1px;
+  width: 80px;
+  height: 80px;
+  //background-color: black;
+  margin-top: 10px;
+  margin-left: 2px;
+  display: flex;
+}
+.LayerImage >h5{
+  padding: 30px;
+}
+.layerNumbers{
+  border: solid grey 1px;
+}
+.layerBorder{
+  padding: 5px;
+}
+.modifiers{
+  margin-top: 20px;
+  color: black;
 }
 
