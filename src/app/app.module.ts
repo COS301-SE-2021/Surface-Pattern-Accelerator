@@ -20,7 +20,11 @@ import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "angularx-social-login";
 
-
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -35,12 +39,17 @@ import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "an
     ExportPopoverComponent,
     LoginComponent
   ],
-  entryComponents: [PreviewComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
     SocialLoginModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
