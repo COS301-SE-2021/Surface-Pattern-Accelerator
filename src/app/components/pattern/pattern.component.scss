@@ -91,3 +91,15 @@ and some left padding to change the design of the dropdown content */
 .sideMotif{
   color: black
 }
+.MotifImage{
+  width: 80px;
+  height: 80px;
+  //background-color: black;
+  margin-top: 10px;
+  margin-left: 2px;
+  border: solid black 1px;
+  display: flex;
+}
+.MotifImage >h5{
+  padding: 30px;
+}
