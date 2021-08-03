@@ -66,7 +66,7 @@
 
 /* Main content */
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+  margin-left: 250px; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
   padding: 0 10px;
 }
@@ -103,3 +103,16 @@ and some left padding to change the design of the dropdown content */
 .MotifImage >h5{
   padding: 30px;
 }
+
+.wrapper{
+  display: flex;
+}
+.workArea{
+  margin-left: 280px;
+  background-color: aqua;
+  width: 800px;
+  height: 500px;
+  border-radius: 20px;
+  border: solid black 1px;
+}
+
