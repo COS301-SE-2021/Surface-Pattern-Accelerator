@@ -156,4 +156,17 @@ and some left padding to change the design of the dropdown content */
   margin-top: 20px;
   color: black;
 }
+.patternName{
+  width: 800px;
+  height: 30px;
+  //background-color: black;
+  margin-left: 280px;
+  margin-bottom: 20px;
+  border: solid grey 1px;
+}
+
+.patternName > h3{
+  color: black;
+  text-align: center;
+}
 
