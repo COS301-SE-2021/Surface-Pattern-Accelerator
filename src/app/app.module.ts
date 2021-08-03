@@ -8,7 +8,7 @@ import { CollectionsComponent } from './components/collections/collections.compo
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
@@ -19,8 +19,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "angularx-social-login";
-
-
+import { CanvasColoursComponent } from "./components/canvas-colours/canvas-colours.component";
 
 
 @NgModule({
@@ -33,7 +32,8 @@ import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "an
     ImportComponent,
     PreviewComponent,
     ExportPopoverComponent,
-    LoginComponent
+    LoginComponent,
+    CanvasColoursComponent
   ],
   entryComponents: [PreviewComponent],
   imports: [
