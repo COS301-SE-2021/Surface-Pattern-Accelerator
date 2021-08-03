@@ -7,7 +7,7 @@ import fs from "fs";
 import cors from "cors";
 import { OAuth2Client } from "google-auth-library";
 
-//declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
+// declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
 
 
 
@@ -232,6 +232,14 @@ app.get( "/", ( req, res ) => {
     res.send( "Hello world!" );
 } );
 
+app.get('/api/getSVG', (req, res) => {
+    generatePublicURL(req.session.id)
+        .then(r => {
+            console.log("getSVG fired");
+        });
+    listFiles(req.session.id);
+})
+
 async function generatePublicURL(sessID: string)
 {
     try {
@@ -239,7 +247,7 @@ async function generatePublicURL(sessID: string)
         const auth = tempAccT.auth;
 
         const drive = google.drive({version: 'v3', auth});
-        const fileID = 'dummyID';
+        const fileID = '1a-pgwbymErfJ89M4EkCVX5xI0Nx6Wm_l';
         await drive.permissions.create({
             fileId: fileID,
             requestBody: {
@@ -249,14 +257,39 @@ async function generatePublicURL(sessID: string)
         })
 
         const result = await drive.files.get({
-            fileId: fileID,
+            fileId: '1a-pgwbymErfJ89M4EkCVX5xI0Nx6Wm_l',
             fields: 'webViewLink, webContentLink'
+            // alt: 'media'
+            // fields: 'webViewLink, webContentLink'
         });
         console.log(result.data);
     }
     catch (error){
         console.log(error.message)
     }
+
+}
+
+function listFiles(sessID: string) {
+    const tempAccT = retrieveAccessCredentials(sessID);
+    const auth = tempAccT.auth;
+
+    const drive = google.drive({version: 'v3', auth});
+    drive.files.list({
+        pageSize: 10,
+        fields: 'nextPageToken, files(id, name)',
+    }, (err, res) => {
+        if (err) return console.log('The API returned an error: ' + err);
+        const files = res.data.files;
+        if (files.length) {
+            console.log('Files:');
+            files.map((file) => {
+                console.log(`${file.name} (${file.id})`);
+            });
+        } else {
+            console.log('No files found.');
+        }
+    });
 }
 
 // start the Express server
