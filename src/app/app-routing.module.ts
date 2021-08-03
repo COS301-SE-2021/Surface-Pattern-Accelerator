@@ -6,8 +6,9 @@ import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { WorkareaComponent} from './components/workarea/workarea.component';
 import { CollorPalletComponent } from './components/collor-pallet/collor-pallet.component';
-import { LoginComponent } from './components/login/login.component'
-import { LoginResponseComponent} from './components/login-response/login-response.component'
+import { LoginComponent } from './components/login/login.component';
+import { LoginResponseComponent} from './components/login-response/login-response.component';
+import { ColorComponent} from './components/color/color.component';
 
 const routes: Routes = [
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'workarea', component: WorkareaComponent },
   { path: 'colorpallet', component: CollorPalletComponent},
   { path: 'loginResponse', component: LoginResponseComponent },
+  { path: 'color', component: ColorComponent},
 ];
 
 @NgModule({
