@@ -7,7 +7,7 @@
 <!--<img src="../../assets/pattern-preview.png" alt="Pattern Preview">-->
 
 <mat-sidenav-container>
-  <mat-sidenav opened mode="side" disableClose="true" position="end">
+  <mat-sidenav opened mode="side" disableClose="true" position="end" >
     <div id="preview-heading"> Preview Options </div>
     <div class="preview-inputs">
       <form >
@@ -19,14 +19,21 @@
         <mat-form-field appearance="outline" style="text-align: center;">
           <input  matInput class="inp-box" default="1">
         </mat-form-field> <br>
+
+        <mat-checkbox labelPosition="before" >Show Gridlines</mat-checkbox>
+        <div class="export-btn">
+          <button > Export </button>
+        </div>
+
+
       </form>
 
     </div>
+
+
   </mat-sidenav>
   <mat-sidenav-content>
-
-      <canvas id="myCanvas"></canvas>
-
+    <canvas id="myCanvas"></canvas>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
