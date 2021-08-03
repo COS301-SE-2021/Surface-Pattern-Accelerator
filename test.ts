@@ -7,7 +7,7 @@ import fs from "fs";
 import cors from "cors";
 import { OAuth2Client } from "google-auth-library";
 
-declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
+//declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
 
 
 
@@ -183,10 +183,6 @@ app.post('/api/consumeAccessCode', (req, res) => { // read about express middlew
 
 
 app.get('/api/getCollections', (req, res) => {
-
-
-
-
     const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
     const obj = JSON.parse(collectionsSkeleton);
     const retOBJ = new Promise((success, failure) => {
@@ -235,6 +231,33 @@ app.get('/api/getCollections', (req, res) => {
 app.get( "/", ( req, res ) => {
     res.send( "Hello world!" );
 } );
+
+async function generatePublicURL(sessID: string)
+{
+    try {
+        const tempAccT = retrieveAccessCredentials(sessID);
+        const auth = tempAccT.auth;
+
+        const drive = google.drive({version: 'v3', auth});
+        const fileID = 'dummyID';
+        await drive.permissions.create({
+            fileId: fileID,
+            requestBody: {
+                role: 'reader',
+                type: 'anyone'
+            }
+        })
+
+        const result = await drive.files.get({
+            fileId: fileID,
+            fields: 'webViewLink, webContentLink'
+        });
+        console.log(result.data);
+    }
+    catch (error){
+        console.log(error.message)
+    }
+}
 
 // start the Express server
 app.listen( port, () => {
