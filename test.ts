@@ -233,21 +233,21 @@ app.get( "/", ( req, res ) => {
 } );
 
 app.get('/api/getSVG', (req, res) => {
-    generatePublicURL(req.session.id)
-        .then(r => {
-            console.log("getSVG fired");
-        });
+    // generatePublicURL(req.session.id)
+    //     .then(r => {
+    //         console.log("getSVG fired");
+    //     });
     listFiles(req.session.id);
 })
 
-async function generatePublicURL(sessID: string)
+async function generatePublicURL(sessID: string, fileID: string)
 {
     try {
         const tempAccT = retrieveAccessCredentials(sessID);
         const auth = tempAccT.auth;
 
         const drive = google.drive({version: 'v3', auth});
-        const fileID = '1a-pgwbymErfJ89M4EkCVX5xI0Nx6Wm_l';
+        // const fileID = '1a-pgwbymErfJ89M4EkCVX5xI0Nx6Wm_l';
         await drive.permissions.create({
             fileId: fileID,
             requestBody: {
@@ -257,12 +257,14 @@ async function generatePublicURL(sessID: string)
         })
 
         const result = await drive.files.get({
-            fileId: '1a-pgwbymErfJ89M4EkCVX5xI0Nx6Wm_l',
-            fields: 'webViewLink, webContentLink'
+            fileId: fileID,
+            fields: 'webContentLink'
+            // fields: 'webViewLink, webContentLink'
             // alt: 'media'
             // fields: 'webViewLink, webContentLink'
         });
         console.log(result.data);
+        return result.data;
     }
     catch (error){
         console.log(error.message)
@@ -274,8 +276,13 @@ function listFiles(sessID: string) {
     const tempAccT = retrieveAccessCredentials(sessID);
     const auth = tempAccT.auth;
 
+    const motifSkeleton = '{"motifNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
+    const obj = JSON.parse(motifSkeleton);
+
     const drive = google.drive({version: 'v3', auth});
     drive.files.list({
+        q: "mimeType='image/svg+xml'",
+        spaces: 'drive',
         pageSize: 10,
         fields: 'nextPageToken, files(id, name)',
     }, (err, res) => {
@@ -285,7 +292,14 @@ function listFiles(sessID: string) {
             console.log('Files:');
             files.map((file) => {
                 console.log(`${file.name} (${file.id})`);
+                const motifLink = generatePublicURL(sessID, file.id)
+                    .then(r => {
+                        console.log("getSVG fired");
+                    })
+                console.log("Link is: " + motifLink);
+                obj.motifNames.push(motifLink)
             });
+            console.log(obj);
         } else {
             console.log('No files found.');
         }
