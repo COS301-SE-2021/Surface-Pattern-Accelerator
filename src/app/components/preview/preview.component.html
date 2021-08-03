@@ -20,7 +20,7 @@
           <input  matInput class="inp-box" default="1">
         </mat-form-field> <br>
 
-        <mat-checkbox labelPosition="before" >Show Gridlines</mat-checkbox>
+        <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
         <div class="export-btn">
           <button > Export </button>
         </div>
