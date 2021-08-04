@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Konva from 'konva';
 
 @Component({
   selector: 'app-workarea',
@@ -15,11 +16,53 @@ export class WorkareaComponent implements OnInit {
   check = false;
   canvasData = document.getElementById('myCanvas');
   myFrame = document.getElementById('canvasFrame');//get div of canvas frame
+  stage!: Konva.Stage;
+  layer!: Konva.Layer;
   constructor() {
   }
 
-  ngOnInit()
-  {}
+  ngOnInit() {
+    document.addEventListener('change', ()=>{
+
+    });
+    const w = window.innerWidth * 0.9;
+    const h = window.innerHeight;
+    this.stage = new Konva.Stage({
+      container: 'container',
+      width: w,
+      height: h
+    });
+    this.layer = new Konva.Layer();
+
+    const rectX = this.stage.width() / 2 - 50;
+    const rectY = this.stage.height() / 2 - 25;
+
+    const box = new Konva.Rect({
+      x: rectX,
+      y: rectY,
+      width: 100,
+      height: 50,
+      fill: '#00D2FF',
+      stroke: 'black',
+      strokeWidth: 4,
+      draggable: true,
+    });
+
+    // add cursor styling
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    box.on('mouseover', function() {
+      document.body.style.cursor = 'pointer';
+    });
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    box.on('mouseout', function() {
+      document.body.style.cursor = 'default';
+    });
+    this.layer.add(box);
+    this.stage.add(this.layer);
+    //this.addLineListeners();
+
+
+  }
   // eslint-disable-next-line @typescript-eslint/member-ordering
   chooseCanvasSymbol(check){
     this.myFrame = document.getElementById('canvasFrame');//get div of canvas frame
