@@ -9,6 +9,7 @@ import { CollorPalletComponent } from './components/collor-pallet/collor-pallet.
 import { LoginComponent } from './components/login/login.component';
 import { LoginResponseComponent} from './components/login-response/login-response.component';
 import { ColorComponent} from './components/color/color.component';
+import { TabsPageComponent } from './components/tabs-page/tabs-page.component';
 
 const routes: Routes = [
 
@@ -16,12 +17,13 @@ const routes: Routes = [
   { path: '',    redirectTo: 'login',    pathMatch: 'full'  },
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
+  { path: 'colorpallet', component: CollorPalletComponent},
   { path: 'pattern', component: PatternComponent},
   { path: 'import', component: ImportComponent },
   { path: 'workarea', component: WorkareaComponent },
-  { path: 'colorpallet', component: CollorPalletComponent},
   { path: 'loginResponse', component: LoginResponseComponent },
   { path: 'color', component: ColorComponent},
+  { path: 'tabs', component: TabsPageComponent}
 ];
 
 @NgModule({
