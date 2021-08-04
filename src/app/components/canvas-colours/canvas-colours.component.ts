@@ -19,6 +19,11 @@ export class CanvasColoursComponent implements OnInit {
     const canvas = <HTMLCanvasElement> document.getElementById('canvas');
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
 
+    let img = new Image();
+    img.src="../assets/shapes.svg";
+    img.onload = () =>{
+      ctx.drawImage(img,0,0);
+    }
   }
 
 
