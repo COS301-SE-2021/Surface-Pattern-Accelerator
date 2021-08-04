@@ -60,10 +60,13 @@ export class CanvasColoursComponent implements OnInit {
     for (i =0; i < keys.length; i++){
       console.log("in loop");
 
-
+      if(!used.includes(this.colourList[keys[i]])){
+        if(prev != keys[i].charAt(1)){
           used.push(this.colourList[keys[i]]);
           this.htmlToAdd += "<li>" + keys[i] + ": " + this.colourList[keys[i]] + "</li>";
           prev = keys[i].charAt(1);
+        }
+      }
     }
   }
 
