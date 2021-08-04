@@ -47,6 +47,9 @@ export class CanvasColoursComponent implements OnInit {
         this.colourList[hex]++;
       }
     }
+    // keys are the elements are strings corresponding to the enumerable properties found directly upon object
+    let keys = Object.keys(this.colourList);
+
   }
 
   rgbToHex(str: string){
