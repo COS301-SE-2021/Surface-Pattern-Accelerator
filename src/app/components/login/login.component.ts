@@ -11,13 +11,10 @@ export class LoginComponent implements OnInit {
   email?: string;
   password?: string;
 
-  /*
-  This public variable is to prevent the tab bar
-  from appearing in the login screen
-   */
-  public currentUrl: string;
-
   constructor(private loginService: LoginService) {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    const tabBar: any = <HTMLElement>document.getElementById('tab-bar1');
+    tabBar.style.hidden = true;
   }
 
   ngOnInit() {}
@@ -26,7 +23,5 @@ export class LoginComponent implements OnInit {
     this.loginService.loginWithGoogle();
   }
 
-  loginWithGoogle() {
-
-  }
+  loginWithGoogle() {}
 }
