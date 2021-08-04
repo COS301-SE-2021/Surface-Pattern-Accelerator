@@ -27,6 +27,15 @@ export class CanvasColoursComponent implements OnInit {
     }
   }
 
+  canvasColour(){
+    const canvas = <HTMLCanvasElement> document.getElementById('canvas');
+    const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
+    let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
+    const data = imageData.data;
+    let i,n;
+
+
+  }
 
 
 
