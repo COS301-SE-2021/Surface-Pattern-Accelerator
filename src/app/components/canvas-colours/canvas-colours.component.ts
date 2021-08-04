@@ -34,6 +34,12 @@ export class CanvasColoursComponent implements OnInit {
     const data = imageData.data;
     let i,n;
 
+    for(i = 0, n = data.length; i < n; i += 4){
+      let r  = data[i];
+      let g  = data[i + 1];
+      let b  = data[i + 2];
+      let hex = this.rgbToHex("rgb("+r+","+g+","+b+")");
+    }
   }
 
   rgbToHex(str: string){
