@@ -7,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CanvasColoursComponent implements OnInit {
 
+  colourList = [];
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+
+
 
 }
+
