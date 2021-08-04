@@ -36,7 +36,6 @@ export class WorkareaComponent implements OnInit {
 
     const rectX = this.stage.width() / 2 - 50;
     const rectY = this.stage.height() / 2 - 50;
-
     const box = new Konva.Rect({
       x: rectX,
       y: rectY,
@@ -48,15 +47,23 @@ export class WorkareaComponent implements OnInit {
       draggable: true,
       // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       dragBoundFunc(pos) {
-        const newY1 = pos.y < 0 ? 0 : pos.y;
-        const newX1 = pos.x < 0 ? 0 : pos.x;
+        let X = pos.x;
+        let Y = pos.y;
+        const minX = 0;
+        const minY = 0;
+        const maxX = 400;
+        const maxY = 400;
+        if(X < minX) {X = minX;}
+        if(X > maxX) {X = maxX;}
+        if(Y < minY) {Y = minY;}
+        if(Y > maxY) {Y = maxY;}
         return {
-          x: newX1,
-          y: newY1,
+          x: X,
+          y: Y,
         };
       },
     });
-
+//this.absolutePosition().y,
     // add cursor styling
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     box.on('mouseover', function() {
