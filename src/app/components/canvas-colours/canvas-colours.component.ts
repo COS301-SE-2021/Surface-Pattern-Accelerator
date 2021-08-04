@@ -39,6 +39,13 @@ export class CanvasColoursComponent implements OnInit {
       let g  = data[i + 1];
       let b  = data[i + 2];
       let hex = this.rgbToHex("rgb("+r+","+g+","+b+")");
+
+      if (!(hex in this.colourList)){
+        this.colourList[hex] = 1;
+      }
+      else {
+        this.colourList[hex]++;
+      }
     }
   }
 
