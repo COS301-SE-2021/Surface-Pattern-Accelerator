@@ -19,6 +19,9 @@ const googleapis_1 = require("googleapis");
 const body_parser_1 = __importDefault(require("body-parser"));
 const fs_1 = __importDefault(require("fs"));
 const cors_1 = __importDefault(require("cors"));
+const GoogleApiFunctions_1 = require("./GoogleApiFunctions");
+const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+gAPI.printSomething();
 // declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
 ////////////////////////////////////////////////////
 // Constants ////////////////////////////////////////

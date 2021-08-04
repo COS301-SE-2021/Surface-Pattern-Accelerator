@@ -7,6 +7,11 @@ import fs from "fs";
 import cors from "cors";
 import { OAuth2Client } from "google-auth-library";
 
+import {GoogleApiFunctions} from './GoogleApiFunctions';
+
+const gAPI = new GoogleApiFunctions();
+gAPI.printSomething();
+
 // declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
 
 
