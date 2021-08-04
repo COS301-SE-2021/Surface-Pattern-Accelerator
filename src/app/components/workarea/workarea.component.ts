@@ -22,11 +22,11 @@ export class WorkareaComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.addEventListener('change', ()=>{
+    //document.addEventListener('change', ()=>{
 
-    });
-    const w = window.innerWidth * 0.9;
-    const h = window.innerHeight;
+    //});
+    const w = this.width;
+    const h = this.height;
     this.stage = new Konva.Stage({
       container: 'container',
       width: w,
@@ -35,17 +35,26 @@ export class WorkareaComponent implements OnInit {
     this.layer = new Konva.Layer();
 
     const rectX = this.stage.width() / 2 - 50;
-    const rectY = this.stage.height() / 2 - 25;
+    const rectY = this.stage.height() / 2 - 50;
 
     const box = new Konva.Rect({
       x: rectX,
       y: rectY,
       width: 100,
-      height: 50,
+      height: 100,
       fill: '#00D2FF',
       stroke: 'black',
       strokeWidth: 4,
       draggable: true,
+      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+      dragBoundFunc(pos) {
+        const newY1 = pos.y < 0 ? 0 : pos.y;
+        const newX1 = pos.x < 0 ? 0 : pos.x;
+        return {
+          x: newX1,
+          y: newY1,
+        };
+      },
     });
 
     // add cursor styling
