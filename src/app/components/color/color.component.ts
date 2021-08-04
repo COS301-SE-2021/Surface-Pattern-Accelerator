@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./color.component.scss'],
 })
 export class ColorComponent implements OnInit {
+  svgName: any;
+  patternName: any;
 
   constructor() { }
 
