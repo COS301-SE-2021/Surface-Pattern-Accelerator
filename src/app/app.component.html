@@ -1,7 +1,7 @@
 <!--
 Navigation for the different tabs.
 -->
-<ion-tabs>
+<ion-tabs [class]="'url' + currentUrl">
   <ion-tab-bar slot="top" class="top-nav">
     <ion-button size="small" fill="clear" color="dark">
       <ion-label>File</ion-label>
@@ -40,8 +40,13 @@ Navigation for the different tabs.
     </ion-tab-button>
 
     <ion-tab-button tab="color" layout="icon-end">
-      <ion-icon name="color-palette-outline"></ion-icon>
+      <ion-icon name="star-half-outline"></ion-icon>
       <ion-label>Color Editor</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="colorpallet" layout="icon-end">
+      <ion-icon name="color-palette-outline"></ion-icon>
+      <ion-label>Color Scheme</ion-label>
     </ion-tab-button>
 
   <ion-tab-button tab="geometry" layout="icon-end">

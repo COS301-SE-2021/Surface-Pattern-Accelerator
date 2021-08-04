@@ -24,3 +24,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-tabs {
+  &.url-home-tournaments-main-play,
+  &.url-home-tournaments-main-play-score {
+    ion-tab-bar {
+      display: none;
+    }
+  }
+}
