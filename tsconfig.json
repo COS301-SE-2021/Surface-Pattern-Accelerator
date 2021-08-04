@@ -16,6 +16,7 @@
   },
   "include": [
     "test.ts",
-    "GoogleApiFunctions.ts"
+    "GoogleApiFunctions.ts",
+    "AuthClientObjectWrapper.ts"
   ]
 }

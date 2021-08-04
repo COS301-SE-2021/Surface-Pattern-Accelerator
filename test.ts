@@ -8,9 +8,9 @@ import cors from "cors";
 import { OAuth2Client } from "google-auth-library";
 
 import {GoogleApiFunctions} from './GoogleApiFunctions';
+import {AuthClientObjectWrapper} from './AuthClientObjectWrapper'
 
-const gAPI = new GoogleApiFunctions();
-gAPI.printSomething();
+
 
 // declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
 
@@ -26,17 +26,17 @@ const port = 3000; // default port to listen
 
 // classes //////////////////////////////////////////
 
-class AuthClientObjectWrapper {
-    auth: OAuth2Client;
-    sessionID: string;
-
-    constructor(authCred: OAuth2Client, sessID: string) {
-        this.auth = authCred;
-        this.sessionID = sessID;
-
-    }
-
-}
+// class AuthClientObjectWrapper {
+//     auth: OAuth2Client;
+//     sessionID: string;
+//
+//     constructor(authCred: OAuth2Client, sessID: string) {
+//         this.auth = authCred;
+//         this.sessionID = sessID;
+//
+//     }
+//
+// }
 
 ///////////////////////////////////////////////////
 
@@ -70,52 +70,52 @@ app.use(bodyParser.json()); // parse request body for when its a JSON file
 ////////////////////////////////////////////////////////////////////////
 
 // functions ///////////////////////////////////
-function storeAccessCredentials(tempAccessCredentials: AuthClientObjectWrapper)
-{
-    console.log("Store ID is: " + tempAccessCredentials.sessionID);
-    for(const accCred of authArr)
-    {
-        if (accCred !== undefined)
-        {
-            if (accCred.sessionID === tempAccessCredentials.sessionID)
-            {
-                console.log("Access Credentials already stored");
-                return;
-            }
-        }
-    }
-
-    for(let i = 0; i < authArr.length; i++)
-    {
-        if (authArr[i] === undefined)
-        {
-            authArr[i] = tempAccessCredentials;
-            console.log("Access Credentials stored successfully");
-            return;
-        }
-    }
-    // if the code gets here the array is full.
-    // prune every now and then
-}
-
-function retrieveAccessCredentials(sessID: string)
-{
-
-    console.log("fetch ID is: " + sessID);
-    for(const accCred of authArr)
-    {
-        if (accCred !== undefined)
-        {
-            if (accCred.sessionID === sessID)
-            {
-                console.log("Credentials returned successfully");
-                return accCred;
-            }
-        }
-    }
-    console.log("Credentials unsuccessfully fetched");
-    // if the code gets here then the access credentials is not in the array
-}
+// function storeAccessCredentials(tempAccessCredentials: AuthClientObjectWrapper)
+// {
+//     console.log("Store ID is: " + tempAccessCredentials.sessionID);
+//     for(const accCred of authArr)
+//     {
+//         if (accCred !== undefined)
+//         {
+//             if (accCred.sessionID === tempAccessCredentials.sessionID)
+//             {
+//                 console.log("Access Credentials already stored");
+//                 return;
+//             }
+//         }
+//     }
+//
+//     for(let i = 0; i < authArr.length; i++)
+//     {
+//         if (authArr[i] === undefined)
+//         {
+//             authArr[i] = tempAccessCredentials;
+//             console.log("Access Credentials stored successfully");
+//             return;
+//         }
+//     }
+//     // if the code gets here the array is full.
+//     // prune every now and then
+// }
+//
+// function retrieveAccessCredentials(sessID: string)
+// {
+//
+//     console.log("fetch ID is: " + sessID);
+//     for(const accCred of authArr)
+//     {
+//         if (accCred !== undefined)
+//         {
+//             if (accCred.sessionID === sessID)
+//             {
+//                 console.log("Credentials returned successfully");
+//                 return accCred;
+//             }
+//         }
+//     }
+//     console.log("Credentials unsuccessfully fetched");
+//     // if the code gets here then the access credentials is not in the array
+// }
 
 
 function loadCredentials()
@@ -175,7 +175,8 @@ app.post('/api/consumeAccessCode', (req, res) => { // read about express middlew
         });
 
         // auth = oAuth2Client;
-        storeAccessCredentials(new AuthClientObjectWrapper(oAuth2Client, req.session.id)); // Stores access credentials in array
+        const gAPI = new GoogleApiFunctions(req.session.id);
+        gAPI.storeAccessCredentials(new AuthClientObjectWrapper(oAuth2Client, req.session.id), authArr); // Stores access credentials in array
 
         req.session.save(); // use this if res.send is not used. Normally a session is saved on res.send
 
@@ -191,7 +192,8 @@ app.get('/api/getCollections', (req, res) => {
     const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
     const obj = JSON.parse(collectionsSkeleton);
     const retOBJ = new Promise((success, failure) => {
-        const tempAccT = retrieveAccessCredentials(req.session.id);
+        const gAPI = new GoogleApiFunctions(req.session.id);
+        const tempAccT = gAPI.retrieveAccessCredentials(authArr);
         const auth = tempAccT.auth;
 
         const drive = google.drive({version: 'v3', auth});
@@ -248,7 +250,8 @@ app.get('/api/getSVG', (req, res) => {
 async function generatePublicURL(sessID: string, fileID: string)
 {
     try {
-        const tempAccT = retrieveAccessCredentials(sessID);
+        const gAPI = new GoogleApiFunctions(sessID);
+        const tempAccT = gAPI.retrieveAccessCredentials(authArr);
         const auth = tempAccT.auth;
 
         const drive = google.drive({version: 'v3', auth});
@@ -278,7 +281,8 @@ async function generatePublicURL(sessID: string, fileID: string)
 }
 
 function listFiles(sessID: string) {
-    const tempAccT = retrieveAccessCredentials(sessID);
+    const gAPI = new GoogleApiFunctions(sessID);
+    const tempAccT = gAPI.retrieveAccessCredentials(authArr);
     const auth = tempAccT.auth;
 
     const motifSkeleton = '{"motifNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
