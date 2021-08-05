@@ -121,6 +121,7 @@ export class WorkareaComponent implements OnInit {
     }
   }
 generateMotif(){
+    //simple cloning of layer and adding it to stage
   const rectX = this.stage.width() / 2 - 50;
   const rectY = this.stage.height() / 2 - 50;
   const box = new Konva.Rect({
