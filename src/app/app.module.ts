@@ -11,7 +11,7 @@ import { NewCollectionComponent } from './components/collection-creator/new-coll
 import { CollectionThemeComponent } from './components/collection-creator/collection-theme/collection-theme.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
@@ -23,6 +23,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "angularx-social-login";
+import { CanvasColoursComponent } from "./components/canvas-colours/canvas-colours.component";
 
 
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -45,6 +46,7 @@ import { MaterialModule } from './material/material.module';
     PreviewComponent,
     ExportPopoverComponent,
     LoginComponent,
+    CanvasColoursComponent,
     NewCollectionComponent,
     CollectionThemeComponent,
     NavbarComponent
