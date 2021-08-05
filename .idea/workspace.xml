@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5aee9902-cc09-4b6a-92fe-e50afdfe3b58" name="Default Changelist" comment="Added angular material">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/navbar/navbar.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +91,7 @@
       <workItem from="1627559334240" duration="12344000" />
       <workItem from="1628165403189" duration="1454000" />
       <workItem from="1628167087528" duration="56000" />
-      <workItem from="1628169105547" duration="4180000" />
+      <workItem from="1628169105547" duration="4502000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>
