@@ -6,7 +6,12 @@ import Konva from 'konva';
   styleUrls: ['./preview.component.scss'],
 })
 export class PreviewComponent implements OnInit {
-
+  public theContainer = document.querySelectorAll("#can");
+  stage! :  Konva.Stage;
+  stage1!: Konva.Stage;
+  layerr!:Konva.Layer;
+  layer1!:Konva.Layer;
+  layer2!:Konva.Layer;
   constructor() { }
 
   ngOnInit() {}
