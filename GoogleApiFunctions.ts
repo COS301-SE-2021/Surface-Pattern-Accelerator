@@ -169,8 +169,9 @@ export class GoogleApiFunctions {
                         // obj.motifNames.push(file.id);
                         motifDetails.motifNames.push(motifContainer);
                     });
+                    console.log(motifDetails);
                     resolve(motifDetails);
-                    // console.log(motifDetails);
+
                 } else {
                     reject({text: "something went wrong with fetching motifs"});
                     console.log('No files found.');
@@ -179,36 +180,70 @@ export class GoogleApiFunctions {
         })
     }
 
-    setPermissions(authArr: AuthClientObjectWrapper[], motifDetails: any)
+    setPermissions(authArr: AuthClientObjectWrapper[], motifContainer: any)
     {
+        // const promiseArr: Promise<any>[] = [];
+
+        const gAPI = new GoogleApiFunctions(this.userSessionID);
+        const tempAccT = gAPI.retrieveAccessCredentials(authArr);
+        const auth = tempAccT.auth;
+
+        // let test;
         try {
-            // console.log(motifDetails);
-            for(const elem in motifDetails.motifNames)
-            {
-                if (elem){
-                    console.log(motifDetails.motifNames[elem]);
+
+            console.log("the motif ID is: " + motifContainer.motifID);
+            const drive = google.drive({version: 'v3', auth});
+            return drive.permissions.create({
+                fileId: motifContainer.motifID,
+                requestBody: {
+                    role: 'reader',
+                    type: 'anyone'
                 }
-
-            }
-
-
-
-            // const gAPI = new GoogleApiFunctions(this.userSessionID);
-            // const tempAccT = gAPI.retrieveAccessCredentials(authArr);
-            // const auth = tempAccT.auth;
-            //
-            // const drive = google.drive({version: 'v3', auth});
-            // await drive.permissions.create({
-            //     fileId: fileID,
-            //     requestBody: {
-            //         role: 'reader',
-            //         type: 'anyone'
-            //     }
-            // })
-        }
-        catch (error){
+            }).then(permissionSuccess => {
+                console.log(permissionSuccess)
+            }).catch(permissionFailure => {
+                console.log(permissionFailure)
+            })
+            // console.log("the test is: " + test)
+        } catch (error) {
             console.log(error.message)
+
         }
+    }
+
+    getPublicURLs(authArr: AuthClientObjectWrapper[], motifDetails: any)
+    {
+        const permissionPromiseArray: Promise<any>[] = []
+        for(const elem in motifDetails.motifNames)
+        {
+            if (elem)
+            {
+                const permissionPromise = this.setPermissions(authArr, motifDetails.motifNames[elem]);
+                permissionPromiseArray.push(permissionPromise);
+                console.log(motifDetails.motifNames[elem]);
+                // const motifPermissionPromise = new Promise((resolve, reject) => {
+                //     try
+                //     {
+                //         const drive = google.drive({version: 'v3', auth});
+                //         drive.permissions.create({
+                //             fileId: motifDetails.motifNames[elem].motifID,
+                //             requestBody: {
+                //                 role: 'reader',
+                //                 type: 'anyone'
+                //             }
+                //         })
+                //         console.log(motifDetails.motifNames[elem]);
+                //         promiseArr.push(motifPermissionPromise);
+                //         resolve(motifDetails.motifNames[elem]);
+                //     }
+                //     catch (error) {
+                //         console.log(error.message)
+                //         reject({text: "{}"});
+                //     }
+                // })
+            }
+        }
+        console.log(permissionPromiseArray);
     }
 
 

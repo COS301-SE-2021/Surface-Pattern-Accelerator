@@ -128,7 +128,7 @@ app.get('/api/getMotifs', (req, res) => {
     const gAPI = new GoogleApiFunctions(req.session.id);
     gAPI.listMotifs(authArr).then(motifsJson => {
         console.log(motifsJson);
-        gAPI.setPermissions(authArr, motifsJson);
+        gAPI.getPublicURLs(authArr, motifsJson);
     });
 })
 
