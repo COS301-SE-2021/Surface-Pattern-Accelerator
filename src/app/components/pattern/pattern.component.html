@@ -27,11 +27,16 @@
         </div>
 
         <div *ngIf="motifs">
-          <div *ngFor="let motif of motifs.motifDetails" class="MotifImage">
+          <button *ngFor="let motif of motifs.motifDetails" class="MotifImage" mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
             <img src= {{motif.motifLink}}> <!-- does resolve, ignore warning -->
             <h5> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
-          </div>
+          </button>
         </div>
+
+        <div class = "row">
+          <button mat-raised-button (click)='spawnMotif(); '>Spawn Motif</button>
+        </div>
+
       </div>
 
     </div>

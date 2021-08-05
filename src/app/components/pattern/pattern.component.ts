@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MotifServiceService } from '../../services/motif-service.service';
 import Konva from "konva";
+import { Group } from 'konva/lib/Group';
+import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
 
 @Component({
@@ -31,21 +33,21 @@ export class PatternComponent implements OnInit {
     this.stage.add(this.layer);
     //this.addLineListeners();
 
-    const path = new Konva.Path({
-      x: 0,
-      y: 0,
-      data:
-        'M0 0h24v24H0V0z',
-      fill: 'green',
-      scale: {
-        x: 10,
-        y: 10,
-      },
-      draggable: true
-    });
-
-    // add the shape to the layer
-    this.layer.add(path);
+    // const path = new Konva.Path({
+    //   x: 0,
+    //   y: 0,
+    //   data:
+    //     'M0 0h24v24H0V0z',
+    //   fill: 'green',
+    //   scale: {
+    //     x: 10,
+    //     y: 10,
+    //   },
+    //   draggable: true
+    // });
+    //
+    // // add the shape to the layer
+    // this.layer.add(path);
   }
 
   getMotifs(): void
@@ -56,6 +58,37 @@ export class PatternComponent implements OnInit {
 
         this.motifs = motifs
         console.log(motifs)
+      });
+  }
+
+  spawnMotif()
+  {
+    const path2 = new Konva.Path({
+      x: 0,
+      y: 0,
+      data:
+        '"M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z',
+      fill: 'red',
+      scale: {
+        x: 2,
+        y: 2,
+
+      },
+      draggable: true
+    });
+
+    this.layer.add(path2);
+  }
+
+  spawnMotifWithURL(motifURL: string)
+  {
+    Konva.Image.fromURL(motifURL,
+      (image: Group | Shape<ShapeConfig>) => {
+        image.x(100);
+
+        image.scale();
+        image.draggable(true);
+        this.layer.add(image);
       });
   }
 
