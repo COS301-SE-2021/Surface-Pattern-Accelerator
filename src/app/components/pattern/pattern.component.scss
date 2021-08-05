@@ -25,7 +25,7 @@
 /* Fixed sidenav, full height */
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 250px;
   position: fixed;
   top: 58px;
   left: 0;
@@ -33,6 +33,11 @@
   //overflow-x: hidden;
   overflow: hidden;
   padding-top: 20px;
+
+}
+
+.bg-primary{
+  background-color: lightgrey !important;
 }
 
 /* Style the sidenav links and the dropdown button */
@@ -61,7 +66,7 @@
 
 /* Main content */
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+  margin-left: 250px; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
   padding: 0 10px;
 }
@@ -83,3 +88,85 @@ and some left padding to change the design of the dropdown content */
 .dropdown-content a:hover {
   display: block;
 }
+.sideMotif{
+  color: black
+}
+.MotifImage{
+  width: 80px;
+  height: 80px;
+  //background-color: black;
+  margin-top: 10px;
+  margin-left: 2px;
+  border: solid black 1px;
+  display: flex;
+}
+.MotifImage >h5{
+  padding: 30px;
+}
+
+.wrapper{
+  display: flex;
+}
+.workArea{
+  margin-left: 280px;
+  //background-color: aqua;
+  width: 800px;
+  height: 500px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+}
+.workArea > h3{
+  padding: 10px;
+}
+.widgets{
+  //margin-left: 15px !important;
+  background-color: lightgrey;
+  width: 250px;
+  height: 100vh;
+  top: 58px;
+  position: absolute;
+  right: 0;
+}
+.widgetSide{
+  padding: 20px;
+}
+.Layers{
+  color: black;
+  font-size: small !important;
+}
+.LayerImage{
+  border: solid grey 1px;
+  width: 80px;
+  height: 80px;
+  //background-color: black;
+  margin-top: 10px;
+  margin-left: 2px;
+  display: flex;
+}
+.LayerImage >h5{
+  padding: 30px;
+}
+.layerNumbers{
+  border: solid grey 1px;
+}
+.layerBorder{
+  padding: 5px;
+}
+.modifiers{
+  margin-top: 20px;
+  color: black;
+}
+.patternName{
+  width: 800px;
+  height: 30px;
+  //background-color: black;
+  margin-left: 280px;
+  margin-bottom: 20px;
+  border: solid grey 1px;
+}
+
+.patternName > h3{
+  color: black;
+  text-align: center;
+}
+

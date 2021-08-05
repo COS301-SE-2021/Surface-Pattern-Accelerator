@@ -1,35 +1,95 @@
-<!--
-<title>{{title}}</title>
--->
+<app-navbar></app-navbar>
+<div class="wrapper">
+    <div class="sidenav bg-primary">
+      <div class="sideMotif">
+        <h1 style="text-align:center" >Motif Library</h1>
+        <div>
+          <h5 style="padding:5px">Import new Motif</h5>
+    <!--      <mat-icon>cloud_download</mat-icon>-->
+          <mat-divider style="color: black"></mat-divider>
+        </div>
 
-<!-- <div class="wrapper"> -->
-<div class="sidenav bg-primary">
-  <button class="dropdown-btn">CHOOSE PATTERN</button>
-  <button class="dropdown-btn">TILING</button>
-  <button class="dropdown-btn" >COLORS
-    <ion-icon name="caret-down-outline"></ion-icon>
-  </button>
-  <div class="dropdown-container" id="myDropdown">
-    <a href="">Link 1</a>
-    <a href="">Link 2</a>
-    <a href="">Link 3</a>
-  </div>
-  <button class="dropdown-btn">CUSTOMIZE</button>
-  <button class="dropdown-btn">FILTERS</button>
-  <button class="dropdown-btn">CANVAS SIZE</button>
-  <button class="dropdown-btn" id="download-btn">DOWNLOAD PATTERN</button>
-  <button class="dropdown-btn" id="preview-btn" (click)="openModal()">PREVIEW PATTERN</button>
-</div>
+        <div>
+          <h5 style="padding:5px">Append motif to project</h5>
+          <mat-divider style="color: black; font-weight: bold; cursor: pointer"></mat-divider>
+        </div>
 
-  <div class="main_content main">
-    <div class="info">
-      <div>
-        <canvas id="myCanvas" width="1000" height="500">
-          Your browser does not support the HTML canvas tag.</canvas>
+        <div>
+          <mat-form-field floatLabel="never">
+            <input matInput placeholder="Search for motif">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <div class="MotifImage">
+            <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
+            <h5> Trees 1 </h5>
+          </div>
+        </div>
+
+        <div *ngIf="motifs">
+          <button *ngFor="let motif of motifs.motifDetails" class="MotifImage" mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+            <img src= {{motif.motifLink}}> <!-- does resolve, ignore warning -->
+            <h5> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
+          </button>
+        </div>
+
+        <div class = "row">
+          <button mat-raised-button (click)='spawnMotif(); '>Spawn Motif</button>
+        </div>
+
       </div>
-      Change spacing<input type="number" id="name" name="name" [defaultValue]="18">
-      Rotate pattern: <input type="number"  step="0.001" value="0.000" id="rotate" name="rotate" [defaultValue]="0.000">
-      Scale pattern: <input type="number" step="0.01" value="0.00" id="scale" name="scale" [defaultValue]="0.7">
+
     </div>
-  </div>
+
+    <div class="mainContent">
+      <div class="patternName">
+        <h3>Pattern X</h3>
+      </div>
+      <div class="workArea" id="container">
+          <h3>Work space</h3>
+      </div>
+    </div>
+
+ </div>
+
+ <div class="widgets">
+   <div class="widgetSide">
+     <div class="Layers">
+       <h1 style="text-align:center" >Layers</h1>
+       <div>
+         <h5 style="padding:5px">New Layer</h5>
+         <mat-divider style="color: black; padding: 5px;"></mat-divider>
+       </div>
+       <div class="layerNumbers">
+         <div class="layerBorder">
+           <h6>Layer 1</h6>
+           <div class="LayerImage">
+             <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
+             <h5> Trees </h5>
+           </div>
+         </div>
+       </div>
+
+     </div>
+
+     <div class="modifiers">
+       <h1 style="text-align:center" >Modifiers</h1>
+       <div>
+         <h5 style="padding:5px">New Layer</h5>
+         <mat-divider style="color: black; padding: 5px;"></mat-divider>
+       </div>
+       <div class="layerNumbers">
+         <div class="layerBorder">
+           <h6>Layer 1</h6>
+           <div class="LayerImage">
+             <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
+             <h5> Trees </h5>
+           </div>
+         </div>
+       </div>
+
+     </div>
+   </div>
+ </div>
 

@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Implemented Unit Tests">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/collections-service.service.ts" afterDir="false" />
+    <list default="true" id="5aee9902-cc09-4b6a-92fe-e50afdfe3b58" name="Default Changelist" comment="Added angular material">
+      <change beforePath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/pattern/pattern.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerSettings">
-    <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -21,16 +17,10 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
   <component name="ProjectId" id="1tqHoHiuxoTVUwyKZ1AoCxUwAF6" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,15 +31,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.22.1" />
-    <property name="javascript.nodejs.core.library.typings.version" value="12.20.15" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -82,7 +71,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="" />
+      <changelist id="5aee9902-cc09-4b6a-92fe-e50afdfe3b58" name="Default Changelist" comment="Added angular material" />
       <created>1623489875250</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -94,18 +83,14 @@
       <workItem from="1623595985249" duration="1491000" />
       <workItem from="1623658174225" duration="676000" />
       <workItem from="1623663887842" duration="7668000" />
-      <workItem from="1623915845158" duration="15196000" />
-      <workItem from="1624000633592" duration="9066000" />
-      <workItem from="1624024521658" duration="3048000" />
-      <workItem from="1624032564637" duration="610000" />
-      <workItem from="1624103547195" duration="3346000" />
-      <workItem from="1625485147570" duration="248000" />
-      <workItem from="1625485409415" duration="276000" />
-      <workItem from="1625485780449" duration="601000" />
-      <workItem from="1625486527004" duration="1199000" />
-      <workItem from="1627306857804" duration="615000" />
-      <workItem from="1627370909956" duration="1803000" />
-      <workItem from="1627377729115" duration="1207000" />
+      <workItem from="1623915845158" duration="10881000" />
+      <workItem from="1623959892748" duration="4716000" />
+      <workItem from="1624020006465" duration="2793000" />
+      <workItem from="1624080825467" duration="4033000" />
+      <workItem from="1624133471744" duration="13277000" />
+      <workItem from="1627559334240" duration="12344000" />
+      <workItem from="1628165403189" duration="1454000" />
+      <workItem from="1628167087528" duration="56000" />
     </task>
     <task id="LOCAL-00001" summary="Made Changes to git ignore to fix a possible issue">
       <created>1623490453140</created>
@@ -156,28 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623927804109</updated>
     </task>
-    <task id="LOCAL-00008" summary="Google sign in popup">
-      <created>1623934443392</created>
+    <task id="LOCAL-00008" summary="Added angular material">
+      <created>1624021748271</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1623934443392</updated>
+      <updated>1624021748271</updated>
     </task>
-    <task id="LOCAL-00009" summary="Google drive access token implementation and login window routing">
-      <created>1624012909018</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1624012909018</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Access Code gets generated successfully now (Client)">
-      <created>1624028824102</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1624028824102</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,9 +174,7 @@
     <MESSAGE value="Login Post Request implemented" />
     <MESSAGE value="APP Google ID with Authentication Guard service for Google Log In," />
     <MESSAGE value="Working AWS Connection" />
-    <MESSAGE value="Google sign in popup" />
-    <MESSAGE value="Google drive access token implementation and login window routing" />
-    <MESSAGE value="Access Code gets generated successfully now (Client)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Access Code gets generated successfully now (Client)" />
+    <MESSAGE value="Added angular material" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added angular material" />
   </component>
 </project>
