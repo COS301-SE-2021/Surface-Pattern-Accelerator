@@ -77,33 +77,22 @@ export class WorkareaComponent implements OnInit {
     this.layer.add(box);
     this.stage.add(this.layer);
     //this.addLineListeners();
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    function downloadURI(uri, name) {
-      const link = document.createElement('a');
-      link.download = name;
-      link.href = uri;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      delete this.link;
-    }
-    let dataURL = this.stage.toDataURL({ pixelRatio: 3 });
-    function refresh()
-    {
-       dataURL = this.stage.toDataURL({ pixelRatio: 3 });
-    }
-    document.getElementById('save').addEventListener(
-      'click',
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-      function() {
-        //const dataURL = this.stage.toDataURL({ pixelRatio: 3 });
-        //refresh();
-        downloadURI(dataURL, 'frame.png');
-      },
-      false
-    );
   }
   // eslint-disable-next-line @typescript-eslint/member-ordering
+  download(){
+    const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
+    this.downloadURI(dataURL, 'frame.png');
+  }
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+  downloadURI(uri, name) {
+    const link = document.createElement('a');
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    //delete this.link;
+  }
   chooseCanvasSymbol(check){
     this.myFrame = document.getElementById('canvasFrame');//get div of canvas frame
     if(check===true)//square is alright
@@ -131,5 +120,37 @@ export class WorkareaComponent implements OnInit {
       this.myFrame.style.height = this.height + 40 +  'px';
     }
   }
-
+generateMotif(){
+  const rectX = this.stage.width() / 2 - 50;
+  const rectY = this.stage.height() / 2 - 50;
+  const box = new Konva.Rect({
+    x: rectX,
+    y: rectY,
+    width: 100,
+    height: 100,
+    fill: '#00D2FF',
+    stroke: 'black',
+    strokeWidth: 4,
+    draggable: true,
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    dragBoundFunc(pos) {
+      let X = pos.x;
+      let Y = pos.y;
+      const minX = 0;
+      const minY = 0;
+      const maxX = 400;
+      const maxY = 400;
+      if(X < minX) {X = minX;}
+      if(X > maxX) {X = maxX;}
+      if(Y < minY) {Y = minY;}
+      if(Y > maxY) {Y = maxY;}
+      return {
+        x: X,
+        y: Y,
+      };
+    },
+  });
+  this.layer.add(box);
+  this.stage.add(this.layer);
+}
 }
