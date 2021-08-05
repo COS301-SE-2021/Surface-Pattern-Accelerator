@@ -7,17 +7,7 @@
     <br>
     <p>Drag and drop onto Canvas</p>
 
-    <div class="fig_motif drag">
-    </div>
-
-    <div class="fig_motif drag">
-    </div>
-
-    <div class="fig_motif drag">
-    </div>
-
-    <div class="fig_motif drag">
-    </div>
+    <button class="motif" id="box"></button>
 
     <div class="fig_motif drag">
     </div>
@@ -42,11 +32,11 @@
 
   <div id = "frame" class = "bord">
 
-    <ion-button id="rect" (click)='chooseCanvasSymbol(false)' color="dark" >Rectangle Frame</ion-button>
+    <button class="buttons" id="rect" (click)='chooseCanvasSymbol(false)' color="dark" >Rectangle Frame</button>
     <br>
-    <ion-button id="square" (click)='chooseCanvasSymbol(true)' color="dark">Square Frame</ion-button>
+    <button class="buttons" id="square" (click)='chooseCanvasSymbol(true)' color="dark">Square Frame</button>
     <br>
-    <button class="buttons" id="save">Save as image</button>
+    <button class="buttons" id="save" (click)='download()'>Save as image</button>
   </div>
 
 </div>
