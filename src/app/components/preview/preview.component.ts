@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import Konva from 'konva';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
