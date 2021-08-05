@@ -8,6 +8,7 @@ import { WorkareaComponent} from './components/workarea/workarea.component';
 import { CollorPalletComponent } from './components/collor-pallet/collor-pallet.component';
 import { LoginComponent } from './components/login/login.component'
 import { LoginResponseComponent} from './components/login-response/login-response.component'
+import {PreviewComponent} from "./components/preview/preview.component";
 
 const routes: Routes = [
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'workarea', component: WorkareaComponent },
   { path: 'colorpallet', component: CollorPalletComponent},
   { path: 'loginResponse', component: LoginResponseComponent },
+  { path: 'preview', component: PreviewComponent },
 ];
 
 @NgModule({
