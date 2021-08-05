@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MotifServiceService } from '../../services/motif-service.service';
 import Konva from "konva";
+import {motifsInterface} from "../../Interfaces/motifsInterface";
 
 @Component({
   selector: 'app-pattern',
@@ -10,7 +12,14 @@ export class PatternComponent implements OnInit {
   stage!: Konva.Stage;
   layer!: Konva.Layer;
 
+  motifs?: motifsInterface;
+
+  constructor(private motifService: MotifServiceService) {}
+
   ngOnInit(){
+
+    this.getMotifs();
+
     let width = window.innerWidth * 0.9;
     let height = window.innerHeight;
     this.stage = new Konva.Stage({
@@ -32,14 +41,24 @@ export class PatternComponent implements OnInit {
         x: 10,
         y: 10,
       },
+      draggable: true
     });
 
     // add the shape to the layer
     this.layer.add(path);
   }
 
+  getMotifs(): void
+  {
+    this.motifService.getMotifs()
+      .subscribe(motifs =>
+      {
 
-  constructor() {}
+        this.motifs = motifs
+        console.log(motifs)
+      });
+  }
+
 
 
 }
