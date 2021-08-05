@@ -21,6 +21,32 @@ export class PreviewComponent implements OnInit {
       height: 100
 
     });
+
+    this.layer2 = new Konva.Layer();
+    // create our shape
+    let circle = new Konva.Circle({
+      x: this.stage1.width() / 2,
+      y: this.stage1.height() / 2,
+      radius: 10,
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 4
+    });
+
+    let circle1 = new Konva.Circle({
+      x: this.stage1.width() / 2,
+      y: this.stage1.height() / 2,
+      radius: 20,
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 1
+    });
+
+
+
+    circle.draggable(true);
+    circle1.draggable(true);
+
   }
 
 /* In Konva make this a layer */
