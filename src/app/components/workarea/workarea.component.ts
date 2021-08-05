@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Konva from 'konva';
 
+
 @Component({
   selector: 'app-workarea',
   templateUrl: './workarea.component.html',
@@ -76,8 +77,31 @@ export class WorkareaComponent implements OnInit {
     this.layer.add(box);
     this.stage.add(this.layer);
     //this.addLineListeners();
-
-
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    function downloadURI(uri, name) {
+      const link = document.createElement('a');
+      link.download = name;
+      link.href = uri;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      delete this.link;
+    }
+    let dataURL = this.stage.toDataURL({ pixelRatio: 3 });
+    function refresh()
+    {
+       dataURL = this.stage.toDataURL({ pixelRatio: 3 });
+    }
+    document.getElementById('save').addEventListener(
+      'click',
+      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+      function() {
+        //const dataURL = this.stage.toDataURL({ pixelRatio: 3 });
+        //refresh();
+        downloadURI(dataURL, 'frame.png');
+      },
+      false
+    );
   }
   // eslint-disable-next-line @typescript-eslint/member-ordering
   chooseCanvasSymbol(check){
