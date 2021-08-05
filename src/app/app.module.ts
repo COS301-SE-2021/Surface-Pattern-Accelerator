@@ -16,6 +16,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { LoginComponent } from "./components/login/login.component";
+import { NavbarComponent } from "./components/navbar/navbar.component"
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -39,7 +40,8 @@ import { MaterialModule } from './material/material.module';
     ExportPopoverComponent,
     LoginComponent,
     NewCollectionComponent,
-    CollectionThemeComponent
+    CollectionThemeComponent,
+    NavbarComponent
   ],
   entryComponents: [PreviewComponent],
   imports: [
