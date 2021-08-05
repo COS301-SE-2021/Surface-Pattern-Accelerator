@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40eb1242-ca52-40bc-99ab-ea5901be4683" name="Default Changelist" comment="Added angular material">
+    <list default="true" id="5aee9902-cc09-4b6a-92fe-e50afdfe3b58" name="Default Changelist" comment="Added angular material">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collection-creator/new-collection/new-collection.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/collections/collections.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/collections/collections.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,17 +45,6 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="E2E Tests (app)" type="JavaScriptTestRunnerProtractor">
       <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
       <node-interpreter value="project" />
