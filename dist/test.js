@@ -91,39 +91,47 @@ app.get('/api/getMotifs', (req, res) => {
     //         console.log("getSVG fired");
     //     });
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions(req.session.id);
-    gAPI.listMotifs(authArr).then(motifsJson => {
+    gAPI.listMotifs(authArr)
+        .then(motifsJson => {
         console.log(motifsJson);
-        gAPI.getPublicURLs(authArr, motifsJson);
+        gAPI.getPublicMotifsInfo(authArr, motifsJson)
+            .then(permissionsRes => {
+            gAPI.generatePublicLinksJSON(authArr, permissionsRes)
+                .then(motifsJSON => {
+                console.log(motifsJSON);
+                res.json(motifsJSON);
+            });
+            // console.log(permissionsRes);
+        });
     });
+    // async function generatePublicURL(sessID: string, fileID: string)
+    // {
+    //     try {
+    //         const gAPI = new GoogleApiFunctions(sessID);
+    //         const tempAccT = gAPI.retrieveAccessCredentials(authArr);
+    //         const auth = tempAccT.auth;
+    //
+    //         const drive = google.drive({version: 'v3', auth});
+    //         await drive.permissions.create({
+    //             fileId: fileID,
+    //             requestBody: {
+    //                 role: 'reader',
+    //                 type: 'anyone'
+    //             }
+    //         })
+    //
+    //         const result = await drive.files.get({
+    //             fileId: fileID,
+    //             fields: 'webContentLink'
+    //         });
+    //         console.log(result.data);
+    //         return result.data;
+    //     }
+    //     catch (error){
+    //         console.log(error.message)
+    //     }
+    //
 });
-// async function generatePublicURL(sessID: string, fileID: string)
-// {
-//     try {
-//         const gAPI = new GoogleApiFunctions(sessID);
-//         const tempAccT = gAPI.retrieveAccessCredentials(authArr);
-//         const auth = tempAccT.auth;
-//
-//         const drive = google.drive({version: 'v3', auth});
-//         await drive.permissions.create({
-//             fileId: fileID,
-//             requestBody: {
-//                 role: 'reader',
-//                 type: 'anyone'
-//             }
-//         })
-//
-//         const result = await drive.files.get({
-//             fileId: fileID,
-//             fields: 'webContentLink'
-//         });
-//         console.log(result.data);
-//         return result.data;
-//     }
-//     catch (error){
-//         console.log(error.message)
-//     }
-//
-// }
 // start the Express server
 app.listen(port, () => {
     // tslint:disable-next-line:no-console

@@ -1,6 +1,6 @@
 import {AuthClientObjectWrapper} from './AuthClientObjectWrapper'
 import {google} from "googleapis";
-import fs from "fs";
+import fs, {linkSync} from "fs";
 
 export class GoogleApiFunctions {
 
@@ -163,7 +163,7 @@ export class GoogleApiFunctions {
                     console.log('Files:');
                     files.map((file) => {
                         console.log(`${file.name} (${file.id})`);
-                        const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": ""}')
+                        const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}')
                         motifContainer.motifName = file.name;
                         motifContainer.motifID = file.id;
                         // obj.motifNames.push(file.id);
@@ -193,16 +193,23 @@ export class GoogleApiFunctions {
 
             console.log("the motif ID is: " + motifContainer.motifID);
             const drive = google.drive({version: 'v3', auth});
-            return drive.permissions.create({
+            return drive.permissions.create({ // returns promise
                 fileId: motifContainer.motifID,
                 requestBody: {
                     role: 'reader',
                     type: 'anyone'
                 }
-            }).then(permissionSuccess => {
-                console.log(permissionSuccess)
+            })
+            .then(permissionSuccess => {
+                // console.log(permissionSuccess)
+                motifContainer.linkPermission = "good";
+                // return {text: "good"}; //the promise returns this when permission setting has been successful
+                return motifContainer;
             }).catch(permissionFailure => {
-                console.log(permissionFailure)
+                motifContainer.linkPermission = "bad";
+                // console.log(permissionFailure)
+                // return {text: "bad"}; ////the promise returns this when permission setting has been unsuccessful
+                return motifContainer;
             })
             // console.log("the test is: " + test)
         } catch (error) {
@@ -211,7 +218,7 @@ export class GoogleApiFunctions {
         }
     }
 
-    getPublicURLs(authArr: AuthClientObjectWrapper[], motifDetails: any)
+    getPublicMotifsInfo(authArr: AuthClientObjectWrapper[], motifDetails: any)
     {
         const permissionPromiseArray: Promise<any>[] = []
         for(const elem in motifDetails.motifNames)
@@ -220,7 +227,7 @@ export class GoogleApiFunctions {
             {
                 const permissionPromise = this.setPermissions(authArr, motifDetails.motifNames[elem]);
                 permissionPromiseArray.push(permissionPromise);
-                console.log(motifDetails.motifNames[elem]);
+                // console.log(motifDetails.motifNames[elem]);
                 // const motifPermissionPromise = new Promise((resolve, reject) => {
                 //     try
                 //     {
@@ -243,9 +250,78 @@ export class GoogleApiFunctions {
                 // })
             }
         }
-        console.log(permissionPromiseArray);
+        console.log("Permissions promise array: " + permissionPromiseArray);
+        return Promise.all(permissionPromiseArray)
     }
 
+    getPublicLink(authArr: AuthClientObjectWrapper[], motifContainer: any)
+    {
 
+        const gAPI = new GoogleApiFunctions(this.userSessionID);
+        const tempAccT = gAPI.retrieveAccessCredentials(authArr);
+        const auth = tempAccT.auth;
+
+        // let test;
+        try {
+            console.log("the motif ID is: " + motifContainer.motifID);
+            const drive = google.drive({version: 'v3', auth});
+            if (motifContainer.linkPermission === "bad")
+                return null;
+            return drive.files.get({
+                fileId: motifContainer.motifID,
+                fields: 'webContentLink'
+            })
+                // .then(permissionSuccess => {
+                //     // console.log(permissionSuccess)
+                //     motifContainer.linkPermission = "good";
+                //     // return {text: "good"}; //the promise returns this when permission setting has been successful
+                //     return motifContainer;
+                // }).catch(permissionFailure => {
+                //     motifContainer.linkPermission = "bad";
+                //     // console.log(permissionFailure)
+                //     // return {text: "bad"}; ////the promise returns this when permission setting has been unsuccessful
+                //     return motifContainer;
+                // })
+            // console.log("the test is: " + test)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    generatePublicLinksJSON(authArr: AuthClientObjectWrapper[], motifContainer: any[])
+    {
+        const linkPromiseArray: Promise<any>[] = []
+        const goodMotifs = JSON.parse('{"motifDetails": []}');
+        for(const elem in motifContainer)
+        {
+            if (elem)
+            {
+                if (motifContainer[elem].linkPermission === 'good')
+                {
+                    const publicLink = this.getPublicLink(authArr, motifContainer[elem]);
+                    linkPromiseArray.push(publicLink);
+                    goodMotifs.motifDetails.push(motifContainer[elem]);
+
+                    console.log(motifContainer[elem]);
+                }
+
+            }
+        }
+        return Promise.all(linkPromiseArray).then(links => {
+            for(const link in links)
+            {
+                if (link)
+                {
+                    console.log(links[link].data);
+                    goodMotifs.motifDetails[link].motifLink = links[link].data.webContentLink;
+                }
+
+            }
+            return goodMotifs;
+            // console.log(goodMotifs);
+
+        })
+
+    }
 }
 

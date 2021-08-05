@@ -126,11 +126,21 @@ app.get('/api/getMotifs', (req, res) => {
     //         console.log("getSVG fired");
     //     });
     const gAPI = new GoogleApiFunctions(req.session.id);
-    gAPI.listMotifs(authArr).then(motifsJson => {
-        console.log(motifsJson);
-        gAPI.getPublicURLs(authArr, motifsJson);
-    });
-})
+    gAPI.listMotifs(authArr)
+        .then(motifsJson => {
+            console.log(motifsJson);
+            gAPI.getPublicMotifsInfo(authArr, motifsJson)
+                .then(permissionsRes => {
+                    gAPI.generatePublicLinksJSON(authArr, permissionsRes)
+                        .then(motifsJSON => {
+                            console.log(motifsJSON);
+                            res.json(motifsJSON);
+                        })
+                    // console.log(permissionsRes);
+                });
+
+        })
+
 
 // async function generatePublicURL(sessID: string, fileID: string)
 // {
@@ -159,12 +169,11 @@ app.get('/api/getMotifs', (req, res) => {
 //         console.log(error.message)
 //     }
 //
-// }
-
+});
 
 
 // start the Express server
-app.listen( port, () => {
-    // tslint:disable-next-line:no-console
-    console.log( `server started at http://localhost:${ port }` );
-} );
+    app.listen(port, () => {
+        // tslint:disable-next-line:no-console
+        console.log(`server started at http://localhost:${port}`);
+    });
