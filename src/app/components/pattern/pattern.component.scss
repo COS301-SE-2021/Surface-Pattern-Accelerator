@@ -31,7 +31,7 @@
   left: 0;
   //background-color: #111;
   //overflow-x: hidden;
-  overflow: hidden;
+  //overflow: hidden;
   padding-top: 20px;
 
 }
@@ -106,6 +106,7 @@ and some left padding to change the design of the dropdown content */
 
 .wrapper{
   display: flex;
+  margin-top: 100px;
 }
 .workArea{
   margin-left: 280px;

@@ -1,16 +1,27 @@
-<app-navbar></app-navbar>
+<div>
+<!--  <app-topnav></app-topnav>-->
+  <app-navbar></app-navbar>
+</div>
+
 <div class="wrapper">
     <div class="sidenav bg-primary">
       <div class="sideMotif">
         <h1 style="text-align:center" >Motif Library</h1>
         <div>
-          <h5 style="padding:5px">Import new Motif</h5>
-    <!--      <mat-icon>cloud_download</mat-icon>-->
+<!--          <h5 style="padding:5px">Import new Motif</h5>-->
+          <ion-button size="small" fill="clear" color="dark">
+            <ion-label>Import new Motif</ion-label>
+            <ion-icon name="download-outline" style="padding: 10px"></ion-icon>
+          </ion-button>
           <mat-divider style="color: black"></mat-divider>
         </div>
 
         <div>
-          <h5 style="padding:5px">Append motif to project</h5>
+<!--          <h5 style="padding:5px">Append motif to project</h5>-->
+          <ion-button size="small" fill="clear" color="dark">
+            <ion-label>Append motif to project</ion-label>
+            <ion-icon name="link-outline" style="padding: 10px"></ion-icon>
+          </ion-button>
           <mat-divider style="color: black; font-weight: bold; cursor: pointer"></mat-divider>
         </div>
 
