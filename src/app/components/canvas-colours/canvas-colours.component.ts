@@ -11,6 +11,10 @@ export class CanvasColoursComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.draw();
+    document.getElementById('canvas').onclick = ()=>{
+      this.canvasColour();
+    }
 
   }
 
