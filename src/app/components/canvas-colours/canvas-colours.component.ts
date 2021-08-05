@@ -8,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class CanvasColoursComponent implements OnInit {
 
   colourList = [];
-  htmlToAdd: any;
   constructor() {}
 
   ngOnInit() {
-      this.draw();
+    this.draw();
+    document.getElementById('canvas').onload = ()=>{
+      this.canvasColour();
+    }
 
   }
 
@@ -63,7 +65,9 @@ export class CanvasColoursComponent implements OnInit {
       if(!used.includes(this.colourList[keys[i]])){
         if(prev != keys[i].charAt(1)){
           used.push(this.colourList[keys[i]]);
-          this.htmlToAdd += "<span style='background-color:"+ keys[i]+ "'>" + keys[i] + "</span>";
+          let item = document.querySelector('#item'+i);
+
+          //this.htmlToAdd += "<span style='background-color:"+ keys[i]+ "'>" + keys[i] + "</span>";
           prev = keys[i].charAt(1);
         }
       }
