@@ -151,6 +151,16 @@ generateMotif(){
       };
     },
   });
+
+  // add cursor styling
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+  box.on('mouseover', function() {
+    document.body.style.cursor = 'pointer';
+  });
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+  box.on('mouseout', function() {
+    document.body.style.cursor = 'default';
+  });
   this.layer.add(box);
   this.stage.add(this.layer);
 }
