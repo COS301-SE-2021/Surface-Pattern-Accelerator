@@ -1,22 +1,2 @@
-// Colors
-$bg-color: hsl(0,1,90);
-$dot-color: hsl(255,71,34);
-
-// Dimensions
-$dot-size: 1.5px;
-$dot-space: 15px;
-
-.canvasContained {
-  background-color: silver;
-  width: 60%;
-  float: left;
-  height: 100%;
-  overflow: auto;
-
-  background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
-  linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
-  $dot-color;
-  background-size: $dot-space $dot-space;
-}
 
 
