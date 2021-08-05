@@ -22,8 +22,8 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
+import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "angularx-social-login";
 
-import { GoogleLoginProvider, SocialAuthService, SocialLoginModule } from "angularx-social-login";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
@@ -53,7 +53,7 @@ import { MaterialModule } from './material/material.module';
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
-    IonicModule.forRoot(), AppRoutingModule],
+    IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: 'SocialAuthServiceConfig',
