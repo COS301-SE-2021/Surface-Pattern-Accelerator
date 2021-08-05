@@ -113,5 +113,68 @@ export class PreviewComponent implements OnInit {
 
   }
 
+  generate()
+  {
+    this.layer1 = null;
+    this.layerr = null;
+    this.stage = new Konva.Stage({
+      container: 'can',
+      width: 600,
+      height: 600,
+    });
+
+    this.layerr = this.layer2.clone();
+    var one = this.layerr.children[0].clone();
+    var two = this.layerr.children[1].clone();
+    // var three = layerr.children[2].clone();
+
+    var xOffset1 = 0;
+    var yOffset1 = 0;
+    var xOffset2 = 0;
+    var yOffset2 = 0;
+
+    if(one.attrs.x > 80  ) xOffset1 = one.attrs.x - 100;
+    if(one.attrs.y > 80  ) yOffset1 = one.attrs.y - 100;
+    if(two.attrs.x > 80 ) xOffset2 = two.attrs.x - 100;
+    if(two.attrs.y > 80  ) xOffset2 = two.attrs.y - 100;
+    // if(three.attrs.x > 80 ) xOffset3 = three.attrs.x - 100;
+    // if(three.attrs.y > 80  ) xOffset3 = three.attrs.y - 100;
+
+
+    let l = 100;
+    let xx = 0;
+    for(var i = 0 ; i < 10;i++)
+    {
+
+      xx = 0;
+      for(var n = 0 ; n < 10 ; n++)
+      {
+        var k = this.layerr.children[0].clone();
+        k.attrs.x = k.attrs.x + 100*i + xOffset1 - 100;
+        k.attrs.y = k.attrs.y + 100*xx + yOffset1 - 100;
+        this.layerr.add(k);
+
+        var m = this.layerr.children[1].clone();
+        m.attrs.x = m.attrs.x + 100*i + xOffset2 - 100;
+        m.attrs.y = m.attrs.y + 100*xx +  yOffset2 - 100;
+        this.layerr.add(m);
+
+        var g = this.layerr.children[2].clone();
+        g.attrs.x = g.attrs.x + 100*i + xOffset2 - 100;
+        g.attrs.y = g.attrs.y + 100*xx +  yOffset2 - 100;
+        this.layerr.add(g);
+
+        xx++;
+
+      }
+
+
+    }
+    this.stage.add(this.layerr);
+
+
+  }
+
+
 
 }
