@@ -47,6 +47,42 @@ export class PreviewComponent implements OnInit {
     circle.draggable(true);
     circle1.draggable(true);
 
+    this.layer2.add(circle);
+    this.layer2.add(circle1);
+
+
+    var tr = new Konva.Transformer();
+    this.layer2.add(tr);
+    tr.nodes([circle]);
+
+    var tr2 = new Konva.Transformer();
+    this.layer2.add(tr2);
+    tr2.nodes([circle1]);
+
+    // var tr3 = new Konva.Transformer();
+    // layer2.add(tr3);
+    // tr3.nodes([rect]);
+
+    // console.log(theContainer[3]);
+    let layerr = new Konva.Layer();
+    for(var i = 0 ; i < this.theContainer.length; i++)
+    {
+      this.stage = new Konva.Stage({
+        container: 'can',   // id of container <div>
+        width: 600,
+        height: 600
+      });
+
+      layerr = this.layer2.clone();
+      this.stage.add(layerr);
+    }
+
+    layerr = this.layer2.clone();
+
+    // add the layer to the stage
+    // stage.add(this.layerr);
+    this.stage1.add(this.layer2);
+
   }
 
 /* In Konva make this a layer */
