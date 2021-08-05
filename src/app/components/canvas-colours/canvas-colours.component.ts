@@ -11,11 +11,6 @@ export class CanvasColoursComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.draw();
-    document.getElementById('canvas').onload = ()=>{
-      this.canvasColour();
-    }
-
   }
 
   draw(){
@@ -28,60 +23,6 @@ export class CanvasColoursComponent implements OnInit {
       ctx.drawImage(img,0,0);
     }
   }
-
-  canvasColour(){
-    const canvas = <HTMLCanvasElement> document.getElementById('canvas');
-    const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
-    let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
-    const data = imageData.data;
-    let i,n;
-
-    for(i = 0, n = data.length; i < n; i += 4){
-      let r  = data[i];
-      let g  = data[i + 1];
-      let b  = data[i + 2];
-      let hex = this.rgbToHex("rgb("+r+","+g+","+b+")");
-
-      if (!(hex in this.colourList)){
-        this.colourList[hex] = 1;
-      }
-      else {
-        this.colourList[hex]++;
-      }
-    }
-    // keys are the elements are strings corresponding to the enumerable properties found directly upon object
-    let keys = Object.keys(this.colourList);
-
-    keys.sort();
-
-    // remove duplicate keys
-    let used = [];
-    let prev = '';
-
-    console.log("before loop");
-    for (i =0; i < keys.length; i++){
-      console.log("in loop");
-
-      if(!used.includes(this.colourList[keys[i]])){
-        if(prev != keys[i].charAt(1)){
-          used.push(this.colourList[keys[i]]);
-          let item = document.querySelector('#item'+i);
-
-          //this.htmlToAdd += "<span style='background-color:"+ keys[i]+ "'>" + keys[i] + "</span>";
-          prev = keys[i].charAt(1);
-        }
-      }
-    }
-  }
-
-  rgbToHex(str: string){
-    let rgb = str.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    function hex(x) {
-      return ("0" + parseInt(x).toString(16)).slice(-2);
-    }
-    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-  }
-
 
 }
 
