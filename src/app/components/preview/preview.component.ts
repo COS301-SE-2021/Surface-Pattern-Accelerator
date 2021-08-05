@@ -14,7 +14,14 @@ export class PreviewComponent implements OnInit {
   layer2!:Konva.Layer;
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.stage1 = new Konva.Stage({
+      container: 'container',
+      width: 100,
+      height: 100
+
+    });
+  }
 
 /* In Konva make this a layer */
   addGrid(e) {
