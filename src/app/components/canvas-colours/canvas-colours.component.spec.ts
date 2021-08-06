@@ -31,7 +31,11 @@ describe('CanvasColoursComponent', () => {
       expect(component.canvasColour).toHaveBeenCalled();
     })
   });
-
+  it('Test 2: checking if canvas colour function call works correctly', ()=>{
+    let result = component.canvasColour();
+    expect(result).toEqual(1);
+    //done();
+  });
 
 
 });
