@@ -15,7 +15,6 @@ export class CanvasColoursComponent implements OnInit {
     document.getElementById('canvas').onclick = ()=>{
       this.canvasColour();
     }
-
   }
 
   draw(){
@@ -34,7 +33,8 @@ export class CanvasColoursComponent implements OnInit {
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
     let imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
     const data = imageData.data;
-    let i,n;
+    let i,n, ret=0;
+
 
     for(i = 0, n = data.length; i < n; i += 4){
       let r  = data[i];
@@ -74,9 +74,11 @@ export class CanvasColoursComponent implements OnInit {
 
           prev = keys[i].charAt(1);
           count++;
+          ret=1;
         }
       }
     }
+    return ret;
   }
 
   rgbToHex(str: string){
