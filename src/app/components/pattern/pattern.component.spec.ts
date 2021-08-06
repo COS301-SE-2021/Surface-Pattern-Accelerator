@@ -22,7 +22,7 @@ describe('PatternComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Test 1: Testing if canvas download is executed when download button is called', () => {
+ /* it('Test 1: Testing if canvas download is executed when download button is called', () => {
 
     spyOn(component, 'downloadCanvas');
     let btnEl1 = fixture.debugElement.nativeElement.querySelector('#download-btn');
@@ -38,6 +38,6 @@ describe('PatternComponent', () => {
     btnEl2.click();
 
     expect(component.openModal).toHaveBeenCalled();
-  });
+  });*/
 
 });
