@@ -1,7 +1,7 @@
 <!--
   Grid layout of Color Editor Tab
 -->
-
+<div>
 <ion-grid>
   <ion-row> <!-- Row1 -->
     <ion-col size="8">
@@ -11,7 +11,13 @@
         </ion-card-header>
 
         <ion-card-content>
+          <!--
           <canvas id="selectorCanvas" width="700" height="330" style="border:1px solid #000000;"></canvas>
+          -->
+            <svg id="example" width="100" height="100">
+              <circle id="example2" cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+            </svg>
+
         </ion-card-content>
       </ion-card>
 
@@ -24,7 +30,12 @@
         </ion-card-header>
 
         <ion-card-content>
+          <!--
           <canvas id="editorCanvas" width="300" height="330" style="border:1px solid #000000;"></canvas>
+          -->
+          <svg id="example" width="300" height="300">
+            <circle id="example2" cx="105" cy="105" r="100" stroke="green" stroke-width="4" fill="yellow" />
+          </svg>
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -88,3 +99,4 @@
 
   </ion-row>
 </ion-grid>
+</div>
