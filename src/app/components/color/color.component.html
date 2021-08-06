@@ -1,0 +1,30 @@
+<!--
+  Grid layout of Color Editor Tab
+-->
+
+<ion-grid>
+  <ion-row> <!-- Row1 -->
+    <ion-col size="8">
+
+      <ion-row> <!-- Row1.1 -->
+        <ion-text color="dark"> Pattern {{patternName}} </ion-text>
+      </ion-row>
+
+      <ion-row> <!-- Row1.2 -->
+        <ion-col class="canvasContained">
+          <canvas id="selectorCanvas" width="700" height="300" style="border:1px solid #000000;"></canvas>
+        </ion-col>
+      </ion-row>
+
+    </ion-col>
+
+    <ion-col size="4" class="canvasContained">
+      <ion-text color="dark">Expanded View {{svgName}}</ion-text>
+      <canvas id="editorCanvas" width="350" height="330" style="border:1px solid #000000;"></canvas>
+    </ion-col>
+  </ion-row>
+
+  <ion-row> <!-- Row2 -->
+
+  </ion-row>
+</ion-grid>

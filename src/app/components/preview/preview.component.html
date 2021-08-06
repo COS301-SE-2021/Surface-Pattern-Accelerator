@@ -4,6 +4,45 @@
   <img src="{{filepath}} | https://i.ibb.co/b7GMV6s/pattern-preview.png" alt="Pattern Preview">
 -->
 
-<img src="../../assets/pattern-preview.png" alt="Pattern Preview">
+<!--<img src="../../assets/pattern-preview.png" alt="Pattern Preview">-->
+
+<mat-sidenav-container>
+  <mat-sidenav opened mode="side" disableClose="true" position="end" >
+    <div id="preview-heading"> Preview Options </div>
+    <div class="preview-inputs">
+      <form >
+        <mat-label> <div class="inp-label">Repeat X-Axis</div> </mat-label>
+        <mat-form-field appearance="outline" style="text-align: center;">
+          <input  matInput class="inp-box" default="1">
+        </mat-form-field>
+        <mat-label> <div class="inp-label">Repeat Y-Axis</div> </mat-label>
+        <mat-form-field appearance="outline" style="text-align: center;">
+          <input  matInput class="inp-box" default="1">
+        </mat-form-field> <br>
+
+        <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
+        <div class="export-btn">
+          <button > Export </button>
+        </div>
+
+
+      </form>
+
+    </div>
+
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="preview">
+      <div id="container"></div>
+      <button (click)="generate()">Generate</button>
+
+      <div class="main" id="main">
+        <div id="can"><canvas width="600px" height="600px"></canvas></div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
 
 
