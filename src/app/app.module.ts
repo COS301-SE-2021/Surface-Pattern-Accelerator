@@ -2,24 +2,36 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
+import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
+import { CollectionThemeComponent } from './components/collection-creator/collection-theme/collection-theme.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { LoginComponent } from "./components/login/login.component";
+import { NavbarComponent } from "./components/navbar/navbar.component"
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "angularx-social-login";
+import { CanvasColoursComponent } from "./components/canvas-colours/canvas-colours.component";
 
+
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { MaterialModule } from './material/material.module';
 
 
 
@@ -33,19 +45,28 @@ import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "an
     ImportComponent,
     PreviewComponent,
     ExportPopoverComponent,
-    LoginComponent
+    LoginComponent,
+    CanvasColoursComponent,
+    NewCollectionComponent,
+    CollectionThemeComponent,
+    NavbarComponent
   ],
-  entryComponents: [PreviewComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
     SocialLoginModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
-    IonicModule.forRoot(), AppRoutingModule],
+    IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: 'SocialAuthServiceConfig',

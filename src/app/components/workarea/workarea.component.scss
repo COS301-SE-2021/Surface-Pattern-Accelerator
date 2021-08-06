@@ -1,13 +1,13 @@
 // Colors
-$bg-color: hsl(0,1,90);
-$dot-color: hsl(255,71,34);
+$bg-color: hsl(0,0%,100%);
+$dot-color: hsl(0,0%,0%);
 
 // Dimensions
 $dot-size: 1.5px;
 $dot-space: 15px;
 
 h2{
-  color : #0d0d0d;
+  color : #000000;
 }
 
 
@@ -28,13 +28,13 @@ html, body {
   width : 100%;
 }
 
-
 #frame{
   width : 20%;
   height : 100%;
   float : right;
   padding : 20px;
   text-align : center;
+  background-color: #d3d3d3;
 
 
   .ion-button{
@@ -45,16 +45,14 @@ html, body {
 }
 
 #side{
-  background-color: white;
+  background-color: #d3d3d3;
   width : 20%;
   height : 100%;
   padding : 20px;
   float : left;
-  height : 100%;
 }
 
 #canvasContained{
-  background-color: silver;
   width : 60%;
   float : left;
   height : 100%;
@@ -73,7 +71,7 @@ html, body {
 #canvasFrame{
   margin : 20px;
   padding : 20px;
-  background-color: white;
+  background-color: #818181;
   border : 5px;
   border-radius: 40px;
   width : 540px;
@@ -81,7 +79,9 @@ html, body {
   overflow : auto;
 }
 
-
+p{
+  color: #000000;
+}
 
 #border{
   width : 520px;
@@ -90,7 +90,7 @@ html, body {
 }
 
 #myCanvas{
-  background-color: darkblue;
+  background-color: #ffffff;
   float : left;
 }
 
@@ -98,10 +98,35 @@ html, body {
 
 //CLASSES
 
-.bord{
-  border:solid 5px #9CD3F7;
+.buttons{
+  background-color: #555555;
+  color: #ffffff;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 
+.buttons:hover {
+  background-color: #ffff;
+  color: #555555;
+}
+
+.bord{
+  border:solid 1px #555555;
+}
+
+.motif{
+  padding: 50px 50px;
+  background-color: #00D2FF;
+  stroke: black;
+  strokeWidth: 4;
+  border:solid 2px #000000;
+}
 
 .fig_motif{
   width : 150px;
@@ -126,12 +151,12 @@ html, body {
 .wrapper .sidebar{
   width: 400px;
   height: 600px;
-  background: #000;
+  background: #818181;
   padding: 30px 0;
   position: absolute;
 }
 .wrapper .sidebar h2{
-  color: #fff;
+  color: #818181;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 30px;
