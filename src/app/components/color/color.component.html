@@ -5,26 +5,86 @@
 <ion-grid>
   <ion-row> <!-- Row1 -->
     <ion-col size="8">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Pattern {{patternName}}</ion-card-title>
+        </ion-card-header>
 
-      <ion-row> <!-- Row1.1 -->
-        <ion-text color="dark"> Pattern {{patternName}} </ion-text>
-      </ion-row>
-
-      <ion-row> <!-- Row1.2 -->
-        <ion-col class="canvasContained">
-          <canvas id="selectorCanvas" width="700" height="300" style="border:1px solid #000000;"></canvas>
-        </ion-col>
-      </ion-row>
+        <ion-card-content>
+          <canvas id="selectorCanvas" width="700" height="330" style="border:1px solid #000000;"></canvas>
+        </ion-card-content>
+      </ion-card>
 
     </ion-col>
 
-    <ion-col size="4" class="canvasContained">
-      <ion-text color="dark">Expanded View {{svgName}}</ion-text>
-      <canvas id="editorCanvas" width="350" height="330" style="border:1px solid #000000;"></canvas>
+    <ion-col size="4">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Expanded View {{svgName}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <canvas id="editorCanvas" width="300" height="330" style="border:1px solid #000000;"></canvas>
+        </ion-card-content>
+      </ion-card>
     </ion-col>
   </ion-row>
 
   <ion-row> <!-- Row2 -->
+    <ion-col size="8">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> {{svgName}} Colors </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon> SVG Element
+          </ion-item>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon> SVG Element
+          </ion-item>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon> SVG Element
+          </ion-item>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon> SVG Element
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="4">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> Your Color Palette </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon>
+            Empty
+            <ion-icon name="eyedrop"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon>
+            Empty
+            <ion-icon name="eyedrop"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon>
+            Empty
+            <ion-icon name="eyedrop"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="square-outline"></ion-icon>
+            Empty
+            <ion-icon name="eyedrop"></ion-icon>
+          </ion-item>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
 
   </ion-row>
 </ion-grid>
