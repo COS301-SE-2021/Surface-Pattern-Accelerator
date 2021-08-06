@@ -21,4 +21,17 @@ describe('CanvasColoursComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Test 1: Testing if correct method is called when the user clicks on the canvas',()=>{
+    spyOn(component, "canvasColour");
+    let canvasElement = fixture.debugElement.nativeElement.querySelector('#canvas');
+    canvasElement.click();
+
+    fixture.whenStable().then(()=>{
+      expect(component.canvasColour).toHaveBeenCalled();
+    })
+  });
+
+
+
 });
