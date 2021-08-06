@@ -1,17 +1,16 @@
-import {AuthClientObjectWrapper} from './AuthClientObjectWrapper'
-import {google} from "googleapis";
 import fs, {linkSync} from "fs";
+import {google} from "googleapis";
+import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 
 export class GoogleApiFunctions {
 
-    globalCredentials: { installed: { client_secret: any; client_id: any; redirect_uris: any; }; };
+    public globalCredentials: { installed: { client_secret: any; client_id: any; redirect_uris: any; }; };
 
-
-    userSessionID: string;
+    public userSessionID: string;
     constructor(sessID: string) {
         this.userSessionID = sessID;
         console.log("g api created");
-        this.globalCredentials = JSON.parse('{\n' +
+        this.globalCredentials = JSON.parse("{\n" +
             '    "installed":{\n' +
             '        "client_id":"838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com",\n' +
             '        "project_id":"spadd-6","auth_uri":"https://accounts.google.com/o/oauth2/auth",\n' +
@@ -20,34 +19,27 @@ export class GoogleApiFunctions {
             '        "client_secret":"qykE5ojYUpiRNSl3WFTlCIfR",\n' +
             '        "redirect_uris":["http://localhost:8100/loginResponse"],\n' +
             '        "javascript_origins":["http://localhost:3000"]\n' +
-            '    }\n' +
-            '}')
+            "    }\n" +
+            "}");
     }
 
-    printSomething()
-    {
+    public printSomething() {
         console.log("print something to test multiple files");
     }
 
     // takes authorisation object to store and and finds a place in the array to store it
-    storeAccessCredentials(tempAccessCredentials: AuthClientObjectWrapper, authArr: AuthClientObjectWrapper[])
-    {
+    public storeAccessCredentials(tempAccessCredentials: AuthClientObjectWrapper, authArr: AuthClientObjectWrapper[]) {
         console.log("Store ID is: " + tempAccessCredentials.sessionID);
-        for(const accCred of authArr)
-        {
-            if (accCred !== undefined)
-            {
-                if (accCred.sessionID === tempAccessCredentials.sessionID)
-                {
+        for (const accCred of authArr) {
+            if (accCred !== undefined) {
+                if (accCred.sessionID === tempAccessCredentials.sessionID) {
                     console.log("Access Credentials already stored");
                     return;
                 }
             }
         }
-        for(let i = 0; i < authArr.length; i++)
-        {
-            if (authArr[i] === undefined)
-            {
+        for (let i = 0; i < authArr.length; i++) {
+            if (authArr[i] === undefined) {
                 authArr[i] = tempAccessCredentials;
                 console.log("Access Credentials stored successfully");
                 return;
@@ -58,15 +50,11 @@ export class GoogleApiFunctions {
     }
 
     // gets the autharisation object matching the users session ID, the session ID is passed through the object constructor
-    retrieveAccessCredentials(authArr: AuthClientObjectWrapper[])
-    {
+    public retrieveAccessCredentials(authArr: AuthClientObjectWrapper[]) {
         console.log("fetch ID is: " + this.userSessionID);
-        for(const accCred of authArr)
-        {
-            if (accCred !== undefined)
-            {
-                if (accCred.sessionID === this.userSessionID)
-                {
+        for (const accCred of authArr) {
+            if (accCred !== undefined) {
+                if (accCred.sessionID === this.userSessionID) {
                     console.log("Credentials returned successfully");
                     return accCred;
                 }
@@ -76,8 +64,7 @@ export class GoogleApiFunctions {
         // if the code gets here then the access credentials is not in the array
     }
 
-    consumeAccessCode(accessCode: string, authArr: AuthClientObjectWrapper[])
-    {
+    public consumeAccessCode(accessCode: string, authArr: AuthClientObjectWrapper[]) {
         console.log("My session id is: " + this.userSessionID);
 
         const {client_secret, client_id, redirect_uris} = this.globalCredentials.installed; // 'installed' name in  json file
@@ -85,7 +72,7 @@ export class GoogleApiFunctions {
 
         return new Promise((resolve, reject) => {
             oAuth2Client.getToken(accessCode, (err: any, token: { access_token: string; }) => {
-                if (err) return console.error('Error retrieving access token', err);
+                if (err) { return console.error("Error retrieving access token", err); }
 
                 console.log("access token: " + token.access_token);
                 oAuth2Client.setCredentials(token);
@@ -93,15 +80,13 @@ export class GoogleApiFunctions {
                 const gAPI = new GoogleApiFunctions(this.userSessionID);
                 gAPI.storeAccessCredentials(new AuthClientObjectWrapper(oAuth2Client, this.userSessionID), authArr); // Stores access credentials in array
 
-                resolve({text: 'access code successfully set'});
+                resolve({text: "access code successfully set"});
 
             });
-        })
+        });
     }
 
-
-    getCollections(authArr: AuthClientObjectWrapper[])
-    {
+    public getCollections(authArr: AuthClientObjectWrapper[]) {
         const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
         const obj = JSON.parse(collectionsSkeleton);
         return new Promise((success, failure) => {
@@ -109,18 +94,17 @@ export class GoogleApiFunctions {
             const tempAccT = gAPI.retrieveAccessCredentials(authArr);
             const auth = tempAccT.auth;
 
-            const drive = google.drive({version: 'v3', auth});
+            const drive = google.drive({version: "v3", auth});
             drive.files.list({
                 q: "mimeType='application/json'",
-                spaces: 'drive',
+                spaces: "drive",
                 pageSize: 20,
-                fields: 'nextPageToken, files(id, name)',
+                fields: "nextPageToken, files(id, name)",
             }, (err, driveRes) => {
-                if (err) return console.log('The API returned an error: ' + err);
+                if (err) { return console.log("The API returned an error: " + err); }
                 const files = driveRes.data.files;
                 if (files.length) {
-                    files.forEach((file) =>
-                    {
+                    files.forEach((file) => {
                         // console.log('Found File: ', file.name, file.id);
                         obj.collectionNames.push(file.name);
                     });
@@ -129,18 +113,17 @@ export class GoogleApiFunctions {
                     success(obj);
 
                 } else {
-                    console.log('No files found.');
+                    console.log("No files found.");
                     failure(obj);
                 }
             });
-        }).then( data => {
+        }).then( (data) => {
             console.log(data);
             return data;
-        })
+        });
     }
 
-    listMotifs(authArr: AuthClientObjectWrapper[])
-    {
+    public listMotifs(authArr: AuthClientObjectWrapper[]) {
         const gAPI = new GoogleApiFunctions(this.userSessionID);
         const tempAccT = gAPI.retrieveAccessCredentials(authArr);
         const auth = tempAccT.auth;
@@ -149,21 +132,21 @@ export class GoogleApiFunctions {
         const motifDetails = JSON.parse('{"motifNames": []}');
 
         return new Promise((resolve, reject) => {
-            const drive = google.drive({version: 'v3', auth});
+            const drive = google.drive({version: "v3", auth});
             drive.files.list({
                 q: "mimeType='image/svg+xml'",
-                spaces: 'drive',
+                spaces: "drive",
                 pageSize: 10,
-                fields: 'nextPageToken, files(id, name)',
+                fields: "nextPageToken, files(id, name)",
             }, (err, res) => {
-                if (err) return console.log('The API returned an error: ' + err);
+                if (err) { return console.log("The API returned an error: " + err); }
                 const files = res.data.files;
                 if (files.length) {
 
-                    console.log('Files:');
+                    console.log("Files:");
                     files.map((file) => {
                         console.log(`${file.name} (${file.id})`);
-                        const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}')
+                        const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}');
                         motifContainer.motifName = file.name;
                         motifContainer.motifID = file.id;
                         // obj.motifNames.push(file.id);
@@ -174,14 +157,13 @@ export class GoogleApiFunctions {
 
                 } else {
                     reject({text: "something went wrong with fetching motifs"});
-                    console.log('No files found.');
+                    console.log("No files found.");
                 }
             });
-        })
+        });
     }
 
-    setPermissions(authArr: AuthClientObjectWrapper[], motifContainer: any)
-    {
+    public setPermissions(authArr: AuthClientObjectWrapper[], motifContainer: any) {
         // const promiseArr: Promise<any>[] = [];
 
         const gAPI = new GoogleApiFunctions(this.userSessionID);
@@ -192,39 +174,36 @@ export class GoogleApiFunctions {
         try {
 
             console.log("the motif ID is: " + motifContainer.motifID);
-            const drive = google.drive({version: 'v3', auth});
+            const drive = google.drive({version: "v3", auth});
             return drive.permissions.create({ // returns promise
                 fileId: motifContainer.motifID,
                 requestBody: {
-                    role: 'reader',
-                    type: 'anyone'
+                    role: "reader",
+                    type: "anyone"
                 }
             })
-            .then(permissionSuccess => {
+            .then((permissionSuccess) => {
                 // console.log(permissionSuccess)
                 motifContainer.linkPermission = "good";
                 // return {text: "good"}; //the promise returns this when permission setting has been successful
                 return motifContainer;
-            }).catch(permissionFailure => {
+            }).catch((permissionFailure) => {
                 motifContainer.linkPermission = "bad";
                 // console.log(permissionFailure)
                 // return {text: "bad"}; ////the promise returns this when permission setting has been unsuccessful
                 return motifContainer;
-            })
+            });
             // console.log("the test is: " + test)
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
 
         }
     }
 
-    getPublicMotifsInfo(authArr: AuthClientObjectWrapper[], motifDetails: any)
-    {
-        const permissionPromiseArray: Promise<any>[] = []
-        for(const elem in motifDetails.motifNames)
-        {
-            if (elem)
-            {
+    public getPublicMotifsInfo(authArr: AuthClientObjectWrapper[], motifDetails: any) {
+        const permissionPromiseArray: Array<Promise<any>> = [];
+        for (const elem in motifDetails.motifNames) {
+            if (elem) {
                 const permissionPromise = this.setPermissions(authArr, motifDetails.motifNames[elem]);
                 permissionPromiseArray.push(permissionPromise);
                 // console.log(motifDetails.motifNames[elem]);
@@ -251,11 +230,10 @@ export class GoogleApiFunctions {
             }
         }
         console.log("Permissions promise array: " + permissionPromiseArray);
-        return Promise.all(permissionPromiseArray)
+        return Promise.all(permissionPromiseArray);
     }
 
-    getPublicLink(authArr: AuthClientObjectWrapper[], motifContainer: any)
-    {
+    public getPublicLink(authArr: AuthClientObjectWrapper[], motifContainer: any) {
 
         const gAPI = new GoogleApiFunctions(this.userSessionID);
         const tempAccT = gAPI.retrieveAccessCredentials(authArr);
@@ -264,13 +242,14 @@ export class GoogleApiFunctions {
         // let test;
         try {
             console.log("the motif ID is: " + motifContainer.motifID);
-            const drive = google.drive({version: 'v3', auth});
-            if (motifContainer.linkPermission === "bad")
+            const drive = google.drive({version: "v3", auth});
+            if (motifContainer.linkPermission === "bad") {
                 return null;
+            }
             return drive.files.get({
                 fileId: motifContainer.motifID,
-                fields: 'webContentLink'
-            })
+                fields: "webContentLink"
+            });
                 // .then(permissionSuccess => {
                 //     // console.log(permissionSuccess)
                 //     motifContainer.linkPermission = "good";
@@ -284,20 +263,16 @@ export class GoogleApiFunctions {
                 // })
             // console.log("the test is: " + test)
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
     }
 
-    generatePublicLinksJSON(authArr: AuthClientObjectWrapper[], motifContainer: any[])
-    {
-        const linkPromiseArray: Promise<any>[] = []
+    public generatePublicLinksJSON(authArr: AuthClientObjectWrapper[], motifContainer: any[]) {
+        const linkPromiseArray: Array<Promise<any>> = [];
         const goodMotifs = JSON.parse('{"motifDetails": []}');
-        for(const elem in motifContainer)
-        {
-            if (elem)
-            {
-                if (motifContainer[elem].linkPermission === 'good')
-                {
+        for (const elem in motifContainer) {
+            if (elem) {
+                if (motifContainer[elem].linkPermission === "good") {
                     const publicLink = this.getPublicLink(authArr, motifContainer[elem]);
                     linkPromiseArray.push(publicLink);
                     goodMotifs.motifDetails.push(motifContainer[elem]);
@@ -307,11 +282,9 @@ export class GoogleApiFunctions {
 
             }
         }
-        return Promise.all(linkPromiseArray).then(links => {
-            for(const link in links)
-            {
-                if (link)
-                {
+        return Promise.all(linkPromiseArray).then((links) => {
+            for (const link in links) {
+                if (link) {
                     console.log(links[link].data);
                     goodMotifs.motifDetails[link].motifLink = links[link].data.webContentLink;
                 }
@@ -320,8 +293,7 @@ export class GoogleApiFunctions {
             return goodMotifs;
             // console.log(goodMotifs);
 
-        })
+        });
 
     }
 }
-
