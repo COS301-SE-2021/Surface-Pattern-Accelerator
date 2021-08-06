@@ -35,8 +35,24 @@
           <canvas id="editorCanvas" width="300" height="330" style="border:1px solid #000000;"></canvas>
           -->
           <svg id="example" width="300" height="300">
-            <circle id="example2" cx="105" cy="105" r="100" stroke="green" stroke-width="4" fill="yellow" />
+            <circle id="example3" cx="105" cy="105" r="100" stroke="green" stroke-width="4" fill="yellow" />
           </svg>
+
+          <form>
+            <label for="fav_color">Select a color: </label>
+            <input type="color" id="fav_color" name="fav_color" value="#ff0000">
+            <br>
+            <br>
+            <ion-button color="medium" onclick="function changeColor() {
+                let circle	= document.getElementById('example2');
+                let circle2	= document.getElementById('example3');
+              let color	= document.getElementById('fav_color').value;
+              circle.style.fill = color;
+              circle2.style.fill = color;
+            }
+            changeColor()">Change Color</ion-button>
+            <ion-button color="medium" onclick="save_svg()">Save SVG</ion-button>
+          </form>
         </ion-card-content>
       </ion-card>
     </ion-col>
