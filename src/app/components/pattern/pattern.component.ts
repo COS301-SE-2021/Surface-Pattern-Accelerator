@@ -22,8 +22,8 @@ export class PatternComponent implements OnInit {
 
     this.getMotifs();
 
-    let width = 500;
-    let height = 500;
+    let width = 100;
+    let height = 100;
     this.stage = new Konva.Stage({
       container: 'container',
       width: width,
@@ -84,7 +84,7 @@ export class PatternComponent implements OnInit {
   {
     Konva.Image.fromURL(motifURL,
       (image: Group | Shape<ShapeConfig>) => {
-        image.x(100);
+        image.x(0);
 
         image.scale();
         image.draggable(true);
