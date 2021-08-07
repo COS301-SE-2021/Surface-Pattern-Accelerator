@@ -22,8 +22,8 @@ export class PatternComponent implements OnInit {
 
     this.getMotifs();
 
-    let width = window.innerWidth * 0.9;
-    let height = window.innerHeight;
+    let width = 500;
+    let height = 500;
     this.stage = new Konva.Stage({
       container: 'container',
       width: width,
