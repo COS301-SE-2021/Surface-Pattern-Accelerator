@@ -2,7 +2,7 @@
   Grid layout of Color Editor Tab
 -->
 <app-navbar></app-navbar>
-<div>
+<div id="colorComponentWrapper">
 <ion-grid>
   <ion-row> <!-- Row1 -->
     <ion-col size="8">
@@ -16,13 +16,21 @@
           Load svg's from the drive
 
           <div onload="main();">
-            <object id="synoptic" data={{fileName}} type="image/svg+xml"></object>
+            <img id="output" width="200" alt="SVG Image" src="src/assets/shapes.svg"/>
           </div>
-          -->
+
             <svg id="patternExample" width="100" height="100">
               <circle id="example2" cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
             </svg>
+            <object id="synoptic" data="./src/assets/shapes.svg" type="image/svg+xml"></object>
+            -->
 
+          <img id="output" width="200" alt="SVG Image" src="././assets/shapes.svg"/>
+
+          <form>
+            <ion-button color="medium" (click)="importSVG()">Import SVG</ion-button>
+            <input type="file" id="c-upload-file" onload="inputSVG()">
+          </form>
         </ion-card-content>
       </ion-card>
 

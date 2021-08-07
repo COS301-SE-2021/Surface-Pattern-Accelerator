@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './color.component.html',
   styleUrls: ['./color.component.scss'],
 })
+
 export class ColorComponent implements OnInit {
   svgName: any;
   patternName: any;
@@ -25,7 +26,7 @@ export class ColorComponent implements OnInit {
 
   changeFill() {
     //**** this code section will be replaced by dynamic svg selection ****
-    let svg	= document.getElementById('example');
+    let svg	= document.getElementById('output');
     let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
 
     //**** universal code ****
@@ -63,4 +64,17 @@ export class ColorComponent implements OnInit {
     document.body.removeChild(downloadLink);
   }
 
+
+
+  importSVG() {
+    let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
+    fileInput.click();
+  }
+
+  inputSVG() {
+    let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
+    let file = fileInput.files[0];
+    let image = <HTMLImageElement>document.getElementById('output');
+    image.src = URL.createObjectURL(file);
+  }
 }
