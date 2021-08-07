@@ -13,9 +13,13 @@
 
         <ion-card-content>
           <!--
-          <canvas id="selectorCanvas" width="700" height="330" style="border:1px solid #000000;"></canvas>
+          Load svg's from the drive
+
+          <div onload="main();">
+            <object id="synoptic" data={{fileName}} type="image/svg+xml"></object>
+          </div>
           -->
-            <svg id="example" width="100" height="100">
+            <svg id="patternExample" width="100" height="100">
               <circle id="example2" cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
             </svg>
 
@@ -43,14 +47,7 @@
             <input type="color" id="fav_color" name="fav_color" value="#ff0000">
             <br>
             <br>
-            <ion-button color="medium" onclick="function changeColor() {
-                let circle	= document.getElementById('example2');
-                let circle2	= document.getElementById('example3');
-              let color	= document.getElementById('fav_color').value;
-              circle.style.fill = color;
-              circle2.style.fill = color;
-            }
-            changeColor()">Change Color</ion-button>
+            <ion-button color="medium" (click)="changeFill()">Change Color</ion-button>
             <ion-button color="medium" (click)="save_svg()">Save SVG</ion-button>
           </form>
         </ion-card-content>

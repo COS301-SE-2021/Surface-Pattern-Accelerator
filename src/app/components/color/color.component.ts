@@ -13,13 +13,46 @@ export class ColorComponent implements OnInit {
 
   ngOnInit() {}
 
+  changeColor() {
+    let circle	= document.getElementById('example2');
+    let circle2	= document.getElementById('example3');
+    let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
+    let color	= colorPicker.value;
+    circle.style.fill = color;
+    circle2.style.fill = color;
+    return true;
+  }
+
+  changeFill() {
+    //**** this code section will be replaced by dynamic svg selection ****
+    let svg	= document.getElementById('example');
+    let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
+
+    //**** universal code ****
+    let color	= colorPicker.value;
+
+    //**** Searches through the svg and changes fill color for child nodes ****
+
+    // An array of child nodes of the SVG
+    let nodes = svg.children;
+    // Iterating through the child nodes
+    for (let k in nodes) {
+      if (typeof nodes[k] != 'undefined') {
+        console.log('Color component, changeFill(): ',nodes[k].tagName);
+        if (nodes[k].hasAttribute('fill')) {
+          nodes[k].setAttribute('fill', color);
+        }
+      }
+    }
+  }
+
   save_svg() {
     let svgEl;
     svgEl = document.getElementById("example2");
     //svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     const svgData = svgEl.outerHTML;
     const preface = '<?xml version="1.0" standalone="no"?>\r\n';
-    const svgBlob = new Blob([ preface,'<svg xmlns="http://www.w3.org/2000/svg" size="100" width="100">',
+    const svgBlob = new Blob([ preface,'<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100">',
         svgData, '</svg>'], {type: "image/svg+xml;charset=utf-8"});
     let svgUrl = URL.createObjectURL(svgBlob);
     let downloadLink = document.createElement("a");
