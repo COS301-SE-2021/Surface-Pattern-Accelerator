@@ -3,6 +3,11 @@
   background-color: #E5E5E5;
 }
 
+#container{
+  background-color: lightgrey;
+  text-align : center;
+}
+
 #canvas{
   //margin: auto;
   width: 80%;
@@ -22,10 +27,30 @@
   font-size: 14px;
 }
 
+.column {
+  float: left;
+  padding: 10px;
+  height: 100%
+}
+
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+}
+
+
+
+
+
 /* Fixed sidenav, full height */
 .sidenav {
   height: 100%;
-  width: 250px;
+  //width: 250px;
+  width : 20%;
+  float: left;
   position: fixed;
   top: 58px;
   left: 0;
@@ -35,6 +60,10 @@
   padding-top: 20px;
 
 }
+.center{
+  margin: auto;
+}
+
 
 .bg-primary{
   background-color: lightgrey !important;
@@ -49,7 +78,7 @@
   display: block;
   border: none;
   background: none;
-  width:100%;
+  //width:100%;
   text-align: left;
   cursor: pointer;
   outline: none;
@@ -66,9 +95,14 @@
 
 /* Main content */
 .main {
-  margin-left: 250px; /* Same as the width of the sidenav */
+  //margin-left: 250px; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
-  padding: 0 10px;
+  //padding: 0 10px;
+
+  width : 60%;
+  height: 100%;
+
+
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color
@@ -105,15 +139,17 @@ and some left padding to change the design of the dropdown content */
 }
 
 .wrapper{
-  display: flex;
+  //display: flex;
+  background-color: lightgrey;
 }
 .workArea{
-  margin-left: 280px;
+  //margin-left: 280px;
   //background-color: aqua;
-  width: 800px;
+  width: 500px;
   height: 500px;
   //border-radius: 10px;
   border: solid grey 1px;
+  text-align : center;
 }
 .workArea > h3{
   padding: 10px;
@@ -121,8 +157,9 @@ and some left padding to change the design of the dropdown content */
 .widgets{
   //margin-left: 15px !important;
   background-color: lightgrey;
-  width: 250px;
-  height: 100vh;
+  //width: 250px;
+  width : 20%;
+  height: 100%;
   top: 58px;
   position: absolute;
   right: 0;
@@ -160,8 +197,9 @@ and some left padding to change the design of the dropdown content */
   width: 800px;
   height: 30px;
   //background-color: black;
-  margin-left: 280px;
-  margin-bottom: 20px;
+  //margin-left: 280px;
+  //margin-bottom: 20px;
+  text-align : center;
   border: solid grey 1px;
 }
 
