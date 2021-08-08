@@ -65,6 +65,17 @@ export class ColorComponent implements OnInit {
 
     // An array of child nodes of the SVG
     let nodes = svg.children;
+    // ******************************* Debugging code *******************************
+    // Process of printing child nodes by name in the console for debugging
+    let c = svg.childNodes;
+    let text  = '';
+    let i;
+    for (i = 0; i < c.length; i++) {
+      text  = text + c[i].nodeName + '  ';
+    }
+    console.log('Child nodes discovered in the SVG: ' +text);
+    console.log('Number of child elements SVG has: ' + svg.childElementCount);
+    // ******************************************************************************
     // Iterating through the child nodes
     for (let k  =  0; k < nodes.length; k++) {
       if (!(typeof nodes[k] === 'undefined')) {
