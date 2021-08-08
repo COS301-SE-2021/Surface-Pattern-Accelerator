@@ -16,9 +16,11 @@ export class ColorComponent implements OnInit {
 
   // Modern approach to the equivalent PHP function file_get_contents()
   // Reads the contents of a file into a string
+  //**** Resource used: https://stackoverflow.com/questions/10693518/is-there-a-javascript-way-to-do-file-get-contents
   async file_get_contents(uri, callback) {
-    let res = await fetch(uri),
-      ret = await res.text();
+    let res = await fetch(uri), ret = await res.text();
+    let divExample  = <HTMLDivElement>document.getElementById("divOutput");
+    divExample.innerHTML  = ret;
     return callback ? callback(ret) : ret; // a Promise() actually.
   }
 
@@ -27,14 +29,8 @@ export class ColorComponent implements OnInit {
   changeColor() {
     let imageCC = <HTMLImageElement>document.getElementById('output');
     const svgDt = <HTMLOrSVGImageElement>imageCC;
-
-    // create a parser to turn the SVG string into an element
-    const parser  = new DOMParser();
-
-    let text : string;
     let out = this.file_get_contents(imageCC.src, console.log);
-    let out2 = this.file_get_contents(imageCC.src, text);
-    console.log('Testing text output: ' + text);
+
     return true;
   }
 
