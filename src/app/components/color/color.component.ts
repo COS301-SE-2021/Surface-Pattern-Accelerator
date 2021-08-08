@@ -20,6 +20,7 @@ export class ColorComponent implements OnInit {
   async file_get_contents(uri, callback) {
     let res = await fetch(uri), ret = await res.text();
     let divExample  = <HTMLDivElement>document.getElementById("divOutput");
+    // Insert SVG code directly into html
     divExample.innerHTML  = ret;
     return callback ? callback(ret) : ret; // a Promise() actually.
   }
@@ -27,11 +28,26 @@ export class ColorComponent implements OnInit {
   // **** this function searches through an *imported svg
   // changing all the fill colors to one specified by the user
   changeColor() {
+    // For illustration, file source is retried from image source
+    // Mimicking working with an uploaded SVG source file
     let imageCC = <HTMLImageElement>document.getElementById('output');
-    const svgDt = <HTMLOrSVGImageElement>imageCC;
+    // Gets SVG source code and inserts it into the html
     let out = this.file_get_contents(imageCC.src, console.log);
+    // Access the inserted svg element
+    let divCC = <HTMLElement>document.getElementById("divOutput");
+    let divChildren = divCC.children;
+    // Error check to make sure SVG was inserted
+    if (divChildren[0] == null) {
+      console.log('Error in changeColor(): SVG was not inserted into div container.');
+      return null;
+    }
+    // divChildren[0] should contain the inserted SVG element
+    // we can set its id attribute, so we call the changeFill() function
+    divChildren[0].setAttribute('id','test');
+    // Call changeFill() to change fill with svg of the set id.
+    // this.changeFill();
 
-    return true;
+    return out; // Promise()
   }
 
   // **** this function searches through an svg
@@ -39,7 +55,7 @@ export class ColorComponent implements OnInit {
 
   changeFill() {
     //**** this code section will be replaced by dynamic svg selection ****
-    let svg	= document.getElementById('output');
+    let svg	= document.getElementById('test');
     let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
 
     //**** universal code ****
@@ -50,10 +66,10 @@ export class ColorComponent implements OnInit {
     // An array of child nodes of the SVG
     let nodes = svg.children;
     // Iterating through the child nodes
-    for (let k in nodes) {
-      if (typeof nodes[k] != 'undefined') {
+    for (let k  =  0; k < nodes.length; k++) {
+      if (!(typeof nodes[k] === 'undefined')) {
         console.log('Color component, changeFill(): ',nodes[k].tagName);
-        if (nodes[k].hasAttribute('fill')) {
+        if (nodes[k].hasAttribute('fill') && typeof nodes[k].hasAttribute('fill') !== 'undefined') {
           nodes[k].setAttribute('fill', color);
         }
       }
