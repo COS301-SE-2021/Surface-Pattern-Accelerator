@@ -21,6 +21,7 @@ export class WorkareaComponent implements OnInit {
   layer!: Konva.Layer;
   previewStage!: Konva.Stage;
   previewLayer!: Konva.Layer;
+  box!: Konva.Rect;
   constructor() {
   }
 
@@ -111,7 +112,7 @@ export class WorkareaComponent implements OnInit {
 
 
     // create smaller preview stage
-    const previewStage = new Konva.Stage({
+    this.previewStage = new Konva.Stage({
       container: 'preview',
       width: this.stage.width() / 4,
       height: this.stage.width() / 4,
@@ -119,31 +120,22 @@ export class WorkareaComponent implements OnInit {
       scaleY: 1 / 4,
     });
     //clone frame of pattern stage
-    const previewLayer = this.layer.clone({ listening: false });
-    previewStage.add(previewLayer);
+    //this.previewLayer = this.layer.clone({ listening: false });
+    //this.previewStage.add(this.previewLayer);//added clone layer to preview stage
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     function updatePreview() {
       // we just need to update ALL nodes in the preview
-      this.layer.children.forEach((shape) => {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      this.layer.children.forEach((box) => {
         // find cloned node
-        const clone = previewLayer.findOne('.' + shape.name());
+        const clone = this.previewLayer.findOne('.' + box.name());
         // update its position from the original
-        clone.position(shape.position());
+        clone.position(box.position());
       });
     }
     this.stage.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
 
-  }
-  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-  updatePreview() {
-    // we just need to update ALL nodes in the preview
-    this.layer.children.forEach((shape) => {
-      // find cloned node
-      const clone = this.previewLayer.findOne('.' + shape.name());
-      // update its position from the original
-      clone.position(shape.position());
-    });
   }
   // eslint-disable-next-line @typescript-eslint/member-ordering
   download(){
@@ -175,6 +167,11 @@ export class WorkareaComponent implements OnInit {
       this.height = 500;
       this.changeSize(check);
     }
+  }
+  preview(){
+    //clone frame of pattern stage
+    this.previewLayer = this.layer.clone({ listening: false });
+    this.previewStage.add(this.previewLayer);//added clone layer to preview stage
   }
   changeSize(check){
     if(check===true)//square is alright
@@ -228,8 +225,7 @@ export class WorkareaComponent implements OnInit {
       document.body.style.cursor = 'default';
     });
     //this.stage.on('dragmove', this.updatePreview);//every time something gets dragged, refresh preview
-    this.updatePreview();
     this.layer.add(box);
-    this.stage.add(this.layer);
+    //this.stage.add(this.layer);
   }
 }
