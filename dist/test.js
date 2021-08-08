@@ -64,20 +64,23 @@ app.get("/api/googleLogin", (req, res) => {
     res.json({ signInURL: authUrl }); // send JSON with sign in URL
 });
 app.post("/api/consumeAccessCode", (req, res) => {
-    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions(req.session.id);
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
     gAPI.consumeAccessCode(req.body.accessCode, authArr).then((success) => {
         console.log(success);
-        req.session.accessToken = success;
+        req.session.accessToken = success; // make success an ITokenInterface and store it in the users session for later oAuthObject creation
         res.status(200).send({
             Message: "Access token is now set!"
         });
-        // req.session.save();
+    }).catch((failure) => {
+        res.status(503).send({
+            Message: failure
+        });
     });
 });
 app.get("/api/getCollections", (req, res) => {
-    console.log(req.session.accessToken.expiry_date);
-    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions(req.session.id);
-    gAPI.getCollections(authArr)
+    console.log(req.session.accessToken);
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    gAPI.getCollections(req.session.accessToken)
         .then((retValue) => {
         console.log(retValue);
         // console.log('Client id is: ' + auth._clientId);
@@ -88,27 +91,26 @@ app.get("/api/getCollections", (req, res) => {
 app.get("/", (req, res) => {
     res.send("Hello world!");
 });
-// app.get("/api/getMotifs", (req, res) => {
-//     // generatePublicURL(req.session.id)
-//     //     .then(r => {
-//     //         console.log("getSVG fired");
-//     //     });
-//     const gAPI = new GoogleApiFunctions(req.session.id);
-//     gAPI.listMotifs(authArr)
-//         .then((motifsJson) => {
-//             console.log(motifsJson);
-//             gAPI.getPublicMotifsInfo(authArr, motifsJson)
-//                 .then((permissionsRes) => {
-//                     gAPI.generatePublicLinksJSON(authArr, permissionsRes)
-//                         .then((motifsJSON) => {
-//                             console.log(motifsJSON);
-//                             res.json(motifsJSON);
-//                         });
-//                     // console.log(permissionsRes);
-//                 });
-//
-//         });
-// });
+app.get("/api/getMotifs", (req, res) => {
+    // generatePublicURL(req.session.id)
+    //     .then(r => {
+    //         console.log("getSVG fired");
+    //     });
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    gAPI.listMotifs(req.session.accessToken)
+        .then((motifsJson) => {
+        console.log(motifsJson);
+        gAPI.getPublicMotifsInfo(req.session.accessToken, motifsJson)
+            .then((permissionsRes) => {
+            gAPI.generatePublicLinksJSON(req.session.accessToken, permissionsRes)
+                .then((motifsJSON) => {
+                console.log(motifsJSON);
+                res.json(motifsJSON);
+            });
+            // console.log(permissionsRes);
+        });
+    });
+});
 // start the Express server
 app.listen(port, () => {
     // tslint:disable-next-line:no-console

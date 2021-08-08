@@ -7,9 +7,8 @@ export class GoogleApiFunctions {
 
     public globalCredentials: { installed: { client_secret: any; client_id: any; redirect_uris: any; }; };
 
-    public userSessionID: string;
-    constructor(sessID: string) {
-        this.userSessionID = sessID;
+    constructor() {
+
         console.log("g api created");
         this.globalCredentials = JSON.parse("{\n" +
             '    "installed":{\n' +
@@ -29,44 +28,43 @@ export class GoogleApiFunctions {
     }
 
     // takes authorisation object to store and and finds a place in the array to store it
-    public storeAccessCredentials(tempAccessCredentials: AuthClientObjectWrapper, authArr: AuthClientObjectWrapper[]) {
-        console.log("Store ID is: " + tempAccessCredentials.sessionID);
-        for (const accCred of authArr) {
-            if (accCred !== undefined) {
-                if (accCred.sessionID === tempAccessCredentials.sessionID) {
-                    console.log("Access Credentials already stored");
-                    return;
-                }
-            }
-        }
-        for (let i = 0; i < authArr.length; i++) {
-            if (authArr[i] === undefined) {
-                authArr[i] = tempAccessCredentials;
-                console.log("Access Credentials stored successfully");
-                return;
-            }
-        }
-        // if the code gets here the array is full.
-        // prune every now and then
-    }
-
-    // gets the autharisation object matching the users session ID, the session ID is passed through the object constructor
-    public retrieveAccessCredentials(authArr: AuthClientObjectWrapper[]) {
-        console.log("fetch ID is: " + this.userSessionID);
-        for (const accCred of authArr) {
-            if (accCred !== undefined) {
-                if (accCred.sessionID === this.userSessionID) {
-                    console.log("Credentials returned successfully");
-                    return accCred;
-                }
-            }
-        }
-        console.log("Credentials unsuccessfully fetched");
-        // if the code gets here then the access credentials is not in the array
-    }
+    // public storeAccessCredentials(tempAccessCredentials: AuthClientObjectWrapper, authArr: AuthClientObjectWrapper[]) {
+    //     console.log("Store ID is: " + tempAccessCredentials.sessionID);
+    //     for (const accCred of authArr) {
+    //         if (accCred !== undefined) {
+    //             if (accCred.sessionID === tempAccessCredentials.sessionID) {
+    //                 console.log("Access Credentials already stored");
+    //                 return;
+    //             }
+    //         }
+    //     }
+    //     for (let i = 0; i < authArr.length; i++) {
+    //         if (authArr[i] === undefined) {
+    //             authArr[i] = tempAccessCredentials;
+    //             console.log("Access Credentials stored successfully");
+    //             return;
+    //         }
+    //     }
+    //     // if the code gets here the array is full.
+    //     // prune every now and then
+    // }
+    //
+    // // gets the autharisation object matching the users session ID, the session ID is passed through the object constructor
+    // public retrieveAccessCredentials(authArr: AuthClientObjectWrapper[]) {
+    //     console.log("fetch ID is: " + this.userSessionID);
+    //     for (const accCred of authArr) {
+    //         if (accCred !== undefined) {
+    //             if (accCred.sessionID === this.userSessionID) {
+    //                 console.log("Credentials returned successfully");
+    //                 return accCred;
+    //             }
+    //         }
+    //     }
+    //     console.log("Credentials unsuccessfully fetched");
+    //     // if the code gets here then the access credentials is not in the array
+    // }
 
     public consumeAccessCode(accessCode: string, authArr: AuthClientObjectWrapper[]) {
-        console.log("My session id is: " + this.userSessionID);
 
         const {client_secret, client_id, redirect_uris} = this.globalCredentials.installed; // 'installed' name in  json file
         const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
@@ -78,8 +76,8 @@ export class GoogleApiFunctions {
                 console.log("access token: " + token.access_token);
                 oAuth2Client.setCredentials(token);
 
-                const gAPI = new GoogleApiFunctions(this.userSessionID);
-                gAPI.storeAccessCredentials(new AuthClientObjectWrapper(oAuth2Client, this.userSessionID), authArr); // Stores access credentials in array
+                // const gAPI = new GoogleApiFunctions(this.userSessionID);
+                // gAPI.storeAccessCredentials(new AuthClientObjectWrapper(oAuth2Client, this.userSessionID), authArr); // Stores access credentials in array
 
                 // resolve({text: "access code successfully set"});
                 resolve(token);
@@ -88,13 +86,20 @@ export class GoogleApiFunctions {
         });
     }
 
-    public getCollections(authArr: AuthClientObjectWrapper[]) {
+    public createAuthObject(token: ITokenInterface) {
+        const {client_secret, client_id, redirect_uris} = this.globalCredentials.installed; // 'installed' name in  json file
+        const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+
+        oAuth2Client.setCredentials(token);
+        return oAuth2Client;
+    }
+
+    public getCollections(token: ITokenInterface) {
         const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
         const obj = JSON.parse(collectionsSkeleton);
         return new Promise((success, failure) => {
-            const gAPI = new GoogleApiFunctions(this.userSessionID);
-            const tempAccT = gAPI.retrieveAccessCredentials(authArr);
-            const auth = tempAccT.auth;
+
+            const auth = this.createAuthObject(token);
 
             const drive = google.drive({version: "v3", auth});
             drive.files.list({
@@ -107,11 +112,9 @@ export class GoogleApiFunctions {
                 const files = driveRes.data.files;
                 if (files.length) {
                     files.forEach((file) => {
-                        // console.log('Found File: ', file.name, file.id);
                         obj.collectionNames.push(file.name);
                     });
                     console.log(obj);
-                    // res.end(obj);
                     success(obj);
 
                 } else {
@@ -125,10 +128,8 @@ export class GoogleApiFunctions {
         });
     }
 
-    public listMotifs(authArr: AuthClientObjectWrapper[]) {
-        const gAPI = new GoogleApiFunctions(this.userSessionID);
-        const tempAccT = gAPI.retrieveAccessCredentials(authArr);
-        const auth = tempAccT.auth;
+    public listMotifs(token: ITokenInterface) {
+        const auth = this.createAuthObject(token);
 
         // const motifSkeleton = '{"motifNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
         const motifDetails = JSON.parse('{"motifNames": []}');
@@ -165,12 +166,9 @@ export class GoogleApiFunctions {
         });
     }
 
-    public setPermissions(authArr: AuthClientObjectWrapper[], motifContainer: any) {
-        // const promiseArr: Promise<any>[] = [];
+    public setPermissions(token: ITokenInterface, motifContainer: any) {
 
-        const gAPI = new GoogleApiFunctions(this.userSessionID);
-        const tempAccT = gAPI.retrieveAccessCredentials(authArr);
-        const auth = tempAccT.auth;
+        const auth = this.createAuthObject(token);
 
         // let test;
         try {
@@ -202,11 +200,11 @@ export class GoogleApiFunctions {
         }
     }
 
-    public getPublicMotifsInfo(authArr: AuthClientObjectWrapper[], motifDetails: any) {
+    public getPublicMotifsInfo(token: ITokenInterface, motifDetails: any) {
         const permissionPromiseArray: Array<Promise<any>> = [];
         for (const elem in motifDetails.motifNames) {
             if (elem) {
-                const permissionPromise = this.setPermissions(authArr, motifDetails.motifNames[elem]);
+                const permissionPromise = this.setPermissions(token, motifDetails.motifNames[elem]);
                 permissionPromiseArray.push(permissionPromise);
                 // console.log(motifDetails.motifNames[elem]);
                 // const motifPermissionPromise = new Promise((resolve, reject) => {
@@ -235,11 +233,9 @@ export class GoogleApiFunctions {
         return Promise.all(permissionPromiseArray);
     }
 
-    public getPublicLink(authArr: AuthClientObjectWrapper[], motifContainer: any) {
+    public getPublicLink(token: ITokenInterface, motifContainer: any) {
 
-        const gAPI = new GoogleApiFunctions(this.userSessionID);
-        const tempAccT = gAPI.retrieveAccessCredentials(authArr);
-        const auth = tempAccT.auth;
+        const auth = this.createAuthObject(token);
 
         // let test;
         try {
@@ -269,13 +265,13 @@ export class GoogleApiFunctions {
         }
     }
 
-    public generatePublicLinksJSON(authArr: AuthClientObjectWrapper[], motifContainer: any[]) {
+    public generatePublicLinksJSON(token: ITokenInterface, motifContainer: any[]) {
         const linkPromiseArray: Array<Promise<any>> = [];
         const goodMotifs = JSON.parse('{"motifDetails": []}');
         for (const elem in motifContainer) {
             if (elem) {
                 if (motifContainer[elem].linkPermission === "good") {
-                    const publicLink = this.getPublicLink(authArr, motifContainer[elem]);
+                    const publicLink = this.getPublicLink(token, motifContainer[elem]);
                     linkPromiseArray.push(publicLink);
                     goodMotifs.motifDetails.push(motifContainer[elem]);
 
