@@ -31,8 +31,10 @@ export class ColorComponent implements OnInit {
     // create a parser to turn the SVG string into an element
     const parser  = new DOMParser();
 
-
-    let text  = this.file_get_contents(imageCC.src, console.log);
+    let text : string;
+    let out = this.file_get_contents(imageCC.src, console.log);
+    let out2 = this.file_get_contents(imageCC.src, text);
+    console.log('Testing text output: ' + text);
     return true;
   }
 
