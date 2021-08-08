@@ -19,6 +19,8 @@ export class WorkareaComponent implements OnInit {
   myFrame = document.getElementById('canvasFrame');//get div of canvas frame
   stage!: Konva.Stage;
   layer!: Konva.Layer;
+  previewStage!: Konva.Stage;
+  previewLayer!: Konva.Layer;
   constructor() {
   }
 
@@ -106,6 +108,42 @@ export class WorkareaComponent implements OnInit {
     this.layer.add(box);
     this.stage.add(this.layer);
     //this.addLineListeners();
+
+
+    // create smaller preview stage
+    const previewStage = new Konva.Stage({
+      container: 'preview',
+      width: this.stage.width() / 4,
+      height: this.stage.width() / 4,
+      scaleX: 1 / 4,
+      scaleY: 1 / 4,
+    });
+    //clone frame of pattern stage
+    const previewLayer = this.layer.clone({ listening: false });
+    previewStage.add(previewLayer);
+
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    function updatePreview() {
+      // we just need to update ALL nodes in the preview
+      this.layer.children.forEach((shape) => {
+        // find cloned node
+        const clone = previewLayer.findOne('.' + shape.name());
+        // update its position from the original
+        clone.position(shape.position());
+      });
+    }
+    this.stage.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
+
+  }
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+  updatePreview() {
+    // we just need to update ALL nodes in the preview
+    this.layer.children.forEach((shape) => {
+      // find cloned node
+      const clone = this.previewLayer.findOne('.' + shape.name());
+      // update its position from the original
+      clone.position(shape.position());
+    });
   }
   // eslint-disable-next-line @typescript-eslint/member-ordering
   download(){
@@ -189,6 +227,8 @@ export class WorkareaComponent implements OnInit {
     box.on('mouseout', function() {
       document.body.style.cursor = 'default';
     });
+    //this.stage.on('dragmove', this.updatePreview);//every time something gets dragged, refresh preview
+    this.updatePreview();
     this.layer.add(box);
     this.stage.add(this.layer);
   }
