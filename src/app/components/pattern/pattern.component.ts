@@ -5,6 +5,7 @@ import { Group } from 'konva/lib/Group';
 import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
 
+
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
@@ -12,25 +13,46 @@ import {motifsInterface} from "../../Interfaces/motifsInterface";
 })
 export class PatternComponent implements OnInit {
   stage!: Konva.Stage;
-  layer!: Konva.Layer;
+  layer2!: Konva.Layer;
 
+  stage1!: Konva.Stage;
+  layerr!:Konva.Layer;
+  layer1!:Konva.Layer;
+  // layer2!:Konva.Layer;
+  motifCount: number = 0;
   motifs?: motifsInterface;
+  tr!: Konva.Transformer;
 
   constructor(private motifService: MotifServiceService) {}
 
   ngOnInit(){
 
     this.getMotifs();
+    type motifOffset=
+    {
+      motif: Konva.Layer;
+      xOffset: number;
+      yOffset: number;
+    }
 
     let width = 100;
     let height = 100;
-    this.stage = new Konva.Stage({
+    this.stage1 = new Konva.Stage({
       container: 'container',
       width: width,
       height: height
     });
-    this.layer = new Konva.Layer();
-    this.stage.add(this.layer);
+    this.layer2 = new Konva.Layer();
+
+    this.stage = new Konva.Stage({
+      container: 'can',   // id of container <div>
+      width: 600,
+      height: 600
+    });
+    let layerr = new Konva.Layer();
+    layerr = this.layer2.clone();
+    this.stage.add(layerr);
+    this.stage1.add(this.layer2);
     //this.addLineListeners();
 
     // const path = new Konva.Path({
@@ -77,7 +99,7 @@ export class PatternComponent implements OnInit {
       draggable: true
     });
 
-    this.layer.add(path2);
+    this.layer2.add(path2);
   }
 
   spawnMotifWithURL(motifURL: string)
@@ -88,8 +110,79 @@ export class PatternComponent implements OnInit {
 
         image.scale();
         image.draggable(true);
-        this.layer.add(image);
+        this.layer2.add(image);
+
+        this.tr = new Konva.Transformer();
+        this.layer2.add(this.tr);
+        if(this.motifCount == 0)
+        {
+          this.tr.nodes([this.layer2.children[this.motifCount]]);
+        }
+        else
+        {
+          this.tr.nodes([this.layer2.children[this.motifCount*2]]);
+        }
+
+        this.motifCount++;
+        console.log(this.layer2);
       });
+  }
+  generate()
+  {
+    this.layer1 = null;
+    this.layerr = null;
+    this.stage = new Konva.Stage({
+      container: 'can',
+      width: 600,
+      height: 600,
+    });
+
+     this.layerr = this.layer2.clone();
+    console.log("Here: " + this.layer2);
+    // var one = this.layerr.children[0].clone();
+    // var two = this.layerr.children[1].clone();
+
+
+
+    // // var three = layerr.children[2].clone();
+    //
+    var xOffset1 = 0;
+    var yOffset1 = 0;
+    var xOffset2 = 0;
+    var yOffset2 = 0;
+
+    // if(one.attrs.x > 80  ) xOffset1 = one.attrs.x - 100;
+    // if(one.attrs.y > 80  ) yOffset1 = one.attrs.y - 100;
+    // if(two.attrs.x > 80 ) xOffset2 = two.attrs.x - 100;
+    // if(two.attrs.y > 80  ) xOffset2 = two.attrs.y - 100;
+    // if(three.attrs.x > 80 ) xOffset3 = three.attrs.x - 100;
+    // if(three.attrs.y > 80  ) xOffset3 = three.attrs.y - 100;
+    //
+    //
+    let l = 100;
+    let xx = 0;
+    for(var i = 0 ; i < 10;i++)
+    {
+
+      xx = 0;
+      for(var n = 0 ; n < 10 ; n++)
+      {
+        for(var motifs = 0 ; motifs < this.layer2.children.length ; motifs++){
+          var k = this.layerr.children[motifs].clone();
+          //var one = layerr.children[0].clone();
+          k.attrs.x =k.attrs.x + 100 * i - 100;
+          k.attrs.y = k.attrs.y + 100 * xx - 100;
+          this.layerr.add(k);
+
+        }
+        xx++;
+      }
+
+
+    }
+    this.stage.add(this.layerr);
+
+
   }
 
 
