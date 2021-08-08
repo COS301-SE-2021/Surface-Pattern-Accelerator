@@ -6,11 +6,13 @@ import session from "express-session";
 import fs from "fs";
 import { OAuth2Client } from "google-auth-library";
 import {google} from "googleapis";
+import {ITokenInterface} from "./token.interface";
 
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 import {GoogleApiFunctions} from "./GoogleApiFunctions";
 
-// declare module 'express-session' { interface Session { authObj: OAuth2Client; } }
+// tslint:disable-next-line:interface-name
+declare module "express-session" { interface Session { accessToken: ITokenInterface; } }
 
 ////////////////////////////////////////////////////
 
@@ -84,15 +86,22 @@ app.post("/api/consumeAccessCode", (req, res) => { // read about express middlew
     const gAPI = new GoogleApiFunctions(req.session.id);
     gAPI.consumeAccessCode(req.body.accessCode, authArr).then((success) => {
         console.log(success);
+
+        req.session.accessToken = success as ITokenInterface;
+
         res.status(200).send({
             Message: "Access token is now set!"
         });
+
+        // req.session.save();
+
     });
 
 });
 
 app.get("/api/getCollections", (req, res) => {
 
+    console.log(req.session.accessToken);
     const gAPI = new GoogleApiFunctions(req.session.id);
     gAPI.getCollections(authArr)
         .then((retValue) => {
@@ -107,55 +116,27 @@ app.get( "/", ( req, res ) => {
     res.send( "Hello world!" );
 } );
 
-app.get("/api/getMotifs", (req, res) => {
-    // generatePublicURL(req.session.id)
-    //     .then(r => {
-    //         console.log("getSVG fired");
-    //     });
-    const gAPI = new GoogleApiFunctions(req.session.id);
-    gAPI.listMotifs(authArr)
-        .then((motifsJson) => {
-            console.log(motifsJson);
-            gAPI.getPublicMotifsInfo(authArr, motifsJson)
-                .then((permissionsRes) => {
-                    gAPI.generatePublicLinksJSON(authArr, permissionsRes)
-                        .then((motifsJSON) => {
-                            console.log(motifsJSON);
-                            res.json(motifsJSON);
-                        });
-                    // console.log(permissionsRes);
-                });
-
-        });
-
-// async function generatePublicURL(sessID: string, fileID: string)
-// {
-//     try {
-//         const gAPI = new GoogleApiFunctions(sessID);
-//         const tempAccT = gAPI.retrieveAccessCredentials(authArr);
-//         const auth = tempAccT.auth;
+// app.get("/api/getMotifs", (req, res) => {
+//     // generatePublicURL(req.session.id)
+//     //     .then(r => {
+//     //         console.log("getSVG fired");
+//     //     });
+//     const gAPI = new GoogleApiFunctions(req.session.id);
+//     gAPI.listMotifs(authArr)
+//         .then((motifsJson) => {
+//             console.log(motifsJson);
+//             gAPI.getPublicMotifsInfo(authArr, motifsJson)
+//                 .then((permissionsRes) => {
+//                     gAPI.generatePublicLinksJSON(authArr, permissionsRes)
+//                         .then((motifsJSON) => {
+//                             console.log(motifsJSON);
+//                             res.json(motifsJSON);
+//                         });
+//                     // console.log(permissionsRes);
+//                 });
 //
-//         const drive = google.drive({version: 'v3', auth});
-//         await drive.permissions.create({
-//             fileId: fileID,
-//             requestBody: {
-//                 role: 'reader',
-//                 type: 'anyone'
-//             }
-//         })
-//
-//         const result = await drive.files.get({
-//             fileId: fileID,
-//             fields: 'webContentLink'
 //         });
-//         console.log(result.data);
-//         return result.data;
-//     }
-//     catch (error){
-//         console.log(error.message)
-//     }
-//
-});
+// });
 
 // start the Express server
 app.listen(port, () => {

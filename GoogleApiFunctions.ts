@@ -1,6 +1,7 @@
 import fs, {linkSync} from "fs";
 import {google} from "googleapis";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
+import {ITokenInterface} from "./token.interface";
 
 export class GoogleApiFunctions {
 
@@ -71,7 +72,7 @@ export class GoogleApiFunctions {
         const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
         return new Promise((resolve, reject) => {
-            oAuth2Client.getToken(accessCode, (err: any, token: { access_token: string; }) => {
+            oAuth2Client.getToken(accessCode, (err: any, token: ITokenInterface) => {
                 if (err) { return console.error("Error retrieving access token", err); }
 
                 console.log("access token: " + token.access_token);
@@ -80,7 +81,8 @@ export class GoogleApiFunctions {
                 const gAPI = new GoogleApiFunctions(this.userSessionID);
                 gAPI.storeAccessCredentials(new AuthClientObjectWrapper(oAuth2Client, this.userSessionID), authArr); // Stores access credentials in array
 
-                resolve({text: "access code successfully set"});
+                // resolve({text: "access code successfully set"});
+                resolve(token);
 
             });
         });
