@@ -14,15 +14,30 @@ export class ColorComponent implements OnInit {
 
   ngOnInit() {}
 
+  // Modern approach to the equivalent PHP function file_get_contents()
+  // Reads the contents of a file into a string
+  async file_get_contents(uri, callback) {
+    let res = await fetch(uri),
+      ret = await res.text();
+    return callback ? callback(ret) : ret; // a Promise() actually.
+  }
+
+  // **** this function searches through an *imported svg
+  // changing all the fill colors to one specified by the user
   changeColor() {
-    let circle	= document.getElementById('example2');
-    let circle2	= document.getElementById('example3');
-    let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
-    let color	= colorPicker.value;
-    circle.style.fill = color;
-    circle2.style.fill = color;
+    let imageCC = <HTMLImageElement>document.getElementById('output');
+    const svgDt = <HTMLOrSVGImageElement>imageCC;
+
+    // create a parser to turn the SVG string into an element
+    const parser  = new DOMParser();
+
+
+    let text  = this.file_get_contents(imageCC.src, console.log);
     return true;
   }
+
+  // **** this function searches through an svg
+  // changing all the fill colors to one specified by the user
 
   changeFill() {
     //**** this code section will be replaced by dynamic svg selection ****
@@ -45,6 +60,7 @@ export class ColorComponent implements OnInit {
         }
       }
     }
+    return true;
   }
 
   save_svg() {
@@ -63,8 +79,6 @@ export class ColorComponent implements OnInit {
     downloadLink.click();
     document.body.removeChild(downloadLink);
   }
-
-
 
   importSVG() {
     let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
