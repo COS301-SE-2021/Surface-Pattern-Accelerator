@@ -16,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { LoginComponent } from "./components/login/login.component";
-import { NavbarComponent } from "./components/navbar/navbar.component"
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import {ColorComponent} from './components/color/color.component';
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -35,6 +36,7 @@ import { MaterialModule } from './material/material.module';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +51,8 @@ import { MaterialModule } from './material/material.module';
     CanvasColoursComponent,
     NewCollectionComponent,
     CollectionThemeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ColorComponent
   ],
 
   imports: [

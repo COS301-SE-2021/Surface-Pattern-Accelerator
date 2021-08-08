@@ -1,30 +1,120 @@
 <!--
   Grid layout of Color Editor Tab
+  <app-navbar></app-navbar>
 -->
 
-<ion-grid>
-  <ion-row> <!-- Row1 -->
-    <ion-col size="8">
+<div>
+  <ion-grid>
+    <ion-row> <!-- Row1 -->
+      <ion-col size="8">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Pattern {{patternName}}</ion-card-title>
+          </ion-card-header>
 
-      <ion-row> <!-- Row1.1 -->
-        <ion-text color="dark"> Pattern {{patternName}} </ion-text>
-      </ion-row>
+          <ion-card-content>
+            <!--
+            <canvas id="selectorCanvas" width="700" height="330" style="border:1px solid #000000;"></canvas>
+            -->
+            <svg id="example" width="100" height="100">
+              <circle id="example2" cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+            </svg>
 
-      <ion-row> <!-- Row1.2 -->
-        <ion-col class="canvasContained">
-          <canvas id="selectorCanvas" width="700" height="300" style="border:1px solid #000000;"></canvas>
-        </ion-col>
-      </ion-row>
+          </ion-card-content>
+        </ion-card>
 
-    </ion-col>
+      </ion-col>
 
-    <ion-col size="4" class="canvasContained">
-      <ion-text color="dark">Expanded View {{svgName}}</ion-text>
-      <canvas id="editorCanvas" width="350" height="330" style="border:1px solid #000000;"></canvas>
-    </ion-col>
-  </ion-row>
+      <ion-col size="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Expanded View {{svgName}}</ion-card-title>
+          </ion-card-header>
 
-  <ion-row> <!-- Row2 -->
+          <ion-card-content>
+            <!--
+            <canvas id="editorCanvas" width="300" height="330" style="border:1px solid #000000;"></canvas>
+            -->
+            <svg id="example" width="300" height="300">
+              <circle id="example3" cx="105" cy="105" r="100" stroke="green" stroke-width="4" fill="yellow" />
+            </svg>
 
-  </ion-row>
-</ion-grid>
+            <form>
+              <label for="fav_color">Select a color: </label>
+              <input type="color" id="fav_color" name="fav_color" value="#ff0000">
+              <br>
+              <br>
+              <ion-button color="medium" onclick="function changeColor() {
+                let circle	= document.getElementById('example2');
+                let circle2	= document.getElementById('example3');
+              let color	= document.getElementById('fav_color').value;
+              circle.style.fill = color;
+              circle2.style.fill = color;
+            }
+            changeColor()">Change Color</ion-button>
+              <ion-button color="medium" (click)="save_svg()">Save SVG</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row> <!-- Row2 -->
+      <ion-col size="8">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title> {{svgName}} Colors </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon> SVG Element
+            </ion-item>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon> SVG Element
+            </ion-item>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon> SVG Element
+            </ion-item>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon> SVG Element
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title> Your Color Palette </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon>
+              Empty
+              <ion-icon name="eyedrop"></ion-icon>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon>
+              Empty
+              <ion-icon name="eyedrop"></ion-icon>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon>
+              Empty
+              <ion-icon name="eyedrop"></ion-icon>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="square-outline"></ion-icon>
+              Empty
+              <ion-icon name="eyedrop"></ion-icon>
+            </ion-item>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</div>

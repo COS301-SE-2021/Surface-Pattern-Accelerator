@@ -1,19 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
+
 export class LoginComponent implements OnInit {
-  loggedIn: boolean = false;
+  loggedIn = false;
   email?: string;
   password?: string;
 
+  constructor(private loginService: LoginService) {
 
+    /*
+    * Attempt at hiding tab bar in login page.
+     */
+    if (AppComponent.tabBar != null) {
+      AppComponent.tabBar.style.hidden = true;
+    }
 
-  constructor(private loginService: LoginService) { }
+  }
 
   ngOnInit() {}
 
@@ -21,7 +30,5 @@ export class LoginComponent implements OnInit {
     this.loginService.loginWithGoogle();
   }
 
-  loginWithGoogle() {
-
-  }
+  loginWithGoogle() {}
 }
