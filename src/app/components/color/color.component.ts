@@ -27,7 +27,7 @@ export class ColorComponent implements OnInit {
 
   // **** this function searches through an *imported svg
   // changing all the fill colors to one specified by the user
-  changeColor() {
+  LoadToExpandedView() {
     // For illustration, file source is retried from image source
     // Mimicking working with an uploaded SVG source file
     let imageCC = <HTMLImageElement>document.getElementById('output');
@@ -45,14 +45,12 @@ export class ColorComponent implements OnInit {
     // we can set its id attribute, so we call the changeFill() function
     divChildren[0].setAttribute('id','test');
     // Call changeFill() to change fill with svg of the set id.
-    this.changeFill();
 
     return out; // Promise()
   }
 
   // **** this function searches through an svg
   // changing all the fill colors to one specified by the user
-
   changeFill() {
     //**** this code section will be replaced by dynamic svg selection ****
     let svg	= document.getElementById('test');
@@ -134,12 +132,14 @@ export class ColorComponent implements OnInit {
           this.patternName  = file.name;
           // Display the image html that was hidden
           image.style.display = 'block';
+          let p = this.LoadToExpandedView();
+          return p;
         } catch (err) {
           // For debugging purposes
           console.log(err.message);
         }
       }
     })
-
+    return null;
   }
 }
