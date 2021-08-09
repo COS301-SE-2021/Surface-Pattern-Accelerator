@@ -6,6 +6,7 @@ import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
 
 
+
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
@@ -22,6 +23,8 @@ export class PatternComponent implements OnInit {
   motifCount: number = 0;
   motifs?: motifsInterface;
   tr!: Konva.Transformer;
+  canvasMotifs:  (Group | Shape)[] = new Array();
+  canvasMotifsUrl:  string[] = new Array();
 
   constructor(private motifService: MotifServiceService) {}
 
@@ -79,7 +82,7 @@ export class PatternComponent implements OnInit {
       {
 
         this.motifs = motifs
-        console.log(motifs)
+       // console.log(motifs)
       });
   }
 
@@ -104,16 +107,42 @@ export class PatternComponent implements OnInit {
 
   spawnMotifWithURL(motifURL: string)
   {
+
+    this.canvasMotifsUrl[this.motifCount] = motifURL;
     Konva.Image.fromURL(motifURL,
       (image: Group | Shape<ShapeConfig>) => {
         image.x(0);
-
+        console.log(motifURL);
         image.scale();
         image.draggable(true);
+        console.log( image);
+
+
+          // image.on('keydown', function(e){
+          //   e = e || window.event;
+          //   if (e.keyCode === 38) { // up
+          //     image.moveUp();
+          //     console.log("upppp");
+          //   }  else if (e.keyCode === 40) { // down
+          //     image.moveDown();
+          //   } else {
+          //     return;
+          //   }
+          //   e.preventDefault();
+          //
+          // })
+
+
+
+
+
         this.layer2.add(image);
+        this.canvasMotifs[this.motifCount] = image;
+       // console.log("New motifs: " + this.layer2);
 
         this.tr = new Konva.Transformer();
         this.layer2.add(this.tr);
+
         if(this.motifCount == 0)
         {
           this.tr.nodes([this.layer2.children[this.motifCount]]);
@@ -125,8 +154,41 @@ export class PatternComponent implements OnInit {
 
         this.motifCount++;
         console.log(this.layer2);
+
+
+
       });
   }
+
+
+  moveUp(img: Group | Shape<ShapeConfig>)
+  {
+    console.log(this.layer2.children);
+    for(var i = 0 ; i < this.layer2.children.length; i++)
+    {
+      if(img._id+1 == this.layer2.children[i]._id && (i-2)<this.layer2.children.length)
+      {
+        img.moveUp();
+        this.layer2.children[i].moveUp();
+
+      }
+    }
+
+  }
+  moveDown(img: Group | Shape<ShapeConfig>)
+  {
+    for(var i = 0 ; i < this.layer2.children.length; i++)
+    {
+      if(img._id == this.layer2.children[i]._id && (i-2)<this.layer2.children.length)
+      {
+        img.moveDown();
+        this.layer2.children[i+1].moveDown();
+
+      }
+    }
+  }
+
+
   generate()
   {
     this.layer1 = null;
@@ -138,7 +200,7 @@ export class PatternComponent implements OnInit {
     });
 
      this.layerr = this.layer2.clone();
-    console.log("Here: " + this.layer2);
+    //console.log("Here: " + this.layer2);
     // var one = this.layerr.children[0].clone();
     // var two = this.layerr.children[1].clone();
 
