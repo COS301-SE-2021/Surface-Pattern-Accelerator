@@ -1,6 +1,7 @@
 import fs, {linkSync} from "fs";
 import {google} from "googleapis";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
+import {IFolderInterface} from "./folder.interface";
 import {ITokenInterface} from "./token.interface";
 
 export class GoogleApiFunctions {
@@ -94,39 +95,41 @@ export class GoogleApiFunctions {
         return oAuth2Client;
     }
 
-    public getCollections(token: ITokenInterface) {
-        const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
-        const obj = JSON.parse(collectionsSkeleton);
-        return new Promise((success, failure) => {
-
-            const auth = this.createAuthObject(token);
-
-            const drive = google.drive({version: "v3", auth});
-            drive.files.list({
-                q: "mimeType='application/json'",
-                spaces: "drive",
-                pageSize: 20,
-                fields: "nextPageToken, files(id, name)",
-            }, (err, driveRes) => {
-                if (err) { return console.log("The API returned an error: " + err); }
-                const files = driveRes.data.files;
-                if (files.length) {
-                    files.forEach((file) => {
-                        obj.collectionNames.push(file.name);
-                    });
-                    console.log(obj);
-                    success(obj);
-
-                } else {
-                    console.log("No files found.");
-                    failure(obj);
-                }
-            });
-        }).then( (data) => {
-            console.log(data);
-            return data;
-        });
-    }
+    // public getCollections(token: ITokenInterface) {
+    //     const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
+    //     const obj = JSON.parse(collectionsSkeleton);
+    //     return new Promise((success, failure) => {
+    //
+    //         const auth = this.createAuthObject(token);
+    //
+    //         const drive = google.drive({version: "v3", auth});
+    //         drive.files.list({
+    //             q: "mimeType = 'application/vnd.google-apps.folder'",
+    //             // q: "mimeType='application/json'",
+    //             spaces: "drive",
+    //             pageSize: 20,
+    //             fields: "nextPageToken, files(id, name)",
+    //         }, (err, driveRes) => {
+    //             if (err) { return console.log("The API returned an error: " + err); }
+    //             const files = driveRes.data.files;
+    //             if (files.length) {
+    //                 files.forEach((file) => {
+    //                     console.log(`${file.name} (${file.id})`);
+    //                     obj.collectionNames.push(file.name);
+    //                 });
+    //                 console.log(obj);
+    //                 success(obj);
+    //
+    //             } else {
+    //                 console.log("No files found.");
+    //                 failure(obj);
+    //             }
+    //         });
+    //     }).then( (data) => {
+    //         console.log(data);
+    //         return data;
+    //     });
+    // }
 
     public listMotifs(token: ITokenInterface) {
         const auth = this.createAuthObject(token);
@@ -293,5 +296,91 @@ export class GoogleApiFunctions {
 
         });
 
+    }
+
+    public getCollections(token: ITokenInterface) {
+        const auth = this.createAuthObject(token);
+
+        return new Promise((resolve, reject) => {
+            this.getFolderID(token, "SPA") // get folder ID of name "SPA"
+                .then((folderIDResult) => { // Then get all contents of folder
+                    // TODO: insert try catch if type is wrong
+                    const fDetails: IFolderInterface = folderIDResult as IFolderInterface;
+                    // const ID = "1bBwaYPMKdkuarODP5dVuaiTakehLu183";
+                    // const ID = fDetails.fileID;
+                    console.log("The file ID is: " + fDetails.fileID);
+                    const FILE_ID = "'" + fDetails.fileID + "' in parents";
+
+                    const drive = google.drive({version: "v3", auth});
+                    drive.files.list({
+                        q: FILE_ID,
+                        pageSize: 10,
+                        fields: "nextPageToken, files(id, name, mimeType)",
+                    }, (err, res) => {
+                        if (err) {
+                            return console.log("The API returned an error: " + err);
+                        }
+                        const files = res.data.files;
+                        if (files.length) {
+
+                            // const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
+                            const collectionsSkeleton = JSON.parse('{"collectionNames": []}');
+
+                            console.log("Contents in folder:");
+                            files.map((file) => {
+                                console.log(`${file.name} (${file.id}) ${file.mimeType}`);
+                                if (file.mimeType === "application/json") {
+                                    collectionsSkeleton.collectionNames.push(file.name);
+                                }
+
+                            });
+
+                            resolve(collectionsSkeleton);
+
+                        } else {
+                            reject({text: "something went wrong with fetching folder content"});
+                            console.log("No files found.");
+                        }
+                    });
+            });
+
+        });
+    }
+
+    public getFolderID(token: ITokenInterface, folderName: string) {
+        return new Promise((success, failure) => {
+
+            const auth = this.createAuthObject(token);
+
+            const drive = google.drive({version: "v3", auth});
+            drive.files.list({
+                q: "mimeType = 'application/vnd.google-apps.folder'",
+                spaces: "drive",
+                pageSize: 20,
+                fields: "nextPageToken, files(id, name, mimeType)",
+            }, (err, driveRes) => {
+                if (err) { return console.log("The API returned an error: " + err); }
+                const files = driveRes.data.files;
+                if (files.length) {
+                    files.forEach((file) => {
+                        console.log(`${file.name} (${file.id})`);
+                        if (file.name === folderName) {
+                            const folderDetails: IFolderInterface = {fileName: file.name, fileID: file.id } as IFolderInterface;
+
+                            success(folderDetails);
+                            // ends function here
+                        }
+                    });
+                    failure(); // TODO: create main folder here, parameter to make file if needed: true/false
+
+                } else {
+                    console.log("No files found.");
+                    failure();
+                }
+            });
+        }).then( (folderDetails) => {
+            // console.log(folderDetails);
+            return folderDetails;
+        });
     }
 }

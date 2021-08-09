@@ -140,6 +140,16 @@ app.get("/api/getMotifs", (req, res) => {
         });
 });
 
+app.get("/api/getFolder", (req, res) => {
+    const gAPI = new GoogleApiFunctions();
+    // gAPI.folderContent(req.session.accessToken).then((r) => {
+    //     console.log(r);
+    // });
+    // gAPI.getFolderID(req.session.accessToken, "SPA").then((r) => {
+    //     console.log(r);
+    // });
+});
+
 // start the Express server
 app.listen(port, () => {
         // tslint:disable-next-line:no-console
