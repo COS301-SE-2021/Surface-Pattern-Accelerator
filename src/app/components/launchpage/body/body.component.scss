@@ -13,11 +13,15 @@
 .headerLeft{
   padding: 25px 0;
   margin-left: 0;
+  font-weight: bold;
+  font-size: 150%;
 }
 .headerRight{
   display: flex;
   margin-left: auto;
   margin-right: 0;
+  font-size: 115%;
+  font-family: 'Comic Sans MS';
 }
 .rightContent{
   padding: 25px 30px;
@@ -31,6 +35,7 @@
   width: 300px;
   height: 300px;
   z-index: 1000;
+  padding: 100px 10px;
 }
 .btn{
   border-width: 2px;
@@ -50,6 +55,20 @@
   padding: 0 30px;
 }
 .mainLogin{
-  padding: 100px 50px;
+  padding: 100px 300px;
 }
+.words >h1{
+  font-weight: bold;
+  font-size: 80px;
+  padding: 15px 0;
+}
+.words >h2{
+  color: white;
+  font-size: 30px;
+}
+.words >h4{
+  font-family: 'Comic Sans MS';
+  font-size: 30px;
+}
+
 
