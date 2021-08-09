@@ -1,5 +1,7 @@
 import fs, {linkSync} from "fs";
 import {google} from "googleapis";
+// import stream from "node:stream";
+import { Stream } from "stream";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 import {IFolderInterface} from "./folder.interface";
 import {ITokenInterface} from "./token.interface";
@@ -415,6 +417,32 @@ export class GoogleApiFunctions {
             resource: fileMetadata
         });
 
+    }
+
+    public updateFile(token: ITokenInterface, fileID: string) {
+        const auth = this.createAuthObject(token);
+        const drive = google.drive({version: "v3", auth});
+
+        const content = "some demo content here to test updating";
+        const buf = Buffer.from(content, "binary");
+        const buffer = Uint8Array.from(buf);
+
+        const bufferStream = new Stream.PassThrough();
+        bufferStream.end(buffer);
+
+        const media = {
+            mimeType: "application/json",
+            body: bufferStream
+        };
+
+        drive.files.update({
+            fileId: fileID,
+            media
+        }).then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
 }

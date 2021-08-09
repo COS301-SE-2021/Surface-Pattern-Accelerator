@@ -30,6 +30,7 @@
     "@types/express-session": "^1.17.4",
     "@types/node": "^16.0.0",
     "express-session": "^1.17.2",
+    "stream": "0.0.2",
     "tslint": "^5.12.1",
     "typescript": "^3.9.7"
   }
