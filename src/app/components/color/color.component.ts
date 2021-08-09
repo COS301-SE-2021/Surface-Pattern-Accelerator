@@ -58,34 +58,41 @@ export class ColorComponent implements OnInit {
     let svg	= document.getElementById('test');
     let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
 
-    //**** universal code ****
+    // Store color value specified by user
     let color	= colorPicker.value;
 
-    //**** Searches through the svg and changes fill color for child nodes ****
+    // Search through the svg and change fill color for child nodes
+    this.recursiveNodeSearch(svg, color);
+    return true;
+  }
 
-    // An array of child nodes of the SVG
-    let nodes = svg.children;
-    // ******************************* Debugging code *******************************
-    // Process of printing child nodes by name in the console for debugging
-    let c = svg.childNodes;
-    let text  = '';
-    let i;
-    for (i = 0; i < c.length; i++) {
-      text  = text + c[i].nodeName + '  ';
+  // Recursively search through the node, and iterate through all child nodes on
+  // all levels.
+  recursiveNodeSearch(node, colorValue) {
+    // Base case for recursive function
+    if (node.childElementCount == 0) {
+      // Make sure we are not working with undefined nodes
+      if (!(typeof node === 'undefined')) {
+        console.log('Changing the node color, through recursive node search: ',node.tagName);
+        // Check if the node has a specified node fill color
+        if (node.hasAttribute('fill')) {
+          node.setAttribute('fill',colorValue);
+        }
+      }
+      // Leave recursive call
+      return;
     }
-    console.log('Child nodes discovered in the SVG: ' +text);
-    console.log('Number of child elements SVG has: ' + svg.childElementCount);
-    // ******************************************************************************
-    // Iterating through the child nodes
-    for (let k  =  0; k < nodes.length; k++) {
-      if (!(typeof nodes[k] === 'undefined')) {
-        console.log('Color component, changeFill(): ',nodes[k].tagName);
-        if (nodes[k].hasAttribute('fill') && typeof nodes[k].hasAttribute('fill') !== 'undefined') {
-          nodes[k].setAttribute('fill', color);
+    else if (node.childElementCount > 0) {
+      // Store children of node in array
+      let nodeChildren  = node.children;
+      // Iterate through the individual node children and call the recursive function
+      for (let j = 0; j < nodeChildren.length; j++) {
+        // Make sure we are not working with undefined nodes
+        if (!(typeof nodeChildren[j] === 'undefined')) {
+          this.recursiveNodeSearch(nodeChildren[j],colorValue);
         }
       }
     }
-    return true;
   }
 
   save_svg() {
