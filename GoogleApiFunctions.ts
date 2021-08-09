@@ -298,18 +298,19 @@ export class GoogleApiFunctions {
 
     }
 
+    // returns list of collections, namely json files in the SPA folder on G drive
     public getCollections(token: ITokenInterface) {
         const auth = this.createAuthObject(token);
 
         return new Promise((resolve, reject) => {
-            this.getFolderID(token, "SPA") // get folder ID of name "SPA"
+            this.getFolderID(token, "SPA", true) // get folder ID of name "SPA", true to create folder SPA folder if it does not exist
                 .then((folderIDResult) => { // Then get all contents of folder
                     // TODO: insert try catch if type is wrong
                     const fDetails: IFolderInterface = folderIDResult as IFolderInterface;
                     // const ID = "1bBwaYPMKdkuarODP5dVuaiTakehLu183";
                     // const ID = fDetails.fileID;
                     console.log("The file ID is: " + fDetails.fileID);
-                    const FILE_ID = "'" + fDetails.fileID + "' in parents";
+                    const FILE_ID = "'" + fDetails.fileID + "' in parents and trashed=false";
 
                     const drive = google.drive({version: "v3", auth});
                     drive.files.list({
@@ -332,13 +333,11 @@ export class GoogleApiFunctions {
                                 if (file.mimeType === "application/json") {
                                     collectionsSkeleton.collectionNames.push(file.name);
                                 }
-
                             });
-
                             resolve(collectionsSkeleton);
 
                         } else {
-                            reject({text: "something went wrong with fetching folder content"});
+                            reject({text: "something went wrong with fetching folder content - No Collections Found"});
                             console.log("No files found.");
                         }
                     });
@@ -347,7 +346,7 @@ export class GoogleApiFunctions {
         });
     }
 
-    public getFolderID(token: ITokenInterface, folderName: string) {
+    public getFolderID(token: ITokenInterface, folderName: string, createIfNone: boolean) {
         return new Promise((success, failure) => {
 
             const auth = this.createAuthObject(token);
@@ -359,18 +358,35 @@ export class GoogleApiFunctions {
                 pageSize: 20,
                 fields: "nextPageToken, files(id, name, mimeType)",
             }, (err, driveRes) => {
+                let spaFolderFound = false;
                 if (err) { return console.log("The API returned an error: " + err); }
                 const files = driveRes.data.files;
                 if (files.length) {
-                    files.forEach((file) => {
+                    files.forEach((file) => { // loop through all files and search for name === folderName
                         console.log(`${file.name} (${file.id})`);
                         if (file.name === folderName) {
+                            console.log("SPA folder found");
                             const folderDetails: IFolderInterface = {fileName: file.name, fileID: file.id } as IFolderInterface;
-
-                            success(folderDetails);
+                            spaFolderFound = true;
+                            success(folderDetails); // if found: success
+                            return;
                             // ends function here
                         }
                     });
+                    // end of loop so folder not found
+                    // create folder if parameter createIfNone === true
+                    if (createIfNone === true && spaFolderFound === false) {
+                        this.createFolder(token, "SPA").then((r) => {
+                            console.log("SPA Folder created as it was not found");
+                            console.log(r.data);
+                            const idResponse: any = r.data;
+
+                            const folderDetails: IFolderInterface = {fileName: "SPA", fileID: idResponse.id } as IFolderInterface;
+                            success(folderDetails); // if found: success
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    }
                     failure(); // TODO: create main folder here, parameter to make file if needed: true/false
 
                 } else {
@@ -383,4 +399,22 @@ export class GoogleApiFunctions {
             return folderDetails;
         });
     }
+
+    public createFolder(token: ITokenInterface, folderName: string) {
+        const auth = this.createAuthObject(token);
+        const drive = google.drive({version: "v3", auth});
+
+        const fileMetadata = {
+            name: folderName,
+            mimeType: "application/vnd.google-apps.folder"
+        };
+
+        // @ts-ignore - Typescript does not recognise this function but javascript does, transpiles successfully
+        return drive.files.create({
+            fields: "id",
+            resource: fileMetadata
+        });
+
+    }
+
 }

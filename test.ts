@@ -110,6 +110,9 @@ app.get("/api/getCollections", (req, res) => {
         console.log(retValue);
         // console.log('Client id is: ' + auth._clientId);
         res.json(retValue);
+    }).catch((error) => {
+        //TODO: send error response for if no collections were found
+        console.log(error);
     });
 });
 
@@ -140,14 +143,9 @@ app.get("/api/getMotifs", (req, res) => {
         });
 });
 
-app.get("/api/getFolder", (req, res) => {
+app.get("/api/createFolder", (req, res) => {
     const gAPI = new GoogleApiFunctions();
-    // gAPI.folderContent(req.session.accessToken).then((r) => {
-    //     console.log(r);
-    // });
-    // gAPI.getFolderID(req.session.accessToken, "SPA").then((r) => {
-    //     console.log(r);
-    // });
+    gAPI.createFolder(req.session.accessToken, "someName2");
 });
 
 // start the Express server
