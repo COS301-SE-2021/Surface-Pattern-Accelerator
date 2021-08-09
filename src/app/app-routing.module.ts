@@ -13,12 +13,14 @@ import { LoginResponseComponent} from './components/login-response/login-respons
 import { ColorComponent} from './components/color/color.component';
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component'
 import { CollectionThemeComponent } from './components/collection-creator/collection-theme/collection-theme.component'
+import { MainComponent } from './components/launchpage/main/main.component';
 
 
 const routes: Routes = [
 
+  { path: '', component: MainComponent},
   { path: 'login', component: LoginComponent},
-  { path: '',    redirectTo: 'login',    pathMatch: 'full'  },
+  // { path: '',    redirectTo: 'login',    pathMatch: 'full'  },
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'colorpallet', component: CollorPalletComponent},

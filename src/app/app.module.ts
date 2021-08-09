@@ -17,7 +17,9 @@ import { PatternComponent } from './components/pattern/pattern.component';
 import { ImportComponent} from './components/import/import.component';
 import { LoginComponent } from "./components/login/login.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
-import {ColorComponent} from './components/color/color.component';
+import { ColorComponent } from './components/color/color.component';
+import { MainComponent } from './components/launchpage/main/main.component';
+import { BodyComponent } from './components/launchpage/body/body.component';
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -52,7 +54,9 @@ import { MaterialModule } from './material/material.module';
     NewCollectionComponent,
     CollectionThemeComponent,
     NavbarComponent,
-    ColorComponent
+    ColorComponent,
+    MainComponent,
+    BodyComponent
   ],
 
   imports: [
