@@ -45,7 +45,7 @@ export class ColorComponent implements OnInit {
     // we can set its id attribute, so we call the changeFill() function
     divChildren[0].setAttribute('id','test');
     // Call changeFill() to change fill with svg of the set id.
-    // this.changeFill();
+    this.changeFill();
 
     return out; // Promise()
   }
@@ -69,6 +69,9 @@ export class ColorComponent implements OnInit {
   // Recursively search through the node, and iterate through all child nodes on
   // all levels.
   recursiveNodeSearch(node, colorValue) {
+    if (node == null) {
+      return;
+    }
     // Base case for recursive function
     if (node.childElementCount == 0) {
       // Make sure we are not working with undefined nodes
@@ -112,15 +115,23 @@ export class ColorComponent implements OnInit {
     document.body.removeChild(downloadLink);
   }
 
+  // Import SVG and display it in image file.
+  // TODO modify it to display image in canvas and load from google drive
   importSVG() {
     let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
-    fileInput.click();
-  }
-
-  inputSVG() {
-    let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
-    let file = fileInput.files[0];
     let image = <HTMLImageElement>document.getElementById('output');
-    image.src = URL.createObjectURL(file);
+    fileInput.click();
+    fileInput.addEventListener('change', ()=> {
+      let file = fileInput.files[0];
+      // Check for file
+      if (file) {
+        try {
+          image.src = URL.createObjectURL(file);
+        } catch (err) {
+          console.log(err.message);
+        }
+      }
+    })
+
   }
 }
