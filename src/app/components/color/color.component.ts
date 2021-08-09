@@ -120,7 +120,9 @@ export class ColorComponent implements OnInit {
   importSVG() {
     let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
     let image = <HTMLImageElement>document.getElementById('output');
+    // Trigger the hidden input type='file' html element
     fileInput.click();
+    // Activates when a user selects a file and a change event is fired by the browser
     fileInput.addEventListener('change', ()=> {
       let file = fileInput.files[0];
       // Check for file
@@ -133,6 +135,7 @@ export class ColorComponent implements OnInit {
           // Display the image html that was hidden
           image.style.display = 'block';
         } catch (err) {
+          // For debugging purposes
           console.log(err.message);
         }
       }
