@@ -188,8 +188,26 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  moveToTop(img: Group | Shape<ShapeConfig>) {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id + 1 == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToTop();
+        img.moveToTop();
+      }
+    }
+  }
 
-  generate()
+  movetToBottom(img: Group | Shape<ShapeConfig>) {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id + 1 == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToBottom();
+        img.moveToBottom();
+      }
+    }
+  }
+
+
+    generate()
   {
     this.layer1 = null;
     this.layerr = null;
