@@ -126,7 +126,12 @@ export class ColorComponent implements OnInit {
       // Check for file
       if (file) {
         try {
+          // Loads the uploaded file to the html src attribute
           image.src = URL.createObjectURL(file);
+          // Changes the pattern name in the UI
+          this.patternName  = file.name;
+          // Display the image html that was hidden
+          image.style.display = 'block';
         } catch (err) {
           console.log(err.message);
         }
