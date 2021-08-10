@@ -27,6 +27,14 @@ html, body {
   width : 100%;
 }
 
+#preview {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border: 1px solid grey;
+  background-color: lightgrey;
+}
+
 #frame{
   width : 20%;
   height : 100%;
@@ -40,6 +48,11 @@ html, body {
   }
 
 
+}
+
+
+#container{
+  background-color: #383a3e;
 }
 
 #side{
@@ -63,9 +76,6 @@ html, body {
     linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
     $dot-color;
   background-size: $dot-space $dot-space;
-
-
-
 }
 
 #canvasFrame{
@@ -88,11 +98,25 @@ html, body {
 }
 
 #myCanvas{
-  background-color: darkblue;
+  //background-color: darkblue;
   float : left;
 }
 
+input[type="color"] {
+  padding: 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  color: black;
+  width: 50px;
+  height: 20px;
+  background-color: white;
+}
 
+input[type="color"]:hover {
+  padding: 6px;
+  color: white;
+  background-color: #555555;
+}
 
 //CLASSES
 
