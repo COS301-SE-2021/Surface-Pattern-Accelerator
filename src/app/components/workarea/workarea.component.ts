@@ -22,6 +22,7 @@ export class WorkareaComponent implements OnInit {
   previewStage!: Konva.Stage;
   previewLayer!: Konva.Layer;
   box!: Konva.Rect;
+  background!: Konva.Rect;
   constructor() {
   }
 
@@ -135,6 +136,15 @@ export class WorkareaComponent implements OnInit {
       });
     }
     this.stage.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
+    this.background = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: this.stage.width(),
+      height: this.stage.height(),
+      fill: 'green',
+      listening: false,
+    });
+    this.layer.add(this.background);
 
   }
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -151,6 +161,16 @@ export class WorkareaComponent implements OnInit {
     link.click();
     document.body.removeChild(link);
     //delete this.link;
+  }
+  changeColor()
+  {
+    const con	= document.getElementById('container');
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
+    //con.style.backgroundColor = color;
+    //this.stage.container().style.backgroundColor = color;
+    //alert(color);
+    this.background.fill(color);
   }
   chooseCanvasSymbol(check){
     this.myFrame = document.getElementById('canvasFrame');//get div of canvas frame
