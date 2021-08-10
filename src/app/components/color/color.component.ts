@@ -52,8 +52,11 @@ export class ColorComponent implements OnInit {
   // **** this function searches through an svg
   // changing all the fill colors to one specified by the user
   changeFill() {
-    //**** this code section will be replaced by dynamic svg selection ****
-    let svg	= document.getElementById('test');
+    // Get the inserted SVG element from the html document
+    let div = <HTMLElement>document.getElementById("divOutput");
+    let divC  = div.children;
+    let svg	= divC[0];
+    // Get color value from user
     let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
 
     // Store color value specified by user
@@ -78,6 +81,11 @@ export class ColorComponent implements OnInit {
         // Check if the node has a specified node fill color
         if (node.hasAttribute('fill')) {
           node.setAttribute('fill',colorValue);
+        }
+        // Some SVGs set their fill in the style attribute
+        // Check if the node has the style attribute
+        if (node.hasAttribute('style')) {
+          node.style.fill = colorValue;
         }
       }
       // Leave recursive call
@@ -132,8 +140,7 @@ export class ColorComponent implements OnInit {
           this.patternName  = file.name;
           // Display the image html that was hidden
           image.style.display = 'block';
-          let p = this.LoadToExpandedView();
-          return p;
+          return this.LoadToExpandedView();
         } catch (err) {
           // For debugging purposes
           console.log(err.message);
