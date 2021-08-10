@@ -82,7 +82,6 @@ app.get("/api/getCollections", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
     gAPI.getCollections(req.session.accessToken)
         .then((retValue) => {
-        console.log("The returned collections are: *********************************************");
         console.log(retValue);
         // console.log('Client id is: ' + auth._clientId);
         res.json(retValue);

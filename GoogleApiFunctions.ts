@@ -4,6 +4,8 @@ import {google} from "googleapis";
 import { Stream } from "stream";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 import {IFolderInterface} from "./folder.interface";
+import {ICollectionDetailsInterface} from "./Interfaces/collectionDetails.interface";
+import {ICollectionsInterface} from "./Interfaces/collections.interface";
 import {ITokenInterface} from "./token.interface";
 
 export class GoogleApiFunctions {
@@ -327,16 +329,18 @@ export class GoogleApiFunctions {
                         if (files.length) {
 
                             // const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
-                            const collectionsSkeleton = JSON.parse('{"collectionNames": []}');
+                            // const collections = JSON.parse('{"collectionNames": []}');
+                            const collectionsJSON: ICollectionsInterface = {collections: []} as unknown as ICollectionsInterface;
 
                             console.log("Contents in folder:");
                             files.map((file) => {
                                 console.log(`${file.name} (${file.id}) ${file.mimeType}`);
                                 if (file.mimeType === "application/json") {
-                                    collectionsSkeleton.collectionNames.push(file.name);
+                                    collectionsJSON.collections.push({collectionName: file.name, collectionID: file.id} as ICollectionDetailsInterface);
                                 }
                             });
-                            resolve(collectionsSkeleton);
+                            // console.log(collectionsJSON);
+                            resolve(collectionsJSON);
 
                         } else {
                             reject({text: "something went wrong with fetching folder content - No Collections Found"});
