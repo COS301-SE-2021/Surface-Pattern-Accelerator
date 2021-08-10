@@ -82,6 +82,7 @@ app.get("/api/getCollections", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
     gAPI.getCollections(req.session.accessToken)
         .then((retValue) => {
+        console.log("The returned collections are: *********************************************");
         console.log(retValue);
         // console.log('Client id is: ' + auth._clientId);
         res.json(retValue);
@@ -116,7 +117,15 @@ app.get("/api/getMotifs", (req, res) => {
 });
 app.get("/api/createFolder", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
-    gAPI.createFolder(req.session.accessToken, "someName2");
+    gAPI.createFolder(req.session.accessToken, "someName2").then((r) => {
+        console.log(r);
+    });
+});
+app.get("/api/createSubFolder", (req, res) => {
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    gAPI.createFolder(req.session.accessToken, "a sub folder name", "1OsdJZ7U31Z7MTUzyixgpH3ZdcEeVsnF5").then((r) => {
+        console.log(r);
+    });
 });
 app.get("/api/updateFile", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();

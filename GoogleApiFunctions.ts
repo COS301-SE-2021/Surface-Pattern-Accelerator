@@ -343,6 +343,9 @@ export class GoogleApiFunctions {
                             console.log("No files found.");
                         }
                     });
+            }).catch((noFolderWithThatNameError) => {
+                console.log(noFolderWithThatNameError);
+                reject({text: "something went wrong with fetching folder content - No folder named SPA, one will be created"});
             });
 
         });
@@ -383,13 +386,20 @@ export class GoogleApiFunctions {
                             console.log(r.data);
                             const idResponse: any = r.data;
 
-                            const folderDetails: IFolderInterface = {fileName: "SPA", fileID: idResponse.id } as IFolderInterface;
-                            success(folderDetails); // if found: success
+                            const PatternsPromise = this.createFolder(token, "Patterns", idResponse.id); // create Patterns sub folder
+                            const MotifsPromise = this.createFolder(token, "Motifs", idResponse.id); // create Motifs sub folder
+
+                            Promise.all([PatternsPromise, MotifsPromise]).then((subFoldersResponse) => {
+                                console.log(subFoldersResponse);
+                                const folderDetails: IFolderInterface = {fileName: "SPA", fileID: idResponse.id } as IFolderInterface;
+                                success(folderDetails); // if found: success
+                            });
+
                         }).catch((error) => {
                             console.log(error);
                         });
                     }
-                    failure(); // TODO: create main folder here, parameter to make file if needed: true/false
+                    failure();
 
                 } else {
                     console.log("No files found.");
@@ -402,22 +412,42 @@ export class GoogleApiFunctions {
         });
     }
 
-    public createFolder(token: ITokenInterface, folderName: string) {
+    public createFolder(token: ITokenInterface, folderName: string, parentID: string = "") {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});
 
-        const fileMetadata = {
-            name: folderName,
-            mimeType: "application/vnd.google-apps.folder"
-        };
+        if (parentID !== "") {
+            const fileMetadata = {
+                name: folderName,
+                mimeType: "application/vnd.google-apps.folder",
+                parents: [parentID]
+            };
 
-        // @ts-ignore - Typescript does not recognise this function but javascript does, transpiles successfully
-        return drive.files.create({
-            fields: "id",
-            resource: fileMetadata
-        });
+            // @ts-ignore - Typescript does not recognise this function but javascript does, transpiles successfully
+            return drive.files.create({
+                fields: "id",
+                resource: fileMetadata
+            });
+        } else {
+            const fileMetadata = {
+                name: folderName,
+                mimeType: "application/vnd.google-apps.folder"
+            };
 
+            // @ts-ignore - Typescript does not recognise this function but javascript does, transpiles successfully
+            return drive.files.create({
+                fields: "id",
+                resource: fileMetadata
+            });
+        }
     }
+
+    // public createChildFolder(token: ITokenInterface, parentID: string, childName: string, childMimeType: string) {
+    //     let fileMetadata = {
+    //         name: childName,
+    //         parents: parentID
+    //     };
+    // }
 
     public updateFile(token: ITokenInterface, fileID: string) {
         const auth = this.createAuthObject(token);
