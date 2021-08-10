@@ -102,7 +102,21 @@ html, body {
   float : left;
 }
 
+input[type="color"] {
+  padding: 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  color: black;
+  width: 50px;
+  height: 20px;
+  background-color: white;
+}
 
+input[type="color"]:hover {
+  padding: 6px;
+  color: white;
+  background-color: #555555;
+}
 
 //CLASSES
 
