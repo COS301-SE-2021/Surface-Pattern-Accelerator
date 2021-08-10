@@ -21,23 +21,4 @@ describe('PatternComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
- /* it('Test 1: Testing if canvas download is executed when download button is called', () => {
-
-    spyOn(component, 'downloadCanvas');
-    let btnEl1 = fixture.debugElement.nativeElement.querySelector('#download-btn');
-    btnEl1.click();
-
-    expect(component.downloadCanvas).toHaveBeenCalled();
-  });
-
-  it('Test 2: Testing if pattern preview works', () => {
-
-    spyOn(component, 'openModal');
-    let btnEl2 = fixture.debugElement.nativeElement.querySelector('#preview-btn');
-    btnEl2.click();
-
-    expect(component.openModal).toHaveBeenCalled();
-  });*/
-
 });
