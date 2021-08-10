@@ -46,7 +46,6 @@
 
   </div>
   <div class="column middle" style="background-color:#bbb;">
-
     <div class="main column center">
       <div class="patternName">
         <h3>Pattern X</h3>
@@ -57,19 +56,14 @@
       <button (click)="generate()">Generate</button>
       <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
     </div>
-
-
   </div>
   <div class="column right" style="background-color:#ccc;">
-
+    <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
     <div class="widgets column">
       <div class="widgetSide">
         <div class="Layers">
 
-
-
         </div>
-
         <div class="modifiers">
           <h1 style="text-align:center" >Modifiers</h1>
           <div>
@@ -91,16 +85,10 @@
                     <button (click)="movetToBottom(motif)">Bottom</button>
                   </div>
                 </div>
-
-
             </div>
           </div>
-
         </div>
       </div>
-
-
     </div>
-
   </div>
 </div>
