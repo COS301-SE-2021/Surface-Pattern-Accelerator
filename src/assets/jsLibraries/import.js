@@ -3,6 +3,10 @@
 document.addEventListener("click", e => {
 //window.onLoad=function() {
     const canvas = document.getElementById("canvas");
+    if (canvas == null) {
+      console.log('Error in import.js, canvas element is null.');
+      return false;
+    }
     const ctx = canvas.getContext("2d");
 
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +13,6 @@ export class LoginComponent implements OnInit {
   password?: string;
 
   constructor(private loginService: LoginService) {
-
-    /*
-    * Attempt at hiding tab bar in login page.
-     */
-    if (AppComponent.tabBar != null) {
-      AppComponent.tabBar.style.hidden = true;
-    }
 
   }
 
