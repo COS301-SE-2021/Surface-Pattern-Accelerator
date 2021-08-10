@@ -50,6 +50,11 @@ html, body {
 
 }
 
+
+#container{
+  background-color: #383a3e;
+}
+
 #side{
   background-color: white;
   width : 20%;
@@ -71,9 +76,6 @@ html, body {
     linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
     $dot-color;
   background-size: $dot-space $dot-space;
-
-
-
 }
 
 #canvasFrame{
@@ -96,7 +98,7 @@ html, body {
 }
 
 #myCanvas{
-  background-color: darkblue;
+  //background-color: darkblue;
   float : left;
 }
 
