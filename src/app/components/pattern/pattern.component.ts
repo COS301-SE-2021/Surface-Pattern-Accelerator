@@ -25,7 +25,9 @@ export class PatternComponent implements OnInit {
   tr!: Konva.Transformer;
   canvasMotifs:  (Group | Shape)[] = new Array();
   canvasMotifsUrl:  string[] = new Array();
-
+  height: number = 100;
+  width: number = 100;
+  gridLayer? : Konva.Layer;
   constructor(private motifService: MotifServiceService) {}
 
   ngOnInit(){
@@ -52,12 +54,13 @@ export class PatternComponent implements OnInit {
       width: 600,
       height: 600
     });
+
     let layerr = new Konva.Layer();
     layerr = this.layer2.clone();
     this.stage.add(layerr);
     this.stage1.add(this.layer2);
     //this.addLineListeners();
-
+    this.gridLayer = new Konva.Layer;
     // const path = new Konva.Path({
     //   x: 0,
     //   y: 0,
@@ -73,8 +76,42 @@ export class PatternComponent implements OnInit {
     //
     // // add the shape to the layer
     // this.layer.add(path);
-  }
 
+
+
+
+  }
+  addGrid(e) {
+    console.log(this.layer2);
+    var padding = 20;
+    if(e.checked){
+
+      for (var i = 0; i < this.width / padding; i++) {
+        this.gridLayer.add(new Konva.Line({
+          points: [Math.round(i * padding) , 0, Math.round(i * padding) , this.height],
+          stroke: 'black',
+          strokeWidth: 0.5,
+        }));
+      }
+
+      this.gridLayer.add(new Konva.Line({points: [0,0,10,10]}));
+      for (var j = 0; j < this.height / padding; j++) {
+        this.gridLayer.add(new Konva.Line({
+          points: [0, Math.round(j * padding), this.width, Math.round(j * padding)],
+          stroke: 'black',
+          strokeWidth: 0.5,
+        }));
+      }
+      this.stage1.add(this.gridLayer);
+
+    }
+    else
+    {
+      this.gridLayer.remove();
+    }
+    console.log(this.layer2);
+
+  }
   getMotifs(): void
   {
     this.motifService.getMotifs()
