@@ -7,10 +7,10 @@
   </a>
 
   <div *ngIf="collections">
-    <div *ngFor="let collectionName of collections.collectionNames" >
+    <div *ngFor="let collection of collections.collections" >
       <a
-         routerLink="/pattern">
-        {{collectionName}}
+         routerLink="/pattern/{{collection.collectionID}}"> <!-- collectionID does resolve, ignore warning -->
+        {{collection.collectionName}} <!-- collectionName does resolve, ignore warning -->
       </a>
     </div>
   </div>

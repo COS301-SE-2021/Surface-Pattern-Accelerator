@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CollectionsInterface } from '../Interfaces/collectionsInterface';
+import { ICollectionsInterface } from '../Interfaces/collections.interface';
 import { Observable, of } from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
@@ -27,11 +27,11 @@ export class CollectionsServiceService {
   }
 
 
-  getCollections(): Observable< CollectionsInterface>
+  getCollections(): Observable< ICollectionsInterface>
   {
     console.log("get collections fired!");
     const getCollectionsURL = this.serverURL + '/api/getCollections';
-    return this.http.get<CollectionsInterface>(getCollectionsURL, {withCredentials: true}); //GET request
+    return this.http.get<ICollectionsInterface>(getCollectionsURL, {withCredentials: true}); //GET request
   }
 
   /** POST: add a new collection to the server */
