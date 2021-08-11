@@ -105,8 +105,10 @@ export class ColorComponent implements OnInit {
   }
 
   save_svg() {
-    let svgEl;
-    svgEl = document.getElementById("test");
+    // Get the inserted SVG element from the html document
+    let div = <HTMLElement>document.getElementById("divOutput");
+    let divC  = div.children;
+    let svgEl	= divC[0];
     //svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     const svgData = svgEl.outerHTML;
     const preface = '<?xml version="1.0" standalone="no"?>\r\n';
