@@ -1,47 +1,41 @@
-<div class="wrapper">
+<ion-content class="wrapper">
 
-  <div class="contentBox">
+  <ion-card class="contentBox">
 
-    <div class="colorBox">
+    <ion-card class="colorBox">
       <div class="color"></div>
-      <button id="lock1" (click)="lockColour('lock1')">Lock</button>
+      <ion-button id="lock1" color="medium" (click)="lockColour('lock1')">Lock</ion-button>
       <p class="code">#4cae3a</p>
-    </div>
+    </ion-card>
 
-    <div class="colorBox">
+    <ion-card class="colorBox">
       <div class="color"></div>
-      <button id="lock2" (click)="lockColour('lock2')">Lock</button>
+      <ion-button id="lock2" color="medium" (click)="lockColour('lock2')">Lock</ion-button>
       <p class="code">#4cae3a</p>
-    </div>
+    </ion-card>
 
-    <div class="colorBox">
+    <ion-card class="colorBox">
       <div class="color"></div>
-      <button id="lock3" (click)="lockColour('lock3')">Lock</button>
+      <ion-button id="lock3" color="medium" (click)="lockColour('lock3')">Lock</ion-button>
       <p class="code">#4cae3a</p>
-    </div>
+    </ion-card>
 
-    <div class="colorBox">
+    <ion-card class="colorBox">
       <div class="color"></div>
-      <button id="lock4" (click)="lockColour('lock4')">Lock</button>
+      <ion-button id="lock4" color="medium" (click)="lockColour('lock4')">Lock</ion-button>
       <p class="code">#4cae3a</p>
-    </div>
+    </ion-card>
 
-    <div class="colorBox">
+    <ion-card class="colorBox">
       <div class="color"></div>
-      <button id="lock5" (click)="lockColour('lock5')">Lock</button>
+      <ion-button id="lock5" color="medium" (click)="lockColour('lock5')">Lock</ion-button>
       <p class="code">#4cae3a</p>
-    </div>
+    </ion-card>
 
-    <div class="colorBox">
-      <div class="color"></div>
-      <button id="lock6" (click)="lockColour('lock6')">Lock</button>
-      <p class="code">#4cae3a</p>
-    </div>
+  </ion-card>
 
-  </div>
+  <ion-card class="actions">
+    <ion-button id="gen-btn" color="medium" (click)="colorGen()">Generate</ion-button>
+  </ion-card>
 
-  <div class="actions">
-    <button id="gen-btn" (click)="colorGen()">Generate</button>
-  </div>
-
-</div>
+</ion-content>
