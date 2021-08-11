@@ -6,7 +6,7 @@ import session from "express-session";
 import fs from "fs";
 import { OAuth2Client } from "google-auth-library";
 import {google} from "googleapis";
-import {ITokenInterface} from "./token.interface";
+import {ITokenInterface} from "./Interfaces/token.interface";
 
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 import {GoogleApiFunctions} from "./GoogleApiFunctions";
@@ -160,6 +160,15 @@ app.get("/api/createSubFolder", (req, res) => {
 app.get("/api/updateFile", (req, res) => {
     const gAPI = new GoogleApiFunctions();
     gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
+});
+
+app.post("/api/getFileByID", (req, res) => {
+
+    const gAPI = new GoogleApiFunctions();
+    // "1GZw_Uog5thUHWy42jqP16L2lAuyftnlB"
+    gAPI.getFileByID(req.session.accessToken, req.body.fileID).then((fileContents) => {
+        res.json(fileContents);
+    });
 });
 
 // start the Express server

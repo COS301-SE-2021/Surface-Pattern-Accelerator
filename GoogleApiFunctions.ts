@@ -3,10 +3,10 @@ import {google} from "googleapis";
 // import stream from "node:stream";
 import { Stream } from "stream";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
-import {IFolderInterface} from "./folder.interface";
+import {IFolderInterface} from "./Interfaces/folder.interface";
 import {ICollectionDetailsInterface} from "./Interfaces/collectionDetails.interface";
 import {ICollectionsInterface} from "./Interfaces/collections.interface";
-import {ITokenInterface} from "./token.interface";
+import {ITokenInterface} from "./Interfaces/token.interface";
 
 export class GoogleApiFunctions {
 
@@ -317,7 +317,7 @@ export class GoogleApiFunctions {
                     const FILE_ID = "'" + fDetails.fileID + "' in parents and trashed=false";
 
                     const drive = google.drive({version: "v3", auth});
-                    drive.files.list({
+                    drive.files.list({ // gets folder content
                         q: FILE_ID,
                         pageSize: 10,
                         fields: "nextPageToken, files(id, name, mimeType)",
@@ -474,6 +474,21 @@ export class GoogleApiFunctions {
             media
         }).then((result) => {
             console.log(result);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    public getFileByID(token: ITokenInterface, fileID: string) {
+        const auth = this.createAuthObject(token);
+        const drive = google.drive({version: "v3", auth});
+
+        return drive.files.get({
+            fileId: fileID,
+            alt: "media"
+        }).then((result) => {
+            console.log(result.data);
+            return result.data;
         }).catch((error) => {
             console.log(error);
         });

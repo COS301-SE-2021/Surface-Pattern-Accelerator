@@ -130,6 +130,13 @@ app.get("/api/updateFile", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
     gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
 });
+app.post("/api/getFileByID", (req, res) => {
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    // "1GZw_Uog5thUHWy42jqP16L2lAuyftnlB"
+    gAPI.getFileByID(req.session.accessToken, req.body.fileID).then((fileContents) => {
+        res.json(fileContents);
+    });
+});
 // start the Express server
 app.listen(port, () => {
     // tslint:disable-next-line:no-console
