@@ -9,7 +9,9 @@ export class CollorPalletComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.colorGen();
+  }
 
   colorGen(){
 
