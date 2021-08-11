@@ -16,7 +16,7 @@
 
 .headerLeft{
   padding: 25px 0;
-  margin-left: 0;
+  margin-left: 15px;
   font-weight: bold;
   font-size: 150%;
 }
@@ -27,6 +27,8 @@
   margin-right: 0;
   font-size: 115%;
   font-family: 'Comic Sans MS';
+
+  //Kristen ITC REQUIRED FONT
 }
 
 .rightContent{
@@ -79,6 +81,7 @@
 .words >h2{
   color: white;
   font-size: 30px;
+  padding: 15px 0;
 }
 
 .words >h4{
@@ -86,8 +89,45 @@
   font-size: 30px;
   padding: 0 80px;
   color: white;
+  //padding: 9px 0;
 }
 
 .words >h3{
-  padding: 0 50px;
+  padding: 15px 50px;
+  //font-size: 16px;
+}
+
+.palette{
+  padding: 100px 200px;
+}
+
+.launchImage{
+  display: flex;
+  border-bottom: 1px solid #616976;
+}
+
+.image2{
+  margin-top: 100px;
+}
+
+.footer{
+  display: flex;
+  color: white;
+  height: 70px;
+}
+
+.report{
+  padding: 25px 0;
+  margin-left: 50px;
+  font-size: large;
+  font-weight: bold;
+}
+
+.contact{
+  font-weight: bold;
+  font-size: large;
+  padding: 25px 0;
+  justify-content: center;
+  color: white;
+  margin-left: 40%;
 }
