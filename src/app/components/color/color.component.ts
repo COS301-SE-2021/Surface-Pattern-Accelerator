@@ -111,7 +111,9 @@ export class ColorComponent implements OnInit {
     let svgEl	= divC[0];
     //svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     const svgData = svgEl.outerHTML;
+    // Required preface in every svg code file
     const preface = '<?xml version="1.0" standalone="no"?>\r\n';
+    // Create blob
     const svgBlob = new Blob([ preface,'<svg xmlns="http://www.w3.org/2000/svg">',
         svgData, '</svg>'], {type: "image/svg+xml;charset=utf-8"});
     let svgUrl = URL.createObjectURL(svgBlob);
@@ -142,6 +144,7 @@ export class ColorComponent implements OnInit {
           this.patternName  = file.name;
           // Display the image html that was hidden
           image.style.display = 'block';
+          // Closes function by displaying SVG on the expanded view
           return this.LoadToExpandedView();
         } catch (err) {
           // For debugging purposes
@@ -150,5 +153,67 @@ export class ColorComponent implements OnInit {
       }
     })
     return null;
+  }
+
+  // Implements importSVG(), but displays the SVG on a canvas instead of a html image element
+  importSVGtoCanvas() {
+    // Return element
+    let ret = null;
+    // Get access to the canvas element
+    const canvas = <HTMLCanvasElement>document.getElementById("canvas");
+    // Image element is hidden, but this is needed to access the SVG code in
+    // LoadToExpandedView
+    let imageEl = <HTMLImageElement>document.getElementById('output');
+    // Specify the canvas context
+    const ctx = canvas.getContext("2d");
+    // Specify image object
+    let img = new Image();
+    // Get access to the file input element
+    let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
+    // Init FileReader API
+    const reader = new FileReader();
+    // Trigger the hidden input type='file' html element
+    fileInput.click();
+    // Activates when a user selects a file and a change event is fired by the browser
+    fileInput.addEventListener('change', ()=> {
+      let file = fileInput.files[0];
+      // Check for file
+      if (file) {
+        try {
+          // Loads the uploaded file to the html src attribute
+          imageEl.src = URL.createObjectURL(file);
+          // Changes the pattern name in the UI
+          this.patternName  = file.name;
+          // Read data as URL
+          reader.readAsDataURL(file);
+          // Function for displaying SVG on the expanded view
+          ret = this.LoadToExpandedView();
+        } catch (err) {
+          // For debugging purposes
+          console.log(err.message);
+        }
+      }
+    });
+
+    // Add image to canvas
+    reader.addEventListener(
+      "load",
+      () => {
+        // Create image
+        img = new Image();
+        // Set image src
+        img.src = <string>reader.result;
+        // On image load add to canvas
+        img.onload = function() {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0, img.width, img.height);
+          canvas.removeAttribute("data-caman-id");
+        };
+      },
+      false
+    );
+    return ret;
+
   }
 }

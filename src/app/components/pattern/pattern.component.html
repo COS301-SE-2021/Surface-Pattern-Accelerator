@@ -1,4 +1,3 @@
-<app-navbar></app-navbar>
 <div class="wrapper">
     <div class="sidenav bg-primary">
       <div class="sideMotif">
@@ -22,14 +21,14 @@
 
         <div>
           <div class="MotifImage">
-            <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
+            <img alt="" src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
             <h5> Trees 1 </h5>
           </div>
         </div>
 
         <div *ngIf="motifs">
           <button *ngFor="let motif of motifs.motifDetails" class="MotifImage" mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
-            <img src= {{motif.motifLink}}> <!-- does resolve, ignore warning -->
+            <img src= {{motif.motifLink}} alt=""> <!-- does resolve, ignore warning -->
             <h5> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
           </button>
         </div>
@@ -65,7 +64,7 @@
          <div class="layerBorder">
            <h6>Layer 1</h6>
            <div class="LayerImage">
-             <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
+             <img alt="" src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
              <h5> Trees </h5>
            </div>
          </div>
@@ -83,7 +82,8 @@
          <div class="layerBorder">
            <h6>Layer 1</h6>
            <div class="LayerImage">
-             <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=">
+             <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY="
+             alt="">
              <h5> Trees </h5>
            </div>
          </div>
