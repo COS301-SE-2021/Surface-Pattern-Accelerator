@@ -12,7 +12,7 @@ export class ColorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.colorGen();
+    this.colorGenerator();
   }
 
   save_svg() {
@@ -32,10 +32,10 @@ export class ColorComponent implements OnInit {
     document.body.removeChild(downloadLink);
   }
 
-  colorGen(){
+  colorGenerator(){
 
-    const code = document.querySelectorAll('.code');
-    const color = document.querySelectorAll('.color');
+    const codes = document.querySelectorAll('.codes');
+    const colors = document.querySelectorAll('.colors');
     const letters = '0123456789abcdef';
     const hashtag = ['#','#','#','#','#','#'];
 
@@ -48,17 +48,17 @@ export class ColorComponent implements OnInit {
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
     }
 
-    for (let i=0;i<code.length;i++){
+    for (let i=0;i<codes.length;i++){
 
-      code[i].innerHTML = hashtag[i];
+      codes[i].innerHTML = hashtag[i];
 
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const c = <HTMLElement> color[i];
+      const c = <HTMLElement> colors[i];
       c.style.backgroundColor = hashtag[i];
     }
   }
 
-  lockColour(id: string){
+  lockColor(id: string){
     const elem = document.getElementById(id);
     let prev: HTMLElement;
     let next: HTMLElement;
@@ -72,21 +72,21 @@ export class ColorComponent implements OnInit {
       console.log('p class: ' + next.className);
     }
 
-    if(prev.className === 'color'){
-      prev.classList.remove('color');
-      prev.classList.add('stay-color');
+    if(prev.className === 'colors'){
+      prev.classList.remove('colors');
+      prev.classList.add('stay-colors');
       prev.style.backgroundColor = next.innerHTML;
       console.log('prev.style.backgroundColor: ' + prev.style.backgroundColor);
-      next.classList.remove('code');
-      next.classList.add('new-code');
+      next.classList.remove('codes');
+      next.classList.add('new-codes');
       elem.innerHTML = 'Unlock';
     }
-    else if(prev.className === 'stay-color'){
-      prev.classList.remove('stay-color');
-      prev.classList.add('color');
+    else if(prev.className === 'stay-colors'){
+      prev.classList.remove('stay-colors');
+      prev.classList.add('colors');
       prev.style.backgroundColor = next.innerHTML;
-      next.classList.remove('new-code');
-      next.classList.add('code');
+      next.classList.remove('new-codes');
+      next.classList.add('codes');
       elem.innerHTML = 'Lock';
     }
 
