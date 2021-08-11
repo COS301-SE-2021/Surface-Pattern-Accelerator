@@ -4,6 +4,9 @@ import Konva from "konva";
 import { Group } from 'konva/lib/Group';
 import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
+import { PatternService } from "../../services/pattern.service";
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pattern',
@@ -16,9 +19,19 @@ export class PatternComponent implements OnInit {
 
   motifs?: motifsInterface;
 
-  constructor(private motifService: MotifServiceService) {}
+  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, private patternService: PatternService) {}
 
   ngOnInit(){
+
+    this.route.params.subscribe(params => {
+      console.log("params are")
+      console.log(params['collectionName'])
+      console.log(params['collectionID'])
+
+      this.patternService.getCurrentCollectionJSON(params['collectionID']);
+
+
+    })
 
     this.getMotifs();
 

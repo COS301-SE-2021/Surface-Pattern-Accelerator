@@ -7,7 +7,7 @@
     <div class="colectionName">
       <h3>Collection Name</h3>
       <div class="collection-name">
-        <input type="text" class="inputField">
+        <input type="text" class="inputField" #collectionName>
       </div>
     </div>
 
@@ -19,9 +19,10 @@
     </div>
 
     <div class="buttons">
-      <button class="button" mat-raised-button color="primary">Create Collection</button>
+      <button class="button" mat-raised-button color="primary" (click)="newCollection(collectionName.value); collectionName.value=''">
+        Create Collection
+      </button>
     </div>
-
   </div>
 
 
@@ -31,8 +32,4 @@
 
     </div>
   </div>
-
-
-
-
 </div>

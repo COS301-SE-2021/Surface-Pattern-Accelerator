@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'colorpallet', component: CollorPalletComponent},
-  { path: 'pattern/:collectionID', component: PatternComponent},
+  { path: 'pattern/:collectionID/:collectionName', component: PatternComponent},
   { path: 'import', component: ImportComponent },
   { path: 'workarea', component: WorkareaComponent },
   { path: 'loginResponse', component: LoginResponseComponent },
