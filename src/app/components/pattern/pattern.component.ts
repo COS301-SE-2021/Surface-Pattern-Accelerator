@@ -87,6 +87,20 @@ export class PatternComponent implements OnInit {
       scaleX: 1 / 3,
       scaleY: 1 / 3,
     });
+
+    // this.background = new Konva.Rect({
+    //   x: 0,
+    //   y: 0,
+    //   width: this.stage1.width(),
+    //   height: this.stage1.height(),
+    //   fill: 'grey',
+    //   listening: false,
+    //   resizeEnabled: false,
+    //   draggable: false,
+    //
+    // });
+    // this.layer2.add(this.background);
+
   }
   addGrid(e) {
     console.log(this.layer2);
@@ -217,7 +231,7 @@ export class PatternComponent implements OnInit {
 
       }
     }
-
+    //this.back();
   }
   moveDown(img: Group | Shape<ShapeConfig>)
   {
@@ -230,6 +244,7 @@ export class PatternComponent implements OnInit {
 
       }
     }
+    //this.back();
   }
 
   moveToTop(img: Group | Shape<ShapeConfig>) {
@@ -239,6 +254,7 @@ export class PatternComponent implements OnInit {
         img.moveToTop();
       }
     }
+    //this.back();
   }
 
   movetToBottom(img: Group | Shape<ShapeConfig>) {
@@ -248,6 +264,7 @@ export class PatternComponent implements OnInit {
         img.moveToBottom();
       }
     }
+    //this.back();
   }
 
 
@@ -306,6 +323,7 @@ export class PatternComponent implements OnInit {
       }
     }
     this.stage.add(this.layerr);
+    //this.background.listening(false);
   }
 
   preview(){
@@ -320,6 +338,21 @@ export class PatternComponent implements OnInit {
     this.previewLayer = this.layer2.clone({ listening: false });
     this.previewStage.add(this.previewLayer);//added clone layer to preview stage
   }
+  back(){
+    const color = this.background.fill();//keep old color
+    this.background = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: this.stage1.width(),
+      height: this.stage1.height(),
+      fill: color,
+      listening: false,
+      resizeEnabled: false,
+      draggable: false,
 
+    });
+    this.layer2.add(this.background);
+    this.background.moveToBottom();
+  }
 
 }
