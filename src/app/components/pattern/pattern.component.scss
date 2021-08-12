@@ -48,6 +48,7 @@
 
 .left, .right {
   width: 20%;
+  //overflow : scroll;
 }
 
 .middle {
@@ -92,7 +93,7 @@
   //overflow-x: hidden;
   //overflow: hidden;
   padding-top: 20px;
-  overflow: scroll;
+  overflow-y: scroll;
 
 }
 .center{
@@ -207,9 +208,11 @@ and some left padding to change the design of the dropdown content */
   top: 58px;
   position: absolute;
   right: 0;
+  overflow-y : scroll;
 }
 .widgetSide{
   padding: 20px;
+  //overflow-y : scroll;
 }
 .Layers{
   color: black;
