@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionsInterface } from '../../Interfaces/collectionsInterface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
-import { CollectionThemeComponent } from './collection-theme/collection-theme.component'
-import {NewCollectionComponent} from './new-collection/new-collection.component'
+import { CollectionThemeComponent } from './collection-theme/collection-theme.component';
+import {NewCollectionComponent} from './new-collection/new-collection.component';
 @Component({
   selector: 'app-collection-creator',
   templateUrl: './collection-creator.component.html',
