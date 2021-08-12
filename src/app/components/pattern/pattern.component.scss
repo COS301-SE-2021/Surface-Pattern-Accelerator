@@ -4,8 +4,8 @@
 }
 #can{
   border: solid black 1px;
-  width: 1800px;
-  height: 1800px;
+  width: 600px;
+  height: 600px;
 }
 #container{
   background-color: lightgrey;
@@ -37,6 +37,7 @@
   right: 2px;
   border: 1px solid grey;
   background-color: lightgrey;
+  display:none;
 }
 
 .column {
