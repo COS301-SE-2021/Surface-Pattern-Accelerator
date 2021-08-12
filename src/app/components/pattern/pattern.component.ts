@@ -87,19 +87,6 @@ export class PatternComponent implements OnInit {
       scaleX: 1 / 3,
       scaleY: 1 / 3,
     });
-
-    function updatePreview() {
-      // we just need to update ALL nodes in the preview
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      this.layer2.children.forEach((box) => {
-        // find cloned node
-        const clone = this.previewLayer.findOne('.' + box.name());
-        // update its position from the original
-        clone.position(box.position());
-      });
-    }
-    this.stage1.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
-
   }
   addGrid(e) {
     console.log(this.layer2);
