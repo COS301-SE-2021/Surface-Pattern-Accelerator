@@ -137,19 +137,35 @@ app.post("/api/getFileByID", (req, res) => {
         res.json(fileContents);
     });
 });
-app.get("/api/createNewJSONFile", (req, res) => {
+app.post("/api/newCollection", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
-    const fileBody = {
-        collectionName: "someName",
-        motifsFolderID: "100",
-        patternsFolderID: "101",
-        childPatterns: [],
-        story: "a story here",
-        colorThemes: []
-    };
-    gAPI.createNewJSONFile(req.session.accessToken, "A new file name here", fileBody, "1rTxmePwFGJYjrD_tRf77K7I5yYoVySZ7")
-        .then((result) => {
-        console.log(result);
+    gAPI.getFolderID(req.session.accessToken, "SPA", true).then((resultSPAid) => {
+        const motifsPromise = gAPI.getFolderID(req.session.accessToken, "Motifs", false);
+        const patternsPromise = gAPI.getFolderID(req.session.accessToken, "Patterns", false);
+        Promise.all([motifsPromise, patternsPromise])
+            .then((folderIDResults) => {
+            console.log(folderIDResults);
+            const motifFolderDetails = folderIDResults[0];
+            const patternFolderDetails = folderIDResults[1];
+            const SPAfolderDetails = resultSPAid;
+            const fileBody = {
+                collectionName: SPAfolderDetails.fileName,
+                motifsFolderID: motifFolderDetails.fileID,
+                patternsFolderID: patternFolderDetails.fileID,
+                childPatterns: [],
+                story: "a story here",
+                colorThemes: []
+            };
+            console.log("The collection name is: " + req.body.collectionName);
+            gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, fileBody, SPAfolderDetails.fileID)
+                .then((result) => {
+                console.log(result);
+                res.json(fileBody);
+            });
+        })
+            .catch((error) => {
+            console.log(error + "Could not fetch Motifs and/or Pattern Folder IDs");
+        });
     });
 });
 // start the Express server

@@ -11,6 +11,7 @@ import {ITokenInterface} from "./Interfaces/token.interface";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 import {GoogleApiFunctions} from "./GoogleApiFunctions";
 import {ICollectionsContent} from "./Interfaces/collectionContents.interface";
+import {IFolderInterface} from "./Interfaces/folder.interface";
 
 // tslint:disable-next-line:interface-name
 declare module "express-session" { interface Session { accessToken: ITokenInterface; } }
@@ -172,21 +173,43 @@ app.post("/api/getFileByID", (req, res) => {
     });
 });
 
-app.post("/api/createNewJSONFile", (req, res) => {
+app.post("/api/newCollection", (req, res) => {
 
     const gAPI = new GoogleApiFunctions();
-    const fileBody: ICollectionsContent = {
-        collectionName: "someName",
-        motifsFolderID: "100",
-        patternsFolderID: "101",
-        childPatterns: [],
-        story: "a story here",
-        colorThemes: []
-    } as unknown as ICollectionsContent;
-    gAPI.createNewJSONFile(req.session.accessToken, "A new file name here", fileBody, "1rTxmePwFGJYjrD_tRf77K7I5yYoVySZ7")
-        .then((result) => {
-            console.log(result);
-        });
+    gAPI.getFolderID(req.session.accessToken, "SPA", true).then((resultSPAid) => {
+
+        const motifsPromise = gAPI.getFolderID(req.session.accessToken, "Motifs", false);
+        const patternsPromise = gAPI.getFolderID(req.session.accessToken, "Patterns", false);
+
+        Promise.all([motifsPromise, patternsPromise])
+            .then((folderIDResults) => {
+                console.log(folderIDResults);
+
+                const motifFolderDetails: IFolderInterface = folderIDResults[0] as IFolderInterface;
+                const patternFolderDetails: IFolderInterface = folderIDResults[1] as IFolderInterface;
+
+                const SPAfolderDetails: IFolderInterface = resultSPAid as IFolderInterface;
+                const fileBody: ICollectionsContent = {
+                    collectionName: SPAfolderDetails.fileName,
+                    motifsFolderID: motifFolderDetails.fileID,
+                    patternsFolderID: patternFolderDetails.fileID,
+                    childPatterns: [],
+                    story: "a story here",
+                    colorThemes: []
+                } as unknown as ICollectionsContent;
+                console.log("The collection name is: " + req.body.collectionName);
+                gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, fileBody, SPAfolderDetails.fileID)
+                    .then((result) => {
+                        console.log(result);
+                        res.json(fileBody);
+                    });
+            })
+            .catch((error) => {
+                console.log(error + "Could not fetch Motifs and/or Pattern Folder IDs");
+            });
+
+    });
+
 });
 
 // start the Express server

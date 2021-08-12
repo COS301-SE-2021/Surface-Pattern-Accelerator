@@ -517,8 +517,10 @@ export class GoogleApiFunctions {
             fields: "id"
         }).then((result) => {
             console.log(result);
+            return {text: "JSON file successfully created"};
         }).catch((error) => {
             console.log(error);
+            return {text: "JSON file creation failed"};
         });
     }
 
