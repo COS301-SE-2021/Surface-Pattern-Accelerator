@@ -128,7 +128,7 @@ app.get("/api/createSubFolder", (req, res) => {
 });
 app.get("/api/updateFile", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
-    gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
+    // gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
 });
 app.post("/api/getFileByID", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
@@ -148,19 +148,27 @@ app.post("/api/newCollection", (req, res) => {
             const motifFolderDetails = folderIDResults[0];
             const patternFolderDetails = folderIDResults[1];
             const SPAfolderDetails = resultSPAid;
-            const fileBody = {
-                collectionName: SPAfolderDetails.fileName,
-                motifsFolderID: motifFolderDetails.fileID,
-                patternsFolderID: patternFolderDetails.fileID,
-                childPatterns: [],
-                story: "a story here",
-                colorThemes: []
-            };
             console.log("The collection name is: " + req.body.collectionName);
-            gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, fileBody, SPAfolderDetails.fileID)
+            gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, "", SPAfolderDetails.fileID)
                 .then((result) => {
-                console.log(result);
-                res.json(fileBody);
+                const emptyCollectionID = result;
+                console.log(emptyCollectionID.id);
+                const fileBody = {
+                    collectionName: req.body.collectionName,
+                    collectionID: emptyCollectionID.id,
+                    motifsFolderID: motifFolderDetails.fileID,
+                    patternsFolderID: patternFolderDetails.fileID,
+                    childPatterns: [],
+                    story: "a story here",
+                    colorThemes: []
+                };
+                gAPI.updateJSONFile(req.session.accessToken, emptyCollectionID.id, JSON.stringify(fileBody))
+                    .then((updateResult) => {
+                    console.log(updateResult);
+                    res.json(fileBody);
+                }).catch((updateError) => {
+                    console.log(updateError);
+                });
             });
         })
             .catch((error) => {

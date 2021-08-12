@@ -161,7 +161,7 @@ app.get("/api/createSubFolder", (req, res) => {
 
 app.get("/api/updateFile", (req, res) => {
     const gAPI = new GoogleApiFunctions();
-    gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
+    // gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
 });
 
 app.post("/api/getFileByID", (req, res) => {
@@ -189,19 +189,31 @@ app.post("/api/newCollection", (req, res) => {
                 const patternFolderDetails: IFolderInterface = folderIDResults[1] as IFolderInterface;
 
                 const SPAfolderDetails: IFolderInterface = resultSPAid as IFolderInterface;
-                const fileBody: ICollectionsContent = {
-                    collectionName: SPAfolderDetails.fileName,
-                    motifsFolderID: motifFolderDetails.fileID,
-                    patternsFolderID: patternFolderDetails.fileID,
-                    childPatterns: [],
-                    story: "a story here",
-                    colorThemes: []
-                } as unknown as ICollectionsContent;
+
                 console.log("The collection name is: " + req.body.collectionName);
-                gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, fileBody, SPAfolderDetails.fileID)
+                gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, "", SPAfolderDetails.fileID)
                     .then((result) => {
-                        console.log(result);
-                        res.json(fileBody);
+                        const emptyCollectionID: any = result;
+                        console.log(emptyCollectionID.id);
+
+                        const fileBody: ICollectionsContent = {
+                            collectionName: req.body.collectionName,
+                            collectionID: emptyCollectionID.id,
+                            motifsFolderID: motifFolderDetails.fileID,
+                            patternsFolderID: patternFolderDetails.fileID,
+                            childPatterns: [],
+                            story: "a story here",
+                            colorThemes: []
+                        } as unknown as ICollectionsContent;
+
+                        gAPI.updateJSONFile(req.session.accessToken, emptyCollectionID.id, JSON.stringify(fileBody))
+                            .then((updateResult) => {
+                                console.log(updateResult);
+                                res.json(fileBody);
+                            }).catch((updateError) => {
+                            console.log(updateError);
+                        });
+
                     });
             })
             .catch((error) => {

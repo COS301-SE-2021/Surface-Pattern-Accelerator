@@ -454,11 +454,10 @@ export class GoogleApiFunctions {
     //     };
     // }
 
-    public updateFile(token: ITokenInterface, fileID: string) {
+    public updateJSONFile(token: ITokenInterface, fileID: string, content: any) {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});
 
-        const content = "some demo content here to test updating";
         const buf = Buffer.from(content, "binary");
         const buffer = Uint8Array.from(buf);
 
@@ -470,13 +469,15 @@ export class GoogleApiFunctions {
             body: bufferStream
         };
 
-        drive.files.update({
+        return drive.files.update({
             fileId: fileID,
             media
         }).then((result) => {
             console.log(result);
+            return {text: "JSON file updated successfully"};
         }).catch((error) => {
             console.log(error);
+            return {text: "Error Updating JSON file"};
         });
     }
 
@@ -517,7 +518,7 @@ export class GoogleApiFunctions {
             fields: "id"
         }).then((result) => {
             console.log(result);
-            return {text: "JSON file successfully created"};
+            return result.data;
         }).catch((error) => {
             console.log(error);
             return {text: "JSON file creation failed"};
