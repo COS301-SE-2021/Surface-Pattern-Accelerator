@@ -135,7 +135,7 @@ export class WorkareaComponent implements OnInit {
         clone.position(box.position());
       });
     }
-    this.stage.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
+    //this.stage.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
     this.background = new Konva.Rect({
       x: 0,
       y: 0,
