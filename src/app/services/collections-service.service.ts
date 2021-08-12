@@ -36,9 +36,11 @@ export class CollectionsServiceService {
 
   /** POST: add a new collection to the server */
    createNewCollection(collectionName: string) {
-    const newCollectionURL = this.serverURL + '/api/newCollection/' + collectionName;
+    const newCollectionURL = this.serverURL + '/api/newCollection';
     console.log(newCollectionURL)
-    return this.http.get<any>(newCollectionURL);
+    return this.http.post<any>(newCollectionURL,
+      {collectionName: collectionName},
+      {withCredentials: true});
    }
 
 

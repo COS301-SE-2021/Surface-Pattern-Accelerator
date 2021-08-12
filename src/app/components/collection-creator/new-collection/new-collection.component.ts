@@ -19,7 +19,9 @@ export class NewCollectionComponent implements OnInit {
     //this.collectionsService.createNewCollection(value);
     console.log(value);
     this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
-      .subscribe();
+      .subscribe(newCollectionResult => {
+        console.log(newCollectionResult);
+      });
   }
 
 }
