@@ -1,3 +1,10 @@
+// Colors
+$bg-color: hsl(0,1,90);
+$dot-color: hsl(255,71,34);
+
+// Dimensions
+$dot-size: 1.5px;
+$dot-space: 15px;
 
 * {
   box-sizing: border-box;
@@ -178,9 +185,7 @@ body {
   height: 100%;
   position: fixed;
   //padding: 20px;
-  background-color: #00D2FF;
-
-
+  //background-color: #00D2FF;
 }
 
 
@@ -301,5 +306,10 @@ and some left padding to change the design of the dropdown content */
 }
 .row{
   //overflow: scroll;
+  background:
+    linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+    $dot-color;
+  background-size: $dot-space $dot-space;
 }
 
