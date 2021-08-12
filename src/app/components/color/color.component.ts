@@ -78,14 +78,17 @@ export class ColorComponent implements OnInit {
       // Make sure we are not working with undefined nodes
       if (!(typeof node === 'undefined')) {
         console.log('Changing the node color, through recursive node search: ',node.tagName);
-        // Check if the node has a specified node fill color
-        if (node.hasAttribute('fill')) {
-          node.setAttribute('fill',colorValue);
-        }
         // Some SVGs set their fill in the style attribute
         // Check if the node has the style attribute
         if (node.hasAttribute('style')) {
           node.style.fill = colorValue;
+        }
+        // Check if the node has a specified node fill color
+        else if (node.hasAttribute('fill')) {
+          node.setAttribute('fill',colorValue);
+        }
+        else {
+          node.setAttribute('fill',colorValue);
         }
       }
       // Leave recursive call
