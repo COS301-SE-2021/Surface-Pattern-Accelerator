@@ -20,6 +20,7 @@ export class PatternComponent implements OnInit {
   layerr!:Konva.Layer;
   layer1!:Konva.Layer;
   // layer2!:Konva.Layer;
+  background!: Konva.Rect;
   motifCount: number = 0;
   motifs?: motifsInterface;
   tr!: Konva.Transformer;
@@ -39,9 +40,9 @@ export class PatternComponent implements OnInit {
       xOffset: number;
       yOffset: number;
     }
-
-    let width = 100;
-    let height = 100;
+    //new preview frame
+    let width = 300;
+    let height = 300;
     this.stage1 = new Konva.Stage({
       container: 'container',
       width: width,
@@ -51,8 +52,8 @@ export class PatternComponent implements OnInit {
 
     this.stage = new Konva.Stage({
       container: 'can',   // id of container <div>
-      width: 600,
-      height: 600
+      width: 1800,//600
+      height: 1800//600
     });
 
     let layerr = new Konva.Layer();
@@ -60,7 +61,7 @@ export class PatternComponent implements OnInit {
     this.stage.add(layerr);
     this.stage1.add(this.layer2);
     //this.addLineListeners();
-    this.gridLayer = new Konva.Layer;
+    this.gridLayer = new Konva.Layer();
     // const path = new Konva.Path({
     //   x: 0,
     //   y: 0,
