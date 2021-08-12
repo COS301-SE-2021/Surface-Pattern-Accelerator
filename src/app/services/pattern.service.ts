@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import { ICollectionsContent } from "../Interfaces/collectionContents.interface"
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,8 @@ export class PatternService {
 
   constructor(private http: HttpClient) { }
 
+  currentCollection?: ICollectionsContent;
+  currentPattern?: any;
 
   getCurrentCollectionJSON(fileID: string)
   {
@@ -19,9 +23,19 @@ export class PatternService {
       {withCredentials: true
       }).subscribe(fileContent => {
         console.log(fileContent);
+        this.currentCollection = fileContent as ICollectionsContent;
+        console.log(this.currentCollection);
         return fileContent;
     });
   }
 
+  savePattern(patternName: string)
+  {
+      if (this.currentCollection !== null)
+      {
+        this.currentCollection["childPatterns"].push({patternName: "someName", patternID: "10001"});
+        console.log(this.currentCollection);
+      }
+  }
 
 }

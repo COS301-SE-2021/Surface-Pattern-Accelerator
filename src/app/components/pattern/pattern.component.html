@@ -64,7 +64,15 @@
       <div class="workArea" id="container">
         <h3>Work space</h3>
       </div>
+      <br>
+      <input type="text" class="inputField" #patternName>
+      <div class="buttons">
+        <button class="button" mat-raised-button color="primary" (click)="savePattern(patternName.value); patternName.value=''">
+          Save Pattern
+        </button>
+      </div>
     </div>
+
 
   </div>
   <div class="column right" style="background-color:#ccc;">
