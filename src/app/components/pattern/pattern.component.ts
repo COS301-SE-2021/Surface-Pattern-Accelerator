@@ -339,7 +339,11 @@ export class PatternComponent implements OnInit {
     this.previewStage.add(this.previewLayer);//added clone layer to preview stage
   }
   back(){
-    const color = this.background.fill();//keep old color
+    if(this.background.fill() == null)
+    {
+      this.background.fill('#000000');
+    }
+    const color = this.background.fill();//keep old/new color
     this.background = new Konva.Rect({
       x: 0,
       y: 0,
@@ -353,6 +357,21 @@ export class PatternComponent implements OnInit {
     });
     this.layer2.add(this.background);
     this.background.moveToBottom();
+  }
+
+  download(){
+    const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
+    this.downloadURI(dataURL, 'frame.png');
+  }
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+  downloadURI(uri, name) {
+    const link = document.createElement('a');
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    //delete this.link;
   }
 
 }
