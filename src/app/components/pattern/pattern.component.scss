@@ -1,3 +1,18 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%; /* <------------ */
+}
+
+body {
+  height: 100%; /* <------------ */
+}
+
+//IDs
+
 #myCanvas{
   top : 58px;
   background-color: #E5E5E5;
@@ -6,6 +21,7 @@
   border: solid black 1px;
   width: 600px;
   height: 600px;
+  margin: 5px;
 }
 #container{
   background-color: lightgrey;
@@ -35,10 +51,16 @@
   position: relative;
   top: 2px;
   right: 2px;
+  width: 600px;
+  height: 600px;
   border: 1px solid grey;
   background-color: lightgrey;
   display:none;
+  margin: 5px;
 }
+
+//CLASSES
+
 
 .column {
   float: left;
@@ -47,18 +69,36 @@
 }
 
 .left, .right {
-  width: 20%;
+  width: 15%;
   //overflow : scroll;
 }
 
 .middle {
-  width: 60%;
-  padding-bottom: 80px;
+  width: 70%;
+  padding-bottom: 20px;
+  position: relative;
+  overflow: auto;
+}
+
+.midleft{
+  width: 40%;
+  height:100%;
+
+  background-color: red;
+  //padding:5px;
+  //margin: 5px;
+  //position: fixed;
 
 }
 
+.midright{
+  width: 60%;
+  height:100%;
+  background-color: blue;
+  //padding:5px;
+  //margin: 5px;
 
-//CLASSES
+}
 
 .buttons{
   background-color: white;
@@ -84,7 +124,7 @@
 .sidenav {
   height: 100%;
   //width: 250px;
-  width : 20%;
+  width : 15%;
   float: left;
   position: fixed;
   top: 58px;
@@ -134,11 +174,15 @@
   //margin-left: 250px; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
   //padding: 0 10px;
-  width : 60%;
+  width : 70%;
   height: 100%;
+  position: fixed;
+  //padding: 20px;
+  background-color: #00D2FF;
 
 
 }
+
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color
 and some left padding to change the design of the dropdown content */
@@ -177,15 +221,15 @@ and some left padding to change the design of the dropdown content */
   //display: flex;
   background-color: lightgrey;
 }
-.workArea1{
-  //margin-left: 280px;
-  //background-color: aqua;
-  width: 300px;
-  height: 300px;
-  //border-radius: 10px;
-  border: solid grey 1px;
-  text-align : center;
-}
+//.workArea1{
+//  //margin-left: 280px;
+//  //background-color: aqua;
+//  width: 300px;
+//  height: 300px;
+//  //border-radius: 10px;
+//  border: solid grey 1px;
+//  text-align : center;
+//}
 
 .workArea{
   //margin-left: 280px;
@@ -195,6 +239,7 @@ and some left padding to change the design of the dropdown content */
   //border-radius: 10px;
   border: solid grey 1px;
   text-align : center;
+  margin: 5px;
 }
 .workArea > h3{
   padding: 10px;
@@ -203,7 +248,7 @@ and some left padding to change the design of the dropdown content */
   //margin-left: 15px !important;
   background-color: lightgrey;
   //width: 250px;
-  width : 20%;
+  width : 15%;
   height: 100%;
   top: 58px;
   position: absolute;
@@ -243,7 +288,7 @@ and some left padding to change the design of the dropdown content */
 .patternName{
   width: 800px;
   height: 30px;
-  //background-color: black;
+  background-color: darkgrey;
   //margin-left: 280px;
   //margin-bottom: 20px;
   text-align : center;
@@ -256,6 +301,5 @@ and some left padding to change the design of the dropdown content */
 }
 .row{
   //overflow: scroll;
-
 }
 
