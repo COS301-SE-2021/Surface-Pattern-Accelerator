@@ -12,7 +12,9 @@ export class ColorComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.colorGenerator();
+  }
 
   // Modern approach to the equivalent PHP function file_get_contents()
   // Reads the contents of a file into a string
@@ -148,5 +150,66 @@ export class ColorComponent implements OnInit {
       }
     })
     return null;
+  }
+
+
+  colorGenerator(){
+
+    const codes = document.querySelectorAll('.codes');
+    const colors = document.querySelectorAll('.colors');
+    const letters = '0123456789abcdef';
+    const hashtag = ['#','#','#','#','#','#'];
+
+    for (let i=0;i<6;i++){
+      hashtag[i]+=letters[Math.floor(Math.random()*16)];
+      hashtag[i]+=letters[Math.floor(Math.random()*16)];
+      hashtag[i]+=letters[Math.floor(Math.random()*16)];
+      hashtag[i]+=letters[Math.floor(Math.random()*16)];
+      hashtag[i]+=letters[Math.floor(Math.random()*16)];
+      hashtag[i]+=letters[Math.floor(Math.random()*16)];
+    }
+
+    for (let i=0;i<codes.length;i++){
+
+      codes[i].innerHTML = hashtag[i];
+
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      const c = <HTMLElement> colors[i];
+      c.style.backgroundColor = hashtag[i];
+    }
+  }
+
+  lockColor(id: string){
+    const elem = document.getElementById(id);
+    let prev: HTMLElement;
+    let next: HTMLElement;
+
+    if(elem) {
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      prev = <HTMLElement>elem.previousElementSibling;
+      console.log('color div class: ' + prev.className);
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      next = <HTMLElement>elem.nextElementSibling;
+      console.log('p class: ' + next.className);
+    }
+
+    if(prev.className === 'colors'){
+      prev.classList.remove('colors');
+      prev.classList.add('stay-colors');
+      prev.style.backgroundColor = next.innerHTML;
+      console.log('prev.style.backgroundColor: ' + prev.style.backgroundColor);
+      next.classList.remove('codes');
+      next.classList.add('new-codes');
+      elem.innerHTML = 'Unlock';
+    }
+    else if(prev.className === 'stay-colors'){
+      prev.classList.remove('stay-colors');
+      prev.classList.add('colors');
+      prev.style.backgroundColor = next.innerHTML;
+      next.classList.remove('new-codes');
+      next.classList.add('codes');
+      elem.innerHTML = 'Lock';
+    }
+
   }
 }
