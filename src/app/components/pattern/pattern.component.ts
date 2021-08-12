@@ -216,6 +216,7 @@ export class PatternComponent implements OnInit {
 
 
       });
+    this.back();
   }
 
 
@@ -341,7 +342,7 @@ export class PatternComponent implements OnInit {
   back(){
     if(this.background.fill() == null)
     {
-      this.background.fill('#000000');
+      this.background.fill('darkgrey');
     }
     const color = this.background.fill();//keep old/new color
     this.background = new Konva.Rect({
@@ -372,6 +373,16 @@ export class PatternComponent implements OnInit {
     link.click();
     document.body.removeChild(link);
     //delete this.link;
+  }
+  changeColor()
+  {
+    const con	= document.getElementById('container');
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
+    //con.style.backgroundColor = color;
+    //this.stage.container().style.backgroundColor = color;
+    //alert(color);
+    this.background.fill(color);
   }
 
 }
