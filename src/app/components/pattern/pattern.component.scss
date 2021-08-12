@@ -16,6 +16,7 @@ html {
 
 body {
   height: 100%; /* <------------ */
+  background-color: grey;
 }
 
 //IDs
@@ -28,7 +29,7 @@ body {
   border: solid black 1px;
   width: 600px;
   height: 600px;
-  margin: 5px;
+  margin: 15px;
 }
 #container{
   background-color: lightgrey;
@@ -61,13 +62,16 @@ body {
   width: 600px;
   height: 600px;
   border: 1px solid grey;
-  background-color: lightgrey;
+  background-color: lightgray;
   display:none;
   margin: 5px;
 }
 
 //CLASSES
 
+.frame{
+  background-color: grey;
+}
 
 .column {
   float: left;
@@ -77,7 +81,10 @@ body {
 
 .left, .right {
   width: 15%;
+  padding: 5px;
   //overflow : scroll;
+  border: 4px solid black;
+
 }
 
 .middle {
@@ -85,6 +92,7 @@ body {
   padding-bottom: 20px;
   position: relative;
   overflow: auto;
+  border: 4px solid black;
 }
 
 .midleft{
@@ -141,6 +149,7 @@ body {
   //overflow: hidden;
   padding-top: 20px;
   overflow-y: scroll;
+  border: 4px solid black;
 
 }
 .center{
@@ -226,15 +235,17 @@ and some left padding to change the design of the dropdown content */
   //display: flex;
   background-color: lightgrey;
 }
-//.workArea1{
-//  //margin-left: 280px;
-//  //background-color: aqua;
-//  width: 300px;
-//  height: 300px;
-//  //border-radius: 10px;
-//  border: solid grey 1px;
-//  text-align : center;
-//}
+
+.view{
+  //margin-left: 280px;
+  //background-color: aqua;
+  width: 600px;
+  height: 600px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+  text-align : center;
+  margin: 15px;
+}
 
 .workArea{
   //margin-left: 280px;
@@ -244,7 +255,7 @@ and some left padding to change the design of the dropdown content */
   //border-radius: 10px;
   border: solid grey 1px;
   text-align : center;
-  margin: 5px;
+  margin: 15px;
 }
 .workArea > h3{
   padding: 10px;
@@ -259,6 +270,8 @@ and some left padding to change the design of the dropdown content */
   position: absolute;
   right: 0;
   overflow-y : scroll;
+  border: 4px solid black;
+
 }
 .widgetSide{
   padding: 20px;
@@ -311,5 +324,6 @@ and some left padding to change the design of the dropdown content */
     linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
     $dot-color;
   background-size: $dot-space $dot-space;
+  border: 4px solid black;
 }
 
