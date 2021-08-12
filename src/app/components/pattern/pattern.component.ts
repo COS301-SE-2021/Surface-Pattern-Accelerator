@@ -21,6 +21,8 @@ export class PatternComponent implements OnInit {
   layer1!:Konva.Layer;
   // layer2!:Konva.Layer;
   background!: Konva.Rect;
+  previewStage!: Konva.Stage;
+  previewLayer!: Konva.Layer;
   motifCount: number = 0;
   motifs?: motifsInterface;
   tr!: Konva.Transformer;
@@ -77,9 +79,25 @@ export class PatternComponent implements OnInit {
     //
     // // add the shape to the layer
     // this.layer.add(path);
+    // create smaller preview stage
+    this.previewStage = new Konva.Stage({
+      container: 'preview',
+      width: this.stage1.width() / 3,
+      height: this.stage1.width() / 3,
+      scaleX: 1 / 3,
+      scaleY: 1 / 3,
+    });
 
-
-
+    function updatePreview() {
+      // we just need to update ALL nodes in the preview
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      this.layer2.children.forEach((box) => {
+        // find cloned node
+        const clone = this.previewLayer.findOne('.' + box.name());
+        // update its position from the original
+        clone.position(box.position());
+      });
+    }
 
   }
   addGrid(e) {
