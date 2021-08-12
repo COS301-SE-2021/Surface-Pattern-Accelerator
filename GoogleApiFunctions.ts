@@ -1,11 +1,12 @@
 import fs, {linkSync} from "fs";
 import {google} from "googleapis";
+import {toolresults} from "googleapis/build/src/apis/toolresults";
 // import stream from "node:stream";
 import { Stream } from "stream";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
-import {IFolderInterface} from "./Interfaces/folder.interface";
 import {ICollectionDetailsInterface} from "./Interfaces/collectionDetails.interface";
 import {ICollectionsInterface} from "./Interfaces/collections.interface";
+import {IFolderInterface} from "./Interfaces/folder.interface";
 import {ITokenInterface} from "./Interfaces/token.interface";
 
 export class GoogleApiFunctions {
@@ -489,6 +490,33 @@ export class GoogleApiFunctions {
         }).then((result) => {
             console.log(result.data);
             return result.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    public createNewJSONFile(token: ITokenInterface, fileName: string, content: any, parentID: string = "") {
+        const auth = this.createAuthObject(token);
+        const drive = google.drive({version: "v3", auth});
+
+        const fileMetadata = {
+            name: fileName + ".json",
+            parents: [parentID]
+        };
+
+        const media = {
+            mimeType: "application/json",
+            body: JSON.stringify(content)
+        };
+
+        // @ts-ignore
+        return drive.files.create({
+            // @ts-ignore
+            resource: fileMetadata,
+            media,
+            fields: "id"
+        }).then((result) => {
+            console.log(result);
         }).catch((error) => {
             console.log(error);
         });

@@ -137,6 +137,21 @@ app.post("/api/getFileByID", (req, res) => {
         res.json(fileContents);
     });
 });
+app.get("/api/createNewJSONFile", (req, res) => {
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    const fileBody = {
+        collectionName: "someName",
+        motifsFolderID: "100",
+        patternsFolderID: "101",
+        childPatterns: [],
+        story: "a story here",
+        colorThemes: []
+    };
+    gAPI.createNewJSONFile(req.session.accessToken, "A new file name here", fileBody, "1rTxmePwFGJYjrD_tRf77K7I5yYoVySZ7")
+        .then((result) => {
+        console.log(result);
+    });
+});
 // start the Express server
 app.listen(port, () => {
     // tslint:disable-next-line:no-console

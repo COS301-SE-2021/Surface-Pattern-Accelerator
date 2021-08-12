@@ -10,6 +10,7 @@ import {ITokenInterface} from "./Interfaces/token.interface";
 
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 import {GoogleApiFunctions} from "./GoogleApiFunctions";
+import {ICollectionsContent} from "./Interfaces/collectionContents.interface";
 
 // tslint:disable-next-line:interface-name
 declare module "express-session" { interface Session { accessToken: ITokenInterface; } }
@@ -169,6 +170,23 @@ app.post("/api/getFileByID", (req, res) => {
     gAPI.getFileByID(req.session.accessToken, req.body.fileID).then((fileContents) => {
         res.json(fileContents);
     });
+});
+
+app.post("/api/createNewJSONFile", (req, res) => {
+
+    const gAPI = new GoogleApiFunctions();
+    const fileBody: ICollectionsContent = {
+        collectionName: "someName",
+        motifsFolderID: "100",
+        patternsFolderID: "101",
+        childPatterns: [],
+        story: "a story here",
+        colorThemes: []
+    } as unknown as ICollectionsContent;
+    gAPI.createNewJSONFile(req.session.accessToken, "A new file name here", fileBody, "1rTxmePwFGJYjrD_tRf77K7I5yYoVySZ7")
+        .then((result) => {
+            console.log(result);
+        });
 });
 
 // start the Express server

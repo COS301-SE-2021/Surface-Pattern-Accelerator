@@ -1,4 +1,4 @@
-//this interface represents the physical structure of the collections file stored on the drive
+// this interface represents the physical structure of the collections file stored on the drive
 
 export interface ICollectionsContent {
     collectionName: string;
