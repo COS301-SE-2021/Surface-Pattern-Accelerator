@@ -125,16 +125,16 @@ export class WorkareaComponent implements OnInit {
     //this.previewStage.add(this.previewLayer);//added clone layer to preview stage
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    function updatePreview() {
-      // we just need to update ALL nodes in the preview
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      this.layer.children.forEach((box) => {
-        // find cloned node
-        const clone = this.previewLayer.findOne('.' + box.name());
-        // update its position from the original
-        clone.position(box.position());
-      });
-    }
+    // function updatePreview() {
+    //   // we just need to update ALL nodes in the preview
+    //   // eslint-disable-next-line @typescript-eslint/no-shadow
+    //   this.layer.children.forEach((box) => {
+    //     // find cloned node
+    //     const clone = this.previewLayer.findOne('.' + box.name());
+    //     // update its position from the original
+    //     clone.position(box.position());
+    //   });
+    // }
     //this.stage.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
     this.background = new Konva.Rect({
       x: 0,
