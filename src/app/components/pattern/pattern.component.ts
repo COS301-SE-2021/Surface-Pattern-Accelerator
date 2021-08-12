@@ -28,8 +28,8 @@ export class PatternComponent implements OnInit {
   tr!: Konva.Transformer;
   canvasMotifs:  (Group | Shape)[] = new Array();
   canvasMotifsUrl:  string[] = new Array();
-  height: number = 100;
-  width: number = 100;
+  height: number = 300;//100
+  width: number = 300;
   gridLayer? : Konva.Layer;
   constructor(private motifService: MotifServiceService) {}
 
@@ -54,8 +54,8 @@ export class PatternComponent implements OnInit {
 
     this.stage = new Konva.Stage({
       container: 'can',   // id of container <div>
-      width: 1800,//600
-      height: 1800//600
+      width: 600,//600
+      height: 600//600
     });
 
     let layerr = new Konva.Layer();
@@ -98,6 +98,7 @@ export class PatternComponent implements OnInit {
         clone.position(box.position());
       });
     }
+    this.stage1.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
 
   }
   addGrid(e) {
@@ -265,15 +266,20 @@ export class PatternComponent implements OnInit {
 
     generate()
   {
+    this.preview();//refresh and scale workarea
+
+
     this.layer1 = null;
     this.layerr = null;
     this.stage = new Konva.Stage({
       container: 'can',
       width: 600,
       height: 600,
+      scaleX: 1 / 3,
+      scaleY: 1 / 3,
     });
 
-     this.layerr = this.layer2.clone();
+     this.layerr = this.previewLayer.clone();//previewLayer replaced Layer2
     //console.log("Here: " + this.layer2);
     // var one = this.layerr.children[0].clone();
     // var two = this.layerr.children[1].clone();
@@ -297,30 +303,36 @@ export class PatternComponent implements OnInit {
     //
     let l = 100;
     let xx = 0;
-    for(var i = 0 ; i < 10;i++)
+    for(var i = 0 ; i < 10;i++)//10 became 6
     {
-
       xx = 0;
       for(var n = 0 ; n < 10 ; n++)
       {
-        for(var motifs = 0 ; motifs < this.layer2.children.length ; motifs++){
+        for(var motifs = 0 ; motifs < this.previewLayer.children.length ; motifs++){
           var k = this.layerr.children[motifs].clone();
           //var one = layerr.children[0].clone();
-          k.attrs.x =k.attrs.x + 100 * i - 100;
-          k.attrs.y = k.attrs.y + 100 * xx - 100;
+          k.attrs.x =k.attrs.x + 300 * i - 300;//100
+          k.attrs.y = k.attrs.y + 300 * xx - 300;
           this.layerr.add(k);
-
         }
         xx++;
       }
-
-
     }
     this.stage.add(this.layerr);
-
-
   }
 
+  preview(){
+    this.previewStage = new Konva.Stage({
+      container: 'preview',
+      width: this.stage1.width() / 3,
+      height: this.stage1.width() / 3,
+      scaleX: 1 / 3,
+      scaleY: 1 / 3,
+    });
+    //clone frame of pattern stage
+    this.previewLayer = this.layer2.clone({ listening: false });
+    this.previewStage.add(this.previewLayer);//added clone layer to preview stage
+  }
 
 
 }
