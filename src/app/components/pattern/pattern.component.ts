@@ -219,7 +219,7 @@ export class PatternComponent implements OnInit {
 
 
       });
-    this.back();
+    //this.back();
 
     //Needed For Undo
     this.addState();
@@ -383,12 +383,11 @@ export class PatternComponent implements OnInit {
   changeColor()
   {
     const con	= document.getElementById('container');
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
-    //con.style.backgroundColor = color;
-    //this.stage.container().style.backgroundColor = color;
-    //alert(color);
-    this.background.fill(color);
+    document.getElementById("container").style.backgroundColor = color;
+    document.getElementById("can").style.backgroundColor = color;
+
+    //this.background.fill(color);
   }
 
 }
