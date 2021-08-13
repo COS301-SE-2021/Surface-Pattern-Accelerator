@@ -99,7 +99,7 @@ export class PatternComponent implements OnInit {
     if(this._state.length != 0)
     {
       this.stage1.removeChildren();
-      this.layer2 = ( this._state.pop());
+      this.layer2 = ( this._state.pop());//REMOVES TRANSFORMER
       this.stage1.add(this.layer2);
     }
 
@@ -346,17 +346,14 @@ export class PatternComponent implements OnInit {
     this.previewStage.add(this.previewLayer);//added clone layer to preview stage
   }
   back(){
-    if(this.background.fill() == null)
-    {
-      this.background.fill('darkgrey');
-    }
-    const color = this.background.fill();//keep old/new color
+    const c = document.getElementById("container").style.backgroundColor;
+    //const color = this.background.fill();//keep old/new color
     this.background = new Konva.Rect({
       x: 0,
       y: 0,
       width: this.stage1.width(),
       height: this.stage1.height(),
-      fill: color,
+      fill: c,
       listening: false,
       resizeEnabled: false,
       draggable: false,
@@ -386,7 +383,7 @@ export class PatternComponent implements OnInit {
     const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
     document.getElementById("container").style.backgroundColor = color;
     document.getElementById("can").style.backgroundColor = color;
-
+    //this.back();
     //this.background.fill(color);
   }
 
