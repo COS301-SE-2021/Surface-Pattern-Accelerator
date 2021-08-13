@@ -454,7 +454,7 @@ export class GoogleApiFunctions {
     //     };
     // }
 
-    public updateJSONFile(token: ITokenInterface, fileID: string, content: any) {
+    public updateJSONFile(token: ITokenInterface, fileID: string, content: any, newName: string = "") {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});
 
@@ -469,16 +469,33 @@ export class GoogleApiFunctions {
             body: bufferStream
         };
 
-        return drive.files.update({
-            fileId: fileID,
-            media
-        }).then((result) => {
-            console.log(result);
-            return {text: "JSON file updated successfully"};
-        }).catch((error) => {
-            console.log(error);
-            return {text: "Error Updating JSON file"};
-        });
+        if (newName === "") {
+            return drive.files.update({
+                fileId: fileID,
+                media
+            }).then((result) => {
+                console.log(result);
+                return {text: "JSON file updated successfully"};
+            }).catch((error) => {
+                console.log(error);
+                return {text: "Error Updating JSON file"};
+            });
+        } else {
+            const body = {name: newName};
+            // @ts-ignore
+            return drive.files.update({
+                fileId: fileID,
+                resource: body,
+                media
+            }).then((result) => {
+                console.log(result);
+                return {text: "JSON file updated successfully"};
+            }).catch((error) => {
+                console.log(error);
+                return {text: "Error Updating JSON file"};
+            });
+        }
+
     }
 
     public getFileByID(token: ITokenInterface, fileID: string) {

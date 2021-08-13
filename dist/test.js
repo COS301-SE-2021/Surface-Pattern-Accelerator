@@ -126,9 +126,22 @@ app.get("/api/createSubFolder", (req, res) => {
         console.log(r);
     });
 });
-app.get("/api/updateFile", (req, res) => {
+app.post("/api/updateFile", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
-    // gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
+    if (req.body.newName) {
+        gAPI.updateJSONFile(req.session.accessToken, req.body.fileID, req.body.content, req.body.newName).then((result) => {
+            res.status(200).send({
+                Message: "Rename and Write to File Successful"
+            });
+        });
+    }
+    else {
+        gAPI.updateJSONFile(req.session.accessToken, req.body.fileID, req.body.content).then((result) => {
+            res.status(200).send({
+                Message: "Write to File Successful"
+            });
+        });
+    }
 });
 app.post("/api/getFileByID", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
@@ -174,6 +187,15 @@ app.post("/api/newCollection", (req, res) => {
             .catch((error) => {
             console.log(error + "Could not fetch Motifs and/or Pattern Folder IDs");
         });
+    });
+});
+app.post("/api/createNewJSONFile", (req, res) => {
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    gAPI.createNewJSONFile(req.session.accessToken, "reservation", "", req.body.patternFolderID)
+        .then((result) => {
+        // let newFileDetails: any = result;
+        console.log(result);
+        res.json(result);
     });
 });
 // start the Express server

@@ -159,9 +159,23 @@ app.get("/api/createSubFolder", (req, res) => {
     });
 });
 
-app.get("/api/updateFile", (req, res) => {
+app.post("/api/updateFile", (req, res) => {
     const gAPI = new GoogleApiFunctions();
-    // gAPI.updateFile(req.session.accessToken, "1LyeZUJJmtd-lLm9FcYNGLN-SG0hKf2r_");
+
+    if (req.body.newName) {
+        gAPI.updateJSONFile(req.session.accessToken, req.body.fileID, req.body.content, req.body.newName).then((result) => {
+            res.status(200).send({ // 200 - OK
+                Message: "Rename and Write to File Successful"
+            });
+        });
+    } else {
+        gAPI.updateJSONFile(req.session.accessToken, req.body.fileID, req.body.content).then((result) => {
+            res.status(200).send({ // 200 - OK
+                Message: "Write to File Successful"
+            });
+        });
+    }
+
 });
 
 app.post("/api/getFileByID", (req, res) => {
@@ -221,6 +235,18 @@ app.post("/api/newCollection", (req, res) => {
             });
 
     });
+
+});
+
+app.post("/api/createNewJSONFile", (req, res) => {
+    const gAPI = new GoogleApiFunctions();
+
+    gAPI.createNewJSONFile(req.session.accessToken, "reservation", "", req.body.patternFolderID)
+        .then((result) => {
+            // let newFileDetails: any = result;
+            console.log(result);
+            res.json(result);
+        });
 
 });
 
