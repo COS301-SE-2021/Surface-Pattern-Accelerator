@@ -16,7 +16,7 @@ html {
 
 body {
   height: 100%; /* <------------ */
-  background-color: grey;
+  //background-color: grey;
 }
 
 input[type="color"] {
@@ -93,21 +93,23 @@ input[type="color"]:hover {
 
 .column {
   float: left;
-  padding: 10px;
+  //padding: 10px;
+  //padding-top: 0px;
   //height: 100%
+  border: 4px solid black;
 }
 
 .left, .right {
   width: 15%;
+  height: 100%;
   //padding: 5px;
   //overflow : scroll;
-  border: 4px solid black;
+  border: 4px solid black;    //PUT BACK
 
 }
 
 .middle {
   width: 70%;
-  padding-bottom: 20px;
   position: relative;
   overflow: auto;
   border: 4px solid black;
@@ -241,8 +243,11 @@ and some left padding to change the design of the dropdown content */
   width: 80px;
   height: 80px;
   //background-color: black;
-  margin-top: 10px;
-  margin-left: 2px;
+  text-align: center;
+  //padding :50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
   border: solid black 1px;
   display: flex;
 }
@@ -290,6 +295,10 @@ and some left padding to change the design of the dropdown content */
   right: 0;
   overflow-y : scroll;
   border: 4px solid black;
+
+  text-align: center;
+  padding: 10px;
+  padding-bottom: 30px;
 
 }
 .widgetSide{
@@ -345,5 +354,7 @@ and some left padding to change the design of the dropdown content */
     $dot-color;
   background-size: $dot-space $dot-space;
   border: 4px solid black;
+  //height: 100%;//FILL ALL THE WAY TO BOTTOM
+  //padding-bottom: 10px;
 }
 
