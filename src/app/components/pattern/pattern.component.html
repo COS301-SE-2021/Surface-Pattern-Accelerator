@@ -77,10 +77,12 @@
     </div>
   </div>
   <div class="column right" style="background-color:#ccc;">
-    <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
+
     <div class="widgets column">
       <div class="widgetSide">
         <div class="Layers">
+          <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
+          <br>
         <button (click)="backButton()"> Undo </button>
         </div>
         <div class="modifiers">
@@ -108,7 +110,7 @@
           </div>
         </div>
 
-        <div class="func">
+<!--        <div class="func">-->
           <h1 style="text-align:center" >Changes</h1>
           <button class="buttons" id="pre" (click)='generate()'>Refresh</button>
           <br>
@@ -118,7 +120,7 @@
           <input type="color" id="fav_color" name="fav_color" value="#ff0000">
           <br>
           <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
-        </div>
+<!--        </div>-->
 
       </div>
     </div>
