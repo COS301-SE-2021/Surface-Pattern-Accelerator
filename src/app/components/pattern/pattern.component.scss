@@ -99,7 +99,7 @@ input[type="color"]:hover {
 
 .left, .right {
   width: 15%;
-  padding: 5px;
+  //padding: 5px;
   //overflow : scroll;
   border: 4px solid black;
 
@@ -208,9 +208,10 @@ input[type="color"]:hover {
   //margin-left: 250px; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
   //padding: 0 10px;
-  width : 70%;
+  width : 69%;
   height: 100%;
   position: fixed;
+  //margin: 50px;
   //padding: 20px;
   //background-color: #00D2FF;
 }
@@ -292,7 +293,7 @@ and some left padding to change the design of the dropdown content */
 
 }
 .widgetSide{
-  padding: 20px;
+  //padding: 20px;
   //overflow-y : scroll;
 }
 .Layers{
@@ -316,6 +317,7 @@ and some left padding to change the design of the dropdown content */
 }
 .layerBorder{
   padding: 5px;
+  text-align: center;
 }
 .modifiers{
   margin-top: 20px;
