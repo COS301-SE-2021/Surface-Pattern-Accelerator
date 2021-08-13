@@ -105,9 +105,9 @@ export class PatternComponent implements OnInit {
       });
   }
 
-  savePattern(patternName: string)
+  newPattern(patternName: string)
   {
-    this.patternService.savePattern(patternName);
+    this.patternService.newPattern(patternName);
     console.log(patternName);
   }
 

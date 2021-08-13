@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { ICollectionsContent } from "../Interfaces/collectionContents.interface"
+import { IPatternContentsInterface } from "../Interfaces/patternContents.interface"
 
 
 @Injectable({
@@ -12,14 +13,14 @@ export class PatternService {
   constructor(private http: HttpClient) { }
 
   currentCollection?: ICollectionsContent;
-  currentPattern?: any;
+  currentPattern?: IPatternContentsInterface;
 
   getCurrentCollectionJSON(fileID: string)
   {
     console.log("getCollectionJSON fired! fileID is: " + fileID);
 
     return this.http.post(this.serverAPIURL + '/getFileByID',
-      { fileID: fileID, },
+      { fileID: fileID },
       {withCredentials: true
       }).subscribe(fileContent => {
         console.log(fileContent);
@@ -29,11 +30,48 @@ export class PatternService {
     });
   }
 
-  savePattern(patternName: string)
+  newPattern(patternName: string)
   {
       if (this.currentCollection !== null)
       {
-        this.currentCollection["childPatterns"].push({patternName: "someName", patternID: "10001"});
+        let tempPattern: IPatternContentsInterface = this.currentPattern = {patternName: patternName, motifs: []} as unknown as IPatternContentsInterface; //
+        this.currentCollection["childPatterns"].push({patternName: patternName, patternID: ""}); //add patterns name to collection, with empty ID
+
+        let tempCurrentCollection: ICollectionsContent = this.currentCollection;
+
+        this.http.post(this.serverAPIURL + '/createNewJSONFile',
+          { patternFolderID: this.currentCollection["patternsFolderID"] },
+          {withCredentials: true
+          }).subscribe(res => {
+            let newPatternDriveDetails: any = res; //newPatternDriveDetails.id is the reservation file ID that will be used to store the pattern in
+            console.log(newPatternDriveDetails.id);
+
+            for (let i = 0; i < this.currentCollection["childPatterns"].length; i++) //loop through all patterns belonging to this collection
+            {
+              console.log(this.currentCollection["childPatterns"][i])
+              if (this.currentCollection["childPatterns"][i].patternID === "" ) //if a pattern does not have an ID
+              {
+                this.currentCollection["childPatterns"][i].patternID = newPatternDriveDetails.id; //give it the ID of the reservation file
+                this.http.post(this.serverAPIURL + '/updateFile', //send contents to reservation file
+                  { fileID: this.currentCollection["childPatterns"][i].patternID, content: JSON.stringify(tempPattern), newName: patternName },
+                  {withCredentials: true
+                  }).subscribe(patternUpdateResult => {
+                    console.log(patternUpdateResult) //prints
+
+                  this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+                    { fileID: this.currentCollection["collectionID"], content: JSON.stringify(this.currentCollection) },
+                    {withCredentials: true
+                    }).subscribe(collectionUpdateResult => {
+                    console.log(collectionUpdateResult) //prints
+                  })
+
+                })
+              }
+            }
+
+        })
+
+
         console.log(this.currentCollection);
       }
   }
