@@ -19,10 +19,11 @@ export class PatternComponent implements OnInit {
 
   motifs?: motifsInterface;
 
-  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, private patternService: PatternService) {}
+  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
 
   ngOnInit(){
 
+    //gets the requested Collections ID in the path
     this.route.params.subscribe(params => {
       console.log("params are")
       console.log(params['collectionName'])

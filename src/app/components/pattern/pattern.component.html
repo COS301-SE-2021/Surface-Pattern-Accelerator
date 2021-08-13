@@ -49,15 +49,11 @@
 
     <div class="main column center">
       <div class="patternName">
-        <ion-item class="patternSelect">
+        <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
 
           <ion-select interface="popover" >
-            <ion-select-option value="nes">NES</ion-select-option>
-            <ion-select-option value="n64">Nintendo64</ion-select-option>
-            <ion-select-option value="ps">PlayStation</ion-select-option>
-            <ion-select-option value="genesis">Sega Genesis</ion-select-option>
-            <ion-select-option value="saturn">Sega Saturn</ion-select-option>
-            <ion-select-option value="snes">SNES</ion-select-option>
+            <ion-select-option value="{{pattern}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+
           </ion-select>
         </ion-item>
       </div>
