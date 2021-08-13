@@ -96,9 +96,13 @@ export class PatternComponent implements OnInit {
   //Needed For Undo
   backButton()
   {
-    this.stage1.removeChildren();
-    this.layer2 = ( this._state.pop());
-    this.stage1.add(this.layer2);
+    if(this._state.length != 0)
+    {
+      this.stage1.removeChildren();
+      this.layer2 = ( this._state.pop());
+      this.stage1.add(this.layer2);
+    }
+
   }
 
   addGrid(e) {
