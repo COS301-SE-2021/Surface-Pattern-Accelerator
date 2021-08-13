@@ -5,3 +5,16 @@
 #c-upload-file {
   opacity: 0;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+.grid-item {
+  padding: 5%;
+  text-align: center;
+}
+
+ion-card{
+  height: 100%;
+}

@@ -21,4 +21,6 @@ describe('ColorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Test1: Test to see if the ')
 });
