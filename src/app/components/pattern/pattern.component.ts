@@ -5,8 +5,6 @@ import { Group } from 'konva/lib/Group';
 import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
 
-
-
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
@@ -31,10 +29,13 @@ export class PatternComponent implements OnInit {
   height: number = 300;//100
   width: number = 300;
   gridLayer? : Konva.Layer;
+
+  //Needed For Undo
+  _state: Konva.Layer[] = new Array();
+
   constructor(private motifService: MotifServiceService) {}
 
   ngOnInit(){
-
     this.getMotifs();
     type motifOffset=
     {
@@ -64,21 +65,7 @@ export class PatternComponent implements OnInit {
     this.stage1.add(this.layer2);
     //this.addLineListeners();
     this.gridLayer = new Konva.Layer();
-    // const path = new Konva.Path({
-    //   x: 0,
-    //   y: 0,
-    //   data:
-    //     'M0 0h24v24H0V0z',
-    //   fill: 'green',
-    //   scale: {
-    //     x: 10,
-    //     y: 10,
-    //   },
-    //   draggable: true
-    // });
-    //
-    // // add the shape to the layer
-    // this.layer.add(path);
+
     // create smaller preview stage
     this.previewStage = new Konva.Stage({
       container: 'preview',
@@ -88,20 +75,32 @@ export class PatternComponent implements OnInit {
       scaleY: 1 / 3,
     });
 
-    // this.background = new Konva.Rect({
-    //   x: 0,
-    //   y: 0,
-    //   width: this.stage1.width(),
-    //   height: this.stage1.height(),
-    //   fill: 'grey',
-    //   listening: false,
-    //   resizeEnabled: false,
-    //   draggable: false,
-    //
-    // });
-    // this.layer2.add(this.background);
+    //Needed For Undo
+    this.addState();
+
+
 
   }
+  //Needed For Undo
+  addState(_state: Konva.Layer[] = this._state, layer2: Konva.Layer = this.layer2 )
+  {
+    document.getElementById('container').addEventListener(
+      'click',
+      function () {
+        _state.push(layer2.clone());
+      },
+      false
+    );
+
+  }
+  //Needed For Undo
+  backButton()
+  {
+    this.stage1.removeChildren();
+    this.layer2 = ( this._state.pop());
+    this.stage1.add(this.layer2);
+  }
+
   addGrid(e) {
     console.log(this.layer2);
     var padding = 20;
@@ -217,6 +216,9 @@ export class PatternComponent implements OnInit {
 
       });
     this.back();
+
+    //Needed For Undo
+    this.addState();
   }
 
 
