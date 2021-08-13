@@ -91,7 +91,7 @@
           </div>
           <div class="layerNumbers">
             <div class="layerBorder">
-              <h6>Layer 1</h6>
+              <h6>Layer</h6>
 
                 <div *ngIf="motifs" >
                   <div *ngFor="let motif of this.canvasMotifs" class="MotifImage2" mat-raised-button >
@@ -115,7 +115,7 @@
           <button class="buttons" id="save" (click)='download()'>Export</button>
           <br>
           <label for="fav_color">Select a color: </label>
-          <input type="color" id="fav_color" name="fav_color" value="#878787">
+          <input type="color" id="fav_color" name="fav_color" value="#ff0000">
           <br>
           <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
         </div>
