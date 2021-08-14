@@ -45,16 +45,16 @@
                 <input type="color" id="fav_color" name="fav_color" value="#ff0000">
               </ion-item>
               <br>
-              <ion-button color="medium" (click)="changeFill()">Change Color</ion-button>
+              <ion-button id="changeColorBtn" color="medium" (click)="changeFill()">Change Color</ion-button>
               <br>
               <ion-item>
                 <ion-label for="textColor">Enter a color: </ion-label>
                 <input type="text" id="textColor" name="textColor" value="#ff0000">
               </ion-item>
-              <ion-button color="medium" (click)="changeFillText()">Change Color</ion-button>
+              <ion-button id="changeTextBtn" color="medium" (click)="changeFillText()">Change Color</ion-button>
               <input type="file" id="c-upload-file" accept="image/svg+xml/*">
-              <ion-button color="medium" (click)="importSVG()">Import SVG</ion-button>
-              <ion-button color="medium" (click)="save_svg()">Save SVG</ion-button>
+              <ion-button id="importBtn" color="medium" (click)="importSVG()">Import SVG</ion-button>
+              <ion-button id="saveBtn" color="medium" (click)="save_svg()">Save SVG</ion-button>
             </form>
 
           </ion-card-content>
