@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CollectionsServiceService } from '../../../services/collections-service.service';
 
 @Component({
   selector: 'app-new-collection',
@@ -7,8 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewCollectionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private collectionsService: CollectionsServiceService) { }
 
-  ngOnInit() {}
+  ngOnInit()
+  {
+      console.log('new collection component created');
+  }
+
+  newCollection(value: string) {
+    //this.collectionsService.createNewCollection(value);
+    console.log(value);
+    this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
+      .subscribe(newCollectionResult => {
+        console.log(newCollectionResult);
+      });
+  }
 
 }
