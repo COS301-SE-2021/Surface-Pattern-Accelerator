@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PatternComponent } from './pattern.component';
+import { BodyComponent } from './body.component';
 
-describe('PatternComponent', () => {
-  let component: PatternComponent;
-  let fixture: ComponentFixture<PatternComponent>;
+describe('BodyComponent', () => {
+  let component: BodyComponent;
+  let fixture: ComponentFixture<BodyComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PatternComponent ],
+      declarations: [ BodyComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PatternComponent);
+    fixture = TestBed.createComponent(BodyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

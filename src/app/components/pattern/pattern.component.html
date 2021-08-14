@@ -46,36 +46,14 @@
 
   </div>
   <div class="column middle" style="background-color:#bbb;">
+
     <div class="main column center">
-<!--      <div class="patternName center">-->
-<!--        -->
-<!--      </div>-->
-      <div id="down">
-
+      <div class="patternName">
+        <h3>Pattern X</h3>
       </div>
-
-      <div class="row">
-
-
-<!--        <div class="midleft">-->
-
-<!--        </div>-->
-
-<!--        <div class="midright">-->
-
-<!--        </div>-->
-
-        <div class="workArea" id="container">
-
-        </div>
-        <div class="view" id="preview">
-
-        </div>
-
-        <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-
+      <div class="workArea" id="container">
+        <h3>Work space</h3>
       </div>
-
     </div>
   </div>
   <div class="column right" style="background-color:#ccc;">
@@ -83,12 +61,24 @@
     <div class="widgets column">
       <div class="widgetSide">
         <div class="Layers">
-          <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
-          <br>
-          <mat-checkbox labelPosition="before" (change)="addBack($event)">Enable Background</mat-checkbox>
-          <br>
-        <button (click)="backButton()"> Undo </button>
+          <h1 style="text-align:center" >Layers</h1>
+          <div>
+            <h5 style="padding:5px">New Layer</h5>
+            <mat-divider style="color: black; padding: 5px;"></mat-divider>
+          </div>
+          <div class="layerNumbers">
+            <div class="layerBorder">
+              <h6>Layer 1</h6>
+              <div class="LayerImage">
+                <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY="
+                     alt="layer-image">
+                <h5> Trees </h5>
+              </div>
+            </div>
+          </div>
+
         </div>
+
         <div class="modifiers">
           <h1 style="text-align:center" >Modifiers</h1>
           <div>
@@ -97,36 +87,20 @@
           </div>
           <div class="layerNumbers">
             <div class="layerBorder">
-              <h6>Layer</h6>
-
-                <div *ngIf="motifs" >
-                  <div *ngFor="let motif of this.canvasMotifs" class="MotifImage2" mat-raised-button >
-                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
-<!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
-                    motif.attrs.image.outerHTML
-                    <button (click)="moveUp(motif)">MoveUp</button>
-                    <button (click)="moveDown(motif)">MoveDown</button>
-                    <button (click)="moveToTop(motif)">Top</button>
-                    <button (click)="movetToBottom(motif)">Bottom</button>
-                  </div>
-                </div>
+              <h6>Layer 1</h6>
+              <div class="LayerImage">
+                <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY="
+                     alt="Trees layer image">
+                <h5> Trees </h5>
+              </div>
             </div>
           </div>
+
         </div>
-
-<!--        <div class="func">-->
-          <h1 style="text-align:center" >Changes</h1>
-          <button class="buttons" id="pre" (click)='generate()'>Refresh</button>
-          <br>
-          <button class="buttons" id="save" (click)='download()'>Export</button>
-          <br>
-          <label for="fav_color">Select a color: </label>
-          <input type="color" id="fav_color" name="fav_color" value="#ff0000">
-          <br>
-          <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
-<!--        </div>-->
-
       </div>
+
+
     </div>
+
   </div>
 </div>
