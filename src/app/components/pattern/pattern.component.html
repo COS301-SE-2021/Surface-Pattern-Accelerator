@@ -52,7 +52,7 @@
         <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
 
           <ion-select interface="popover" >
-            <ion-select-option value="{{pattern}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+            <ion-select-option value="{{pattern.patternName}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
 
           </ion-select>
         </ion-item>
