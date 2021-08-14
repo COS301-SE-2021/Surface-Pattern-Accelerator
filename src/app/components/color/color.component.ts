@@ -74,6 +74,21 @@ export class ColorComponent implements OnInit {
     return true;
   }
 
+  // Changes the fill color, by color text inserted by a user
+  changeFillText() {
+    // Get the inserted SVG element from the html document
+    let div = <HTMLElement>document.getElementById("divOutput");
+    let divC  = div.children;
+    let svg	= divC[0];
+    // Get color value from user
+    let colorPicker = <HTMLInputElement>document.getElementById('textColor');
+    // Store color value specified by user
+    let color	= colorPicker.value;
+    // Search through the svg and change fill color for child nodes
+    this.recursiveNodeSearch(svg, color);
+    return true;
+  }
+
   // Recursively search through the node, and iterate through all child nodes on
   // all levels.
   recursiveNodeSearch(node, colorValue) {
