@@ -24,9 +24,10 @@ export class ColorComponent implements OnInit {
   // Modern approach to the equivalent PHP function file_get_contents()
   // Reads the contents of a file into a string
   //**** Resource used: https://stackoverflow.com/questions/10693518/is-there-a-javascript-way-to-do-file-get-contents
-  async file_get_contents(uri, callback) {
-    let res = await fetch(uri), ret = await res.text();
-    let divExample  = <HTMLDivElement>document.getElementById("divOutput");
+  async fileGetContents(uri, callback) {
+    const res = await fetch(uri);
+    const ret = await res.text();
+    const divExample  = document.getElementById('divOutput') as HTMLElement;
     // Insert SVG code directly into html
     divExample.innerHTML  = ret;
     return callback ? callback(ret) : ret; // a Promise() actually.
@@ -34,15 +35,15 @@ export class ColorComponent implements OnInit {
 
   // **** this function searches through an *imported svg
   // changing all the fill colors to one specified by the user
-  LoadToExpandedView() {
+  loadToExpandedView() {
     // For illustration, file source is retried from image source
     // Mimicking working with an uploaded SVG source file
-    let imageCC = <HTMLImageElement>document.getElementById('output');
+    const imageCC = document.getElementById('output') as HTMLImageElement;
     // Gets SVG source code and inserts it into the html
-    let out = this.file_get_contents(imageCC.src, console.log);
+    const out = this.fileGetContents(imageCC.src, console.log);
     // Access the inserted svg element
-    let divCC = <HTMLElement>document.getElementById("divOutput");
-    let divChildren = divCC.children;
+    const divCC = document.getElementById('divOutput') as HTMLElement;
+    const divChildren = divCC.children;
     // Error check to make sure SVG was inserted
     if (divChildren[0] == null) {
       console.log('Error in changeColor(): SVG was not inserted into div container.');
@@ -60,14 +61,14 @@ export class ColorComponent implements OnInit {
   // changing all the fill colors to one specified by the user
   changeFill() {
     // Get the inserted SVG element from the html document
-    let div = <HTMLElement>document.getElementById("divOutput");
-    let divC  = div.children;
-    let svg	= divC[0];
+    const div = document.getElementById('divOutput') as HTMLElement;
+    const divC  = div.children;
+    const svg	= divC[0];
     // Get color value from user
-    let colorPicker = <HTMLInputElement>document.getElementById('fav_color');
+    const colorPicker = document.getElementById('fav_color') as HTMLInputElement;
 
     // Store color value specified by user
-    let color	= colorPicker.value;
+    const color	= colorPicker.value;
 
     // Search through the svg and change fill color for child nodes
     this.recursiveNodeSearch(svg, color);
@@ -77,13 +78,13 @@ export class ColorComponent implements OnInit {
   // Changes the fill color, by color text inserted by a user
   changeFillText() {
     // Get the inserted SVG element from the html document
-    let div = <HTMLElement>document.getElementById("divOutput");
-    let divC  = div.children;
-    let svg	= divC[0];
+    const div = document.getElementById('divOutput') as HTMLElement;
+    const divC  = div.children;
+    const svg	= divC[0];
     // Get color value from user
-    let colorPicker = <HTMLInputElement>document.getElementById('textColor');
+    const colorPicker = document.getElementById('textColor') as HTMLInputElement;
     // Store color value specified by user
-    let color	= colorPicker.value;
+    const color	= colorPicker.value;
     // Search through the svg and change fill color for child nodes
     this.recursiveNodeSearch(svg, color);
     return true;
@@ -96,7 +97,7 @@ export class ColorComponent implements OnInit {
       return;
     }
     // Base case for recursive function
-    if (node.childElementCount == 0) {
+    if (node.childElementCount === 0) {
       // Make sure we are not working with undefined nodes
       if (!(typeof node === 'undefined')) {
         console.log('Changing the node color, through recursive node search: ',node.tagName);
@@ -118,9 +119,10 @@ export class ColorComponent implements OnInit {
     }
     else if (node.childElementCount > 0) {
       // Store children of node in array
-      let nodeChildren  = node.children;
+      const nodeChildren  = node.children;
       // Iterate through the individual node children and call the recursive function
-      for (let j = 0; j < nodeChildren.length; j++) {
+      // eslint-disable-next-line @typescript-eslint/prefer-for-of
+      for(let j = 0; j < nodeChildren.length; j++) {
         // Make sure we are not working with undefined nodes
         if (!(typeof nodeChildren[j] === 'undefined')) {
           this.recursiveNodeSearch(nodeChildren[j],colorValue);
@@ -129,22 +131,22 @@ export class ColorComponent implements OnInit {
     }
   }
 
-  save_svg() {
+  saveSvg() {
     // Get the inserted SVG element from the html document
-    let div = <HTMLElement>document.getElementById("divOutput");
-    let divC  = div.children;
-    let svgEl	= divC[0];
+    const div = document.getElementById('divOutput') as HTMLElement;
+    const divC  = div.children;
+    const svgEl	= divC[0];
     //svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     const svgData = svgEl.outerHTML;
     // Required preface in every svg code file
     const preface = '<?xml version="1.0" standalone="no"?>\r\n';
     // Create blob
     const svgBlob = new Blob([ preface,'<svg xmlns="http://www.w3.org/2000/svg">',
-        svgData, '</svg>'], {type: "image/svg+xml;charset=utf-8"});
-    let svgUrl = URL.createObjectURL(svgBlob);
-    let downloadLink = document.createElement("a");
+        svgData, '</svg>'], {type: 'image/svg+xml;charset=utf-8'});
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const downloadLink = document.createElement('a');
     downloadLink.href = svgUrl;
-    downloadLink.download = "SVG_element";
+    downloadLink.download = 'SVG_element';
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -153,13 +155,13 @@ export class ColorComponent implements OnInit {
   // Import SVG and display it in image file.
   // TODO modify it to display image in canvas and load from google drive
   importSVG() {
-    let fileInput = <HTMLInputElement>document.getElementById('c-upload-file');
-    let image = <HTMLImageElement>document.getElementById('output');
+    const fileInput = document.getElementById('c-upload-file') as HTMLInputElement;
+    const image = document.getElementById('output') as HTMLImageElement;
     // Trigger the hidden input type='file' html element
     fileInput.click();
     // Activates when a user selects a file and a change event is fired by the browser
     fileInput.addEventListener('change', ()=> {
-      let file = fileInput.files[0];
+      const file = fileInput.files[0];
       // Check for file
       if (file) {
         try {
@@ -169,16 +171,15 @@ export class ColorComponent implements OnInit {
           this.svgName  = ' : ' + file.name;
           // Display the image html that was hidden
           //image.style.display = 'block';
-          return this.LoadToExpandedView();
+          return this.loadToExpandedView();
         } catch (err) {
           // For debugging purposes
           console.log(err.message);
         }
       }
-    })
+    });
     return null;
   }
-
 
   colorGenerator(){
 
