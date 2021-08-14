@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController, } from '@ionic/angular';
 
 @Component({
   selector: 'app-collection-basic-operations',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollectionBasicOperationsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private popoverController: PopoverController) { }
 
   ngOnInit() {}
 
