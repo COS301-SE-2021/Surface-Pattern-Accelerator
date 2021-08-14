@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionsServiceService } from '../../../services/collections-service.service';
 import {ICollectionsContent} from "../../../Interfaces/collectionContents.interface"
 import {Router} from "@angular/router";
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-new-collection',
@@ -10,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class NewCollectionComponent implements OnInit {
 
-  constructor(private collectionsService: CollectionsServiceService, private router: Router) { }
+  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController) { }
 
   ngOnInit()
   {
@@ -19,14 +20,28 @@ export class NewCollectionComponent implements OnInit {
 
   newCollection(value: string) {
     //this.collectionsService.createNewCollection(value);
-    console.log(value);
-    this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
-      .subscribe(newCollectionResult => {
-        let tempCollectionDetailsStorage: ICollectionsContent = newCollectionResult as ICollectionsContent;
-        console.log("Temp Collection storage is:");
-        console.log(tempCollectionDetailsStorage);
-        //this.router.navigate(['pattern/' + tempCollectionDetailsStorage.collectionID + tempCollectionDetailsStorage.collectionName]);
-      });
+    //console.log(value);
+
+    this.loadingController.create({
+      message: "Creating Collection..."
+    }).then(loaderResult => {
+      loaderResult.present().then(r => {
+        this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
+          .subscribe(newCollectionResult => {
+            let tempCollectionDetailsStorage: ICollectionsContent = newCollectionResult as ICollectionsContent;
+            console.log("Temp Collection storage is:");
+            console.log(tempCollectionDetailsStorage);
+            loaderResult.dismiss().then(dismissResult => {
+              this.router.navigate(['pattern/' + tempCollectionDetailsStorage.collectionID + "/" + tempCollectionDetailsStorage.collectionName]).then();
+            });
+
+
+          });
+      })
+    })
+
+
+
   }
 
 }
