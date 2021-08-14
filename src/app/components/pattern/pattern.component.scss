@@ -85,6 +85,15 @@ input[type="color"]:hover {
   margin: 5px;
 }
 
+#down {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  border: 1px solid grey;
+  background-color: lightgray;
+  display:none;
+}
+
 //CLASSES
 
 .frame{
