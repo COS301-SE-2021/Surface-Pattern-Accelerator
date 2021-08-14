@@ -1,17 +1,26 @@
-<h1>Collection Creator</h1>
-<div>
-  <label for="new-collection">Collection name: </label><br>
-  <input id="new-collection" #collectionName /><br>
+<ion-content>
+  <ion-card>
+    <ion-card-header>Collection Creator</ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+        <label for="new-collection">Collection name: </label><br>
+        <input type="text" id="new-collection" #collectionName /><br>
 
-  <label for="story">Collection Story: </label><br>
-  <input id="story" #collectionStory /><br>
+        <label for="story">Collection Story: </label><br>
+        <input id="story" #collectionStory/><br>
 
-  <label for="themes">Collection Themes: </label><br>
-  <input id="themes" #collectionThemes /><br>
-  <br>
-  <br>
+        <label for="themes">Collection Themes: </label><br>
+        <input id="themes" #collectionThemes /> <br>
 
-  <button class="add-button" (click)="newCollection(collectionName.value); collectionName.value=''">
-    Add Collection
-  </button>
-</div>
+      <br>
+      <br>
+      <br>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card id="buttonCard">
+    <ion-button color="medium" expand="block" class="add-button" (click)="newCollection(collectionName.value); collectionName.value=''"> Add Collection </ion-button>
+  </ion-card>
+</ion-content>

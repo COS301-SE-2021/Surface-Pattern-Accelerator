@@ -1,0 +1,133 @@
+.mainLaunch{
+  display: flex;
+  border-bottom: 1px solid #616976;
+  height: 100%;
+}
+
+.mainHeader{
+  display: flex;
+  width: 100%;
+  height: 70px;
+  background-color: #011638;
+  color: #53ff45;
+  margin: 0;
+  border-bottom: 1px solid #616976;
+}
+
+.headerLeft{
+  padding: 25px 0;
+  margin-left: 15px;
+  font-weight: bold;
+  font-size: 150%;
+}
+
+.headerRight{
+  display: flex;
+  margin-left: auto;
+  margin-right: 0;
+  font-size: 115%;
+  font-family: 'Comic Sans MS';
+
+  //Kristen ITC REQUIRED FONT
+}
+
+.rightContent{
+  padding: 25px 30px;
+}
+
+.mainBody{
+  width: 100%;
+  height: 100%;
+}
+
+.image{
+  margin-left: 100px;
+  width: 900px;
+  height: 900px;
+  z-index: 1000;
+  padding: 100px 10px;
+}
+
+.btn{
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 16px;
+  border-color: white;
+  min-height: 32px;
+  height: auto;
+  min-width: 72px;
+  padding: 3px 14px 5px;
+  color:#53ff45;
+}
+
+.buttons{
+  display: flex;
+}
+
+.button1{
+  padding: 0 30px;
+}
+
+.mainLogin{
+  padding: 100px 300px;
+}
+
+.words >h1{
+  font-weight: bold;
+  font-size: 80px;
+  padding: 15px 0;
+}
+
+.words >h2{
+  color: white;
+  font-size: 30px;
+  padding: 15px 0;
+}
+
+.words >h4{
+  font-family: 'Comic Sans MS';
+  font-size: 30px;
+  padding: 0 80px;
+  color: white;
+  //padding: 9px 0;
+}
+
+.words >h3{
+  padding: 15px 50px;
+  //font-size: 16px;
+}
+
+.palette{
+  padding: 100px 200px;
+}
+
+.launchImage{
+  display: flex;
+  border-bottom: 1px solid #616976;
+}
+
+.image2{
+  margin-top: 100px;
+}
+
+.footer{
+  display: flex;
+  color: white;
+  height: 70px;
+}
+
+.report{
+  padding: 25px 0;
+  margin-left: 50px;
+  font-size: large;
+  font-weight: bold;
+}
+
+.contact{
+  font-weight: bold;
+  font-size: large;
+  padding: 25px 0;
+  justify-content: center;
+  color: white;
+  margin-left: 40%;
+}

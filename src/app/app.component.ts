@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -6,11 +7,12 @@ import {Component} from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 
-export class AppComponent {
-  //failed attempt at hading a tab bar
-  //static tabBar: any = <HTMLElement>document.getElementById('tab-bar1');
-  static tabBar: any;
-constructor() {
-  AppComponent.tabBar = <HTMLElement>document.getElementById('tab-bar1');
+export class AppComponent implements OnInit {
+constructor(private router: Router) {
+
 }
+
+  ngOnInit(): void {
+  console.log('this.router.url', this.router.url);
+  }
 }
