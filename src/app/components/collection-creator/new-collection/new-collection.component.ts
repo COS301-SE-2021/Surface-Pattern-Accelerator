@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionsServiceService } from '../../../services/collections-service.service';
+import {ICollectionsContent} from "../../../Interfaces/collectionContents.interface"
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-collection',
@@ -8,7 +10,7 @@ import { CollectionsServiceService } from '../../../services/collections-service
 })
 export class NewCollectionComponent implements OnInit {
 
-  constructor(private collectionsService: CollectionsServiceService) { }
+  constructor(private collectionsService: CollectionsServiceService, private router: Router) { }
 
   ngOnInit()
   {
@@ -20,7 +22,10 @@ export class NewCollectionComponent implements OnInit {
     console.log(value);
     this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
       .subscribe(newCollectionResult => {
-        console.log(newCollectionResult);
+        let tempCollectionDetailsStorage: ICollectionsContent = newCollectionResult as ICollectionsContent;
+        console.log("Temp Collection storage is:");
+        console.log(tempCollectionDetailsStorage);
+        //this.router.navigate(['pattern/' + tempCollectionDetailsStorage.collectionID + tempCollectionDetailsStorage.collectionName]);
       });
   }
 
