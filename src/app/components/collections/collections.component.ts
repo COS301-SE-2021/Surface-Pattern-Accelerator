@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectionsInterface } from '../../Interfaces/collectionsInterface';
+import { ICollectionsInterface } from '../../Interfaces/collections.interface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CollectionsServiceService } from '../../services/collections-service.se
 })
 export class CollectionsComponent implements OnInit {
 
-  collections?: CollectionsInterface; //the collections that get displayed, marked as optional
+  collections?: ICollectionsInterface; //the collections that get displayed, marked as optional
 
   constructor(private collectionsService: CollectionsServiceService) { }
 
@@ -21,7 +21,11 @@ export class CollectionsComponent implements OnInit {
   getCollections(): void //this func gets called each time this component gets initialized
   {
     this.collectionsService.getCollections()                      //this is an asynchronous operation
-      .subscribe(collections => this.collections = collections);  //Observable
+      .subscribe(collections =>
+      {
+        console.log(collections)
+        this.collections = collections
+      });  //Observable
   }
 
 }

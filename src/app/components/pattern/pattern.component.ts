@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, PopoverController } from '@ionic/angular';
-import { ExportPopoverComponent } from '../export-popover/export-popover.component';
-import { PreviewComponent } from '../preview/preview.component';
+import { MotifServiceService } from '../../services/motif-service.service';
+import Konva from "konva";
+import { Group } from 'konva/lib/Group';
+import { Shape, ShapeConfig } from 'konva/lib/Shape';
+import {motifsInterface} from "../../Interfaces/motifsInterface";
+import { PatternService } from "../../services/pattern.service";
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pattern',
@@ -9,143 +14,414 @@ import { PreviewComponent } from '../preview/preview.component';
   styleUrls: ['./pattern.component.scss'],
 })
 export class PatternComponent implements OnInit {
+  stage!: Konva.Stage;
+  layer2!: Konva.Layer;
 
-  title = 'testAngular';
-  username: string | undefined;
-  spacing: number = 18;
-  rotate : string | undefined;
-  rotateNum: number = 0;
-  scale : string | undefined;
-  scaleNum: number = 0.7;
+  stage1!: Konva.Stage;
+  layerr!:Konva.Layer;
+  layer1!:Konva.Layer;
+  // layer2!:Konva.Layer;
+  background!: Konva.Rect;
+  previewStage!: Konva.Stage;
+  previewLayer!: Konva.Layer;
+  motifCount: number = 0;
+  motifs?: motifsInterface;
+  tr!: Konva.Transformer;
+  canvasMotifs:  (Group | Shape)[] = new Array();
+  canvasMotifsUrl:  string[] = new Array();
+  height: number = 300;//100
+  width: number = 300;
+  gridLayer? : Konva.Layer;
+
+  //Needed For Undo
+  _state: Konva.Layer[] = new Array();
+
+  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
 
   ngOnInit(){
-    document.addEventListener("change", ()=>{
-      console.log("yes");
-      this.username = (<HTMLInputElement>document.getElementById("name")).value;
-      this.spacing = +this.username;
 
-      this.rotate = (<HTMLInputElement>document.getElementById("rotate")).value;
-      this.rotateNum = +this.rotate;
+    //gets the requested Collections ID in the path
+    this.route.params.subscribe(params => {
+      console.log("params are")
+      console.log(params['collectionName'])
+      console.log(params['collectionID'])
 
-      this.scale = (<HTMLInputElement>document.getElementById("scale")).value;
-      this.scaleNum = +this.scale;
+      this.patternService.getCurrentCollectionJSON(params['collectionID']);
 
-      this.setSize(this.spacing, this.rotateNum, this.scaleNum);
 
     })
-    this.setSize(this.spacing, this.rotateNum, this.scaleNum);
-    let downloadBtn = <HTMLElement> document.getElementById("download-btn");
-    if(downloadBtn){
-      downloadBtn.addEventListener("click", () => {
-        let canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
 
-        // Init new filename
-        let newFilename;
-        newFilename =  "canvas-edited.jpg";
-
-        // Call download
-        canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
-
-        //better UI experience for downloading, by generating a popover dialogue
-        this.createPopover();
-
-        //this.download(canvas, newFilename);
-        this.downloadCanvas(canvas);
-
-      });
+    this.getMotifs();
+    type motifOffset=
+    {
+      motif: Konva.Layer;
+      xOffset: number;
+      yOffset: number;
     }
+    //new preview frame
+    let width = 300;
+    let height = 300;
+    this.stage1 = new Konva.Stage({
+      container: 'container',
+      width: width,
+      height: height
+    });
+    this.layer2 = new Konva.Layer();
 
-  }
-
-
-  setSize(spacing: number, rotateNum: number, scaleNum: number) {
-    let c = <HTMLCanvasElement> document.getElementById("myCanvas");
-    //c.width = (window.innerWidth);
-
-    const ctx =<CanvasRenderingContext2D> c.getContext("2d");
-
-    let motif = new Image();
-    motif.style.width = "1";
-    ctx.rotate(rotateNum);
-
-    motif.onload = function () {
-      let k = 1;
-
-      k=1;
-      let l = 1;
-      ctx.scale(1,1);
-      ctx.scale(scaleNum, scaleNum);
-      for(let i = 0 ; i < 100; i++){
-        k=1;
-
-        for(let j = 0 ; j < 100 ; j++){
-          //if(l*5<window.innerWidth || k*8<window.innerHeight)
-          ctx.drawImage(motif, l*5, /*-340*/8*k, /*150*/180, /*c.height*2*/150);
-          // else break;
-
-          k+=spacing;
-        } l+=20;
-      }
-
-    };
-    motif.src = "../assets/shapes.svg";
-
-    //This is for unit testing
-    return motif.src;
-  }
-
-// Download
-  downloadCanvas(canvas : HTMLCanvasElement){
-    // get canvas data
-    let image = canvas.toDataURL();
-
-    // create temporary link
-    let tmpLink = document.createElement( 'a' );
-    tmpLink.download = 'image.png'; // set the name of the download file
-    tmpLink.href = image;
-
-    // temporarily add link to body and initiate the download
-    document.body.appendChild( tmpLink );
-    tmpLink.click();
-    document.body.removeChild( tmpLink );
-
-    //This is for unit testing
-    return true;
-  }
-
-  /*
-    ModalController object is intialised as this component is constructed.
-    The ModalController object is used in openModal() to open the ionic component modal.
-
-    The PopoverController object is intialised as this component is constructed.
-    The PopoverController object is used in createPopover() to open the ionic popover component.
-   */
-  constructor(private modalCtrl: ModalController,
-              private popover: PopoverController) {}
-
-  /*
-      When the preview button is clicked,
-      this function is run to display the ionic modal
-      component with the preview image, from the preview component.
-   */
-  async openModal() {
-    // @ts-ignore
-    const modal = await this.modalCtrl.create({
-      component: PreviewComponent
+    this.stage = new Konva.Stage({
+      container: 'can',   // id of container <div>
+      width: 600,//600
+      height: 600//600
     });
 
-    await modal.present();
+    let layerr = new Konva.Layer();
+    layerr = this.layer2.clone();
+    this.stage.add(layerr);
+    this.stage1.add(this.layer2);
+    //this.addLineListeners();
+    this.gridLayer = new Konva.Layer();
 
-    //This is for unit testing
-    return true;
+    // create smaller preview stage
+    this.previewStage = new Konva.Stage({
+      container: 'preview',
+      width: this.stage1.width() / 3,
+      height: this.stage1.width() / 3,
+      scaleX: 1 / 3,
+      scaleY: 1 / 3,
+    });
+
+    //Needed For Undo
+    this.addState();
+
+
+
+  }
+  //Needed For Undo
+  addState(_state: Konva.Layer[] = this._state, layer2: Konva.Layer = this.layer2 )
+  {
+    document.getElementById('container').addEventListener(
+      'click',
+      function () {
+        _state.push(layer2.clone());
+      },
+      false
+    );
+
+  }
+  //Needed For Undo
+  backButton()
+  {
+    if(this._state.length != 0)
+    {
+      this.stage1.removeChildren();
+      this.layer2 = ( this._state.pop());//REMOVES TRANSFORMER
+      this.stage1.add(this.layer2);
+    }
+
+    // const path = new Konva.Path({
+    //   x: 0,
+    //   y: 0,
+    //   data:
+    //     'M0 0h24v24H0V0z',
+    //   fill: 'green',
+    //   scale: {
+    //     x: 10,
+    //     y: 10,
+    //   },
+    //   draggable: true
+    // });
+    //
+    // // add the shape to the layer
+    // this.layer.add(path);
   }
 
-  createPopover() {
-    let popover = this.popover.create({component: ExportPopoverComponent,
-    showBackdrop: false}).then((popoverElement)=>{
-      popoverElement.present();
-    })
+  addGrid(e) {
+    console.log(this.layer2);
+    var padding = 20;
+    if(e.checked){
 
+      for (var i = 0; i < this.width / padding; i++) {
+        this.gridLayer.add(new Konva.Line({
+          points: [Math.round(i * padding) , 0, Math.round(i * padding) , this.height],
+          stroke: 'black',
+          strokeWidth: 0.5,
+        }));
+      }
+
+      this.gridLayer.add(new Konva.Line({points: [0,0,10,10]}));
+      for (var j = 0; j < this.height / padding; j++) {
+        this.gridLayer.add(new Konva.Line({
+          points: [0, Math.round(j * padding), this.width, Math.round(j * padding)],
+          stroke: 'black',
+          strokeWidth: 0.5,
+        }));
+      }
+      this.stage1.add(this.gridLayer);
+
+    }
+    else
+    {
+      this.gridLayer.remove();
+    }
+    console.log(this.layer2);
 
   }
+  getMotifs(): void
+  {
+    this.motifService.getMotifs()
+      .subscribe(motifs =>
+      {
+
+        this.motifs = motifs
+        console.log(motifs)
+      });
+  }
+
+  spawnMotif()
+  {
+    const path2 = new Konva.Path({
+      x: 0,
+      y: 0,
+      data:
+        '"M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z',
+      fill: 'red',
+      scale: {
+        x: 2,
+        y: 2,
+
+      },
+      draggable: true
+    });
+
+    this.layer2.add(path2);
+  }
+
+  spawnMotifWithURL(motifURL: string)
+  {
+
+    this.canvasMotifsUrl[this.motifCount] = motifURL;
+    Konva.Image.fromURL(motifURL,
+      (image: Group | Shape<ShapeConfig>) => {
+        image.x(0);
+        console.log(motifURL);
+        image.scale();
+        image.draggable(true);
+        console.log( image);
+
+
+          // image.on('keydown', function(e){
+          //   e = e || window.event;
+          //   if (e.keyCode === 38) { // up
+          //     image.moveUp();
+          //     console.log("upppp");
+          //   }  else if (e.keyCode === 40) { // down
+          //     image.moveDown();
+          //   } else {
+          //     return;
+          //   }
+          //   e.preventDefault();
+          //
+          // })
+
+
+
+
+
+        this.layer2.add(image);
+        this.canvasMotifs[this.motifCount] = image;
+       // console.log("New motifs: " + this.layer2);
+
+        this.tr = new Konva.Transformer();
+        this.layer2.add(this.tr);
+
+        if(this.motifCount == 0)
+        {
+          this.tr.nodes([this.layer2.children[this.motifCount]]);
+        }
+        else
+        {
+          this.tr.nodes([this.layer2.children[this.motifCount*2]]);
+        }
+
+        this.motifCount++;
+        console.log(this.layer2);
+
+
+
+      });
+    //this.back();
+
+    //Needed For Undo
+    this.addState();
+  }
+
+
+  moveUp(img: Group | Shape<ShapeConfig>)
+  {
+    console.log(this.layer2.children);
+    for(var i = 0 ; i < this.layer2.children.length; i++)
+    {
+      if(img._id+1 == this.layer2.children[i]._id && (i-2)<this.layer2.children.length)
+      {
+        img.moveUp();
+        this.layer2.children[i].moveUp();
+
+      }
+    }
+    //this.back();
+  }
+  moveDown(img: Group | Shape<ShapeConfig>)
+  {
+    for(var i = 0 ; i < this.layer2.children.length; i++)
+    {
+      if(img._id == this.layer2.children[i]._id && (i-2)<this.layer2.children.length)
+      {
+        img.moveDown();
+        this.layer2.children[i+1].moveDown();
+
+      }
+    }
+    //this.back();
+  }
+
+  moveToTop(img: Group | Shape<ShapeConfig>) {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id + 1 == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToTop();
+        img.moveToTop();
+      }
+    }
+    //this.back();
+  }
+
+  movetToBottom(img: Group | Shape<ShapeConfig>) {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id + 1 == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToBottom();
+        img.moveToBottom();
+      }
+    }
+    //this.back();
+  }
+
+
+    generate()
+  {
+    this.preview();//refresh and scale workarea
+
+
+    this.layer1 = null;
+    this.layerr = null;
+    this.stage = new Konva.Stage({
+      container: 'can',
+      width: 600,
+      height: 600,
+      scaleX: 1 / 3,
+      scaleY: 1 / 3,
+    });
+
+     this.layerr = this.previewLayer.clone();//previewLayer replaced Layer2
+    //console.log("Here: " + this.layer2);
+    // var one = this.layerr.children[0].clone();
+    // var two = this.layerr.children[1].clone();
+
+
+
+    // // var three = layerr.children[2].clone();
+    //
+    var xOffset1 = 0;
+    var yOffset1 = 0;
+    var xOffset2 = 0;
+    var yOffset2 = 0;
+
+    // if(one.attrs.x > 80  ) xOffset1 = one.attrs.x - 100;
+    // if(one.attrs.y > 80  ) yOffset1 = one.attrs.y - 100;
+    // if(two.attrs.x > 80 ) xOffset2 = two.attrs.x - 100;
+    // if(two.attrs.y > 80  ) xOffset2 = two.attrs.y - 100;
+    // if(three.attrs.x > 80 ) xOffset3 = three.attrs.x - 100;
+    // if(three.attrs.y > 80  ) xOffset3 = three.attrs.y - 100;
+    //
+    //
+    let l = 100;
+    let xx = 0;
+    for(var i = 0 ; i < 10;i++)//10 became 6
+    {
+      xx = 0;
+      for(var n = 0 ; n < 10 ; n++)
+      {
+        for(var motifs = 0 ; motifs < this.previewLayer.children.length ; motifs++){
+          var k = this.layerr.children[motifs].clone();
+          //var one = layerr.children[0].clone();
+          k.attrs.x =k.attrs.x + 300 * i - 300;//100
+          k.attrs.y = k.attrs.y + 300 * xx - 300;
+          this.layerr.add(k);
+        }
+        xx++;
+      }
+    }
+    this.stage.add(this.layerr);
+    //this.background.listening(false);
+  }
+
+  preview(){
+    this.previewStage = new Konva.Stage({
+      container: 'preview',
+      width: this.stage1.width() / 3,
+      height: this.stage1.width() / 3,
+      scaleX: 1 / 3,
+      scaleY: 1 / 3,
+    });
+    //clone frame of pattern stage
+    this.previewLayer = this.layer2.clone({ listening: false });
+    this.previewStage.add(this.previewLayer);//added clone layer to preview stage
+  }
+  back(){
+    const c = document.getElementById("container").style.backgroundColor;
+    //const color = this.background.fill();//keep old/new color
+    this.background = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: this.stage1.width(),
+      height: this.stage1.height(),
+      fill: c,
+      listening: false,
+      resizeEnabled: false,
+      draggable: false,
+
+    });
+    this.layer2.add(this.background);
+    this.background.moveToBottom();
+  }
+
+  newPattern(patternName: string)
+  {
+    this.patternService.newPattern(patternName);
+    console.log(patternName);
+  }
+
+
+  download(){
+    const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
+    this.downloadURI(dataURL, 'frame.png');
+  }
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+  downloadURI(uri, name) {
+    const link = document.createElement('a');
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    //delete this.link;
+  }
+  changeColor()
+  {
+    const con	= document.getElementById('container');
+    const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
+    document.getElementById("container").style.backgroundColor = color;
+    document.getElementById("can").style.backgroundColor = color;
+    //this.back();
+    //this.background.fill(color);
+  }
+
 }

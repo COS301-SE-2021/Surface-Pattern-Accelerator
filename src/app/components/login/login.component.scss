@@ -6,7 +6,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
   font-weight: 300;
 }
 
@@ -14,17 +13,11 @@ body{
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
-
-
-
-
 }
 
 .wrapper{
   background: #50a3a2;
-  background: -webkit-linear-gradient(top left, #50a3a2 0%, #072471 100%);
-
-
+  background: -webkit-linear-gradient(top left, #072471 0%, #011638 100%);
   position: absolute;
   top: 0%;
   left: 0;
@@ -102,7 +95,6 @@ form{
     &:focus{
       background-color: white;
       width: 300px;
-
       //color: @prim;
     }
   }

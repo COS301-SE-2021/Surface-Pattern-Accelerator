@@ -10,7 +10,6 @@ h2{
   color : #0d0d0d;
 }
 
-
 *{
   margin: 0;
   padding: 0;
@@ -28,6 +27,13 @@ html, body {
   width : 100%;
 }
 
+#preview {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border: 1px solid grey;
+  background-color: lightgrey;
+}
 
 #frame{
   width : 20%;
@@ -42,6 +48,11 @@ html, body {
   }
 
 
+}
+
+
+#container{
+  background-color: #383a3e;
 }
 
 #side{
@@ -65,9 +76,6 @@ html, body {
     linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
     $dot-color;
   background-size: $dot-space $dot-space;
-
-
-
 }
 
 #canvasFrame{
@@ -90,18 +98,58 @@ html, body {
 }
 
 #myCanvas{
-  background-color: darkblue;
+  //background-color: darkblue;
   float : left;
 }
 
+input[type="color"] {
+  padding: 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  color: black;
+  width: 50px;
+  height: 20px;
+  background-color: white;
+}
 
+input[type="color"]:hover {
+  padding: 6px;
+  color: white;
+  background-color: #555555;
+}
 
 //CLASSES
+
+.buttons{
+  background-color: white;
+  color: black;
+  border: 2px solid #555555;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttons:hover {
+  background-color: #555555;
+  color: white;
+}
 
 .bord{
   border:solid 5px #9CD3F7;
 }
 
+.motif{
+  padding: 50px 50px;
+  background-color: #00D2FF;
+  stroke: black;
+  stroke-width: 4;
+  border:solid 4px #000000;
+}
 
 .fig_motif{
   width : 150px;

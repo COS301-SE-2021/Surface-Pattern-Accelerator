@@ -6,14 +6,15 @@ import { LoginService } from '../../services/login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
+
 export class LoginComponent implements OnInit {
-  loggedIn: boolean = false;
+  loggedIn = false;
   email?: string;
   password?: string;
 
+  constructor(private loginService: LoginService) {
 
-
-  constructor(private loginService: LoginService) { }
+  }
 
   ngOnInit() {}
 
@@ -21,7 +22,5 @@ export class LoginComponent implements OnInit {
     this.loginService.loginWithGoogle();
   }
 
-  loginWithGoogle() {
-
-  }
+  loginWithGoogle() {}
 }
