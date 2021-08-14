@@ -415,7 +415,7 @@ export class PatternComponent implements OnInit {
     this.downLayer.add(this.background);//add background Rect
     this.background.moveToBottom();//move to bottom of pattern
     this.downStage.add(this.downLayer);//add to downStage
-
+    this.generate();//reset preview
     //this.downStage = new Konva.Stage({
     //   container: 'down',   // id of container <div>
     //   width: 600,
