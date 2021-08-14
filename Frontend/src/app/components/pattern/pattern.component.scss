@@ -1,0 +1,369 @@
+// Colors
+$bg-color: hsl(0,1,90);
+$dot-color: hsl(255,71,34);
+
+// Dimensions
+$dot-size: 1.5px;
+$dot-space: 15px;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%; /* <------------ */
+}
+
+body {
+  height: 100%; /* <------------ */
+  //background-color: grey;
+}
+
+input[type="color"] {
+  padding: 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  color: black;
+  width: 50px;
+  height: 20px;
+  background-color: white;
+}
+
+input[type="color"]:hover {
+  padding: 6px;
+  color: white;
+  background-color: #555555;
+}
+
+//IDs
+
+#myCanvas{
+  top : 58px;
+  background-color: #E5E5E5;
+}
+#can{
+  border: solid black 3px;
+  width: 600px;
+  height: 600px;
+  margin: 15px;
+  background-color: #878787;
+}
+#container{
+  background-color: #878787;
+  border: solid black 3px;
+  text-align : center;
+}
+
+#canvas{
+  //margin: auto;
+  width: 80%;
+}
+
+#name,#scale{
+  margin: 10px;
+  padding: 10px;
+  border-color: #000;
+  font-size: 14px;
+}
+
+#rotate{
+  margin: 10px;
+  padding: 10px;
+  border-color: #000;
+  font-size: 14px;
+}
+
+#preview {
+  position: relative;
+  top: 2px;
+  right: 2px;
+  width: 600px;
+  height: 600px;
+  border: 1px solid grey;
+  background-color: lightgray;
+  display:none;
+  margin: 5px;
+}
+
+#down {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  border: 1px solid grey;
+  background-color: lightgray;
+  display:none;
+}
+
+//CLASSES
+
+.frame{
+  background-color: grey;
+}
+
+.column {
+  float: left;
+  //padding: 10px;
+  //padding-top: 0px;
+  //height: 100%
+  border: 4px solid black;
+}
+
+.left, .right {
+  width: 15%;
+  height: 100%;
+  //padding: 5px;
+  //overflow : scroll;
+  border: 4px solid black;    //PUT BACK
+
+}
+
+.middle {
+  width: 70%;
+  position: relative;
+  overflow: auto;
+  border: 4px solid black;
+}
+
+.midleft{
+  width: 40%;
+  height:100%;
+
+  background-color: red;
+  //padding:5px;
+  //margin: 5px;
+  //position: fixed;
+
+}
+
+.midright{
+  width: 60%;
+  height:100%;
+  background-color: blue;
+  //padding:5px;
+  //margin: 5px;
+
+}
+
+.buttons{
+  background-color: white;
+  color: black;
+  border: 2px solid #555555;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttons:hover {
+  background-color: #555555;
+  color: white;
+}
+
+
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  //width: 250px;
+  width : 15%;
+  float: left;
+  position: fixed;
+  top: 58px;
+  left: 0;
+  //background-color: #111;
+  //overflow-x: hidden;
+  //overflow: hidden;
+  padding-top: 20px;
+  overflow-y: scroll;
+  border: 4px solid black;
+
+}
+.center{
+  margin: auto;
+}
+
+
+.bg-primary{
+  background-color: lightgrey !important;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  //width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdown-btn {
+  //float: left;
+  overflow: hidden;
+}
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  //margin-left: 250px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  //padding: 0 10px;
+  width : 69%;
+  height: 100%;
+  position: fixed;
+  //margin: 50px;
+  //padding: 20px;
+  //background-color: #00D2FF;
+}
+
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color
+and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+  //z-index: 1;
+}
+
+.dropdown-btn:hover + .dropdown-container {
+  display: block;
+
+}
+
+.dropdown-content a:hover {
+  display: block;
+}
+.sideMotif{
+  color: black
+}
+.MotifImage{
+  width: 80px;
+  height: 80px;
+  //background-color: black;
+  text-align: center;
+  //padding :50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  border: solid black 1px;
+  display: flex;
+}
+.MotifImage >h5{
+  padding: 30px;
+}
+
+.wrapper{
+  //display: flex;
+  background-color: lightgrey;
+}
+
+.view{
+  //margin-left: 280px;
+  //background-color: aqua;
+  width: 600px;
+  height: 600px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+  text-align : center;
+  margin: 15px;
+}
+
+.workArea{
+  //margin-left: 280px;
+  //background-color: aqua;
+  width: 300px;
+  height: 300px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+  text-align : center;
+  margin: 15px;
+}
+.workArea > h3{
+  padding: 10px;
+}
+.widgets{
+  //margin-left: 15px !important;
+  background-color: lightgrey;
+  //width: 250px;
+  width : 15%;
+  height: 100%;
+  top: 58px;
+  position: absolute;
+  right: 0;
+  overflow-y : scroll;
+  border: 4px solid black;
+
+  text-align: center;
+  padding: 10px;
+  padding-bottom: 30px;
+
+}
+.widgetSide{
+  //padding: 20px;
+  //overflow-y : scroll;
+}
+.Layers{
+  color: black;
+  font-size: small !important;
+}
+.LayerImage{
+  border: solid grey 1px;
+  width: 80px;
+  height: 80px;
+  //background-color: black;
+  margin-top: 10px;
+  margin-left: 2px;
+  display: flex;
+}
+.LayerImage >h5{
+  padding: 30px;
+}
+.layerNumbers{
+  border: solid grey 1px;
+}
+.layerBorder{
+  padding: 5px;
+  text-align: center;
+}
+.modifiers{
+  margin-top: 20px;
+  color: black;
+}
+.patternName{
+  width: 800px;
+  height: 30px;
+  background-color: darkgrey;
+  //margin-left: 280px;
+  //margin-bottom: 20px;
+  text-align : center;
+  border: solid grey 1px;
+}
+
+.patternName > h3{
+  color: black;
+  text-align: center;
+}
+.row{
+  //overflow: scroll;
+  background:
+    linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+    $dot-color;
+  background-size: $dot-space $dot-space;
+  border: 4px solid black;
+  //height: 100%;//FILL ALL THE WAY TO BOTTOM
+  //padding-bottom: 10px;
+}
+

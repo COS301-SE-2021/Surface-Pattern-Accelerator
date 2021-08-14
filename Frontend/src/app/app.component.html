@@ -1,0 +1,90 @@
+<!--
+Navigation for the different tabs.
+
+<ion-tabs  [class]="'url' + currentUrl"  [hidden]="!show">
+-->
+<ion-tabs>
+  <ion-tab-bar slot="top" class="top-nav" id="tab-bar1">
+    <ion-button size="small" fill="clear" color="dark">
+      <ion-label>File</ion-label>
+    </ion-button>
+
+    <ion-button size="small" fill="clear" color="dark">
+      <ion-label>Collection</ion-label>
+    </ion-button>
+
+    <ion-button size="small" fill="clear" color="dark">
+      <ion-label>Pattern</ion-label>
+    </ion-button>
+
+    <ion-button size="small" fill="clear" color="dark">
+      <ion-label>Settings</ion-label>
+    </ion-button>
+
+    <ion-button size="small" fill="clear" color="dark">
+      <ion-label>User</ion-label>
+    </ion-button>
+
+    <ion-button size="small" fill="clear" color="dark">
+      <ion-label>Collaborate</ion-label>
+    </ion-button>
+
+    <ion-button size="small" fill="clear" color="dark">
+      <ion-label>Help</ion-label>
+    </ion-button>
+  </ion-tab-bar>
+
+  <ion-tab-bar slot="top" class="top-nav">
+    <!-- The tab property is the router link -->
+    <ion-tab-button tab="pattern" layout="icon-end">
+      <ion-icon name="apps-outline"></ion-icon>
+      <ion-label>Pattern</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="color" layout="icon-end">
+      <ion-icon name="color-palette-outline"></ion-icon>
+      <ion-label>Color Editor</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="geometryeditor" layout="icon-end">
+      <ion-icon name="shapes-outline"></ion-icon>
+      <ion-label>Geometry Editor</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="preview" layout="icon-end">
+      <ion-icon name="image-outline"></ion-icon>
+      <ion-label>Preview</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="gif" layout="icon-end">
+      <ion-icon name="analytics-outline"></ion-icon>
+      <ion-label>Gif Creator</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="canvasColours" layout="icon-end">
+      <ion-icon name="brush-outline"></ion-icon>
+      <ion-label>Colour Extractor</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="workarea" layout="icon-end">
+      <ion-icon name="easel-outline"></ion-icon>
+      <ion-label>Frame</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="colorpallet" layout="icon-end">
+      <ion-icon name="color-filter-outline"></ion-icon>
+      <ion-label>Colour Palette</ion-label>
+    </ion-tab-button>
+
+
+  </ion-tab-bar>
+</ion-tabs>
+
+<!--
+<div class="content" style="display: none"><span>SPA app is running!</span></div>
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>
+ -->
+
+<router-outlet></router-outlet>
