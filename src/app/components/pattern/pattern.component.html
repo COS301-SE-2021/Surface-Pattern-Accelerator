@@ -50,7 +50,9 @@
 <!--      <div class="patternName center">-->
 <!--        -->
 <!--      </div>-->
+      <div id="down">
 
+      </div>
 
       <div class="row">
 
@@ -82,6 +84,8 @@
       <div class="widgetSide">
         <div class="Layers">
           <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
+          <br>
+          <mat-checkbox labelPosition="before" (change)="addBack($event)">Enable Background</mat-checkbox>
           <br>
         <button (click)="backButton()"> Undo </button>
         </div>
