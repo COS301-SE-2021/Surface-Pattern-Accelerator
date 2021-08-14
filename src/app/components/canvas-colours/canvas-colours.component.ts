@@ -12,14 +12,14 @@ export class CanvasColoursComponent implements OnInit {
 
   ngOnInit() {
     this.draw();
-    document.getElementById('canvas').onclick = ()=>{
+    document.getElementById('canvasExtractor').onclick = ()=>{
       this.canvasColour();
     };
   }
 
   draw(){
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const canvas = <HTMLCanvasElement> document.getElementById('canvas');
+    const canvas = <HTMLCanvasElement> document.getElementById('canvasExtractor');
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
 
@@ -32,7 +32,7 @@ export class CanvasColoursComponent implements OnInit {
 
   canvasColour(){
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const canvas = <HTMLCanvasElement> document.getElementById('canvas');
+    const canvas = <HTMLCanvasElement> document.getElementById('canvasExtractor');
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
     const imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
@@ -73,7 +73,7 @@ export class CanvasColoursComponent implements OnInit {
           used.push(this.colourList[keys[i]]);
 
           // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          const item = <HTMLElement> document.querySelector('#item'+ count);
+          const item = <HTMLElement> document.querySelector('#it'+ count);
           console.log(keys[i]);
           item.style.backgroundColor = keys[i];
           item.innerHTML = keys[i];
