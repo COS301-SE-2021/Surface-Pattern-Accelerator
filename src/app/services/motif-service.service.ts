@@ -18,4 +18,6 @@ export class MotifServiceService {
     const getCollectionsURL = this.serverURL + '/api/getMotifs';
     return this.http.get<motifsInterface>(getCollectionsURL, {withCredentials: true}); //GET request
   }
+
+
 }

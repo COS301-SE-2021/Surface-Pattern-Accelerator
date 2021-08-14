@@ -10,7 +10,7 @@
          routerLink="/newCollection">
         Create Collection
       </a>
-      <div *ngFor="let collectionName of collections.collectionNames">
+      <div *ngFor="let collection of collections.collections">
         <div class="square">
           <div class="gear">
             +
@@ -18,14 +18,12 @@
         </div>
         <div class="label">
           <a class="collections"
-             routerLink="/pattern">
-            {{collectionName}}
+             routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">
+            {{collection.collectionName}}
           </a>
         </div>
       </div>
     </div>
-
-
 
 </div>
 

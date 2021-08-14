@@ -46,24 +46,23 @@
 
   </div>
   <div class="column middle" style="background-color:#bbb;">
+
     <div class="main column center">
 <!--      <div class="patternName center">-->
 <!--        -->
 <!--      </div>-->
-      <div id="down">
+      <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
 
-      </div>
+        <ion-select interface="popover" >
+          <ion-select-option value="{{pattern.patternName}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+
+        </ion-select>
+      </ion-item>
 
       <div class="row">
 
 
-<!--        <div class="midleft">-->
 
-<!--        </div>-->
-
-<!--        <div class="midright">-->
-
-<!--        </div>-->
 
         <div class="workArea" id="container">
 
@@ -75,7 +74,15 @@
         <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
 
       </div>
+      <input type="text" class="inputField" #patternName>
+      <div class="buttons">
+        <button class="button" mat-raised-button color="primary" (click)="newPattern(patternName.value); patternName.value=''">
+          New Pattern
+        </button>
+      </div>
+
     </div>
+
   </div>
   <div class="column right" style="background-color:#ccc;">
 
@@ -84,10 +91,9 @@
         <div class="Layers">
           <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
           <br>
-          <mat-checkbox labelPosition="before" (change)="addBack($event)">Enable Background</mat-checkbox>
-          <br>
         <button (click)="backButton()"> Undo </button>
         </div>
+
         <div class="modifiers">
           <h1 style="text-align:center" >Modifiers</h1>
           <div>
@@ -111,6 +117,7 @@
                 </div>
             </div>
           </div>
+
         </div>
 
 <!--        <div class="func">-->
@@ -126,6 +133,9 @@
 <!--        </div>-->
 
       </div>
+
+
     </div>
+
   </div>
 </div>

@@ -4,6 +4,9 @@ import Konva from "konva";
 import { Group } from 'konva/lib/Group';
 import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
+import { PatternService } from "../../services/pattern.service";
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pattern',
@@ -21,9 +24,6 @@ export class PatternComponent implements OnInit {
   background!: Konva.Rect;
   previewStage!: Konva.Stage;
   previewLayer!: Konva.Layer;
-  downStage!: Konva.Stage;
-  downLayer!: Konva.Layer;
-
   motifCount: number = 0;
   motifs?: motifsInterface;
   tr!: Konva.Transformer;
@@ -31,19 +31,26 @@ export class PatternComponent implements OnInit {
   canvasMotifsUrl:  string[] = new Array();
   height: number = 300;//100
   width: number = 300;
-
-  defHeight: number = 600;
-  defWidth: number = 600;
   gridLayer? : Konva.Layer;
-  check: boolean = false;
-  defaultBack: string = "#878787";
 
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
 
-  constructor(private motifService: MotifServiceService) {}
+  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
 
   ngOnInit(){
+
+    //gets the requested Collections ID in the path
+    this.route.params.subscribe(params => {
+      console.log("params are")
+      console.log(params['collectionName'])
+      console.log(params['collectionID'])
+
+      this.patternService.getCurrentCollectionJSON(params['collectionID']);
+
+
+    })
+
     this.getMotifs();
     type motifOffset=
     {
@@ -70,18 +77,6 @@ export class PatternComponent implements OnInit {
     let layerr = new Konva.Layer();
     layerr = this.layer2.clone();
     this.stage.add(layerr);
-
-    //set up stage for background
-    this.downStage = new Konva.Stage({
-      container: 'down',   // id of container <div>
-      width: 600,//600
-      height: 600//600
-    });
-
-    this.downLayer = this.layer2.clone();
-    this.downStage.add(this.downLayer);
-
-
     this.stage1.add(this.layer2);
     //this.addLineListeners();
     this.gridLayer = new Konva.Layer();
@@ -123,6 +118,21 @@ export class PatternComponent implements OnInit {
       this.stage1.add(this.layer2);
     }
 
+    // const path = new Konva.Path({
+    //   x: 0,
+    //   y: 0,
+    //   data:
+    //     'M0 0h24v24H0V0z',
+    //   fill: 'green',
+    //   scale: {
+    //     x: 10,
+    //     y: 10,
+    //   },
+    //   draggable: true
+    // });
+    //
+    // // add the shape to the layer
+    // this.layer.add(path);
   }
 
   addGrid(e) {
@@ -156,18 +166,6 @@ export class PatternComponent implements OnInit {
     console.log(this.layer2);
 
   }
-
-  addBack(e)
-  {
-    if(e.checked)
-    {
-      this.check = true;
-    }
-    else{
-      this.check = false;
-    }
-  }
-
   getMotifs(): void
   {
     this.motifService.getMotifs()
@@ -175,7 +173,7 @@ export class PatternComponent implements OnInit {
       {
 
         this.motifs = motifs
-       // console.log(motifs)
+        console.log(motifs)
       });
   }
 
@@ -362,7 +360,6 @@ export class PatternComponent implements OnInit {
       }
     }
     this.stage.add(this.layerr);
-    this.downLayer = this.layerr;//send to download layer
     //this.background.listening(false);
   }
 
@@ -396,50 +393,16 @@ export class PatternComponent implements OnInit {
     this.background.moveToBottom();
   }
 
-  createBack(){
-    const c = document.getElementById("container").style.backgroundColor;
-    //const color = this.background.fill();//keep old/new color
-    this.background = new Konva.Rect({
-      x: 0,
-      y: 0,
-      width: this.defWidth,
-      height: this.defHeight,
-      scaleY: 3,
-      scaleX: 3,
-      fill: c,
-      listening: false,
-      resizeEnabled: false,
-      draggable: false,
-    });
-    this.downStage = this.stage.clone();
-    this.downLayer.add(this.background);//add background Rect
-    this.background.moveToBottom();//move to bottom of pattern
-    this.downStage.add(this.downLayer);//add to downStage
-    this.generate();//reset preview
-    //this.downStage = new Konva.Stage({
-    //   container: 'down',   // id of container <div>
-    //   width: 600,
-    //   height: 600
-    // });
-    // this.generate();//refresh preview
-    // //this.downLayer = this.layer2.clone();//get copy of preview
-    // this.downLayer.add(this.background);//add background Rect
-    // this.background.moveToBottom();//move to bottom of pattern
-    // this.downStage.add(this.downLayer);//add to downStage
-
+  newPattern(patternName: string)
+  {
+    this.patternService.newPattern(patternName);
+    console.log(patternName);
   }
 
+
   download(){
-    if(this.check === true)
-    {
-      this.createBack();
-      const dataURL = this.downStage.toDataURL({ pixelRatio: 3 });//get current canvas
-      this.downloadURI(dataURL, 'pattern.png');
-    }
-    else{
-      const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
-      this.downloadURI(dataURL, 'pattern.png');
-    }
+    const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
+    this.downloadURI(dataURL, 'frame.png');
   }
   // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
   downloadURI(uri, name) {
@@ -458,6 +421,7 @@ export class PatternComponent implements OnInit {
     document.getElementById("container").style.backgroundColor = color;
     document.getElementById("can").style.backgroundColor = color;
     //this.back();
+    //this.background.fill(color);
   }
 
 }
