@@ -265,28 +265,8 @@ export class PatternComponent implements OnInit {
         image.draggable(true);
         console.log( image);
 
-
-          // image.on('keydown', function(e){
-          //   e = e || window.event;
-          //   if (e.keyCode === 38) { // up
-          //     image.moveUp();
-          //     console.log("upppp");
-          //   }  else if (e.keyCode === 40) { // down
-          //     image.moveDown();
-          //   } else {
-          //     return;
-          //   }
-          //   e.preventDefault();
-          //
-          // })
-
-
-
-
-
         this.layer2.add(image);
         this.canvasMotifs[this.motifCount] = image;
-       // console.log("New motifs: " + this.layer2);
 
         this.tr = new Konva.Transformer();
         this.layer2.add(this.tr);
@@ -302,8 +282,6 @@ export class PatternComponent implements OnInit {
 
         this.motifCount++;
         console.log(this.layer2);
-
-
 
       });
     //this.back();

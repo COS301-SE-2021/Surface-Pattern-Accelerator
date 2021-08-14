@@ -92,6 +92,8 @@
           <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
           <br>
         <button (click)="backButton()"> Undo </button>
+        <button (click)="savePattern()"> Save Pattern </button>
+        <button ><!--(click)="loadPattern()"-->Load Pattern</button>
         </div>
 
         <div class="modifiers">
@@ -109,8 +111,9 @@
                     <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
 <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
                     motif.attrs.image.outerHTML
-                    <button (click)="moveUp(motif)">MoveUp</button>
+             <!--       <button (click)="moveUp(motif)">MoveUp</button>
                     <button (click)="moveDown(motif)">MoveDown</button>
+                    -->
                     <button (click)="moveToTop(motif)">Top</button>
                     <button (click)="movetToBottom(motif)">Bottom</button>
                   </div>
