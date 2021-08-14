@@ -237,7 +237,7 @@ export class ColorComponent implements OnInit {
       elem.innerHTML = 'Lock';
     }
   }
-  draw(){
+  draw(){ //TODO: remove when merged with other canvas
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const canvas = <HTMLCanvasElement> document.getElementById('canvas');
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
