@@ -74,6 +74,21 @@ export class ColorComponent implements OnInit {
     return true;
   }
 
+  // Changes the fill color, by color text inserted by a user
+  changeFillText() {
+    // Get the inserted SVG element from the html document
+    let div = <HTMLElement>document.getElementById("divOutput");
+    let divC  = div.children;
+    let svg	= divC[0];
+    // Get color value from user
+    let colorPicker = <HTMLInputElement>document.getElementById('textColor');
+    // Store color value specified by user
+    let color	= colorPicker.value;
+    // Search through the svg and change fill color for child nodes
+    this.recursiveNodeSearch(svg, color);
+    return true;
+  }
+
   // Recursively search through the node, and iterate through all child nodes on
   // all levels.
   recursiveNodeSearch(node, colorValue) {
@@ -85,14 +100,17 @@ export class ColorComponent implements OnInit {
       // Make sure we are not working with undefined nodes
       if (!(typeof node === 'undefined')) {
         console.log('Changing the node color, through recursive node search: ',node.tagName);
-        // Check if the node has a specified node fill color
-        if (node.hasAttribute('fill')) {
-          node.setAttribute('fill',colorValue);
-        }
         // Some SVGs set their fill in the style attribute
         // Check if the node has the style attribute
         if (node.hasAttribute('style')) {
           node.style.fill = colorValue;
+        }
+        // Check if the node has a specified node fill color
+        else if (node.hasAttribute('fill')) {
+          node.setAttribute('fill',colorValue);
+        }
+        else {
+          node.setAttribute('fill',colorValue);
         }
       }
       // Leave recursive call
@@ -112,11 +130,15 @@ export class ColorComponent implements OnInit {
   }
 
   save_svg() {
-    let svgEl;
-    svgEl = document.getElementById("test");
+    // Get the inserted SVG element from the html document
+    let div = <HTMLElement>document.getElementById("divOutput");
+    let divC  = div.children;
+    let svgEl	= divC[0];
     //svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     const svgData = svgEl.outerHTML;
+    // Required preface in every svg code file
     const preface = '<?xml version="1.0" standalone="no"?>\r\n';
+    // Create blob
     const svgBlob = new Blob([ preface,'<svg xmlns="http://www.w3.org/2000/svg">',
         svgData, '</svg>'], {type: "image/svg+xml;charset=utf-8"});
     let svgUrl = URL.createObjectURL(svgBlob);
@@ -144,9 +166,9 @@ export class ColorComponent implements OnInit {
           // Loads the uploaded file to the html src attribute
           image.src = URL.createObjectURL(file);
           // Changes the pattern name in the UI
-          this.patternName  = file.name;
+          this.svgName  = ' : ' + file.name;
           // Display the image html that was hidden
-          image.style.display = 'block';
+          //image.style.display = 'block';
           return this.LoadToExpandedView();
         } catch (err) {
           // For debugging purposes
