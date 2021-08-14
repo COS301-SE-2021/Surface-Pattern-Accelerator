@@ -1,15 +1,12 @@
 <div class="main">
   <h2>Collections
     <span id="newCollection">
-      New Collection <button style="margin-right: 50px; ">+</button>
+       <ion-button style="margin-right: 50px; " (click)="navigateTo('newCollection');">New Collection +</ion-button>
       Search <input type="text" style="border-radius: 20px; background-color: grey; width: 150px;">
     </span>
   </h2>
     <div *ngIf="collections" class="collections-menu">
-      <a id="addCollection"
-         routerLink="/newCollection">
-        Create Collection
-      </a>
+
       <div *ngFor="let collection of collections.collections">
         <div class="square">
           <div class="gear">

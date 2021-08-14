@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ICollectionsInterface } from '../../Interfaces/collections.interface';
 import { CollectionsServiceService } from '../../services/collections-service.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-collections',
@@ -11,7 +12,7 @@ export class CollectionsComponent implements OnInit {
 
   collections?: ICollectionsInterface; //the collections that get displayed, marked as optional
 
-  constructor(private collectionsService: CollectionsServiceService) { }
+  constructor(private collectionsService: CollectionsServiceService, private router: Router) { }
 
   ngOnInit(): void
   {
@@ -26,6 +27,11 @@ export class CollectionsComponent implements OnInit {
         console.log(collections)
         this.collections = collections
       });  //Observable
+  }
+
+  navigateTo(componentName: string)
+  {
+    this.router.navigate([componentName]);
   }
 
 }
