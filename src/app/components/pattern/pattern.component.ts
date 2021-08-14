@@ -7,7 +7,7 @@ import {motifsInterface} from "../../Interfaces/motifsInterface";
 import { PatternService } from "../../services/pattern.service";
 
 import { ActivatedRoute } from '@angular/router';
-
+import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
@@ -35,6 +35,10 @@ export class PatternComponent implements OnInit {
 
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
+
+  //Needed for Saving patterm
+  motifDetailsTestArr: IMotifDetailsInterface[] = new Array() ;
+
 
   constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
 
@@ -134,6 +138,55 @@ export class PatternComponent implements OnInit {
     // // add the shape to the layer
     // this.layer.add(path);
   }
+  savePattern()
+  {
+    console.log("Layer is: ");
+    console.log(this.layer2);
+    let count = 0;
+    for(var i = 0 ; i < this.layer2.children.length ; i++)
+    {
+
+      if(i%2 == 0)
+      {
+        let motifDetailsTest: IMotifDetailsInterface = {xCoord:0, yCoord:0, scaleX:0, scaleY:0, rotation:0, url:null};
+        motifDetailsTest.xCoord = this.layer2.children[i].attrs.x;
+        motifDetailsTest.yCoord = this.layer2.children[i].attrs.y;
+        motifDetailsTest.scaleX = this.layer2.children[i].attrs.scaleX;
+        motifDetailsTest.scaleY = this.layer2.children[i].attrs.scaleY;
+        motifDetailsTest.rotation = this.layer2.children[i].attrs.rotation;
+        motifDetailsTest.url = this.layer2.children[i].attrs.image.currentSrc;
+
+        this.motifDetailsTestArr[count++] = motifDetailsTest;
+      }
+    }
+    console.log("Pattern Saved!");
+    return this.motifDetailsTestArr;
+
+   // this.loadPattern(this.motifDetailsTestArr)
+  }
+
+  loadPattern(motifDetailsArr : IMotifDetailsInterface[])
+  {
+    console.log(motifDetailsArr);
+    for(var i = 0 ; i < motifDetailsArr.length ; i++)
+    {
+      console.log("Spawning");
+      this.spawnMotifWithURL(this.motifDetailsTestArr[i].url, this.motifDetailsTestArr[i].xCoord,this.motifDetailsTestArr[i].yCoord,this.motifDetailsTestArr[i].scaleX,this.motifDetailsTestArr[i].scaleY,this.motifDetailsTestArr[i].rotation);
+
+      console.log("Next");
+    }
+    console.log("DONE");
+    // for(var i = 0 ; i < motifDetailsArr.length ; i++)
+    // {
+    //   console.log(motifDetailsArr[i].xCoord);
+    //   this.layer2.children[i*2].x(motifDetailsArr[i].xCoord);
+    //   this.layer2.children[i*2].attrs.y = motifDetailsArr[i].yCoord;
+    //   this.layer2.children[i*2].attrs.scaleX = motifDetailsArr[i].scaleX;
+    //   this.layer2.children[i*2].attrs.scaleY = motifDetailsArr[i].scaleY;
+    //   this.layer2.children[i*2].attrs.rotation = motifDetailsArr[i].rotation;
+    // }
+  }
+
 
   addGrid(e) {
     console.log(this.layer2);
@@ -196,13 +249,17 @@ export class PatternComponent implements OnInit {
     this.layer2.add(path2);
   }
 
-  spawnMotifWithURL(motifURL: string)
+  spawnMotifWithURL(motifURL: string, xCoord: number=0, yCoord: number=0, scaleX: number=1, scaleY:number=1, rotation: number=0)
   {
 
     this.canvasMotifsUrl[this.motifCount] = motifURL;
     Konva.Image.fromURL(motifURL,
       (image: Group | Shape<ShapeConfig>) => {
-        image.x(0);
+        image.x(xCoord);
+        image.y(yCoord);
+        image.scaleX(scaleX);
+        image.scaleY(scaleY);
+        image.rotation(rotation);
         console.log(motifURL);
         image.scale();
         image.draggable(true);
