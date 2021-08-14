@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="column left" style="background-color:#aaa;">
+  <div class="column left" style="height: 100vh; background-color:#aaa;">
 
-    <div class="sidenav bg-primary column">
-      <div class="sideMotif">
+    <div class="sidenav bg-primary column" >
+      <div class="sideMotif" >
         <h1 style="text-align:center" >Motif Library</h1>
         <div>
           <h5 style="padding:5px">Import new Motif</h5>
@@ -20,60 +20,31 @@
             <input matInput placeholder="Search for motif">
           </mat-form-field>
         </div>
-
-        <!--        <div>-->
-        <!--          <div class="MotifImage">-->
-        <!--            <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY="-->
-        <!--            alt="motif-image">-->
-        <!--            <h5> Trees 1 </h5>-->
-        <!--          </div>-->
-        <!--        </div>-->
-
         <div *ngIf="motifs">
           <button *ngFor="let motif of motifs.motifDetails" class="MotifImage" mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
             <img src= {{motif.motifLink}} alt="motif-image"> <!-- does resolve, ignore warning -->
             <h5> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
           </button>
         </div>
-
         <div class = "row">
           <button mat-raised-button (click)='spawnMotif(); '>Spawn Motif</button>
         </div>
-
       </div>
-
     </div>
-
   </div>
   <div class="column middle" style="background-color:#bbb;">
     <div class="main column center">
-<!--      <div class="patternName center">-->
-<!--        -->
-<!--      </div>-->
+
       <div id="down">
 
       </div>
 
       <div class="row">
-
-
-<!--        <div class="midleft">-->
-
-<!--        </div>-->
-
-<!--        <div class="midright">-->
-
-<!--        </div>-->
-
         <div class="workArea" id="container">
-
         </div>
         <div class="view" id="preview">
-
         </div>
-
         <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-
       </div>
     </div>
   </div>
@@ -84,9 +55,11 @@
         <div class="Layers">
           <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
           <br>
-          <mat-checkbox labelPosition="before" (change)="addBack($event)">Enable Background</mat-checkbox>
+       <!--   <mat-checkbox labelPosition="before" (change)="addBack($event)">Enable Background</mat-checkbox> -->
           <br>
         <button (click)="backButton()"> Undo </button>
+          <button (click)="savePattern()"> Save Pattern </button>
+          <button ><!--(click)="loadPattern()"-->Load Pattern</button>
         </div>
         <div class="modifiers">
           <h1 style="text-align:center" >Modifiers</h1>
@@ -113,7 +86,6 @@
           </div>
         </div>
 
-<!--        <div class="func">-->
           <h1 style="text-align:center" >Changes</h1>
           <button class="buttons" id="pre" (click)='generate()'>Refresh</button>
           <br>
@@ -123,7 +95,7 @@
           <input type="color" id="fav_color" name="fav_color" value="#ff0000">
           <br>
           <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
-<!--        </div>-->
+
 
       </div>
     </div>
