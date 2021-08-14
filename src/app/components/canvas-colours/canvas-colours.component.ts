@@ -137,6 +137,13 @@ export class CanvasColoursComponent implements OnInit {
         img.src = <string>reader.result;
         // On image load add to canvas
         img.onload = function() {
+          // Sets a limit to the size of image displayed
+          if (img.width > 300) {
+            img.width  = 300;
+            if (img.height > 200) {
+              img.height  = 200;
+            }
+          }
           canvas.width = img.width;
           canvas.height = img.height;
           ctx.drawImage(img, 0, 0, img.width, img.height);
