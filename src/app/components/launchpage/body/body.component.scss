@@ -26,7 +26,8 @@
   margin-left: auto;
   margin-right: 0;
   font-size: 115%;
-  font-family: 'Comic Sans MS';
+  // Serif is a default generic font family for browsers that cannot display 'Comic Sans MS'
+  font-family: 'Comic Sans MS', serif;
 
   //Kristen ITC REQUIRED FONT
 }
@@ -85,7 +86,8 @@
 }
 
 .words >h4{
-  font-family: 'Comic Sans MS';
+  // Serif is a default generic font family for browsers that cannot display 'Comic Sans MS'
+  font-family: 'Comic Sans MS', serif;
   font-size: 30px;
   padding: 0 80px;
   color: white;
