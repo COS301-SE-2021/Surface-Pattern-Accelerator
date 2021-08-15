@@ -6,6 +6,7 @@ import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
 import { PatternService } from "../../services/pattern.service";
 import {MotifCatalogueComponent} from "../../popovers/motif-catalogue/motif-catalogue.component"
+import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component"
 
 import { ActivatedRoute } from '@angular/router';
 import {PopoverController} from "@ionic/angular";
@@ -38,7 +39,10 @@ export class PatternComponent implements OnInit {
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
 
-  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService, private popoverController: PopoverController) {}
+  constructor(private motifService: MotifServiceService,
+              private route: ActivatedRoute,
+              public patternService: PatternService,
+              private popoverController: PopoverController) {}
 
   ngOnInit(){
 
@@ -99,10 +103,23 @@ export class PatternComponent implements OnInit {
 
   }
 
-  collectionCatalogue()
+  collectionCataloguePopover()
   {
     this.popoverController.create({
       component: MotifCatalogueComponent,
+      translucent: true,
+      cssClass: 'fullscreen'
+    }).then(resPop => {
+      resPop.present().then(presentRes => {
+        return presentRes;
+      });
+    })
+  }
+
+  uploadFilePopover()
+  {
+    this.popoverController.create({
+      component: MotifUploadComponent,
       translucent: true,
       cssClass: 'fullscreen'
     }).then(resPop => {
