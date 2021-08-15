@@ -338,6 +338,50 @@ export class PatternComponent implements OnInit {
     }
     //this.back();
   }
+    delete(img: Group | Shape<ShapeConfig>)
+    {
+      let motifNum = 0;
+      for (var i = 0; i < this.layer2.children.length; i++) {
+        console.log("Before delete");
+        console.log(this.layer2);
+        if (img._id == this.layer2.children[i]._id) {
+          this.layer2.children[i].remove();
+          console.log(this.layer2);
+          this.layer2.children[i].remove();
+          console.log(this.layer2);
+          console.log("Done");
+          this.motifCount--;
+          this.layer2.draw();
+          motifNum = i;
+          break;
+        }
+
+      }
+
+      let s = document.querySelectorAll(".MotifImage2");
+      s[motifNum].remove();
+      console.log(s);
+      console.log("Is the s");
+    }
+  flipX(img: Group | Shape<ShapeConfig>)
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetX( this.layer2.children[i].width() / 2)
+        this.layer2.children[i].scaleX( (- this.layer2.children[i].scaleX()))
+      }
+
+    }
+  }
+  flipY(img: Group | Shape<ShapeConfig>)
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetY( this.layer2.children[i].height() / 2)
+        this.layer2.children[i].scaleY( (- this.layer2.children[i].scaleY()))
+      }
+    }
+  }
 
 
     generate()

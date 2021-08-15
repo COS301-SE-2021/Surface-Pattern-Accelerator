@@ -31,9 +31,9 @@
 
         <div *ngIf="motifs">
           <div class="squareContainer" *ngFor="let motif of motifs.motifDetails" class="MotifImage">
-            <button class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+            <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
               <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-              <h5 class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
+              <h5  class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
             </button>
           </div>
 
@@ -110,15 +110,20 @@
               <h6>Layer</h6>
 
                 <div *ngIf="motifs" >
-                  <div *ngFor="let motif of this.canvasMotifs" class="MotifImage2" mat-raised-button >
-                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
-<!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
-                    motif.attrs.image.outerHTML
-             <!--       <button (click)="moveUp(motif)">MoveUp</button>
-                    <button (click)="moveDown(motif)">MoveDown</button>
-                    -->
-                    <button (click)="moveToTop(motif)">Top</button>
-                    <button (click)="movetToBottom(motif)">Bottom</button>
+                  <div *ngFor="let motif of this.canvasMotifs" mat-raised-button >
+                    <div class="MotifImage2" mat-raised-button >
+                      <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
+  <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
+                      motif.attrs.image.outerHTML
+               <!--       <button (click)="moveUp(motif)">MoveUp</button>
+                      <button (click)="moveDown(motif)">MoveDown</button>
+                      -->
+                      <button (click)="moveToTop(motif)">Top</button>
+                      <button (click)="movetToBottom(motif)">Bottom</button>
+                      <button (click)="delete(motif)">Delete</button>
+                      <button (click)="flipX(motif)">FlipX</button>
+                      <button (click)="flipY(motif)">FlipY</button>
+                    </div >
                   </div>
                 </div>
             </div>
