@@ -43,7 +43,7 @@ export class PatternComponent implements OnInit {
   //Needed for Saving patterm
   motifDetailsTestArr: IMotifDetailsInterface[] = new Array() ;
 
-  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
+  //constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
 
   constructor(private motifService: MotifServiceService,
               private route: ActivatedRoute,
