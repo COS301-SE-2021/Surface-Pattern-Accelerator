@@ -8,6 +8,7 @@ import { CollectionsServiceService } from '../../../services/collections-service
 })
 export class NewCollectionComponent implements OnInit {
 
+  colorCodeHex: string;
   constructor(private collectionsService: CollectionsServiceService) { }
 
   ngOnInit()
@@ -24,4 +25,9 @@ export class NewCollectionComponent implements OnInit {
       });
   }
 
+  getColorCodes() {
+    const colorValue = document.getElementById('color') as HTMLInputElement;
+    this.colorCodeHex = 'Color code: ' + colorValue.value;
+    console.log(this.colorCodeHex);
+  }
 }
