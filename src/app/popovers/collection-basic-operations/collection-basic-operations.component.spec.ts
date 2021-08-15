@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PatternComponent } from './pattern.component';
+import { CollectionBasicOperationsComponent } from './collection-basic-operations.component';
 
-describe('PatternComponent', () => {
-  let component: PatternComponent;
-  let fixture: ComponentFixture<PatternComponent>;
+describe('CollectionBasicOperationsComponent', () => {
+  let component: CollectionBasicOperationsComponent;
+  let fixture: ComponentFixture<CollectionBasicOperationsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PatternComponent ],
+      declarations: [ CollectionBasicOperationsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PatternComponent);
+    fixture = TestBed.createComponent(CollectionBasicOperationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

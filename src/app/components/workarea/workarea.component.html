@@ -27,6 +27,8 @@
 
       <div id="container"></div>
     </div>
+
+    <div id="preview"></div>
   </div>
 
   <div id = "frame" class = "bord">
@@ -36,6 +38,14 @@
     <button class="buttons" id="square" (click)='chooseCanvasSymbol(true)' color="dark">Square Frame</button>
     <br>
     <button class="buttons" id="save" (click)='download()'>Save as image</button>
+    <br>
+    <button class="buttons" id="pre" (click)='preview()'>Refresh</button>
+    <br>
+    <label for="fav_color">Select a color: </label>
+    <input type="color" id="fav_color" name="fav_color" value="#ff0000">
+    <br>
+    <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
+
   </div>
 
 </div>

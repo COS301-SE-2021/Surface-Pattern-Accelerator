@@ -21,4 +21,15 @@ describe('ColorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Test1: Test to see if the import svg button calls the right function', () => {
+    spyOn(component,'importSVG');
+    const importBtn = fixture.debugElement.nativeElement.querySelector('#importBtn');
+    importBtn.click();
+
+    fixture.whenStable().then(()=>{
+      expect(component.importSVG).toHaveBeenCalled();
+    });
+  });
+
 });

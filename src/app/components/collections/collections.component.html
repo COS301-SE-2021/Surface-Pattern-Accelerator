@@ -1,20 +1,35 @@
-<h2>Collections</h2>
+<div class="main">
+  <h2>Collections
+    <span id="newCollection">
+       <ion-button style="margin-right: 50px; " (click)="navigateTo('newCollection');">New Collection +</ion-button>
+      Search <input type="text" style="border-radius: 20px; background-color: grey; width: 150px;">
+    </span>
+  </h2>
+    <div *ngIf="collections" class="collections-menu">
 
-<div class="collections-menu">
-  <a id="addCollection"
-     routerLink="/newCollection">
-    +
-  </a>
+      <div *ngFor="let collection of collections.collections">
+        <div class="square">
 
-  <div *ngIf="collections">
-    <div *ngFor="let collectionName of collections.collectionNames" >
-      <a
-         routerLink="/pattern">
-        {{collectionName}}
-      </a>
+          <div class="gear">
+<!--            <ion-icon name="cog" ></ion-icon>-->
+            <ion-button (click)="CollectionOperations($event)">
+              <ion-icon name="settings"></ion-icon>
+            </ion-button>
+          </div>
+
+
+
+
+
+        </div>
+        <div class="label">
+          <a class="collections"
+             routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">
+            {{collection.collectionName}}
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
-
 
 </div>
 

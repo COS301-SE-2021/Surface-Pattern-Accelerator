@@ -19,6 +19,10 @@ export class WorkareaComponent implements OnInit {
   myFrame = document.getElementById('canvasFrame');//get div of canvas frame
   stage!: Konva.Stage;
   layer!: Konva.Layer;
+  previewStage!: Konva.Stage;
+  previewLayer!: Konva.Layer;
+  box!: Konva.Rect;
+  background!: Konva.Rect;
   constructor() {
   }
 
@@ -106,6 +110,42 @@ export class WorkareaComponent implements OnInit {
     this.layer.add(box);
     this.stage.add(this.layer);
     //this.addLineListeners();
+
+
+    // create smaller preview stage
+    this.previewStage = new Konva.Stage({
+      container: 'preview',
+      width: this.stage.width() / 4,
+      height: this.stage.width() / 4,
+      scaleX: 1 / 4,
+      scaleY: 1 / 4,
+    });
+    //clone frame of pattern stage
+    //this.previewLayer = this.layer.clone({ listening: false });
+    //this.previewStage.add(this.previewLayer);//added clone layer to preview stage
+
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    // function updatePreview() {
+    //   // we just need to update ALL nodes in the preview
+    //   // eslint-disable-next-line @typescript-eslint/no-shadow
+    //   this.layer.children.forEach((box) => {
+    //     // find cloned node
+    //     const clone = this.previewLayer.findOne('.' + box.name());
+    //     // update its position from the original
+    //     clone.position(box.position());
+    //   });
+    // }
+    //this.stage.on('dragmove', updatePreview);//every time something gets dragged, refresh preview
+    this.background = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: this.stage.width(),
+      height: this.stage.height(),
+      fill: 'green',
+      listening: false,
+    });
+    this.layer.add(this.background);
+
   }
   // eslint-disable-next-line @typescript-eslint/member-ordering
   download(){
@@ -122,6 +162,16 @@ export class WorkareaComponent implements OnInit {
     document.body.removeChild(link);
     //delete this.link;
   }
+  changeColor()
+  {
+    const con	= document.getElementById('container');
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
+    //con.style.backgroundColor = color;
+    //this.stage.container().style.backgroundColor = color;
+    //alert(color);
+    this.background.fill(color);
+  }
   chooseCanvasSymbol(check){
     this.myFrame = document.getElementById('canvasFrame');//get div of canvas frame
     if(check===true)//square is alright
@@ -137,6 +187,11 @@ export class WorkareaComponent implements OnInit {
       this.height = 500;
       this.changeSize(check);
     }
+  }
+  preview(){
+    //clone frame of pattern stage
+    this.previewLayer = this.layer.clone({ listening: false });
+    this.previewStage.add(this.previewLayer);//added clone layer to preview stage
   }
   changeSize(check){
     if(check===true)//square is alright
@@ -189,7 +244,8 @@ export class WorkareaComponent implements OnInit {
     box.on('mouseout', function() {
       document.body.style.cursor = 'default';
     });
+    //this.stage.on('dragmove', this.updatePreview);//every time something gets dragged, refresh preview
     this.layer.add(box);
-    this.stage.add(this.layer);
+    //this.stage.add(this.layer);
   }
 }

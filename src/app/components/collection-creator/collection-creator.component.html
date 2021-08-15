@@ -1,3 +1,4 @@
+<!--<app-navbar></app-navbar>-->
 <h1>Collection Creator</h1>
 <div>
   <label for="new-collection">Collection name: </label><br>
@@ -11,7 +12,7 @@
   <br>
   <br>
 
-  <button class="add-button" (click)="newCollection(collectionName.value); collectionName.value=''">
+  <button class="add-button" type="button" (click)="newCollection(collectionName.value); collectionName.value=''">
     Add Collection
   </button>
 </div>

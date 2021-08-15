@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CollectionsInterface } from '../Interfaces/collectionsInterface';
+import { ICollectionsInterface } from '../Interfaces/collections.interface';
 import { Observable, of } from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,45 +28,26 @@ export class CollectionsServiceService {
   }
 
 
-  getCollections(): Observable< CollectionsInterface>
+  getCollections(): Observable< ICollectionsInterface>
   {
     console.log("get collections fired!");
     const getCollectionsURL = this.serverURL + '/api/getCollections';
-    return this.http.get<CollectionsInterface>(getCollectionsURL, {withCredentials: true}); //GET request
+    return this.http.get<ICollectionsInterface>(getCollectionsURL, {withCredentials: true}); //GET request
   }
 
   /** POST: add a new collection to the server */
    createNewCollection(collectionName: string) {
-    const newCollectionURL = this.serverURL + '/api/newCollection/' + collectionName;
+    const newCollectionURL = this.serverURL + '/api/newCollection';
     console.log(newCollectionURL)
-    return this.http.get<any>(newCollectionURL);
+    return this.http.post<any>(newCollectionURL,
+      {collectionName: collectionName},
+      {withCredentials: true});
    }
 
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  private log(message: string) {
-    console.log(message); //display some error
-  }
 
 
 }
