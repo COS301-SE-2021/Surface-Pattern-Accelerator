@@ -31,16 +31,7 @@ describe('ColorComponent', () => {
     });
   });
 
-  it('Test2: Test to see if the change colour works with the color picker', () => {
-    const changeBtn = fixture.debugElement.nativeElement.querySelector('#changeColorBtn');
-    changeBtn.click();
-
-    fixture.whenStable().then(()=>{
-      expect(component.changeFill).toHaveBeenCalled();
-    });
-  });
-
-  it('Test3: Test to see if the change text button works correctly when clicked ', () => {
+  it('Test2: Test to see if the change text button works correctly when clicked ', () => {
     const changeBtn = fixture.debugElement.nativeElement.querySelector('#changeTextBtn');
     changeBtn.click();
 
@@ -49,7 +40,7 @@ describe('ColorComponent', () => {
     });
   });
 
-  it('Test5: Test to see if the save button works correctly with the right function call', () => {
+  it('Test3: Test to see if the save button works correctly with the right function call', () => {
     const changeBtn = fixture.debugElement.nativeElement.querySelector('#saveBtn');
     changeBtn.click();
 
