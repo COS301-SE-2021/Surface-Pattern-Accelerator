@@ -23,8 +23,8 @@ export class CollectionsComponent implements OnInit {
     this.collectionsService.getCollections()                      //this is an asynchronous operation
       .subscribe(collections =>
       {
-        console.log(collections)
-        this.collections = collections
+        console.log(collections);
+        this.collections = collections;
       });  //Observable
   }
 
