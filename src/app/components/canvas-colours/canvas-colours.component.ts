@@ -37,7 +37,7 @@ export class CanvasColoursComponent implements OnInit {
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
     const imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
     const data = imageData.data;
-    let i; let n; let ret=0;
+    let i; let n; let ret=1;
 
 
     for(i = 0, n = data.length; i < n; i += 4){
