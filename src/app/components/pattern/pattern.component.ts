@@ -9,8 +9,8 @@ import {MotifCatalogueComponent} from "../../popovers/motif-catalogue/motif-cata
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component"
 
 import { ActivatedRoute } from '@angular/router';
+import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
 import {PopoverController} from "@ionic/angular";
-
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
@@ -39,10 +39,17 @@ export class PatternComponent implements OnInit {
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
 
+
+  //Needed for Saving patterm
+  motifDetailsTestArr: IMotifDetailsInterface[] = new Array() ;
+
+  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
+
   constructor(private motifService: MotifServiceService,
               private route: ActivatedRoute,
               public patternService: PatternService,
               private popoverController: PopoverController) {}
+
 
   ngOnInit(){
 
@@ -166,6 +173,55 @@ export class PatternComponent implements OnInit {
     // // add the shape to the layer
     // this.layer.add(path);
   }
+  savePattern()
+  {
+    console.log("Layer is: ");
+    console.log(this.layer2);
+    let count = 0;
+    for(var i = 0 ; i < this.layer2.children.length ; i++)
+    {
+
+      if(i%2 == 0)
+      {
+        let motifDetailsTest: IMotifDetailsInterface = {xCoord:0, yCoord:0, scaleX:0, scaleY:0, rotation:0, url:null};
+        motifDetailsTest.xCoord = this.layer2.children[i].attrs.x;
+        motifDetailsTest.yCoord = this.layer2.children[i].attrs.y;
+        motifDetailsTest.scaleX = this.layer2.children[i].attrs.scaleX;
+        motifDetailsTest.scaleY = this.layer2.children[i].attrs.scaleY;
+        motifDetailsTest.rotation = this.layer2.children[i].attrs.rotation;
+        motifDetailsTest.url = this.layer2.children[i].attrs.image.currentSrc;
+
+        this.motifDetailsTestArr[count++] = motifDetailsTest;
+      }
+    }
+    console.log("Pattern Saved!");
+    return this.motifDetailsTestArr;
+
+   // this.loadPattern(this.motifDetailsTestArr)
+  }
+
+  loadPattern(motifDetailsArr : IMotifDetailsInterface[])
+  {
+    console.log(motifDetailsArr);
+    for(var i = 0 ; i < motifDetailsArr.length ; i++)
+    {
+      console.log("Spawning");
+      this.spawnMotifWithURL(this.motifDetailsTestArr[i].url, this.motifDetailsTestArr[i].xCoord,this.motifDetailsTestArr[i].yCoord,this.motifDetailsTestArr[i].scaleX,this.motifDetailsTestArr[i].scaleY,this.motifDetailsTestArr[i].rotation);
+
+      console.log("Next");
+    }
+    console.log("DONE");
+    // for(var i = 0 ; i < motifDetailsArr.length ; i++)
+    // {
+    //   console.log(motifDetailsArr[i].xCoord);
+    //   this.layer2.children[i*2].x(motifDetailsArr[i].xCoord);
+    //   this.layer2.children[i*2].attrs.y = motifDetailsArr[i].yCoord;
+    //   this.layer2.children[i*2].attrs.scaleX = motifDetailsArr[i].scaleX;
+    //   this.layer2.children[i*2].attrs.scaleY = motifDetailsArr[i].scaleY;
+    //   this.layer2.children[i*2].attrs.rotation = motifDetailsArr[i].rotation;
+    // }
+  }
+
 
   addGrid(e) {
     console.log(this.layer2);
@@ -228,40 +284,24 @@ export class PatternComponent implements OnInit {
     this.layer2.add(path2);
   }
 
-  spawnMotifWithURL(motifURL: string)
+  spawnMotifWithURL(motifURL: string, xCoord: number=0, yCoord: number=0, scaleX: number=1, scaleY:number=1, rotation: number=0)
   {
 
     this.canvasMotifsUrl[this.motifCount] = motifURL;
     Konva.Image.fromURL(motifURL,
       (image: Group | Shape<ShapeConfig>) => {
-        image.x(0);
+        image.x(xCoord);
+        image.y(yCoord);
+        image.scaleX(scaleX);
+        image.scaleY(scaleY);
+        image.rotation(rotation);
         console.log(motifURL);
         image.scale();
         image.draggable(true);
         console.log( image);
 
-
-          // image.on('keydown', function(e){
-          //   e = e || window.event;
-          //   if (e.keyCode === 38) { // up
-          //     image.moveUp();
-          //     console.log("upppp");
-          //   }  else if (e.keyCode === 40) { // down
-          //     image.moveDown();
-          //   } else {
-          //     return;
-          //   }
-          //   e.preventDefault();
-          //
-          // })
-
-
-
-
-
         this.layer2.add(image);
         this.canvasMotifs[this.motifCount] = image;
-       // console.log("New motifs: " + this.layer2);
 
         this.tr = new Konva.Transformer();
         this.layer2.add(this.tr);
@@ -277,8 +317,6 @@ export class PatternComponent implements OnInit {
 
         this.motifCount++;
         console.log(this.layer2);
-
-
 
       });
     //this.back();
@@ -334,6 +372,50 @@ export class PatternComponent implements OnInit {
       }
     }
     //this.back();
+  }
+    delete(img: Group | Shape<ShapeConfig>)
+    {
+      let motifNum = 0;
+      for (var i = 0; i < this.layer2.children.length; i++) {
+        console.log("Before delete");
+        console.log(this.layer2);
+        if (img._id == this.layer2.children[i]._id) {
+          this.layer2.children[i].remove();
+          console.log(this.layer2);
+          this.layer2.children[i].remove();
+          console.log(this.layer2);
+          console.log("Done");
+          this.motifCount--;
+          this.layer2.draw();
+          motifNum = i;
+          break;
+        }
+
+      }
+
+      let s = document.querySelectorAll(".MotifImage2");
+      s[motifNum].remove();
+      console.log(s);
+      console.log("Is the s");
+    }
+  flipX(img: Group | Shape<ShapeConfig>)
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetX( this.layer2.children[i].width() / 2)
+        this.layer2.children[i].scaleX( (- this.layer2.children[i].scaleX()))
+      }
+
+    }
+  }
+  flipY(img: Group | Shape<ShapeConfig>)
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetY( this.layer2.children[i].height() / 2)
+        this.layer2.children[i].scaleY( (- this.layer2.children[i].scaleY()))
+      }
+    }
   }
 
 
