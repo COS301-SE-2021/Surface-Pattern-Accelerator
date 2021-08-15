@@ -10,6 +10,35 @@ $dot-space: 15px;
   box-sizing: border-box;
 }
 
+.motifBtn
+{
+  height: 100%;
+}
+
+.motifImg
+{
+  width: 70%;
+  vertical-align:middle;
+}
+.MotifImage{
+  width: 100px;
+  height: 100px;
+  //background-color: black;
+  text-align: center;
+  //padding :50px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border: solid black 1px;
+  display: flex;
+  align-items: center;
+
+}
+.MotifImage >h5{
+  padding: 30px;
+}
+
+
 html {
   height: 100%; /* <------------ */
 }
@@ -247,21 +276,6 @@ and some left padding to change the design of the dropdown content */
 }
 .sideMotif{
   color: black
-}
-.MotifImage{
-  width: 80px;
-  height: 80px;
-  //background-color: black;
-  text-align: center;
-  //padding :50px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  border: solid black 1px;
-  display: flex;
-}
-.MotifImage >h5{
-  padding: 30px;
 }
 
 .wrapper{
