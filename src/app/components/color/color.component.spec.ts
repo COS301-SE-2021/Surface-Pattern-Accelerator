@@ -23,12 +23,29 @@ describe('ColorComponent', () => {
   });
 
   it('Test1: Test to see if the import svg button calls the right function', () => {
-    spyOn(component,'importSVG');
     const importBtn = fixture.debugElement.nativeElement.querySelector('#importBtn');
     importBtn.click();
 
     fixture.whenStable().then(()=>{
       expect(component.importSVG).toHaveBeenCalled();
+    });
+  });
+
+  it('Test2: Test to see if the change text button works correctly when clicked ', () => {
+    const changeBtn = fixture.debugElement.nativeElement.querySelector('#changeTextBtn');
+    changeBtn.click();
+
+    fixture.whenStable().then(()=>{
+      expect(component.changeFillText).toHaveBeenCalled();
+    });
+  });
+
+  it('Test3: Test to see if the save button works correctly with the right function call', () => {
+    const changeBtn = fixture.debugElement.nativeElement.querySelector('#saveBtn');
+    changeBtn.click();
+
+    fixture.whenStable().then(()=>{
+      expect(component.saveSvg).toHaveBeenCalled();
     });
   });
 

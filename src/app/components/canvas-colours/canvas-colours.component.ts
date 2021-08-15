@@ -37,7 +37,7 @@ export class CanvasColoursComponent implements OnInit {
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
     const imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
     const data = imageData.data;
-    let i; let n; let ret=0;
+    let i; let n; let ret=1;
 
 
     for(i = 0, n = data.length; i < n; i += 4){
@@ -96,6 +96,64 @@ export class CanvasColoursComponent implements OnInit {
     return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
   }
 
+  // Import SVG & Image files and display them on the canvas
+  import() {
+    // Return element
+    let ret = null;
+    // Get access to the canvas element
+    const canvas = <HTMLCanvasElement>document.getElementById("canvasExtractor");
+    // Specify the canvas context
+    const ctx = canvas.getContext("2d");
+    // Specify image object
+    let img = new Image();
+    // Get access to the file input element
+    let fileInput = <HTMLInputElement>document.getElementById('cc-upload-file');
+    // Init FileReader API
+    const reader = new FileReader();
+    // Trigger the hidden input type='file' html element
+    fileInput.click();
+    // Activates when a user selects a file and a change event is fired by the browser
+    fileInput.addEventListener('change', ()=> {
+      let file = fileInput.files[0];
+      // Check for file
+      if (file) {
+        try {
+          // Read data as URL
+          reader.readAsDataURL(file);
+        } catch (err) {
+          // For debugging purposes
+          console.log(err.message);
+        }
+      }
+    });
+
+    // Add image to canvas
+    reader.addEventListener(
+      "load",
+      () => {
+        // Create image
+        img = new Image();
+        // Set image src
+        img.src = <string>reader.result;
+        // On image load add to canvas
+        img.onload = function() {
+          // Sets a limit to the size of image displayed
+          if (img.width > 300) {
+            img.width  = 300;
+            if (img.height > 200) {
+              img.height  = 200;
+            }
+          }
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0, img.width, img.height);
+          canvas.removeAttribute("data-caman-id");
+        };
+      },
+      false
+    );
+    return ret;
+  }
 
 }
 
