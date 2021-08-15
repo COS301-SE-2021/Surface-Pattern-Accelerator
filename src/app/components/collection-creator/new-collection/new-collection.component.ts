@@ -11,6 +11,7 @@ import { LoadingController } from '@ionic/angular';
 })
 export class NewCollectionComponent implements OnInit {
 
+  colorCodeHex: string;
   constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController) { }
 
   ngOnInit()
@@ -44,4 +45,9 @@ export class NewCollectionComponent implements OnInit {
 
   }
 
+  getColorCodes() {
+    const colorValue = document.getElementById('color') as HTMLInputElement;
+    this.colorCodeHex = 'Color code: ' + colorValue.value;
+    console.log(this.colorCodeHex);
+  }
 }
