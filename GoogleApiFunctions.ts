@@ -408,7 +408,7 @@ export class GoogleApiFunctions {
 
                 } else {
                     console.log("No files found.");
-                    failure();
+                    failure(); // TODO: create folder if the users google drive is empty
                 }
             });
         }).then( (folderDetails) => {
@@ -447,13 +447,6 @@ export class GoogleApiFunctions {
         }
     }
 
-    // public createChildFolder(token: ITokenInterface, parentID: string, childName: string, childMimeType: string) {
-    //     let fileMetadata = {
-    //         name: childName,
-    //         parents: parentID
-    //     };
-    // }
-
     public updateJSONFile(token: ITokenInterface, fileID: string, content: any, newName: string = "") {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});
@@ -469,7 +462,7 @@ export class GoogleApiFunctions {
             body: bufferStream
         };
 
-        if (newName === "") {
+        if (newName === "") { // if the file should not be renamed
             return drive.files.update({
                 fileId: fileID,
                 media
@@ -480,7 +473,7 @@ export class GoogleApiFunctions {
                 console.log(error);
                 return {text: "Error Updating JSON file"};
             });
-        } else {
+        } else { // if file should be renamed
             const body = {name: newName};
             // @ts-ignore
             return drive.files.update({
@@ -498,6 +491,7 @@ export class GoogleApiFunctions {
 
     }
 
+    // return the file contents
     public getFileByID(token: ITokenInterface, fileID: string) {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});

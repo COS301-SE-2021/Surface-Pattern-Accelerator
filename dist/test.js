@@ -198,6 +198,9 @@ app.post("/api/createNewJSONFile", (req, res) => {
         res.json(result);
     });
 });
+app.post("/api/uploadMotif", (req, res) => {
+    console.log(req);
+});
 // start the Express server
 app.listen(port, () => {
     // tslint:disable-next-line:no-console
