@@ -1,35 +1,33 @@
-<div>
-  <div >
-    <h1>New Collection</h1>
-  </div>
+<ion-content>
+  <ion-card>
+    <ion-card-header>New Collection</ion-card-header>
+    <ion-card-content>
+      <label for="new-collection">Collection name: </label><br>
+      <input type="text" class="inputField" id="new-collection" #collectionName><br>
 
-  <div>
-    <div class="colectionName">
-      <h3>Collection Name</h3>
-      <div class="collection-name">
-        <input type="text" class="inputField" #collectionName>
-      </div>
-    </div>
+      <label for="story">Collection Story: </label><br>
+      <input id="story" #collectionStory ><br>
 
-    <div class="colectionStory">
-      <h3>Collection Story</h3>
-      <div class="collection-story">
-        <input type="text" class="inputFieldStory">
-      </div>
-    </div>
+      <label for="themes">Collection Themes: </label><br>
+      <input id="themes" placeholder="Enter comma separated color codes" #collectionThemes /><br>
+      <br>
+      <br>
 
-    <div class="buttons">
-      <button class="button" mat-raised-button color="primary" (click)="newCollection(collectionName.value); collectionName.value=''">
-        Create Collection
-      </button>
-    </div>
-  </div>
+      <ion-card id="colorPicker">
+        <ion-card-header> Use the color picker to get color codes</ion-card-header>
+        <ion-card-content>
 
+          <label for="color">Pick a color  :</label>
+          <input type="color" id="color"  name="color" value="#73b504"> <br> <br>
+          <ion-button color="medium" (click)="getColorCodes()"> get color code </ion-button><br><br>
+          <p id="colorCode">{{colorCodeHex}}</p>
 
-  <div >
-    <h3>Theme</h3>
-    <div class="colectionTheme">
+        </ion-card-content>
+      </ion-card>
 
-    </div>
-  </div>
-</div>
+      <ion-button expand="block" color="medium" class="button" type="button" (click)="newCollection(collectionName.value); collectionName.value=''">
+        Add Collection
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
