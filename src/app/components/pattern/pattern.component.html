@@ -34,5 +34,21 @@
         </ion-card-content>
       </ion-card>
     </ion-col>
+
+    <ion-col size="3">
+      <ion-card>
+        <ion-card-header>
+          <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
+            <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+              <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <div id="down">
+
+          </div>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
   </ion-row>
 </ion-grid>
