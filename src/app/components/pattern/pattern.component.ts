@@ -7,6 +7,8 @@ import {motifsInterface} from "../../Interfaces/motifsInterface";
 import { PatternService } from "../../services/pattern.service";
 import {MotifCatalogueComponent} from "../../popovers/motif-catalogue/motif-catalogue.component"
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component"
+import {IPatternContentsInterface} from "../../Interfaces/patternContents.interface"
+
 
 import { ActivatedRoute } from '@angular/router';
 import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
@@ -49,8 +51,10 @@ export class PatternComponent implements OnInit {
   _state: Konva.Layer[] = new Array();
 
 
-  //Needed for Saving patterm
-  motifDetailsTestArr: IMotifDetailsInterface[] = new Array() ;
+  //Needed for Saving pattern
+  motifDetailsTestArr: IMotifDetailsInterface[] = [] ;
+  //saving patterns in pattern Contents interface
+  patternContents: IPatternContentsInterface = {patternName: "Test Pattern", patternID: "1000", motifs: []} as IPatternContentsInterface;
 
   //constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
 
@@ -198,7 +202,7 @@ export class PatternComponent implements OnInit {
     console.log("Layer is: ");
     console.log(this.layer2);
     let count = 0;
-    for(var i = 0 ; i < this.layer2.children.length ; i++)
+    for(let i = 0 ; i < this.layer2.children.length ; i++)
     {
 
       if(i%2 == 0)
@@ -212,10 +216,15 @@ export class PatternComponent implements OnInit {
         motifDetailsTest.url = this.layer2.children[i].attrs.image.currentSrc;
 
         this.motifDetailsTestArr[count++] = motifDetailsTest;
+        this.patternContents.motifs.push(motifDetailsTest);
       }
     }
     console.log("Pattern Saved!");
-    return this.motifDetailsTestArr;
+    console.log(this.motifDetailsTestArr);
+    console.log(this.patternContents);
+
+    this.loadPattern(this.patternContents.motifs);
+    //return this.motifDetailsTestArr;
 
    // this.loadPattern(this.motifDetailsTestArr)
   }
@@ -223,7 +232,7 @@ export class PatternComponent implements OnInit {
   loadPattern(motifDetailsArr : IMotifDetailsInterface[])
   {
     console.log(motifDetailsArr);
-    for(var i = 0 ; i < motifDetailsArr.length ; i++)
+    for(let i = 0 ; i < motifDetailsArr.length ; i++)
     {
       console.log("Spawning");
       this.spawnMotifWithURL(this.motifDetailsTestArr[i].url, this.motifDetailsTestArr[i].xCoord,this.motifDetailsTestArr[i].yCoord,this.motifDetailsTestArr[i].scaleX,this.motifDetailsTestArr[i].scaleY,this.motifDetailsTestArr[i].rotation);
