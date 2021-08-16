@@ -1,3 +1,4 @@
+
 <ion-grid>
   <ion-row>
     <ion-col size="3">
@@ -37,7 +38,7 @@
 
     <ion-col size="6">
       <ion-card>
-        <ion-card-header>
+        <ion-card-header style="height: 20px">
           <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
             <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
               <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
@@ -46,18 +47,41 @@
 
           <div id="down"></div>
         </ion-card-header>
-        <ion-card-content>
-          <div class="row">
+        <ion-card-content class="row" style="overflow: auto">
+
             <div class="workArea" id="container"></div>
             <div class="view" id="preview"></div>
             <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-          </div>
+
+
+
         </ion-card-content>
       </ion-card>
     </ion-col>
 
     <ion-col size="3">
+      <ion-card>
+        <ion-card-content>
+          <div>
+            <ion-item>
+              <ion-label>Show Gridlines</ion-label>
+              <ion-checkbox (change)="addGrid($event)"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>Enable Background</ion-label>
+              <ion-checkbox (change)="addBack($event)"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-button color="medium" (click)="backButton()">Undo</ion-button>
+            </ion-item>
+            <ion-item>
+              <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
+            </ion-item>
+          </div>
 
+        </ion-card-content>
+      </ion-card>
     </ion-col>
   </ion-row>
 </ion-grid>
+

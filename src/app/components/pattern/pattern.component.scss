@@ -17,6 +17,7 @@ ion-row{
 
 ion-col{
   height: 100%;
+  --ion-grid-column-padding: 0px;
 }
 
 ion-card-header{
@@ -24,6 +25,7 @@ ion-card-header{
   text-align: center;
   border-bottom: 1px solid slategray;
 }
+
 
 .motifBtn
 {
