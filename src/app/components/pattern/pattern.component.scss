@@ -24,3 +24,27 @@ ion-card-header{
   text-align: center;
   border-bottom: 1px solid slategray;
 }
+
+.motifBtn
+{
+  height: 100%;
+}
+
+.motifImg
+{
+  width: 70%;
+  vertical-align:middle;
+}
+.MotifImage{
+  width: 100px;
+  height: 100px;
+  //background-color: black;
+  text-align: center;
+  //padding :50px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border: solid black 1px;
+  display: flex;
+  align-items: center;
+}

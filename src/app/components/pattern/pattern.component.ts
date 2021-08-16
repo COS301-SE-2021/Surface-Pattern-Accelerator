@@ -426,4 +426,11 @@ export class PatternComponent implements OnInit {
     //this.background.fill(color);
   }
 
+  uploadFilePopover() {
+
+  }
+
+  collectionCataloguePopover() {
+
+  }
 }

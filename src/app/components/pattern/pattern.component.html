@@ -6,149 +6,33 @@
           <ion-card-title>Motif Library</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-text color="medium">
-            <h5>Import new Motif</h5>
-          </ion-text>
-          <ion-text color="medium">
-            <h5>Append motif to project</h5>
-          </ion-text>
+          <ion-list>
+            <ion-item>
+              <ion-button color="medium" (click)="uploadFilePopover()">Import new Motif</ion-button>
+            </ion-item>
+            <ion-item>
+              <ion-button color="medium" (click)='collectionCataloguePopover()'>Append motifs to project</ion-button>
+            </ion-item>
+          </ion-list>
+
+            <div>
+              <ion-searchbar placeholder="Search for motif"></ion-searchbar>
+            </div>
+
+            <div *ngIf="motifs">
+              <div class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
+                <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+                  <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                  <ion-text> {{motif.motifName}} </ion-text> <!-- variable name is not unresolved, ignore -->
+                </button>
+              </div>
+            </div>
+
+          <ion-item>
+            <ion-button color="dark" style="width:100%;">Spawn Motif</ion-button>
+          </ion-item>
         </ion-card-content>
       </ion-card>
     </ion-col>
   </ion-row>
 </ion-grid>
-
-<!--
-<div class="row">
-  <div class="column left" style="background-color:#aaa;">
-
-
-    <div class="sidenav bg-primary column">
-      <div class="sideMotif">
-        <h1 style="text-align:center" >Motif Library</h1>
-        <div>
-          <h5 style="padding:5px">Import new Motif</h5>
-
-          <mat-divider style="color: black"></mat-divider>
-        </div>
-
-        <div>
-          <h5 style="padding:5px">Append motif to project</h5>
-          <mat-divider style="color: black; font-weight: bold; cursor: pointer"></mat-divider>
-        </div>
-
-        <div>
-          <mat-form-field floatLabel="never">
-            <input matInput placeholder="Search for motif">
-          </mat-form-field>
-        </div>
-
-        <div *ngIf="motifs">
-          <button *ngFor="let motif of motifs.motifDetails" class="MotifImage" mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
-            <img src= {{motif.motifLink}} alt="motif-image">
-            <h5> {{motif.motifName}} </h5>
-          </button>
-        </div>
-
-        <div class = "row">
-          <button mat-raised-button (click)='spawnMotif(); '>Spawn Motif</button>
-        </div>
-
-      </div>
-
-    </div>
-
-
-  </div>
-
-  <div class="column middle" style="background-color:#bbb;">
-
-    <div class="main column center">
-      <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
-
-        <ion-select interface="popover" >
-          <ion-select-option value="{{pattern.patternName}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
-
-        </ion-select>
-      </ion-item>
-
-      <div class="row">
-
-
-
-
-        <div class="workArea" id="container">
-
-        </div>
-        <div class="view" id="preview">
-
-        </div>
-
-        <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-
-      </div>
-      <input type="text" class="inputField" #patternName>
-      <div class="buttons">
-        <button class="button" mat-raised-button color="primary" (click)="newPattern(patternName.value); patternName.value=''">
-          New Pattern
-        </button>
-      </div>
-
-    </div>
-
-  </div>
-  <div class="column right" style="background-color:#ccc;">
-
-    <div class="widgets column">
-      <div class="widgetSide">
-        <div class="Layers">
-          <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
-          <br>
-        <button (click)="backButton()"> Undo </button>
-        </div>
-
-        <div class="modifiers">
-          <h1 style="text-align:center" >Modifiers</h1>
-          <div>
-            <h5 style="padding:5px">New Layer</h5>
-            <mat-divider style="color: black; padding: 5px;"></mat-divider>
-          </div>
-          <div class="layerNumbers">
-            <div class="layerBorder">
-              <h6>Layer</h6>
-
-                <div *ngIf="motifs" >
-                  <div *ngFor="let motif of this.canvasMotifs" class="MotifImage2" mat-raised-button >
-                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image">
-
-                    motif.attrs.image.outerHTML
-                    <button (click)="moveUp(motif)">MoveUp</button>
-                    <button (click)="moveDown(motif)">MoveDown</button>
-                    <button (click)="moveToTop(motif)">Top</button>
-                    <button (click)="movetToBottom(motif)">Bottom</button>
-                  </div>
-                </div>
-            </div>
-          </div>
-
-        </div>
-
-
-          <h1 style="text-align:center" >Changes</h1>
-          <button class="buttons" id="pre" (click)='generate()'>Refresh</button>
-          <br>
-          <button class="buttons" id="save" (click)='download()'>Export</button>
-          <br>
-          <label for="fav_color">Select a color: </label>
-          <input type="color" id="fav_color" name="fav_color" value="#ff0000">
-          <br>
-          <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
-
-      </div>
-
-
-    </div>
-
-  </div>
-</div>
--->
