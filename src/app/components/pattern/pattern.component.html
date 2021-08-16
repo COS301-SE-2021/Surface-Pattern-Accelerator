@@ -57,8 +57,8 @@
 <!--      </div>-->
       <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
 
-        <ion-select interface="popover" >
-          <ion-select-option value="{{pattern.patternName}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+        <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+          <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
 
         </ion-select>
       </ion-item>
@@ -104,7 +104,6 @@
           <br>
         <button (click)="backButton()"> Undo </button>
         <button (click)="savePattern()"> Save Pattern </button>
-        <button ><!--(click)="loadPattern()"-->Load Pattern</button>
         </div>
 
         <div class="modifiers">

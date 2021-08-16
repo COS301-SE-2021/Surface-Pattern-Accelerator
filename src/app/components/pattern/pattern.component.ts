@@ -8,17 +8,23 @@ import { PatternService } from "../../services/pattern.service";
 import {MotifCatalogueComponent} from "../../popovers/motif-catalogue/motif-catalogue.component"
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component"
 import {IPatternContentsInterface} from "../../Interfaces/patternContents.interface"
+import {HttpClient} from "@angular/common/http";
 
 
 import { ActivatedRoute } from '@angular/router';
 import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
 import {PopoverController} from "@ionic/angular";
+import {ICollectionsContent} from "../../Interfaces/collectionContents.interface";
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
   styleUrls: ['./pattern.component.scss'],
 })
 export class PatternComponent implements OnInit {
+  private serverAPIURL = 'http://localhost:3000/api';
+
+  selectedPattern: any;
+
   stage!: Konva.Stage;
   layer2!: Konva.Layer;
 
@@ -61,7 +67,8 @@ export class PatternComponent implements OnInit {
   constructor(private motifService: MotifServiceService,
               private route: ActivatedRoute,
               public patternService: PatternService,
-              private popoverController: PopoverController) {}
+              private popoverController: PopoverController,
+              private http: HttpClient) {}
 
 
   ngOnInit(){
@@ -202,6 +209,7 @@ export class PatternComponent implements OnInit {
     console.log("Layer is: ");
     console.log(this.layer2);
     let count = 0;
+    this.patternContents.motifs = [];
     for(let i = 0 ; i < this.layer2.children.length ; i++)
     {
 
@@ -215,16 +223,20 @@ export class PatternComponent implements OnInit {
         motifDetailsTest.rotation = this.layer2.children[i].attrs.rotation;
         motifDetailsTest.url = this.layer2.children[i].attrs.image.currentSrc;
 
-        this.motifDetailsTestArr[count++] = motifDetailsTest;
+        //this.motifDetailsTestArr[count++] = motifDetailsTest;
         this.patternContents.motifs.push(motifDetailsTest);
       }
     }
     console.log("Pattern Saved!");
-    console.log(this.motifDetailsTestArr);
+    //console.log(this.motifDetailsTestArr);
     console.log(this.patternContents);
 
-    this.loadPattern(this.patternContents.motifs);
-    //return this.motifDetailsTestArr;
+    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+      { fileID: this.patternContents.patternID, content: JSON.stringify(this.patternContents) },
+      {withCredentials: true
+      }).subscribe(patternUpdateResult => {
+      console.log(patternUpdateResult) //prints
+    })
 
    // this.loadPattern(this.motifDetailsTestArr)
   }
@@ -232,10 +244,11 @@ export class PatternComponent implements OnInit {
   loadPattern(motifDetailsArr : IMotifDetailsInterface[])
   {
     console.log(motifDetailsArr);
+    //console.log(motifDetailsArr);
     for(let i = 0 ; i < motifDetailsArr.length ; i++)
     {
       console.log("Spawning");
-      this.spawnMotifWithURL(this.motifDetailsTestArr[i].url, this.motifDetailsTestArr[i].xCoord,this.motifDetailsTestArr[i].yCoord,this.motifDetailsTestArr[i].scaleX,this.motifDetailsTestArr[i].scaleY,this.motifDetailsTestArr[i].rotation);
+      this.spawnMotifWithURL(motifDetailsArr[i].url, motifDetailsArr[i].xCoord,motifDetailsArr[i].yCoord,motifDetailsArr[i].scaleX,motifDetailsArr[i].scaleY,motifDetailsArr[i].rotation);
 
       console.log("Next");
     }
@@ -590,6 +603,7 @@ export class PatternComponent implements OnInit {
     }
   }
   // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+
   downloadURI(uri, name) {
     const link = document.createElement('a');
     link.download = name;
@@ -620,4 +634,16 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  onPatternChange(selectedPatternID: any) {
+    console.log(selectedPatternID);
+    this.http.post(this.serverAPIURL + '/getFileByID',
+      { fileID: selectedPatternID },
+      {withCredentials: true
+      }).subscribe(fileContent => {
+      this.patternContents = fileContent as IPatternContentsInterface;
+      console.log(this.patternContents);
+      this.loadPattern(this.patternContents.motifs);
+
+    });
+  }
 }
