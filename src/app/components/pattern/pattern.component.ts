@@ -36,7 +36,9 @@ export class PatternComponent implements OnInit {
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
 
-  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
+  constructor(private motifService: MotifServiceService, private route: ActivatedRoute,
+              public patternService: PatternService) {}
+
 
   ngOnInit(){
 

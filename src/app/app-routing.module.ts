@@ -13,6 +13,7 @@ import { LoginResponseComponent} from './components/login-response/login-respons
 import { ColorComponent} from './components/color/color.component';
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component'
 import { MainComponent } from './components/launchpage/main/main.component';
+import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'colorpallet', component: CollorPalletComponent},
-  { path: 'pattern/:collectionID/:collectionName', component: PatternComponent},
+  //{ path: 'pattern/:collectionID/:collectionName', component: PatternComponent},
+  { path: 'pattern', component: PatternComponent},
   { path: 'import', component: ImportComponent },
   { path: 'workarea', component: WorkareaComponent },
   { path: 'loginResponse', component: LoginResponseComponent },
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'preview', component: PreviewComponent },
   { path: 'color', component: ColorComponent},
   { path: 'newCollection', component: NewCollectionComponent },
+  { path: 'exportPattern', component: ExportPopoverComponent}
 ];
 
 @NgModule({

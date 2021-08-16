@@ -1,6 +1,4 @@
 <!--
-<button (click)="closePopover()">Ok</button>
--->
 
 <ion-content padding>
   <ion-grid>
@@ -22,5 +20,50 @@
       </ion-col>
     </ion-row>
 
+  </ion-grid>
+</ion-content>
+-->
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <ion-card id="leftSidebar">
+          <ion-card-content>
+            <ion-button expand="block" color="medium"> Motif library</ion-button> <br>
+            <ion-button expand="block" color="medium"> Add Layers</ion-button> <br>
+            <ion-button expand="block" color="medium"> Extract colours </ion-button><br>
+            <ion-button expand="block" color="medium"> Change motif color</ion-button><br>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card id="middle">
+          <ion-card-header>
+            Pattern X
+          </ion-card-header>
+          <ion-card-content>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-card id="rightSidebar">
+          <ion-card-header>
+            Import motif
+          </ion-card-header>
+          <ion-card-content>
+            <ion-searchbar></ion-searchbar>
+            <ion-button color="medium" expand="block"> Spawn motif </ion-button>
+            <ion-card class="layers">
+              Motif name
+              <ion-img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY=" height="200"></ion-img>
+            </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>
