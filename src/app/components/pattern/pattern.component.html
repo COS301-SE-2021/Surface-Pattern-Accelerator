@@ -35,7 +35,7 @@
       </ion-card>
     </ion-col>
 
-    <ion-col size="3">
+    <ion-col size="6">
       <ion-card>
         <ion-card-header>
           <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
@@ -44,11 +44,20 @@
             </ion-select>
           </ion-item>
 
-          <div id="down">
-
-          </div>
+          <div id="down"></div>
         </ion-card-header>
+        <ion-card-content>
+          <div class="row">
+            <div class="workArea" id="container"></div>
+            <div class="view" id="preview"></div>
+            <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
+          </div>
+        </ion-card-content>
       </ion-card>
+    </ion-col>
+
+    <ion-col size="3">
+
     </ion-col>
   </ion-row>
 </ion-grid>

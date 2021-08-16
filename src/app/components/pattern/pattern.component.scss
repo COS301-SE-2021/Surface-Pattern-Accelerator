@@ -48,3 +48,71 @@ ion-card-header{
   display: flex;
   align-items: center;
 }
+
+// Colors
+$bg-color: hsl(0,1,90);
+$dot-color: hsl(255,71,34);
+
+// Dimensions
+$dot-size: 1.5px;
+$dot-space: 15px;
+
+.row{
+  //overflow: scroll;
+  background:
+    linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+    $dot-color;
+  background-size: $dot-space $dot-space;
+  border: 4px solid black;
+  //height: 100%;//FILL ALL THE WAY TO BOTTOM
+  //padding-bottom: 10px;
+}
+
+#can{
+  border: solid black 3px;
+  width: 600px;
+  height: 600px;
+  margin: 15px;
+  background-color: #878787;
+}
+#container{
+  background-color: #878787;
+  border: solid black 3px;
+  text-align : center;
+}
+
+.workArea{
+  //margin-left: 280px;
+  //background-color: aqua;
+  width: 300px;
+  height: 300px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+  text-align : center;
+  margin: 15px;
+}
+
+.view{
+  //margin-left: 280px;
+  //background-color: aqua;
+  width: 600px;
+  height: 600px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+  text-align : center;
+  margin: 15px;
+}
+
+#preview {
+  position: relative;
+  top: 2px;
+  right: 2px;
+  width: 600px;
+  height: 600px;
+  border: 1px solid grey;
+  background-color: lightgray;
+  display:none;
+  margin: 5px;
+}
+
