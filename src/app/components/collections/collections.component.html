@@ -26,7 +26,9 @@
       <div *ngFor="let collection of collections.collections">
         <div class="square" style="border: 1px solid gray">
           <div class="gear">
-            +
+            <ion-button (click)="CollectionOperations($event)">
+              <ion-icon name="settings" ></ion-icon>
+            </ion-button>
           </div>
         </div>
         <div class="label">
