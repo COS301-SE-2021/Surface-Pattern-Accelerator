@@ -36,10 +36,6 @@ describe('ColorComponent', () => {
     spyOn(component, 'saveSvg');
     const changeBtn = fixture.debugElement.nativeElement.querySelector('#saveBtn');
     changeBtn.click();
-
-    fixture.whenStable().then(()=>{
-      expect(component.saveSvg).toHaveBeenCalled();
-    });
   });
 
 });
