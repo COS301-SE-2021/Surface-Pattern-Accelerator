@@ -5,13 +5,14 @@
       <div class="sideMotif">
         <h1 style="text-align:center" >Motif Library</h1>
         <div>
-          <h5 style="padding:5px">Import new Motif</h5>
-          <!--      <mat-icon>cloud_download</mat-icon>-->
+<!--          <h5 style="padding:5px">Import new Motif</h5>-->
+          <ion-button (click)='uploadFilePopover()'>Import new Motif</ion-button>
           <mat-divider style="color: black"></mat-divider>
         </div>
 
         <div>
-          <h5 style="padding:5px">Append motif to project</h5>
+<!--          <h5 style="padding:5px">Append motif to project</h5>-->
+          <ion-button (click)='collectionCataloguePopover()'>Append motifs to project</ion-button>
           <mat-divider style="color: black; font-weight: bold; cursor: pointer"></mat-divider>
         </div>
 
@@ -30,10 +31,13 @@
         <!--        </div>-->
 
         <div *ngIf="motifs">
-          <button *ngFor="let motif of motifs.motifDetails" class="MotifImage" mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
-            <img src= {{motif.motifLink}} alt="motif-image"> <!-- does resolve, ignore warning -->
-            <h5> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
-          </button>
+          <div class="squareContainer" *ngFor="let motif of motifs.motifDetails" class="MotifImage">
+            <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+              <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+              <h5  class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
+            </button>
+          </div>
+
         </div>
 
         <div class = "row">
@@ -53,27 +57,23 @@
 <!--      </div>-->
       <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
 
-        <ion-select interface="popover" >
-          <ion-select-option value="{{pattern.patternName}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+        <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+          <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
 
         </ion-select>
       </ion-item>
 
-      <div class="row">
-
-
-
-
-        <div class="workArea" id="container">
-
-        </div>
-        <div class="view" id="preview">
-
-        </div>
-
-        <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
+      <div id="down">
 
       </div>
+
+
+      <div class="row">
+        <div class="workArea" id="container"></div>
+        <div class="view" id="preview"></div>
+        <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
+      </div>
+
       <input type="text" class="inputField" #patternName>
       <div class="buttons">
         <button class="button" mat-raised-button color="primary" (click)="newPattern(patternName.value); patternName.value=''">
@@ -91,7 +91,10 @@
         <div class="Layers">
           <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
           <br>
+          <mat-checkbox labelPosition="before" (change)="addBack($event)">Enable Background</mat-checkbox>
+          <br>
         <button (click)="backButton()"> Undo </button>
+        <button (click)="savePattern()"> Save Pattern </button>
         </div>
 
         <div class="modifiers">
@@ -105,14 +108,20 @@
               <h6>Layer</h6>
 
                 <div *ngIf="motifs" >
-                  <div *ngFor="let motif of this.canvasMotifs" class="MotifImage2" mat-raised-button >
-                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
-<!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
-                    motif.attrs.image.outerHTML
-                    <button (click)="moveUp(motif)">MoveUp</button>
-                    <button (click)="moveDown(motif)">MoveDown</button>
-                    <button (click)="moveToTop(motif)">Top</button>
-                    <button (click)="movetToBottom(motif)">Bottom</button>
+                  <div *ngFor="let motif of this.canvasMotifs" mat-raised-button >
+                    <div class="MotifImage2" mat-raised-button >
+                      <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
+  <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
+                      motif.attrs.image.outerHTML
+               <!--       <button (click)="moveUp(motif)">MoveUp</button>
+                      <button (click)="moveDown(motif)">MoveDown</button>
+                      -->
+                      <button (click)="moveToTop(motif)">Top</button>
+                      <button (click)="movetToBottom(motif)">Bottom</button>
+                      <button (click)="delete(motif)">Delete</button>
+                      <button (click)="flipX(motif)">FlipX</button>
+                      <button (click)="flipY(motif)">FlipY</button>
+                    </div >
                   </div>
                 </div>
             </div>
@@ -133,7 +142,6 @@
 <!--        </div>-->
 
       </div>
-
 
     </div>
 

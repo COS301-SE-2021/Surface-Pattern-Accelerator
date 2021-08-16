@@ -19,4 +19,13 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });*/
   // TODO: integration tests in here
+
+  it('Integration test', () => {
+  });
+
+  it('Integration test', () => {
+  });
+
+  it('Integration test', () => {
+  });
 });

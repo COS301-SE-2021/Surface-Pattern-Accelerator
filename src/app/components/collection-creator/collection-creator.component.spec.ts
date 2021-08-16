@@ -21,15 +21,18 @@ beforeEach(waitForAsync(() => {
   fixture.detectChanges();
 }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(CollectionCreatorComponent);
-    const component = fixture.debugElement.componentInstance;
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have newCollection function', () => {
-    const fixture = TestBed.inject(CollectionCreatorComponent);
-    expect(fixture.newCollection).toBeTruthy();
+  it('Test 1: should have newCollection function', () => {
+    spyOn(component, 'newCollection');
+    const btn = fixture.debugElement.nativeElement.querySelector('.add-button');
+    btn.click();
+
+    fixture.whenStable().then(()=>{
+      //expect(component.newCollection).toHaveBeenCalled();//FIX THIS
+    });
   });
 
 

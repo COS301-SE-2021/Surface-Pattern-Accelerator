@@ -19,6 +19,7 @@ export class CollectionCreatorComponent implements OnInit {
   //the collections that get displayed
   //collections: CollectionsInterface;
   statusCode: string;
+  colorCodeHex: string;
 
   constructor(private collectionsService: CollectionsServiceService) { }
 
@@ -37,5 +38,11 @@ export class CollectionCreatorComponent implements OnInit {
     console.log(value);
     // this.collectionsService.createNewCollection(value)                      //this is an asynchronous operation
     //   .subscribe();
+  }
+
+  getColorCodes() {
+    const colorValue = document.getElementById('color') as HTMLInputElement;
+    this.colorCodeHex = 'Color code: ' + colorValue.value;
+    console.log(this.colorCodeHex);
   }
 }

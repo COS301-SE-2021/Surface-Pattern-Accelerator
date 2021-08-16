@@ -2,7 +2,35 @@ label{
   font-size: large;
 }
 
-input{
+#colorCode{
+  font-size: large;
+}
+
+#hexVal{
+  font-size: large;
+}
+
+#new-collection{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid grey;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#story{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid grey;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#themes{
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -17,7 +45,6 @@ ion-card-header{
 }
 
 #button-card{
-
   width: 100%;
   height: 20%;
   display: flex;

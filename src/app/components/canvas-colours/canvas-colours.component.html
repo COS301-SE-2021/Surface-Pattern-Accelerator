@@ -1,6 +1,12 @@
 <ion-content>
   <ion-card>
     <canvas id="canvasExtractor" width="400" height="200"></canvas>
+    <br>
+    <ion-button color="medium" (click)="import()">Import</ion-button>
+    <!--
+      Input file accepts only image files
+    -->
+    <input type="file" id="cc-upload-file" accept="image/*"/>
   </ion-card>
   <ion-card>
     <ion-card-header> Tap on pattern to extract colours </ion-card-header>

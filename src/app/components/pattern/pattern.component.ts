@@ -5,15 +5,26 @@ import { Group } from 'konva/lib/Group';
 import { Shape, ShapeConfig } from 'konva/lib/Shape';
 import {motifsInterface} from "../../Interfaces/motifsInterface";
 import { PatternService } from "../../services/pattern.service";
+import {MotifCatalogueComponent} from "../../popovers/motif-catalogue/motif-catalogue.component"
+import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component"
+import {IPatternContentsInterface} from "../../Interfaces/patternContents.interface"
+import {HttpClient} from "@angular/common/http";
+
 
 import { ActivatedRoute } from '@angular/router';
-
+import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
+import {PopoverController} from "@ionic/angular";
+import {ICollectionsContent} from "../../Interfaces/collectionContents.interface";
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
   styleUrls: ['./pattern.component.scss'],
 })
 export class PatternComponent implements OnInit {
+  private serverAPIURL = 'http://localhost:3000/api';
+
+  selectedPattern: any;
+
   stage!: Konva.Stage;
   layer2!: Konva.Layer;
 
@@ -24,6 +35,9 @@ export class PatternComponent implements OnInit {
   background!: Konva.Rect;
   previewStage!: Konva.Stage;
   previewLayer!: Konva.Layer;
+  downStage!: Konva.Stage;
+  downLayer!: Konva.Layer;
+
   motifCount: number = 0;
   motifs?: motifsInterface;
   tr!: Konva.Transformer;
@@ -31,12 +45,31 @@ export class PatternComponent implements OnInit {
   canvasMotifsUrl:  string[] = new Array();
   height: number = 300;//100
   width: number = 300;
+
+  defHeight: number = 600;
+  defWidth: number = 600;
   gridLayer? : Konva.Layer;
+
+  check: boolean = false;
+  defaultBack: string = "#878787";//default background color
 
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
 
-  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
+
+  //Needed for Saving pattern
+  motifDetailsTestArr: IMotifDetailsInterface[] = [] ;
+  //saving patterns in pattern Contents interface
+  patternContents: IPatternContentsInterface = {patternName: "Test Pattern", patternID: "1000", motifs: []} as IPatternContentsInterface;
+
+  //constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
+
+  constructor(private motifService: MotifServiceService,
+              private route: ActivatedRoute,
+              public patternService: PatternService,
+              private popoverController: PopoverController,
+              private http: HttpClient) {}
+
 
   ngOnInit(){
 
@@ -77,6 +110,17 @@ export class PatternComponent implements OnInit {
     let layerr = new Konva.Layer();
     layerr = this.layer2.clone();
     this.stage.add(layerr);
+
+    //set up stage for background
+    this.downStage = new Konva.Stage({
+      container: 'down',   // id of container <div>
+      width: 600,//600
+      height: 600//600
+    });
+
+    this.downLayer = this.layer2.clone();
+    this.downStage.add(this.downLayer);
+
     this.stage1.add(this.layer2);
     //this.addLineListeners();
     this.gridLayer = new Konva.Layer();
@@ -95,6 +139,32 @@ export class PatternComponent implements OnInit {
 
 
 
+  }
+
+  collectionCataloguePopover()
+  {
+    this.popoverController.create({
+      component: MotifCatalogueComponent,
+      translucent: true,
+      cssClass: 'fullscreen'
+    }).then(resPop => {
+      resPop.present().then(presentRes => {
+        return presentRes;
+      });
+    })
+  }
+
+  uploadFilePopover()
+  {
+    this.popoverController.create({
+      component: MotifUploadComponent,
+      translucent: true,
+      cssClass: 'fullscreen'
+    }).then(resPop => {
+      resPop.present().then(presentRes => {
+        return presentRes;
+      });
+    })
   }
   //Needed For Undo
   addState(_state: Konva.Layer[] = this._state, layer2: Konva.Layer = this.layer2 )
@@ -134,6 +204,66 @@ export class PatternComponent implements OnInit {
     // // add the shape to the layer
     // this.layer.add(path);
   }
+  savePattern()
+  {
+    console.log("Layer is: ");
+    console.log(this.layer2);
+    let count = 0;
+    this.patternContents.motifs = [];
+    for(let i = 0 ; i < this.layer2.children.length ; i++)
+    {
+
+      if(i%2 == 0)
+      {
+        let motifDetailsTest: IMotifDetailsInterface = {xCoord:0, yCoord:0, scaleX:0, scaleY:0, rotation:0, url:null};
+        motifDetailsTest.xCoord = this.layer2.children[i].attrs.x;
+        motifDetailsTest.yCoord = this.layer2.children[i].attrs.y;
+        motifDetailsTest.scaleX = this.layer2.children[i].attrs.scaleX;
+        motifDetailsTest.scaleY = this.layer2.children[i].attrs.scaleY;
+        motifDetailsTest.rotation = this.layer2.children[i].attrs.rotation;
+        motifDetailsTest.url = this.layer2.children[i].attrs.image.currentSrc;
+
+        //this.motifDetailsTestArr[count++] = motifDetailsTest;
+        this.patternContents.motifs.push(motifDetailsTest);
+      }
+    }
+    console.log("Pattern Saved!");
+    //console.log(this.motifDetailsTestArr);
+    console.log(this.patternContents);
+
+    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+      { fileID: this.patternContents.patternID, content: JSON.stringify(this.patternContents) },
+      {withCredentials: true
+      }).subscribe(patternUpdateResult => {
+      console.log(patternUpdateResult) //prints
+    })
+
+   // this.loadPattern(this.motifDetailsTestArr)
+  }
+
+  loadPattern(motifDetailsArr : IMotifDetailsInterface[])
+  {
+    console.log(motifDetailsArr);
+    //console.log(motifDetailsArr);
+    for(let i = 0 ; i < motifDetailsArr.length ; i++)
+    {
+      console.log("Spawning");
+      this.spawnMotifWithURL(motifDetailsArr[i].url, motifDetailsArr[i].xCoord,motifDetailsArr[i].yCoord,motifDetailsArr[i].scaleX,motifDetailsArr[i].scaleY,motifDetailsArr[i].rotation);
+
+      console.log("Next");
+    }
+    console.log("DONE");
+    // for(var i = 0 ; i < motifDetailsArr.length ; i++)
+    // {
+    //   console.log(motifDetailsArr[i].xCoord);
+    //   this.layer2.children[i*2].x(motifDetailsArr[i].xCoord);
+    //   this.layer2.children[i*2].attrs.y = motifDetailsArr[i].yCoord;
+    //   this.layer2.children[i*2].attrs.scaleX = motifDetailsArr[i].scaleX;
+    //   this.layer2.children[i*2].attrs.scaleY = motifDetailsArr[i].scaleY;
+    //   this.layer2.children[i*2].attrs.rotation = motifDetailsArr[i].rotation;
+    // }
+  }
+
 
   addGrid(e) {
     console.log(this.layer2);
@@ -196,40 +326,24 @@ export class PatternComponent implements OnInit {
     this.layer2.add(path2);
   }
 
-  spawnMotifWithURL(motifURL: string)
+  spawnMotifWithURL(motifURL: string, xCoord: number=0, yCoord: number=0, scaleX: number=1, scaleY:number=1, rotation: number=0)
   {
 
     this.canvasMotifsUrl[this.motifCount] = motifURL;
     Konva.Image.fromURL(motifURL,
       (image: Group | Shape<ShapeConfig>) => {
-        image.x(0);
+        image.x(xCoord);
+        image.y(yCoord);
+        image.scaleX(scaleX);
+        image.scaleY(scaleY);
+        image.rotation(rotation);
         console.log(motifURL);
         image.scale();
         image.draggable(true);
         console.log( image);
 
-
-          // image.on('keydown', function(e){
-          //   e = e || window.event;
-          //   if (e.keyCode === 38) { // up
-          //     image.moveUp();
-          //     console.log("upppp");
-          //   }  else if (e.keyCode === 40) { // down
-          //     image.moveDown();
-          //   } else {
-          //     return;
-          //   }
-          //   e.preventDefault();
-          //
-          // })
-
-
-
-
-
         this.layer2.add(image);
         this.canvasMotifs[this.motifCount] = image;
-       // console.log("New motifs: " + this.layer2);
 
         this.tr = new Konva.Transformer();
         this.layer2.add(this.tr);
@@ -245,8 +359,6 @@ export class PatternComponent implements OnInit {
 
         this.motifCount++;
         console.log(this.layer2);
-
-
 
       });
     //this.back();
@@ -302,6 +414,50 @@ export class PatternComponent implements OnInit {
       }
     }
     //this.back();
+  }
+    delete(img: Group | Shape<ShapeConfig>)
+    {
+      let motifNum = 0;
+      for (var i = 0; i < this.layer2.children.length; i++) {
+        console.log("Before delete");
+        console.log(this.layer2);
+        if (img._id == this.layer2.children[i]._id) {
+          this.layer2.children[i].remove();
+          console.log(this.layer2);
+          this.layer2.children[i].remove();
+          console.log(this.layer2);
+          console.log("Done");
+          this.motifCount--;
+          this.layer2.draw();
+          motifNum = i;
+          break;
+        }
+
+      }
+
+      let s = document.querySelectorAll(".MotifImage2");
+      s[motifNum].remove();
+      console.log(s);
+      console.log("Is the s");
+    }
+  flipX(img: Group | Shape<ShapeConfig>)
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetX( this.layer2.children[i].width() / 2)
+        this.layer2.children[i].scaleX( (- this.layer2.children[i].scaleX()))
+      }
+
+    }
+  }
+  flipY(img: Group | Shape<ShapeConfig>)
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetY( this.layer2.children[i].height() / 2)
+        this.layer2.children[i].scaleY( (- this.layer2.children[i].scaleY()))
+      }
+    }
   }
 
 
@@ -360,6 +516,7 @@ export class PatternComponent implements OnInit {
       }
     }
     this.stage.add(this.layerr);
+    this.downLayer = this.layerr;//send to download layer
     //this.background.listening(false);
   }
 
@@ -393,6 +550,39 @@ export class PatternComponent implements OnInit {
     this.background.moveToBottom();
   }
 
+  createBack(){
+    const c = document.getElementById("container").style.backgroundColor;
+    //const color = this.background.fill();//keep old/new color
+    this.background = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: this.defWidth,
+      height: this.defHeight,
+      scaleY: 3,
+      scaleX: 3,
+      fill: c,
+      listening: false,
+      resizeEnabled: false,
+      draggable: false,
+    });
+    this.downStage = this.stage.clone();
+    this.downLayer.add(this.background);//add background Rect
+    this.background.moveToBottom();//move to bottom of pattern
+    this.downStage.add(this.downLayer);//add to downStage
+    this.generate();//reset preview
+    //this.downStage = new Konva.Stage({
+    //   container: 'down',   // id of container <div>
+    //   width: 600,
+    //   height: 600
+    // });
+    // this.generate();//refresh preview
+    // //this.downLayer = this.layer2.clone();//get copy of preview
+    // this.downLayer.add(this.background);//add background Rect
+    // this.background.moveToBottom();//move to bottom of pattern
+    // this.downStage.add(this.downLayer);//add to downStage
+
+  }
+
   newPattern(patternName: string)
   {
     this.patternService.newPattern(patternName);
@@ -401,10 +591,19 @@ export class PatternComponent implements OnInit {
 
 
   download(){
-    const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
-    this.downloadURI(dataURL, 'frame.png');
+    if(this.check === true)
+    {
+      this.createBack();
+      const dataURL = this.downStage.toDataURL({ pixelRatio: 3 });//get current canvas
+      this.downloadURI(dataURL, 'pattern.png');
+    }
+    else{
+      const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
+      this.downloadURI(dataURL, 'pattern.png');
+    }
   }
   // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+
   downloadURI(uri, name) {
     const link = document.createElement('a');
     link.download = name;
@@ -424,4 +623,27 @@ export class PatternComponent implements OnInit {
     //this.background.fill(color);
   }
 
+  addBack(e)
+  {
+    if(e.checked)
+    {
+      this.check = true;
+    }
+    else{
+      this.check = false;
+    }
+  }
+
+  onPatternChange(selectedPatternID: any) {
+    console.log(selectedPatternID);
+    this.http.post(this.serverAPIURL + '/getFileByID',
+      { fileID: selectedPatternID },
+      {withCredentials: true
+      }).subscribe(fileContent => {
+      this.patternContents = fileContent as IPatternContentsInterface;
+      console.log(this.patternContents);
+      this.loadPattern(this.patternContents.motifs);
+
+    });
+  }
 }
