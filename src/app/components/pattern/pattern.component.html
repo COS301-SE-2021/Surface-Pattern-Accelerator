@@ -63,6 +63,11 @@
         </ion-select>
       </ion-item>
 
+      <div id="down">
+
+      </div>
+
+
       <div class="row">
         <div class="workArea" id="container"></div>
         <div class="view" id="preview"></div>
@@ -85,6 +90,8 @@
       <div class="widgetSide">
         <div class="Layers">
           <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
+          <br>
+          <mat-checkbox labelPosition="before" (change)="addBack($event)">Enable Background</mat-checkbox>
           <br>
         <button (click)="backButton()"> Undo </button>
         <button (click)="savePattern()"> Save Pattern </button>
