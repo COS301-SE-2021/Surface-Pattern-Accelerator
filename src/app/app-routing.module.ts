@@ -24,16 +24,14 @@ const routes: Routes = [
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'colorpallet', component: CollorPalletComponent},
-  //{ path: 'pattern/:collectionID/:collectionName', component: PatternComponent},
-  { path: 'pattern', component: PatternComponent},
+  { path: 'pattern/:collectionID/:collectionName', component: PatternComponent},
   { path: 'import', component: ImportComponent },
   { path: 'workarea', component: WorkareaComponent },
   { path: 'loginResponse', component: LoginResponseComponent },
   { path: 'canvasColours', component: CanvasColoursComponent },
   { path: 'preview', component: PreviewComponent },
   { path: 'color', component: ColorComponent},
-  { path: 'newCollection', component: NewCollectionComponent },
-  { path: 'exportPattern', component: ExportPopoverComponent}
+  { path: 'newCollection', component: NewCollectionComponent }
 ];
 
 @NgModule({
