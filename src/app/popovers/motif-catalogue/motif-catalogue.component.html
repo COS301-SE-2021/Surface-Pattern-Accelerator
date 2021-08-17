@@ -4,7 +4,7 @@
 
   <div *ngIf="motifs">
     <div class="squareContainer" *ngFor="let motif of motifs.motifDetails" class="MotifImage">
-      <button style="overflow:hidden;" class="motifBtn"  mat-raised-button>
+      <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)="motifSelect(motif.motifID)">
         <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
         <h5  class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
       </button>
