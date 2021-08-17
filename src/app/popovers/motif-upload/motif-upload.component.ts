@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UploadService} from "../../services/upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 
 
 
@@ -22,7 +23,7 @@ export class MotifUploadComponent implements OnInit {
   urls = [];
 
 
-  constructor(private uploadService: UploadService, private fb: FormBuilder, ) { }
+  constructor(private uploadService: UploadService, private fb: FormBuilder, private httpClient: HttpClient) { }
 
   ngOnInit()
   {
@@ -131,4 +132,17 @@ export class MotifUploadComponent implements OnInit {
     }
   }
 
+
+  uploadFile(event: any) {
+      const file = event.target.files[0];
+      console.log(file)
+
+    const formData = new FormData();
+      formData.append('files', file)
+
+      this.httpClient.post('http://localhost:3000/api/uploadMotif', formData, {withCredentials: true})
+        .subscribe(response => {
+          console.log(response)
+        })
+  }
 }
