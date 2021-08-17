@@ -11,22 +11,8 @@ export class CanvasColoursComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.draw();
     document.getElementById('canvasExtractor').onclick = ()=>{
       this.canvasColour();
-    };
-  }
-
-  draw(){
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const canvas = <HTMLCanvasElement> document.getElementById('canvasExtractor');
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
-
-    const img = new Image();
-    img.src='../assets/shapes.svg';
-    img.onload = () =>{
-      ctx.drawImage(img,0,0);
     };
   }
 
@@ -64,7 +50,7 @@ export class CanvasColoursComponent implements OnInit {
 
     console.log('before loop');
     let count = 0;
-    for (i =1; i < keys.length; i++){
+    for (i =0; i < keys.length; i++){
       console.log('in loop');
 
       if(!used.includes(this.colourList[keys[i]])){
@@ -72,11 +58,11 @@ export class CanvasColoursComponent implements OnInit {
         if(prev != keys[i].charAt(1)){
           used.push(this.colourList[keys[i]]);
 
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          const item = <HTMLElement> document.querySelector('#it'+ count);
+          const item = document.querySelector('#it'+ count) as HTMLElement;
+          const hex = document.querySelector('#hex'+ count) as HTMLElement;
           console.log(keys[i]);
           item.style.backgroundColor = keys[i];
-          item.innerHTML = keys[i];
+          hex.innerHTML = keys[i];
 
           prev = keys[i].charAt(1);
           count++;
@@ -99,22 +85,22 @@ export class CanvasColoursComponent implements OnInit {
   // Import SVG & Image files and display them on the canvas
   import() {
     // Return element
-    let ret = null;
+    const ret = null;
     // Get access to the canvas element
-    const canvas = <HTMLCanvasElement>document.getElementById("canvasExtractor");
+    const canvas = document.getElementById('canvasExtractor') as HTMLCanvasElement;
     // Specify the canvas context
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     // Specify image object
     let img = new Image();
     // Get access to the file input element
-    let fileInput = <HTMLInputElement>document.getElementById('cc-upload-file');
+    const fileInput =document.getElementById('cc-upload-file') as  HTMLInputElement;
     // Init FileReader API
     const reader = new FileReader();
     // Trigger the hidden input type='file' html element
     fileInput.click();
     // Activates when a user selects a file and a change event is fired by the browser
     fileInput.addEventListener('change', ()=> {
-      let file = fileInput.files[0];
+      const file = fileInput.files[0];
       // Check for file
       if (file) {
         try {
@@ -129,14 +115,14 @@ export class CanvasColoursComponent implements OnInit {
 
     // Add image to canvas
     reader.addEventListener(
-      "load",
+      'load',
       () => {
         // Create image
         img = new Image();
         // Set image src
-        img.src = <string>reader.result;
+        img.src = reader.result as string;
         // On image load add to canvas
-        img.onload = function() {
+        img.onload = () => {
           // Sets a limit to the size of image displayed
           if (img.width > 300) {
             img.width  = 300;
@@ -147,7 +133,7 @@ export class CanvasColoursComponent implements OnInit {
           canvas.width = img.width;
           canvas.height = img.height;
           ctx.drawImage(img, 0, 0, img.width, img.height);
-          canvas.removeAttribute("data-caman-id");
+          canvas.removeAttribute('data-caman-id');
         };
       },
       false
@@ -155,5 +141,21 @@ export class CanvasColoursComponent implements OnInit {
     return ret;
   }
 
+  reloadPage(){
+    const canvas = document.getElementById('canvasExtractor') as HTMLCanvasElement;
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+    const img = new Image();
+    img.onload = () =>{
+      context.drawImage(img,0,0);
+    };
+    context.clearRect(0,0, canvas.width, canvas.height);
+
+    for(let x=0; x<20; x++){
+      const item = document.querySelector('#it'+ x) as HTMLElement;
+      item.style.backgroundColor = '';
+      item.innerHTML = '';
+    }
+    this.colourList = [];
+  }
 }
 

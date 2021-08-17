@@ -258,7 +258,8 @@ export class ColorComponent implements OnInit {
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
     const imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
     const data = imageData.data;
-    let i; let n; let ret=0;
+    let i; let n;
+    let ret = '';
 
 
     for(i = 0, n = data.length; i < n; i += 4){
@@ -294,14 +295,15 @@ export class ColorComponent implements OnInit {
           used.push(this.colourList[keys[i]]);
 
           // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          const item = <HTMLElement> document.querySelector('#item'+ count);
+          const item = document.querySelector('#item'+ count) as HTMLElement;
+          const hx = document.querySelector('#hx'+ count) as HTMLElement;
           console.log(keys[i]);
           item.style.backgroundColor = keys[i];
-          item.innerHTML = keys[i];
+          hx.innerHTML = keys[i];
 
           prev = keys[i].charAt(1);
           count++;
-          ret=1;
+          ret += keys[i] + ',';
         }
       }
     }
