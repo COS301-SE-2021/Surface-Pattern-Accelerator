@@ -1,7 +1,10 @@
+import bodyParser from "body-parser";
 import fs, {linkSync} from "fs";
 import {google} from "googleapis";
 import {toolresults} from "googleapis/build/src/apis/toolresults";
+
 // import stream from "node:stream";
+import path from "path";
 import { Stream } from "stream";
 import {AuthClientObjectWrapper} from "./AuthClientObjectWrapper";
 import {ICollectionDetailsInterface} from "./Interfaces/collectionDetails.interface";
@@ -533,6 +536,27 @@ export class GoogleApiFunctions {
         }).catch((error) => {
             console.log(error);
             return {text: "JSON file creation failed"};
+        });
+    }
+
+    public uploadMotif(token: ITokenInterface, fileName: string) {
+        const auth = this.createAuthObject(token);
+        const drive = google.drive({version: "v3", auth});
+        const filePath = "./uploads/" + fileName;
+
+        const fileMetadata = {
+            name: fileName
+        };
+        const media = {
+            mimeType: "image/svg+xml",
+            body: fs.createReadStream(filePath)
+        };
+
+        return drive.files.create({
+            // @ts-ignore
+            resource: fileMetadata,
+            media,
+            fields: "id"
         });
     }
 

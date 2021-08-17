@@ -13,6 +13,9 @@ import {GoogleApiFunctions} from "./GoogleApiFunctions";
 import {ICollectionsContent} from "./Interfaces/collectionContents.interface";
 import {IFolderInterface} from "./Interfaces/folder.interface";
 
+import {rejects} from "assert";
+import multer from "multer" ;
+
 // tslint:disable-next-line:interface-name
 declare module "express-session" { interface Session { accessToken: ITokenInterface; } }
 
@@ -22,6 +25,7 @@ declare module "express-session" { interface Session { accessToken: ITokenInterf
 const SCOPES = ["https://www.googleapis.com/auth/drive"];
 const TOKEN_PATH = "token.json";
 const port = 3000; // default port to listen
+
 ////////////////////////////////////////////////////
 
 // global variables /////////////////////////////////
@@ -36,6 +40,16 @@ loadCredentials();
 
 // Express setup /////////////////////////////////////////////////////////
 const app = express();
+
+const storage = multer.diskStorage({
+    destination:  (req, file, cb) => {
+        cb(null, "uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+});
+const upload = multer({storage});
 
 app.use(cors({origin: // cors so it can work with application on another domain
         ["http://localhost:8100"],
@@ -250,8 +264,31 @@ app.post("/api/createNewJSONFile", (req, res) => {
 
 });
 
-app.post("/api/uploadMotif", (req, res) => {
-    console.log(req);
+app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
+    const files: any = req.files;
+    const gAPI = new GoogleApiFunctions();
+    // "./uploads/frame.png"
+
+    console.log(files[0].filename);
+    const filePath = "./uploads/" + files[0].filename;
+    console.log(filePath);
+    if (fs.existsSync(filePath)) {
+        gAPI.uploadMotif(req.session.accessToken, files[0].filename)
+            .then((uploadPromise) => {
+                console.log(uploadPromise);
+            });
+        console.log("exists");
+    } else {
+        console.log("Does not exist");
+    }
+
+    if (Array.isArray(files) && files.length > 0) {
+        res.json({Status: "200 - success"});
+    } else {
+        res.json({Status: "404 - no file found in request"});
+    }
+
+    // console.log(req);
 });
 
 // start the Express server

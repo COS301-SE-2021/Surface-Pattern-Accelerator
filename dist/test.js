@@ -11,6 +11,7 @@ const express_session_1 = __importDefault(require("express-session"));
 const fs_1 = __importDefault(require("fs"));
 const googleapis_1 = require("googleapis");
 const GoogleApiFunctions_1 = require("./GoogleApiFunctions");
+const multer_1 = __importDefault(require("multer"));
 ////////////////////////////////////////////////////
 // Constants ////////////////////////////////////////
 const SCOPES = ["https://www.googleapis.com/auth/drive"];
@@ -26,6 +27,15 @@ loadCredentials();
 ////////////////////////////////////////////////////
 // Express setup /////////////////////////////////////////////////////////
 const app = express_1.default();
+const storage = multer_1.default.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+});
+const upload = multer_1.default({ storage });
 app.use(cors_1.default({ origin: // cors so it can work with application on another domain
     ["http://localhost:8100"],
     credentials: true }));
@@ -198,8 +208,30 @@ app.post("/api/createNewJSONFile", (req, res) => {
         res.json(result);
     });
 });
-app.post("/api/uploadMotif", (req, res) => {
-    console.log(req);
+app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
+    const files = req.files;
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    // "./uploads/frame.png"
+    console.log(files[0].filename);
+    const filePath = "./uploads/" + files[0].filename;
+    console.log(filePath);
+    if (fs_1.default.existsSync(filePath)) {
+        gAPI.uploadMotif(req.session.accessToken, files[0].filename)
+            .then((uploadPromise) => {
+            console.log(uploadPromise);
+        });
+        console.log("exists");
+    }
+    else {
+        console.log("Does not exist");
+    }
+    if (Array.isArray(files) && files.length > 0) {
+        res.json({ Status: "200 - success" });
+    }
+    else {
+        res.json({ Status: "404 - no file found in request" });
+    }
+    // console.log(req);
 });
 // start the Express server
 app.listen(port, () => {
