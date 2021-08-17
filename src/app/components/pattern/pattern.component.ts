@@ -43,7 +43,7 @@ export class PatternComponent implements OnInit {
   //Needed for Saving patterm
   motifDetailsTestArr: IMotifDetailsInterface[] = new Array() ;
 
-  constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
+  //constructor(private motifService: MotifServiceService, private route: ActivatedRoute, public patternService: PatternService) {}
 
   constructor(private motifService: MotifServiceService,
               private route: ActivatedRoute,
@@ -283,7 +283,19 @@ export class PatternComponent implements OnInit {
 
     this.layer2.add(path2);
   }
-
+  showTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += "active";
+  }
   spawnMotifWithURL(motifURL: string, xCoord: number=0, yCoord: number=0, scaleX: number=1, scaleY:number=1, rotation: number=0)
   {
 
@@ -373,31 +385,23 @@ export class PatternComponent implements OnInit {
     }
     //this.back();
   }
-    delete(img: Group | Shape<ShapeConfig>)
-    {
-      let motifNum = 0;
-      for (var i = 0; i < this.layer2.children.length; i++) {
-        console.log("Before delete");
-        console.log(this.layer2);
-        if (img._id == this.layer2.children[i]._id) {
-          this.layer2.children[i].remove();
-          console.log(this.layer2);
-          this.layer2.children[i].remove();
-          console.log(this.layer2);
-          console.log("Done");
-          this.motifCount--;
-          this.layer2.draw();
-          motifNum = i;
-          break;
-        }
-
+  delete(img: Group | Shape<ShapeConfig>)
+  {
+    let motifNum = 0;
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        motifNum = i;
+        this.layer2.children[i].remove();
+        this.layer2.children[i].remove();
+        this.motifCount--;
+        this.layer2.draw();
+        break;
       }
-
-      let s = document.querySelectorAll(".MotifImage2");
-      s[motifNum].remove();
-      console.log(s);
-      console.log("Is the s");
     }
+    let s = document.querySelectorAll(".MotifImage2");
+    s[motifNum/2].remove();
+  }
+
   flipX(img: Group | Shape<ShapeConfig>)
   {
     for (var i = 0; i < this.layer2.children.length; i++) {
