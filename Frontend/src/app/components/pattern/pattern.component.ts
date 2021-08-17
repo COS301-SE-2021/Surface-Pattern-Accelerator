@@ -420,26 +420,17 @@ export class PatternComponent implements OnInit {
   {
     let motifNum = 0;
     for (var i = 0; i < this.layer2.children.length; i++) {
-      console.log("Before delete");
-      console.log(this.layer2);
       if (img._id == this.layer2.children[i]._id) {
+        motifNum = i;
         this.layer2.children[i].remove();
-        console.log(this.layer2);
         this.layer2.children[i].remove();
-        console.log(this.layer2);
-        console.log("Done");
         this.motifCount--;
         this.layer2.draw();
-        motifNum = i;
         break;
       }
-
     }
-
     let s = document.querySelectorAll(".MotifImage2");
-    s[motifNum].remove();
-    console.log(s);
-    console.log("Is the s");
+    s[motifNum/2].remove();
   }
   flipX(img: Group | Shape<ShapeConfig>)
   {
