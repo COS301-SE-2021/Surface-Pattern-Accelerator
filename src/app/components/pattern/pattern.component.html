@@ -39,7 +39,7 @@
 
     <ion-col size="7">
       <ion-card>
-        <ion-card-header style="height: 50px">
+        <ion-card-header>
           <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
             <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
               <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
@@ -48,7 +48,7 @@
 
           <div id="down"></div>
         </ion-card-header>
-        <ion-card-content class="rows">
+        <ion-card-content class="row">
 
             <div class="workArea" id="container"></div>
             <div class="view" id="preview"></div>

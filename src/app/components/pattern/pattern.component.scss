@@ -70,15 +70,12 @@ $dot-size: 1.5px;
 $dot-space: 15px;
 
 .row{
-  //overflow: scroll;
   background:
     linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
     linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
     $dot-color;
   background-size: $dot-space $dot-space;
-  //border: 4px solid black;
-  //height: 100%;//FILL ALL THE WAY TO BOTTOM
-  //padding-bottom: 10px;
+  width: 100%;
 }
 
 #can{
