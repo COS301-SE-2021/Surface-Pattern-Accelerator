@@ -163,6 +163,7 @@ export class PatternComponent implements OnInit {
     }).then(resPop => {
       resPop.present().then(presentRes => {
         return presentRes;
+
       });
     })
   }

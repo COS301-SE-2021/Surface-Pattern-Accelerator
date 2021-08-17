@@ -44,4 +44,6 @@
 <!--  </div>-->
 <!--</form>-->
 
-<input type="file" (change)="uploadFile($event)" name="file" accept=".svg">
+<input type="file" (change)="selectFiles($event)" name="file" accept=".svg" multiple>
+<ion-button (click)="uploadFiles()">Upload</ion-button>
+<ion-button>Cancel</ion-button>
