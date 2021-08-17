@@ -1,21 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import {UploadService} from "../../services/upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-motif-upload',
   templateUrl: './motif-upload.component.html',
   styleUrls: ['./motif-upload.component.scss'],
+
 })
 export class MotifUploadComponent implements OnInit {
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
   message ='';
+  formData: any;
 
-  constructor(private uploadService: UploadService) { }
+  multiForm: FormGroup;
+  urls = [];
 
-  ngOnInit() {}
+
+  constructor(private uploadService: UploadService, private fb: FormBuilder, ) { }
+
+  ngOnInit()
+  {
+    this.formData = new FormGroup({
+      name: new FormControl(),
+      files: new FormControl()
+    })
+    console.log("motif u")
+    this.initForm();
+
+
+  }
+
+
 
   selectFile(event: any)
   {
@@ -62,4 +83,52 @@ export class MotifUploadComponent implements OnInit {
       this.selectedFiles = undefined;
     }
   }
+
+  onClickSubmit(ev: any) {
+    console.log(ev.target.files);
+    console.log(this.formData.value)
+  }
+
+  onSubmit(values: any)
+  {
+    console.log(values);
+  }
+
+  initForm()
+  {
+    this.multiForm = this.fb.group({
+      multiImages: this.fb.array([])
+    })
+  }
+
+  createImage(img)
+  {
+    const newImage = new FormControl(img, Validators.required);
+    (<FormArray>this.multiForm.get('multiImages')).push(newImage)
+  }
+
+  get multiImages(): FormArray
+  {
+    if (this.multiForm && this.multiForm.get('multiImages'))
+    {
+      return this.multiForm.get('multiImages') as FormArray;
+    }
+  }
+
+  onFileUpload(event: any) {
+    this.urls = [];
+    let selectedFiles = event.target.files;
+    console.log(selectedFiles)
+    if (selectedFiles) {
+      for (let file of selectedFiles) {
+        let reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.urls.push(e.target.result);
+          this.createImage(e.target.result);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
 }
