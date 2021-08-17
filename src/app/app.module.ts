@@ -10,6 +10,9 @@ import { CollectionCreatorComponent } from './components/collection-creator/coll
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
 import { HttpClientModule } from '@angular/common/http';
 
+//popovers
+import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component'
+
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { PatternComponent } from './components/pattern/pattern.component';
@@ -33,6 +36,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MotifCatalogueComponent} from "./popovers/motif-catalogue/motif-catalogue.component"
 import { MaterialModule } from './material/material.module';
 
 
@@ -54,7 +58,9 @@ import { MaterialModule } from './material/material.module';
     NavbarComponent,
     ColorComponent,
     MainComponent,
-    BodyComponent
+    BodyComponent,
+    MotifUploadComponent,
+    MotifCatalogueComponent
   ],
 
   imports: [
@@ -62,6 +68,7 @@ import { MaterialModule } from './material/material.module';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatInputModule,

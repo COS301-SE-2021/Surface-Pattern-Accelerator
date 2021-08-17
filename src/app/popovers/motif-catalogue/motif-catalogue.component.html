@@ -2,52 +2,14 @@
 <h1 style="text-align:center; padding-top: 10px">Motif Catalogue</h1>
 <div class="collections-menu">
 
-  <div>
-    <div class="square">
-      <div class="gear">
-        <ion-button>
-          <ion-icon name="settings"></ion-icon>
-        </ion-button>
-      </div>
+  <div *ngIf="motifs">
+    <div class="squareContainer" *ngFor="let motif of motifs.motifDetails" class="MotifImage">
+      <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)="motifSelect(motif)">
+        <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+        <h5  class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
+      </button>
     </div>
-    <div class="label">
-      <a class="collections"
-         routerLink="">
-        Motif Name Here
-      </a>
-    </div>
-  </div>
 
-  <div>
-    <div class="square">
-      <div class="gear">
-        <ion-button>
-          <ion-icon name="settings"></ion-icon>
-        </ion-button>
-      </div>
-    </div>
-    <div class="label">
-      <a class="collections"
-         routerLink="">
-        Motif Name Here
-      </a>
-    </div>
-  </div>
-
-  <div>
-    <div class="square">
-      <div class="gear">
-        <ion-button>
-          <ion-icon name="settings"></ion-icon>
-        </ion-button>
-      </div>
-    </div>
-    <div class="label">
-      <a class="collections"
-         routerLink="">
-        Motif Name Here
-      </a>
-    </div>
   </div>
 </div>
 

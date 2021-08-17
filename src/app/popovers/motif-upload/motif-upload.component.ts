@@ -1,65 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import {UploadService} from "../../services/upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { LoadingController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-motif-upload',
   templateUrl: './motif-upload.component.html',
   styleUrls: ['./motif-upload.component.scss'],
+
 })
 export class MotifUploadComponent implements OnInit {
-  selectedFiles?: FileList;
-  currentFile?: File;
-  progress = 0;
-  message ='';
+  files: any = [];
+  constructor(private uploadService: UploadService, private fb: FormBuilder, private httpClient: HttpClient, public loadingController: LoadingController) { }
 
-  constructor(private uploadService: UploadService) { }
-
-  ngOnInit() {}
-
-  selectFile(event: any)
+  ngOnInit()
   {
-    console.log("File Selected");
-    this.selectedFiles = event.target.files;
+
   }
 
-  upload() {
-    console.log("Upload")
-    if (this.selectedFiles)
+
+
+  selectFiles(event: any)
+  {
+    console.log("Files Selected");
+    this.files = event.target.files;
+  }
+
+  uploadFiles() {
+    //this.files = event.target.files;
+    console.log(this.files)
+
+    if (this.files !== undefined)
     {
-      const file: File | null = this.selectedFiles.item(0);
-
-      if (file)
+      const formData = new FormData();
+      console.log("Length: " + this.files.length)
+      for (let i = 0; i < this.files.length; i++)
       {
-        this.currentFile = file;
-
-        this.uploadService.upload(this.currentFile)
-          .subscribe((event: any) => {
-            if (event.type === HttpEventType.UploadProgress)
-            {
-                console.log("loaded: " + event.loaded)
-              console.log("total: " + event.total)
-            }
-            else if (event instanceof HttpResponse)
-            {
-              this.message = event.body.message;
-            }
-
-          },(err: any) => {
-            console.log(err);
-            this.progress = 0;
-
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the file!';
-            }
-
-            this.currentFile = undefined;
-
-          })
+        console.log(this.files[i]);
+        formData.append('files', this.files[i])
       }
-      this.selectedFiles = undefined;
+
+      this.loadingController.create({
+        message: "Uploading files..."
+      }).then(loaderResult => {
+        loaderResult.present().then(() => {
+          this.httpClient.post('http://localhost:3000/api/uploadMotif', formData, {withCredentials: true})
+            .subscribe(response => {
+              console.log(response)
+              loaderResult.dismiss().then();
+            })
+        })
+      })
+
+
     }
+
   }
 }
