@@ -549,8 +549,9 @@ export class PatternComponent implements OnInit {
     this.layer2.add(this.background);
     this.background.moveToBottom();
   }
-
   createBack(){
+
+    console.log("Background enabled");
     const c = document.getElementById("container").style.backgroundColor;
     //const color = this.background.fill();//keep old/new color
     this.background = new Konva.Rect({
@@ -591,6 +592,7 @@ export class PatternComponent implements OnInit {
 
 
   download(){
+    console.log("downloading");
     if(this.check === true)
     {
       this.createBack();
