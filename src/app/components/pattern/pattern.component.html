@@ -1,54 +1,5 @@
 <div class="row">
-  <div class="column left" style="background-color:#aaa;">
 
-    <div class="sidenav bg-primary column">
-      <div class="sideMotif">
-        <h1 style="text-align:center" >Motif Library</h1>
-        <div>
-<!--          <h5 style="padding:5px">Import new Motif</h5>-->
-          <ion-button (click)='uploadFilePopover()'>Import new Motif</ion-button>
-          <mat-divider style="color: black"></mat-divider>
-        </div>
-
-        <div>
-<!--          <h5 style="padding:5px">Append motif to project</h5>-->
-          <ion-button (click)='collectionCataloguePopover()'>Append motifs to project</ion-button>
-          <mat-divider style="color: black; font-weight: bold; cursor: pointer"></mat-divider>
-        </div>
-
-        <div>
-          <mat-form-field floatLabel="never">
-            <input matInput placeholder="Search for motif">
-          </mat-form-field>
-        </div>
-
-        <!--        <div>-->
-        <!--          <div class="MotifImage">-->
-        <!--            <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY="-->
-        <!--            alt="motif-image">-->
-        <!--            <h5> Trees 1 </h5>-->
-        <!--          </div>-->
-        <!--        </div>-->
-
-        <div *ngIf="motifs">
-          <div class="squareContainer" *ngFor="let motif of motifs.motifDetails" class="MotifImage">
-            <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
-              <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-              <h5  class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
-            </button>
-          </div>
-
-        </div>
-
-        <div class = "row">
-          <button mat-raised-button (click)='spawnMotif(); '>Spawn Motif</button>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
   <div class="column middle" style="background-color:#bbb;">
 
     <div class="main column center">
@@ -75,7 +26,7 @@
 
         </div>
 
-        <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
+        <div id="can"></div>
 
       </div>
       <input type="text" class="inputField" #patternName>
@@ -93,56 +44,121 @@
     <div class="widgets column">
       <div class="widgetSide">
         <div class="Layers">
-          <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
-          <br>
-        <button (click)="backButton()"> Undo </button>
-        <button (click)="savePattern()"> Save Pattern </button>
-        <button ><!--(click)="loadPattern()"-->Load Pattern</button>
-        </div>
-
-        <div class="modifiers">
-          <h1 style="text-align:center" >Modifiers</h1>
-          <div>
-            <h5 style="padding:5px">New Layer</h5>
-            <mat-divider style="color: black; padding: 5px;"></mat-divider>
+          <div class="tab">
+            <button class="tablinks" (click)="showTab($event, 'Layers')">Layers</button>
+            <button class="tablinks" (click)="showTab($event, 'Canvas')">Canvas</button>
+            <button class="tablinks" (click)="showTab($event, 'Motifs')">Motifs</button>
           </div>
-          <div class="layerNumbers">
-            <div class="layerBorder">
-              <h6>Layer</h6>
 
-                <div *ngIf="motifs" >
-                  <div *ngFor="let motif of this.canvasMotifs" mat-raised-button >
-                    <div class="MotifImage2" mat-raised-button >
-                      <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
-  <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
-                      motif.attrs.image.outerHTML
-               <!--       <button (click)="moveUp(motif)">MoveUp</button>
-                      <button (click)="moveDown(motif)">MoveDown</button>
-                      -->
-                      <button (click)="moveToTop(motif)">Top</button>
-                      <button (click)="movetToBottom(motif)">Bottom</button>
-                      <button (click)="delete(motif)">Delete</button>
-                      <button (click)="flipX(motif)">FlipX</button>
-                      <button (click)="flipY(motif)">FlipY</button>
-                    </div >
+          <div id="Layers" class="tabcontent">
+            <h3>Layers</h3>
+            <div class="modifiers">
+              <h1 style="text-align:center" >Modifiers</h1>
+              <div>
+                <h5 style="padding:5px">New Layer</h5>
+                <mat-divider style="color: black; padding: 5px;"></mat-divider>
+              </div>
+              <div class="layerNumbers">
+                <div class="layerBorder">
+                  <h6>Layer</h6>
+
+                  <div *ngIf="motifs" >
+                    <div *ngFor="let motif of this.canvasMotifs" mat-raised-button >
+                      <div class="MotifImage2" mat-raised-button >
+                        <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
+                        <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
+                        motif.attrs.image.outerHTML
+                        <!--       <button (click)="moveUp(motif)">MoveUp</button>
+                               <button (click)="moveDown(motif)">MoveDown</button>
+                               -->
+                        <button (click)="moveToTop(motif)">Top</button>
+                        <button (click)="movetToBottom(motif)">Bottom</button>
+                        <button (click)="delete(motif)">Delete</button>
+                        <button (click)="flipX(motif)">FlipX</button>
+                        <button (click)="flipY(motif)">FlipY</button>
+                      </div >
+                    </div>
                   </div>
                 </div>
+              </div>
+
             </div>
+
+          </div>
+
+          <div id="Canvas" class="tabcontent">
+            <h3>Canvas</h3>
+            <mat-checkbox labelPosition="before" (change)="addGrid($event)">Show Gridlines</mat-checkbox>
+            <br>
+            <button (click)="backButton()"> Undo </button>
+            <button (click)="savePattern()"> Save Pattern </button>
+            <button class="buttons" id="pre" (click)='generate()'>Refresh</button>
+            <br>
+            <button class="buttons" id="save" (click)='download()'>Export</button>
+            <br>
+            <label for="fav_color">Select a color: </label>
+            <input type="color" id="fav_color" name="fav_color" value="#ff0000">
+            <br>
+            <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
+
+          </div>
+
+          <div id="Motifs" class="tabcontent">
+            <h3>Motifs</h3>
+            <div class="sideMotif">
+              <h1 style="text-align:center" >Motif Library</h1>
+              <div>
+                <!--          <h5 style="padding:5px">Import new Motif</h5>-->
+                <ion-button (click)='uploadFilePopover()'>Import new Motif</ion-button>
+                <mat-divider style="color: black"></mat-divider>
+              </div>
+
+              <div>
+                <!--          <h5 style="padding:5px">Append motif to project</h5>-->
+                <ion-button (click)='collectionCataloguePopover()'>Append motifs to project</ion-button>
+                <mat-divider style="color: black; font-weight: bold; cursor: pointer"></mat-divider>
+              </div>
+
+              <div>
+                <mat-form-field floatLabel="never">
+                  <input matInput placeholder="Search for motif">
+                </mat-form-field>
+              </div>
+
+              <!--        <div>-->
+              <!--          <div class="MotifImage">-->
+              <!--            <img src="https://media.istockphoto.com/photos/single-tree-with-clipping-path-and-alpha-channel-picture-id1147108546?k=6&m=1147108546&s=612x612&w=0&h=NyuGEept3ua05KLTqJaoqPyCIGD9vI_NQhFsuhBArIY="-->
+              <!--            alt="motif-image">-->
+              <!--            <h5> Trees 1 </h5>-->
+              <!--          </div>-->
+              <!--        </div>-->
+
+              <div *ngIf="motifs">
+                <div class="squareContainer" *ngFor="let motif of motifs.motifDetails" class="MotifImage">
+                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+                    <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                    <h5  class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
+                  </button>
+                </div>
+
+              </div>
+
+              <div class = "row">
+                <button mat-raised-button (click)='spawnMotif(); '>Spawn Motif</button>
+              </div>
+
+            </div>
+
+          </div>
+
           </div>
 
         </div>
 
-<!--        <div class="func">-->
-          <h1 style="text-align:center" >Changes</h1>
-          <button class="buttons" id="pre" (click)='generate()'>Refresh</button>
-          <br>
-          <button class="buttons" id="save" (click)='download()'>Export</button>
-          <br>
-          <label for="fav_color">Select a color: </label>
-          <input type="color" id="fav_color" name="fav_color" value="#ff0000">
-          <br>
-          <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
-<!--        </div>-->
+
+
+
+
 
       </div>
 
@@ -150,4 +166,4 @@
     </div>
 
   </div>
-</div>
+
