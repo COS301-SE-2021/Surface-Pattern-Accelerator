@@ -88,6 +88,37 @@
               <ion-label>New Layer</ion-label>
             </ion-item>
           </ion-list>
+
+          <div class="layerNumbers">
+            <div class="layerBorder">
+              <ion-label>Layer</ion-label>
+
+              <div *ngIf="motifs" >
+                <div *ngFor="let motif of this.canvasMotifs">
+                  <div class="MotifImage2">
+                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
+                    <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
+                    motif.attrs.image.outerHTML
+                    <!--       <button (click)="moveUp(motif)">MoveUp</button>
+                           <button (click)="moveDown(motif)">MoveDown</button>
+                           -->
+                    <ion-button size="small" color="light" (click)="moveToTop(motif)">Top</ion-button>
+                    <ion-button size="small" color="light" (click)="moveToBottom(motif)">Bottom</ion-button>
+                    <ion-button size="small" color="light" (click)="delete(motif)">Delete</ion-button>
+                    <ion-button size="small" color="light" (click)="flipX(motif)">FlipX</ion-button>
+                    <ion-button size="small" color="light" (click)="flipY(motif)">FlipY</ion-button>
+                  </div >
+                </div>
+              </div>
+            </div>
+          </div> <!-- .layerNumbers -->
+
+          <ion-list>
+            <ion-list-header>
+              <ion-title style="text-align:center">Changes</ion-title>
+            </ion-list-header>
+          </ion-list>
+
         </ion-card-content>
       </ion-card>
     </ion-col>
