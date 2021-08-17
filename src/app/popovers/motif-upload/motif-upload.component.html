@@ -31,15 +31,17 @@
 <!--<script src='./script.js'></script>-->
 <!--</body>-->
 
-<form [formGroup]="multiForm" (ngSubmit)="onSubmit(multiForm.value)">
-  <input type="file" (change)="onFileUpload($event)" name="multiImages" multiple>
-  <button >Submit</button>
+<!--<form [formGroup]="multiForm" (ngSubmit)="onSubmit(multiForm.value)">-->
+<!--  <input type="file" (change)="onFileUpload($event)" name="multiImages" multiple>-->
+<!--  <button >Submit</button>-->
 
-  <div *ngIf="multiImages && multiImages.length" formArrayName="multiImages">
-    <div  *ngFor="let image of multiImages.controls; let i = index">
-      <div [formGroupName]="i">
-        <img [src]="image.value" width="180" />
-      </div>
-    </div>
-  </div>
-</form>
+<!--  <div *ngIf="multiImages && multiImages.length" formArrayName="multiImages">-->
+<!--    <div  *ngFor="let image of multiImages.controls; let i = index">-->
+<!--      <div [formGroupName]="i">-->
+<!--        <img [src]="image.value" width="180" />-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</form>-->
+
+<input type="file" (change)="uploadFile($event)" name="file" accept=".svg">
