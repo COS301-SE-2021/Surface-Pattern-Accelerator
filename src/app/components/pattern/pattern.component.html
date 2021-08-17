@@ -31,7 +31,7 @@
             </div>
 
           <ion-item>
-            <ion-button color="dark" style="width:100%;">Spawn Motif</ion-button>
+            <ion-button color="dark" style="width:100%;" (click)="spawnMotif()">Spawn Motif</ion-button>
           </ion-item>
         </ion-card-content>
       </ion-card>
@@ -118,7 +118,21 @@
               <ion-title style="text-align:center">Changes</ion-title>
             </ion-list-header>
           </ion-list>
-
+          <ion-item>
+            <ion-button id="pre" color="dark" style="width:100%;" (click)="generate()">Refresh</ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>
+          </ion-item>
+          <form>
+            <ion-item>
+              <ion-label>Select a color: </ion-label>
+              <input type="color" id="fav_color" name="fav_color" value="#ff0000">
+            </ion-item>
+            <ion-item>
+              <ion-button id = "col" color="dark" style="width:100%;" (click)='changeColor()'>Change Color</ion-button>
+            </ion-item>
+          </form>
         </ion-card-content>
       </ion-card>
     </ion-col>
