@@ -22,10 +22,13 @@ export class MotifCatalogueComponent implements OnInit {
     this.motifService.getMotifs()
       .subscribe(motifs =>
       {
-
         this.motifs = motifs
         console.log(motifs)
       });
+  }
+
+  motifSelect(motifData: any){
+    console.log(motifData)
   }
 
 }
