@@ -1,0 +1,43 @@
+<ion-content class="main">
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="7">
+          <div style="font-size: xx-large; padding-top: 3%"> Collections</div>
+        </ion-col>
+        <ion-col size="5">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                  <ion-button style="margin-right: 50px; " (click)="navigateTo('newCollection');" color="medium">New Collection <ion-icon name="add-circle"></ion-icon></ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-searchbar></ion-searchbar>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-card style="height: 85%">
+    <div *ngIf="collections" class="collections-menu">
+      <div *ngFor="let collection of collections.collections">
+        <div class="square" style="border: 1px solid gray">
+          <div class="gear">
+            <ion-button (click)="CollectionOperations($event)">
+              <ion-icon name="settings" ></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+        <div class="label">
+          <a class="collections"
+             routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">
+            {{collection.collectionName}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+</ion-content>
