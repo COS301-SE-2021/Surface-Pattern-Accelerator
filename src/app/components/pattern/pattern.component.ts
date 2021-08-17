@@ -86,11 +86,11 @@ export class PatternComponent implements OnInit {
 
     this.getMotifs();
     type motifOffset=
-    {
-      motif: Konva.Layer;
-      xOffset: number;
-      yOffset: number;
-    }
+      {
+        motif: Konva.Layer;
+        xOffset: number;
+        yOffset: number;
+      }
     //new preview frame
     let width = 300;
     let height = 300;
@@ -238,7 +238,7 @@ export class PatternComponent implements OnInit {
       console.log(patternUpdateResult) //prints
     })
 
-   // this.loadPattern(this.motifDetailsTestArr)
+    // this.loadPattern(this.motifDetailsTestArr)
   }
 
   loadPattern(motifDetailsArr : IMotifDetailsInterface[])
@@ -406,7 +406,7 @@ export class PatternComponent implements OnInit {
     //this.back();
   }
 
-  movetToBottom(img: Group | Shape<ShapeConfig>) {
+  moveToBottom(img: Group | Shape<ShapeConfig>) {
     for (var i = 0; i < this.layer2.children.length; i++) {
       if (img._id + 1 == this.layer2.children[i]._id) {
         this.layer2.children[i].moveToBottom();
@@ -415,31 +415,31 @@ export class PatternComponent implements OnInit {
     }
     //this.back();
   }
-    delete(img: Group | Shape<ShapeConfig>)
-    {
-      let motifNum = 0;
-      for (var i = 0; i < this.layer2.children.length; i++) {
-        console.log("Before delete");
+  delete(img: Group | Shape<ShapeConfig>)
+  {
+    let motifNum = 0;
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      console.log("Before delete");
+      console.log(this.layer2);
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].remove();
         console.log(this.layer2);
-        if (img._id == this.layer2.children[i]._id) {
-          this.layer2.children[i].remove();
-          console.log(this.layer2);
-          this.layer2.children[i].remove();
-          console.log(this.layer2);
-          console.log("Done");
-          this.motifCount--;
-          this.layer2.draw();
-          motifNum = i;
-          break;
-        }
-
+        this.layer2.children[i].remove();
+        console.log(this.layer2);
+        console.log("Done");
+        this.motifCount--;
+        this.layer2.draw();
+        motifNum = i;
+        break;
       }
 
-      let s = document.querySelectorAll(".MotifImage2");
-      s[motifNum].remove();
-      console.log(s);
-      console.log("Is the s");
     }
+
+    let s = document.querySelectorAll(".MotifImage2");
+    s[motifNum].remove();
+    console.log(s);
+    console.log("Is the s");
+  }
   flipX(img: Group | Shape<ShapeConfig>)
   {
     for (var i = 0; i < this.layer2.children.length; i++) {
@@ -461,7 +461,7 @@ export class PatternComponent implements OnInit {
   }
 
 
-    generate()
+  generate()
   {
     this.preview();//refresh and scale workarea
 
@@ -476,7 +476,7 @@ export class PatternComponent implements OnInit {
       scaleY: 1 / 3,
     });
 
-     this.layerr = this.previewLayer.clone();//previewLayer replaced Layer2
+    this.layerr = this.previewLayer.clone();//previewLayer replaced Layer2
     //console.log("Here: " + this.layer2);
     // var one = this.layerr.children[0].clone();
     // var two = this.layerr.children[1].clone();
@@ -549,8 +549,9 @@ export class PatternComponent implements OnInit {
     this.layer2.add(this.background);
     this.background.moveToBottom();
   }
-
   createBack(){
+
+    console.log("Background enabled");
     const c = document.getElementById("container").style.backgroundColor;
     //const color = this.background.fill();//keep old/new color
     this.background = new Konva.Rect({
@@ -591,6 +592,7 @@ export class PatternComponent implements OnInit {
 
 
   download(){
+    console.log("downloading");
     if(this.check === true)
     {
       this.createBack();
