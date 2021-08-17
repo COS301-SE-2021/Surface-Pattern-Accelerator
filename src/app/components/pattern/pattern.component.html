@@ -24,6 +24,7 @@
               <div class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
                 <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
                   <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                  <br>
                   <ion-text> {{motif.motifName}} </ion-text> <!-- variable name is not unresolved, ignore -->
                 </button>
               </div>
@@ -39,7 +40,7 @@
     <ion-col size="7">
       <ion-card>
         <ion-card-header style="height: 50px">
-          <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
+          <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
             <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
               <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
             </ion-select>
@@ -47,7 +48,7 @@
 
           <div id="down"></div>
         </ion-card-header>
-        <ion-card-content class="row">
+        <ion-card-content class="rows">
 
             <div class="workArea" id="container"></div>
             <div class="view" id="preview"></div>
@@ -79,6 +80,14 @@
             </ion-item>
           </div>
 
+          <ion-list>
+            <ion-list-header>
+              <ion-title style="text-align:center">Modifiers</ion-title>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>New Layer</ion-label>
+            </ion-item>
+          </ion-list>
         </ion-card-content>
       </ion-card>
     </ion-col>

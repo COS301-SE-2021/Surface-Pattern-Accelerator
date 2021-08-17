@@ -9,21 +9,31 @@ ion-content{
 
 ion-grid{
   height: 100%;
+  width: 100%;
 }
 
 ion-row{
   height: 100%;
 }
 
-ion-col{
+ion-col {
   height: 100%;
   --ion-grid-column-padding: 0px;
+}
+
+ion-card-content {
+  padding: 1px;
 }
 
 ion-card-header{
   font-size: large;
   text-align: center;
   border-bottom: 1px solid slategray;
+  height: 50px;
+}
+
+ion-item {
+  height: 40px;
 }
 
 
