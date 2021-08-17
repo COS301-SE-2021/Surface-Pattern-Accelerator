@@ -48,8 +48,16 @@
 
 
         </ion-card-header>
-        <ion-card-content class="row">
 
+    <div style="text-align: center;">
+        <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>
+        <ion-button class="button" color="medium" (click)="newPattern(patternName.value); patternName.value=''">New Pattern
+        </ion-button>
+    </div>
+
+
+
+        <ion-card-content class="row">
             <div class="workArea" id="container"></div>
             <div class="view" id="preview"></div>
             <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
@@ -102,6 +110,7 @@
                     <!--       <button (click)="moveUp(motif)">MoveUp</button>
                            <button (click)="moveDown(motif)">MoveDown</button>
                            -->
+                    <br>
                     <ion-button size="small" color="light" (click)="moveToTop(motif)">Top</ion-button>
                     <ion-button size="small" color="light" (click)="moveToBottom(motif)">Bottom</ion-button>
                     <ion-button size="small" color="light" (click)="delete(motif)">Delete</ion-button>
