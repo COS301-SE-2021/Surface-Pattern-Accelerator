@@ -212,25 +212,31 @@ app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
     const files = req.files;
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
     // "./uploads/frame.png"
-    console.log(files[0].filename);
-    const filePath = "./uploads/" + files[0].filename;
-    console.log(filePath);
-    if (fs_1.default.existsSync(filePath)) {
-        gAPI.uploadMotif(req.session.accessToken, files[0].filename)
-            .then((uploadPromise) => {
-            console.log(uploadPromise);
-        });
-        console.log("exists");
+    // console.log(files[0].filename);
+    const uploadPromisesArray = [];
+    for (const file in files) {
+        if (file) {
+            const filePath = "./uploads/" + files[file].filename;
+            console.log(filePath);
+            if (fs_1.default.existsSync(filePath)) {
+                const uploadPromise = gAPI.uploadMotif(req.session.accessToken, files[file].filename);
+                uploadPromisesArray.push(uploadPromise);
+            }
+            else {
+                console.log("Does not exist");
+            }
+        }
     }
-    else {
-        console.log("Does not exist");
-    }
-    if (Array.isArray(files) && files.length > 0) {
+    Promise.all(uploadPromisesArray).then(() => {
         res.json({ Status: "200 - success" });
-    }
-    else {
+    }).catch(() => {
         res.json({ Status: "404 - no file found in request" });
-    }
+    });
+    // if (Array.isArray(files) && files.length > 0) {
+    //
+    // } else {
+    //
+    // }
     // console.log(req);
 });
 // start the Express server
