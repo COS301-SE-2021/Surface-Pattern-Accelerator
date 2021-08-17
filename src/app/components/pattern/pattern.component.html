@@ -1,7 +1,7 @@
 
 <ion-grid>
   <ion-row>
-    <ion-col size="3">
+    <ion-col size="2.5">
       <ion-card id="leftSidebar">
         <ion-card-header>
           <ion-card-title>Motif Library</ion-card-title>
@@ -12,12 +12,12 @@
               <ion-button color="medium" (click)="uploadFilePopover()">Import new Motif</ion-button>
             </ion-item>
             <ion-item>
-              <ion-button color="medium" (click)='collectionCataloguePopover()'>Append motifs to project</ion-button>
+              <ion-button color="medium" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
             </ion-item>
           </ion-list>
 
             <div>
-              <ion-searchbar placeholder="Search for motif"></ion-searchbar>
+              <ion-searchbar placeholder="Search"></ion-searchbar>
             </div>
 
             <div *ngIf="motifs">
@@ -36,9 +36,9 @@
       </ion-card>
     </ion-col>
 
-    <ion-col size="6">
+    <ion-col size="7">
       <ion-card>
-        <ion-card-header style="height: 20px">
+        <ion-card-header style="height: 50px">
           <ion-item class="patternSelect" *ngIf="patternService.currentCollection">
             <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
               <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
@@ -47,7 +47,7 @@
 
           <div id="down"></div>
         </ion-card-header>
-        <ion-card-content class="row" style="overflow: auto">
+        <ion-card-content class="row">
 
             <div class="workArea" id="container"></div>
             <div class="view" id="preview"></div>
@@ -59,7 +59,7 @@
       </ion-card>
     </ion-col>
 
-    <ion-col size="3">
+    <ion-col size="2.5">
       <ion-card>
         <ion-card-content>
           <div>
