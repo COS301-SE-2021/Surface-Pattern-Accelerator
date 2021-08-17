@@ -36,6 +36,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MotifCatalogueComponent} from "./popovers/motif-catalogue/motif-catalogue.component"
 import { MaterialModule } from './material/material.module';
 
 
@@ -58,7 +59,8 @@ import { MaterialModule } from './material/material.module';
     ColorComponent,
     MainComponent,
     BodyComponent,
-    MotifUploadComponent
+    MotifUploadComponent,
+    MotifCatalogueComponent
   ],
 
   imports: [
