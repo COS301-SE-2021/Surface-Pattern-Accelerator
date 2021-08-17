@@ -46,14 +46,14 @@
             </ion-select>
           </ion-item>
 
-          <div id="down"></div>
+
         </ion-card-header>
         <ion-card-content class="row">
 
             <div class="workArea" id="container"></div>
             <div class="view" id="preview"></div>
             <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-
+           <div id="down"></div>
 
 
         </ion-card-content>
@@ -66,11 +66,11 @@
           <div>
             <ion-item>
               <ion-label>Show Gridlines</ion-label>
-              <ion-checkbox (change)="addGrid($event)"></ion-checkbox>
+              <mat-checkbox (change)="addGrid($event)"></mat-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>Enable Background</ion-label>
-              <ion-checkbox (change)="addBack($event)"></ion-checkbox>
+              <mat-checkbox (change)="addBack($event)"></mat-checkbox>
             </ion-item>
             <ion-item>
               <ion-button color="medium" (click)="backButton()">Undo</ion-button>
