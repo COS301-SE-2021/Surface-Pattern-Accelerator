@@ -21,8 +21,10 @@ Our vision is to develop a specialized software package capable of creating patt
 * :tv: [Demo4 Video](https://drive.google.com/open?id=)
 
 ## Documentation
-* :open_book: [Software Requirements Specification](https://www.overleaf.com/read/ncybnhfbfqjn)
+* :open_book: [Software Requirements Specification](https://www.overleaf.com/read/mkwjqmjkhzry)
 * :open_book: [Coding Standards](https://www.overleaf.com/read/gcjfyjhhsrhg)
+* :scroll: [User Manual](https://www.overleaf.com/read/)
+* :floppy_disk: [Technical Installation Guide](https://www.overleaf.com/read/)
 
 ## Project Management Tools
 
