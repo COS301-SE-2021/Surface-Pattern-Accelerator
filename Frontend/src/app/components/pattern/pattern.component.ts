@@ -31,6 +31,7 @@ export class PatternComponent implements OnInit {
 
   stage1!: Konva.Stage;
   layerr!:Konva.Layer;
+  save!:Konva.Layer;
   layer1!:Konva.Layer;
   // layer2!:Konva.Layer;
   background!: Konva.Rect;
@@ -470,6 +471,7 @@ export class PatternComponent implements OnInit {
     });
 
     this.layerr = this.previewLayer.clone();//previewLayer replaced Layer2
+    this.save = this.previewLayer.clone();
     //console.log("Here: " + this.layer2);
     // var one = this.layerr.children[0].clone();
     // var two = this.layerr.children[1].clone();
@@ -491,6 +493,9 @@ export class PatternComponent implements OnInit {
     // if(three.attrs.y > 80  ) xOffset3 = three.attrs.y - 100;
     //
     //
+
+    this.layerr.destroyChildren();//get rid of extra frame
+
     let l = 100;
     let xx = 0;
     for(var i = 0 ; i < 10;i++)//10 became 6
@@ -499,11 +504,13 @@ export class PatternComponent implements OnInit {
       for(var n = 0 ; n < 10 ; n++)
       {
         for(var motifs = 0 ; motifs < this.previewLayer.children.length ; motifs++){
-          var k = this.layerr.children[motifs].clone();
+          var k = this.save.children[motifs].clone();//clone individual motifs
           //var one = layerr.children[0].clone();
           k.attrs.x =k.attrs.x + 300 * i - 300;//100
           k.attrs.y = k.attrs.y + 300 * xx - 300;
+
           this.layerr.add(k);
+
         }
         xx++;
       }
