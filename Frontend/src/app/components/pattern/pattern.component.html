@@ -1,6 +1,6 @@
 
 <ion-grid>
-  <ion-row>
+  <ion-row class="maxHeight">
     <ion-col size="2.5">
       <ion-card id="leftSidebar">
         <ion-card-header>
@@ -19,53 +19,77 @@
             <div>
               <ion-searchbar placeholder="Search"></ion-searchbar>
             </div>
+            <ion-row>
+              <div *ngIf="motifs">
+                <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
 
-            <div *ngIf="motifs">
-              <div class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
-                <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
-                  <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-                  <br>
-                  <ion-text> {{motif.motifName}} </ion-text> <!-- variable name is not unresolved, ignore -->
-                </button>
+                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+                    <ion-row>
+                      <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                    </ion-row>
+                    <ion-row>
+                      <ion-text> {{motif.motifName}} </ion-text>
+                    </ion-row>
+
+
+                     <!-- variable name is not unresolved, ignore -->
+                  </button>
+                </ion-card>
               </div>
-            </div>
+            </ion-row>
 
-          <ion-item>
-            <ion-button color="dark" style="width:100%;" (click)="spawnMotif()">Spawn Motif</ion-button>
-          </ion-item>
+
+<!--          <ion-row>-->
+<!--            <ion-button color="dark" style="width:100%;" (click)="spawnMotif()">Spawn Motif</ion-button>-->
+<!--          </ion-row>-->
         </ion-card-content>
       </ion-card>
     </ion-col>
 
     <ion-col size="7">
-      <ion-card>
-        <ion-card-header>
-          <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
-            <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
-              <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
-            </ion-select>
-          </ion-item>
 
 
-        </ion-card-header>
+        <ion-row size="1">
+          <ion-card style="width: 100%">
+            <ion-card-content style="width: 100%">
+              <ion-row>
+                <ion-col size="10">
+                <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
+                  <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+                    <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                </ion-col>
 
-    <div style="text-align: center;">
-        <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>
-        <ion-button class="button" color="medium" (click)="newPattern(patternName.value); patternName.value=''">New Pattern
-        </ion-button>
-    </div>
+                <ion-col>
+                  <div>
+                    <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
+                    <ion-button class="button" color="medium" style="width: 90%"> <!--(click)="newPattern(patternName.value); patternName.value=''"-->
+                      New Pattern
+                    </ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+            </ion-card-content>
+
+          </ion-card>
 
 
+        </ion-row>
+        <ion-card>
+          <ion-card-content>
+            <ion-row class="row">
+              <div class="workArea" id="container"></div>
+              <div class="view" id="preview"></div>
+              <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
+              <div id="down"></div>
 
-        <ion-card-content class="row">
-            <div class="workArea" id="container"></div>
-            <div class="view" id="preview"></div>
-            <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-           <div id="down"></div>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
 
 
-        </ion-card-content>
-      </ion-card>
     </ion-col>
 
     <ion-col size="2.5">
