@@ -10,7 +10,7 @@ import {motifsInterface} from "../../Interfaces/motifsInterface";
 })
 export class MotifCatalogueComponent implements OnInit {
   private motifs: motifsInterface;
-
+  selectedMotifs=[];
   constructor(private popoverController: PopoverController, private motifService: MotifServiceService) { }
 
   ngOnInit() {
@@ -28,7 +28,10 @@ export class MotifCatalogueComponent implements OnInit {
   }
 
   motifSelect(motifData: any){
-    console.log(motifData)
+    console.log("adding motif demo")
+    this.selectedMotifs.push(motifData)
+
+    console.log(this.selectedMotifs)
   }
 
 }

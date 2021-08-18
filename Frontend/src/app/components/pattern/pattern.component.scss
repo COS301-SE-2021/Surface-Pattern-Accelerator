@@ -12,7 +12,11 @@ ion-grid{
   width: 100%;
 }
 
-ion-row{
+//ion-row{
+//  height: 100%;
+//}
+
+.maxHeight{
   height: 100%;
 }
 
@@ -44,12 +48,12 @@ ion-item {
 
 .motifImg
 {
-  width: 70%;
+  width: 100%;
   vertical-align:middle;
 }
 .MotifImage{
-  width: 100px;
-  height: 100px;
+  width: 43%;
+  height: 4cm;
   //background-color: black;
   text-align: center;
   //padding :50px;
@@ -59,6 +63,7 @@ ion-item {
   border: solid black 1px;
   display: flex;
   align-items: center;
+  float: left;
 }
 
 // Colors

@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
 import {PopoverController} from "@ionic/angular";
 import {ICollectionsContent} from "../../Interfaces/collectionContents.interface";
+import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.component"
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
@@ -578,8 +579,8 @@ export class PatternComponent implements OnInit {
 
   newPattern(patternName: string)
   {
-    this.patternService.newPattern(patternName);
-    console.log(patternName);
+    return this.patternService.newPattern(patternName);
+
   }
 
 
@@ -639,5 +640,28 @@ export class PatternComponent implements OnInit {
       this.loadPattern(this.patternContents.motifs);
 
     });
+  }
+
+  newPatternPopover() {
+    let popoverReference:  HTMLIonPopoverElement;
+    this.popoverController.create({
+      component: NewPatternComponent,
+      translucent: true,
+      cssClass: 'smallScreen'
+    }).then(resPop => {
+      popoverReference = resPop;
+      popoverReference.present().then(presentRes => {
+        popoverReference.onDidDismiss().then((newPatternName) => {
+          console.log(newPatternName);
+          const name: any = newPatternName.data
+          this.newPattern(name)
+
+        })
+
+      });
+    })
+
+
+
   }
 }
