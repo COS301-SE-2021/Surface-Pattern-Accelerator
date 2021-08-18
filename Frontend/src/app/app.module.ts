@@ -17,9 +17,8 @@ import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component'
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { PatternComponent } from './components/pattern/pattern.component';
-import { ImportComponent} from './components/import/import.component';
-import { LoginComponent } from "./components/login/login.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
+import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { ColorComponent } from './components/color/color.component';
 import { MainComponent } from './components/launchpage/main/main.component';
 import { BodyComponent } from './components/launchpage/body/body.component';
@@ -28,16 +27,16 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
-import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from "angularx-social-login";
-import { CanvasColoursComponent } from "./components/canvas-colours/canvas-colours.component";
+import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from 'angularx-social-login';
+import { CanvasColoursComponent } from './components/canvas-colours/canvas-colours.component';
 
 
-import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MotifCatalogueComponent} from "./popovers/motif-catalogue/motif-catalogue.component"
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
 import { MaterialModule } from './material/material.module';
 
 
@@ -50,7 +49,6 @@ import { MaterialModule } from './material/material.module';
     CollectionCreatorComponent,
     PatternComponent,
     AppComponent,
-    ImportComponent,
     PreviewComponent,
     ExportPopoverComponent,
     LoginComponent,
