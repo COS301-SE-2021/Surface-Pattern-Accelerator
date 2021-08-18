@@ -1,0 +1,150 @@
+
+<ion-grid>
+  <ion-row>
+    <ion-col size="2.5">
+      <ion-card id="leftSidebar">
+        <ion-card-header>
+          <ion-card-title>Motif Library</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-button color="medium" (click)="uploadFilePopover()">Import new Motif</ion-button>
+            </ion-item>
+            <ion-item>
+              <ion-button color="medium" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
+            </ion-item>
+          </ion-list>
+
+            <div>
+              <ion-searchbar placeholder="Search"></ion-searchbar>
+            </div>
+
+            <div *ngIf="motifs">
+              <div class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
+                <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+                  <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                  <br>
+                  <ion-text> {{motif.motifName}} </ion-text> <!-- variable name is not unresolved, ignore -->
+                </button>
+              </div>
+            </div>
+
+          <ion-item>
+            <ion-button color="dark" style="width:100%;" (click)="spawnMotif()">Spawn Motif</ion-button>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
+            <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+              <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+
+        </ion-card-header>
+
+    <div style="text-align: center;">
+        <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>
+        <ion-button class="button" color="medium" (click)="newPattern(patternName.value); patternName.value=''">New Pattern
+        </ion-button>
+    </div>
+
+
+
+        <ion-card-content class="row">
+            <div class="workArea" id="container"></div>
+            <div class="view" id="preview"></div>
+            <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
+           <div id="down"></div>
+
+
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="2.5">
+      <ion-card>
+        <ion-card-content>
+          <div>
+            <ion-item>
+              <ion-label>Show Gridlines</ion-label>
+              <mat-checkbox (change)="addGrid($event)"></mat-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>Enable Background</ion-label>
+              <mat-checkbox (change)="addBack($event)"></mat-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-button color="medium" (click)="backButton()">Undo</ion-button>
+            </ion-item>
+            <ion-item>
+              <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
+            </ion-item>
+          </div>
+
+          <ion-list>
+            <ion-list-header>
+              <ion-title style="text-align:center">Modifiers</ion-title>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>New Layer</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <div class="layerNumbers">
+            <div class="layerBorder">
+              <ion-label>Layer</ion-label>
+
+              <div *ngIf="motifs" >
+                <div *ngFor="let motif of this.canvasMotifs">
+                  <div class="MotifImage2">
+                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
+                    <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
+                    motif.attrs.image.outerHTML
+                    <!--       <button (click)="moveUp(motif)">MoveUp</button>
+                           <button (click)="moveDown(motif)">MoveDown</button>
+                           -->
+                    <br>
+                    <ion-button size="small" color="light" (click)="moveToTop(motif)">Top</ion-button>
+                    <ion-button size="small" color="light" (click)="moveToBottom(motif)">Bottom</ion-button>
+                    <ion-button size="small" color="light" (click)="delete(motif)">Delete</ion-button>
+                    <ion-button size="small" color="light" (click)="flipX(motif)">FlipX</ion-button>
+                    <ion-button size="small" color="light" (click)="flipY(motif)">FlipY</ion-button>
+                  </div >
+                </div>
+              </div>
+            </div>
+          </div> <!-- .layerNumbers -->
+
+          <ion-list>
+            <ion-list-header>
+              <ion-title style="text-align:center">Changes</ion-title>
+            </ion-list-header>
+          </ion-list>
+          <ion-item>
+            <ion-button id="pre" color="dark" style="width:100%;" (click)="generate()">Refresh</ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>
+          </ion-item>
+          <form>
+            <ion-item>
+              <ion-label>Select a color: </ion-label>
+              <input type="color" id="fav_color" name="fav_color" value="#ff0000">
+            </ion-item>
+            <ion-item>
+              <ion-button id = "col" color="dark" style="width:100%;" (click)='changeColor()'>Change Color</ion-button>
+            </ion-item>
+          </form>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+

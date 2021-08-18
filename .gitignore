@@ -1,6 +1,5 @@
-node_modules
-Surface-Pattern-Accelerator.iml
-.idea/
-.gitignore
-
-
+/node_modules/
+/.idea/modules.xml
+/Surface-Pattern-Accelerator.iml
+/Backend/uploads/thread.svg
+/.idea/vcs.xml
