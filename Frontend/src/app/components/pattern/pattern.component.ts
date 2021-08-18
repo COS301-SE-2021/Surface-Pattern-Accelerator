@@ -55,6 +55,9 @@ export class PatternComponent implements OnInit {
   check: boolean = false;
   defaultBack: string = "#878787";//default background color
   scale: number = 6;
+  three: boolean = false;
+  six: boolean = true;
+  twelve: boolean = false;
 
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
@@ -499,16 +502,19 @@ export class PatternComponent implements OnInit {
 
     let l = 100;
     let xx = 0;
-    for(var i = 0 ; i < 10;i++)//10 became 6
+    for(var i = 0 ; i < 12;i++)//10 became 6
     {
       xx = 0;
-      for(var n = 0 ; n < 10 ; n++)
+      for(var n = 0 ; n < 12 ; n++)//10
       {
         for(var motifs = 0 ; motifs < this.previewLayer.children.length ; motifs++){
           var k = this.save.children[motifs].clone();//clone individual motifs
           //var one = layerr.children[0].clone();
-          k.attrs.x =k.attrs.x + (this.scale * 100) * i - (this.scale * 100);//300
-          k.attrs.y = k.attrs.y + (this.scale * 100) * xx - (this.scale * 100);
+
+          let val = (600 / this.scale);
+
+          k.attrs.x =k.attrs.x + (this.scale * val) * i - (this.scale * val);//300
+          k.attrs.y = k.attrs.y + (this.scale * val) * xx - (this.scale * val);
 
           this.layerr.add(k);
 
@@ -676,8 +682,14 @@ export class PatternComponent implements OnInit {
 
       });
     })
-
-
-
   }
+
+  scaleCanvas()
+  {
+    this.scale = 10;
+  }
+
+
+
+
 }
