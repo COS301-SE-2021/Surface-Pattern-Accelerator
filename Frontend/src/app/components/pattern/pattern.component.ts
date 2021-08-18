@@ -666,9 +666,12 @@ export class PatternComponent implements OnInit {
       popoverReference.present().then(presentRes => {
         popoverReference.onDidDismiss().then((newPatternName) => {
           console.log(newPatternName);
-          const name: any = newPatternName.data
-          this.newPattern(name)
 
+          if (newPatternName.data !== undefined && newPatternName.data !== "")
+          {
+            const name: any = newPatternName.data
+            this.newPattern(name)
+          }
         })
 
       });

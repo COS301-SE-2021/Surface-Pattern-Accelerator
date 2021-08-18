@@ -18,4 +18,7 @@ export class NewPatternComponent implements OnInit {
     this.popoverController.dismiss(patternName).then();
   }
 
+  closePopup() {
+    this.popoverController.dismiss().then();
+  }
 }
