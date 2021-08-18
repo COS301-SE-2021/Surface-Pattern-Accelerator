@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 //popovers
 import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component'
+import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component'
 
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -60,7 +61,9 @@ import { MaterialModule } from './material/material.module';
     MainComponent,
     BodyComponent,
     MotifUploadComponent,
-    MotifCatalogueComponent
+    MotifCatalogueComponent,
+    NewPatternComponent
+
   ],
 
   imports: [
