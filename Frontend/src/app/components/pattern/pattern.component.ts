@@ -45,8 +45,8 @@ export class PatternComponent implements OnInit {
   tr!: Konva.Transformer;
   canvasMotifs:  (Group | Shape)[] = new Array();
   canvasMotifsUrl:  string[] = new Array();
-  height: number = 300;//100
-  width: number = 300;
+  height: number = 600;//300
+  width: number = 600;
 
   defHeight: number = 600;
   defWidth: number = 600;
@@ -54,6 +54,7 @@ export class PatternComponent implements OnInit {
 
   check: boolean = false;
   defaultBack: string = "#878787";//default background color
+  scale: number = 6;
 
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
@@ -94,8 +95,8 @@ export class PatternComponent implements OnInit {
         yOffset: number;
       }
     //new preview frame
-    let width = 300;
-    let height = 300;
+    let width = 600;//300 before
+    let height = 600;
     this.stage1 = new Konva.Stage({
       container: 'container',
       width: width,
@@ -130,10 +131,10 @@ export class PatternComponent implements OnInit {
     // create smaller preview stage
     this.previewStage = new Konva.Stage({
       container: 'preview',
-      width: this.stage1.width() / 3,
-      height: this.stage1.width() / 3,
-      scaleX: 1 / 3,
-      scaleY: 1 / 3,
+      width: this.stage1.width() / this.scale,
+      height: this.stage1.width() / this.scale,
+      scaleX: 1 / this.scale,
+      scaleY: 1 / this.scale,
     });
 
     //Needed For Undo
@@ -466,8 +467,8 @@ export class PatternComponent implements OnInit {
       container: 'can',
       width: 600,
       height: 600,
-      scaleX: 1 / 3,
-      scaleY: 1 / 3,
+      scaleX: 1 / this.scale,
+      scaleY: 1 / this.scale,
     });
 
     this.layerr = this.previewLayer.clone();//previewLayer replaced Layer2
@@ -506,8 +507,8 @@ export class PatternComponent implements OnInit {
         for(var motifs = 0 ; motifs < this.previewLayer.children.length ; motifs++){
           var k = this.save.children[motifs].clone();//clone individual motifs
           //var one = layerr.children[0].clone();
-          k.attrs.x =k.attrs.x + 300 * i - 300;//100
-          k.attrs.y = k.attrs.y + 300 * xx - 300;
+          k.attrs.x =k.attrs.x + (this.scale * 100) * i - (this.scale * 100);//300
+          k.attrs.y = k.attrs.y + (this.scale * 100) * xx - (this.scale * 100);
 
           this.layerr.add(k);
 
@@ -523,10 +524,10 @@ export class PatternComponent implements OnInit {
   preview(){
     this.previewStage = new Konva.Stage({
       container: 'preview',
-      width: this.stage1.width() / 3,
-      height: this.stage1.width() / 3,
-      scaleX: 1 / 3,
-      scaleY: 1 / 3,
+      width: this.stage1.width() / this.scale,
+      height: this.stage1.width() / this.scale,
+      scaleX: 1 / this.scale,
+      scaleY: 1 / this.scale,
     });
     //clone frame of pattern stage
     this.previewLayer = this.layer2.clone({ listening: false });
@@ -550,17 +551,16 @@ export class PatternComponent implements OnInit {
     this.background.moveToBottom();
   }
   createBack(){
-
-    console.log("Background enabled");
     const c = document.getElementById("container").style.backgroundColor;
+    console.log("Background enabled: " + c );
     //const color = this.background.fill();//keep old/new color
     this.background = new Konva.Rect({
       x: 0,
       y: 0,
       width: this.defWidth,
       height: this.defHeight,
-      scaleY: 3,
-      scaleX: 3,
+      scaleY: this.scale,
+      scaleX: this.scale,
       fill: c,
       listening: false,
       resizeEnabled: false,
@@ -593,6 +593,7 @@ export class PatternComponent implements OnInit {
 
   download(){
     console.log("downloading");
+    this.generate();
     if(this.check === true)
     {
       this.createBack();
@@ -630,9 +631,14 @@ export class PatternComponent implements OnInit {
     if(e.checked)
     {
       this.check = true;
+      console.log("background ON");
+      this.changeColor();
     }
     else{
       this.check = false;
+      console.log("background OFF");
+      (<HTMLInputElement>document.getElementById("fav_color")).value = "#7E7C7C";
+      this.changeColor();
     }
   }
 
