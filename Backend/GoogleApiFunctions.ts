@@ -353,9 +353,8 @@ export class GoogleApiFunctions {
                             });
                             resolve(collectionsJSON);
 
-                        } else
-                        {
-                            //Folder is empty
+                        } else {
+                            // Folder is empty
                             resolve(collectionsJSON);
                             console.log("Collections folder is empty");
                         }

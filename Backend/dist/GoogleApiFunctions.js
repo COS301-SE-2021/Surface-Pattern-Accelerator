@@ -311,8 +311,9 @@ class GoogleApiFunctions {
                         resolve(collectionsJSON);
                     }
                     else {
+                        // Folder is empty
                         resolve(collectionsJSON);
-                        console.log("something went wrong with fetching folder content - No Collections Found");
+                        console.log("Collections folder is empty");
                     }
                 });
             }).catch((noFolderWithThatNameError) => {
