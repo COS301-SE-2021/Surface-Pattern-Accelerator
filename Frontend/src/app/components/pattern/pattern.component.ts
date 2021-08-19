@@ -841,9 +841,22 @@ export class PatternComponent implements OnInit {
     })
   }
 
-  scaleCanvas()
+  scaleCanvas3()
   {
-    this.scale = 10;
+    this.scale = 3;
+    this.generate();
+  }
+
+  scaleCanvas6()
+  {
+    this.scale = 6;
+    this.generate();
+  }
+
+  scaleCanvas9()
+  {
+    this.scale = 9;
+    this.generate();
   }
 
 
