@@ -114,7 +114,8 @@
     <ion-col size="2.5" class="tab-content" id="Modifiers">
       <ion-card>
           <ion-card-header>
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links" (click)="openTab($event,'Modifiers')">
+            <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                        (click)="openTab($event,'Modifiers')" id="Modifiers1">
               <ion-label class="button-text">Modifiers</ion-label>
               <ion-icon name="invert-mode-outline"></ion-icon>
             </ion-button>
@@ -186,12 +187,13 @@
     <ion-col size="2.5" class="tab-content" id="Changes">
       <ion-card>
         <ion-card-header>
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links" (click)="openTab($event,'Modifiers')">
+          <ion-button color="medium" size="medium" fill="clear" class="tab-link" (click)="openTab($event,'Modifiers')">
             <ion-label class="button-text">Modifiers</ion-label>
             <ion-icon name="invert-mode-outline"></ion-icon>
           </ion-button>
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links" (click)="openTab($event,'Changes')">
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTab($event,'Changes')" id="Changes1">
             <ion-label class="button-text">Changes</ion-label>
             <ion-icon name="eyedrop-outline" ></ion-icon>
           </ion-button>

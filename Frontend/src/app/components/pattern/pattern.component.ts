@@ -971,6 +971,7 @@ export class PatternComponent implements OnInit {
     }
      */
     document.getElementById(tabPage).style.display  = 'block';
+    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 }
