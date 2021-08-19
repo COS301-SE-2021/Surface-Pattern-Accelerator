@@ -133,7 +133,7 @@
               <ion-label>Layer</ion-label>
 
               <div *ngIf="motifs" >
-                <div *ngFor="let motif of this.canvasMotifs">
+                <div *ngFor="let motif of this.canvasMotifs; let i = index" [attr.data-index]="i" class="temp">
                   <div class="MotifImage2">
                     <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
                     <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
@@ -144,7 +144,7 @@
                     <br>
                     <ion-button size="small" color="light" (click)="moveToTop(motif)">Top</ion-button>
                     <ion-button size="small" color="light" (click)="moveToBottom(motif)">Bottom</ion-button>
-                    <ion-button size="small" color="light" (click)="delete(motif)">Delete</ion-button>
+                    <ion-button size="small" color="light" (click)="delete(motif, i)">Delete</ion-button>
                     <ion-button size="small" color="light" (click)="flipX(motif)">FlipX</ion-button>
                     <ion-button size="small" color="light" (click)="flipY(motif)">FlipY</ion-button>
                   </div >

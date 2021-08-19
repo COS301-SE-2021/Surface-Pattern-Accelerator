@@ -405,9 +405,13 @@ export class PatternComponent implements OnInit {
 
   moveToTop(img: Group | Shape<ShapeConfig>) {
     for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToTop();
+      }
+    }
+    for (var i = 0; i < this.layer2.children.length; i++) {
       if (img._id + 1 == this.layer2.children[i]._id) {
         this.layer2.children[i].moveToTop();
-        img.moveToTop();
       }
     }
     //this.back();
@@ -415,28 +419,44 @@ export class PatternComponent implements OnInit {
 
   moveToBottom(img: Group | Shape<ShapeConfig>) {
     for (var i = 0; i < this.layer2.children.length; i++) {
-      if (img._id + 1 == this.layer2.children[i]._id) {
+      if (img._id+1 == this.layer2.children[i]._id) {
         this.layer2.children[i].moveToBottom();
-        img.moveToBottom();
+      }
+    }
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (img._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToBottom();
       }
     }
     //this.back();
   }
-  delete(img: Group | Shape<ShapeConfig>)
+  delete(img: Group | Shape<ShapeConfig>, index)
   {
+    console.log(index);
+    let position = 0;
     let motifNum = 0;
     for (var i = 0; i < this.layer2.children.length; i++) {
-      if (img._id == this.layer2.children[i]._id) {
-        motifNum = i;
+      if (img._id+1 == this.layer2.children[i]._id) {
         this.layer2.children[i].remove();
-        this.layer2.children[i].remove();
-        this.motifCount--;
         this.layer2.draw();
         break;
       }
     }
+    for (var i = 0; i < this.layer2.children.length; i++) {
+
+      if (img._id == this.layer2.children[i]._id) {
+        motifNum = i;
+        this.layer2.children[i].remove();
+        if(this.motifCount!=0)
+          this.motifCount--;
+        this.layer2.draw();
+        break;
+      }
+    }
+    this.canvasMotifs.splice(index, 1);
     let s = document.querySelectorAll(".MotifImage2");
-    s[motifNum/2].remove();
+    if(s[index])
+      s[index].remove();
   }
   flipX(img: Group | Shape<ShapeConfig>)
   {
@@ -445,7 +465,6 @@ export class PatternComponent implements OnInit {
         this.layer2.children[i].offsetX( this.layer2.children[i].width() / 2)
         this.layer2.children[i].scaleX( (- this.layer2.children[i].scaleX()))
       }
-
     }
   }
   flipY(img: Group | Shape<ShapeConfig>)
