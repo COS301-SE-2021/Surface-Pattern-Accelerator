@@ -50,6 +50,20 @@ export class PatternComponent implements OnInit {
 
   defHeight: number = 600;
   defWidth: number = 600;
+  rectWidth: number = 900;
+  addWidth: number = 300;
+
+  rectSym: boolean = false;
+  squareSym: boolean = true;
+  layerSize!:Konva.Layer;
+
+  //stage1 div
+  workarea = document.getElementById('container');//get div of workarea
+  prev = document.getElementById('preview');//get div of workarea
+  can = document.getElementById('can');//get div of workarea
+
+
+
   gridLayer? : Konva.Layer;
 
   check: boolean = false;
@@ -110,8 +124,8 @@ export class PatternComponent implements OnInit {
 
     this.stage = new Konva.Stage({
       container: 'can',   // id of container <div>
-      width: 600,//600
-      height: 600//600
+      width: width,//600
+      height: height//600
     });
 
     let layerr = new Konva.Layer();
@@ -121,8 +135,8 @@ export class PatternComponent implements OnInit {
     //set up stage for background
     this.downStage = new Konva.Stage({
       container: 'down',   // id of container <div>
-      width: 600,//600
-      height: 600//600
+      width: width,//600
+      height: height//600
     });
 
     this.downLayer = this.layer2.clone();
@@ -143,6 +157,15 @@ export class PatternComponent implements OnInit {
 
     //Needed For Undo
     this.addState();
+
+
+    //for changing frame shapes
+
+    this.workarea = document.getElementById('container');//get div of workarea
+    this.prev = document.getElementById('preview');//get div of workarea
+    this.can = document.getElementById('can');//get div of workarea
+
+
 
 
 
@@ -626,8 +649,8 @@ export class PatternComponent implements OnInit {
     this.layerr = null;
     this.stage = new Konva.Stage({
       container: 'can',
-      width: 600,
-      height: 600,
+      width: this.stage1.width(),
+      height: this.stage1.height(),
       scaleX: 1 / this.scale,
       scaleY: 1 / this.scale,
     });
@@ -669,7 +692,7 @@ export class PatternComponent implements OnInit {
           var k = this.save.children[motifs].clone();//clone individual motifs
           //var one = layerr.children[0].clone();
 
-          let val = (600 / this.scale);
+          let val = (this.stage1.width() / this.scale);
 
           k.attrs.x =k.attrs.x + (this.scale * val) * i - (this.scale * val);//300
           k.attrs.y = k.attrs.y + (this.scale * val) * xx - (this.scale * val);
@@ -801,7 +824,7 @@ export class PatternComponent implements OnInit {
     else{
       this.check = false;
       console.log("background OFF");
-      (<HTMLInputElement>document.getElementById("fav_color")).value = "#7E7C7C";
+      (<HTMLInputElement>document.getElementById("fav_color")).value = "#FFFFFF";
       this.changeColor();
     }
   }
@@ -874,6 +897,62 @@ export class PatternComponent implements OnInit {
     this.pixel = 10;
     this.download();
   }
+
+  rect(){
+
+    if(this.rectSym === false)//prevent unnecessary generation
+    {
+      this.rectSym = true;
+      this.squareSym = false;
+
+      this.workarea.style.width = this.defWidth + this.addWidth + 'px';//adjust div of konva
+      this.prev.style.width = this.defWidth + this.addWidth + 'px';//adjust div of konva preview
+      this.can.style.width = this.defWidth + this.addWidth + 'px';//adjust div of konva preview
+
+      this.layerSize = this.layer2.clone({ listening: true });//keep current layer on workarea
+
+
+      this.stage1 = new Konva.Stage({
+        container: 'container',
+        width: this.rectWidth,
+        height: this.defHeight
+      });
+      //clone frame of pattern stage
+      this.stage1.add(this.layerSize);//added clone layer to preview stage
+
+      this.generate();//refresh
+
+    }
+  }
+
+  square(){
+
+    if(this.squareSym === false)//prevent unnecessary generation
+    {
+      this.rectSym = false;
+      this.squareSym = true;
+
+      this.workarea.style.width = this.defWidth + 'px';//adjust div of konva workarea
+      this.prev.style.width = this.defWidth + 'px';//adjust div of konva preview
+      this.can.style.width = this.defWidth + 'px';//adjust div of konva preview
+
+      this.layerSize = this.layer2.clone({ listening: true });//keep current layer on workarea
+
+
+      this.stage1 = new Konva.Stage({
+        container: 'container',
+        width: this.defWidth,
+        height: this.defHeight
+      });
+      //clone frame of pattern stage
+      this.stage1.add(this.layerSize);//added clone layer to preview stage
+
+      this.generate();//refresh
+    }
+  }
+
+
+
 
   sliceURL(currentURL: string) {
     return currentURL.slice(36); //TODO: once we dont use cors, remove this function
