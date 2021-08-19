@@ -32,6 +32,11 @@ Navigation for the different tabs.
     <ion-button size="small" fill="clear" color="dark">
       <ion-label>Help</ion-label>
     </ion-button>
+
+    <ion-item>
+      <ion-label></ion-label>
+      <ion-toggle (ionChange)='toggleTheme($event)' slot="end"></ion-toggle>
+    </ion-item>
   </ion-tab-bar>
 
   <ion-tab-bar slot="top" class="top-nav">
