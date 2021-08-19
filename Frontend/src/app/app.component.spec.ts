@@ -4,10 +4,9 @@ import {RouterTestingModule} from '@angular/router/testing';
 
 //components
 import { AppComponent } from './app.component';
-
-
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
 import { CollectionsComponent } from './components/collections/collections.component';
+import { ColorComponent } from './components/color/color.component';
 
 //services
 import { CollectionsServiceService } from './services/collections-service.service';
@@ -18,12 +17,14 @@ describe('AppComponent', () => {
   let newCollectionFixture: ComponentFixture<NewCollectionComponent>;
   let collectionServiceFixture: CollectionsServiceService;
   let collectionFixture: ComponentFixture<CollectionsComponent>;
+  let colorFixture: ComponentFixture<ColorComponent>;
 
   //Components
   let app: AppComponent;
   let newCollection: NewCollectionComponent;
   let collectionService: CollectionsServiceService;
   let collectionComponent: CollectionsComponent;
+  let colorComponent: ColorComponent;
 
   //create a collection service
   let collectionServiceM: Partial<CollectionsServiceService>;
@@ -101,4 +102,34 @@ describe('AppComponent', () => {
     expect().nothing();
   });
 
+  it('Integration test: to see if the color palette is called from the color editor component', () => {
+    colorFixture = TestBed.createComponent(ColorComponent);
+
+    colorComponent = colorFixture.debugElement.nativeElement.componentInstance;
+
+    colorFixture.whenStable().then( () => {
+
+      const el = colorFixture.debugElement.nativeElement.querySelector('#genBtn');
+
+      el.click();
+
+      expect(colorComponent.colorGenerator).toHaveBeenCalled();
+
+    });
+  });
+
+  it('Integration test: testing to see if the color editor calls the change color component', () => {
+    colorFixture = TestBed.createComponent(ColorComponent);
+
+    colorComponent = colorFixture.debugElement.nativeElement.componentInstance;
+
+    colorFixture.whenStable().then( () => {
+
+      const el = colorFixture.debugElement.nativeElement.querySelector('#changeColorBtn');
+
+      el.click();
+
+      expect(colorComponent.changeFill).toHaveBeenCalled();
+    });
+  });
 });

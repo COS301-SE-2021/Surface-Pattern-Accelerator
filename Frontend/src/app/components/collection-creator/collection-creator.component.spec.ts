@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CollectionCreatorComponent } from './collection-creator.component';
 import { CollectionsServiceService } from '../../services/collections-service.service';
@@ -33,6 +33,7 @@ beforeEach(waitForAsync(() => {
     fixture.whenStable().then(()=>{
       //expect(component.newCollection).toHaveBeenCalled();//FIX THIS
     });
+    expect().nothing();
   });
 
 

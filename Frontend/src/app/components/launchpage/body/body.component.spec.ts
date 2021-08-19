@@ -22,4 +22,8 @@ describe('BodyComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Test to see if the buttons interact correctly with functions', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
 });

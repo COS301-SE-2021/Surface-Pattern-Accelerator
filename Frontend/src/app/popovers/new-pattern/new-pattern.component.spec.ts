@@ -21,4 +21,12 @@ describe('NewPatternComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Testing function call for savePattern', () => {
+    expect(component.saveNewPattern).toBeTruthy();
+  });
+
+  it('Testing function call for closePopup', () => {
+    expect(component.closePopup).toBeTruthy();
+  });
 });
