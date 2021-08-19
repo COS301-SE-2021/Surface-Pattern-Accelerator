@@ -336,11 +336,13 @@ export class PatternComponent implements OnInit {
   @ViewChild('menu') menu!:ElementRef;
   contextMenu(e){
     e.preventDefault();
+    if(this.selected != undefined)
+    {
+      this.menu.nativeElement.style.display = "block";
+      this.menu.nativeElement.style.top = e.pageY + "px";
+      this.menu.nativeElement.style.left = e.pageX + "px"
+    }
 
-    console.log(this.selected);
-    this.menu.nativeElement.style.display = "block";
-    this.menu.nativeElement.style.top = e.pageY + "px";
-    this.menu.nativeElement.style.left = e.pageX + "px"
   }
   dissapearContext(){
     this.menu.nativeElement.style.display = "none";
@@ -358,6 +360,7 @@ export class PatternComponent implements OnInit {
       (image: Group | Shape<ShapeConfig>) => {
         image.x(xCoord);
         image.y(yCoord);
+        console.log(image.attrs.width);
         image.scaleX(scaleX);
         image.scaleY(scaleY);
         image.rotation(rotation);
@@ -391,6 +394,30 @@ export class PatternComponent implements OnInit {
 
     //Needed For Undo
     this.addState();
+  }
+
+  clone()
+  {
+        let clone = this.selected.clone();
+        clone.x(this.selected.attrs.x + 40);
+        clone.addEventListener('click', ()=>{
+          this.selected = clone;
+        })
+        this.layer2.add(clone);
+        this.canvasMotifs[this.motifCount] = clone;
+        this.tr = new Konva.Transformer();
+        this.layer2.add(this.tr);
+        if(this.motifCount == 0)
+        {
+          this.tr.nodes([this.layer2.children[this.motifCount]]);
+        }
+        else
+        {
+          this.tr.nodes([this.layer2.children[this.motifCount*2]]);
+        }
+        this.motifCount++;
+        console.log(this.layer2);
+
   }
 
   /* For motif selection */
