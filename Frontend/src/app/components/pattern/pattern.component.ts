@@ -255,6 +255,7 @@ export class PatternComponent implements OnInit {
     for(let i = 0 ; i < motifDetailsArr.length ; i++)
     {
       console.log("Spawning");
+      console.log(motifDetailsArr[i].url);
       this.spawnMotifWithURL(motifDetailsArr[i].url, motifDetailsArr[i].xCoord,motifDetailsArr[i].yCoord,motifDetailsArr[i].scaleX,motifDetailsArr[i].scaleY,motifDetailsArr[i].rotation);
 
       console.log("Next");
@@ -354,7 +355,10 @@ export class PatternComponent implements OnInit {
 
   spawnMotifWithURL(motifURL: string, xCoord: number=0, yCoord: number=0, scaleX: number=1, scaleY:number=1, rotation: number=0)
   {
-    //motifURL = "https://cors-anywhere.herokuapp.com/" + motifURL;
+    if (!motifURL.includes("https://cors-anywhere.herokuapp.com/"))
+    {
+      motifURL = "https://cors-anywhere.herokuapp.com/" + motifURL;
+    }
     this.canvasMotifsUrl[this.motifCount] = motifURL;
     Konva.Image.fromURL(motifURL,
       (image: Group | Shape<ShapeConfig>) => {

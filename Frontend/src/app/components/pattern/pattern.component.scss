@@ -6,6 +6,10 @@ ion-card{
 ion-content{
   height: 100%;
 }
+.layerMotif{
+  height: 2cm;
+
+}
 
 ion-grid{
   height: 100%;
@@ -112,10 +116,10 @@ $dot-space: 15px;
   width: 600px;
   height: 600px;
   margin: 15px;
-  background-color: #7E7C7C;
+  background-color: white;
 }
 #container{
-  background-color: #7E7C7C;
+  background-color: white;
   border: solid black 3px;
   text-align : center;
 }

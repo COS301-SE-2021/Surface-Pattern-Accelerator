@@ -146,7 +146,10 @@
               <div *ngIf="motifs" >
                 <div *ngFor="let motif of this.canvasMotifs; let i = index" [attr.data-index]="i" class="temp">
                   <div class="MotifImage2">
-                    <img [src]= "sliceURL(motif.attrs.image.currentSrc)" alt="motif-image"> <!-- does resolve, ignore warning -->
+                    <div class="layerBlock" style="background-color: #949494; padding: 10px">
+                      <img [src]= "sliceURL(motif.attrs.image.currentSrc)" alt="motif-image" class="layerMotif">
+                    </div>
+                  <!-- does resolve, ignore warning -->
                     <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
 <!--                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image">-->
                     <!--       <button (click)="moveUp(motif)">MoveUp</button>
