@@ -680,4 +680,21 @@ export class PatternComponent implements OnInit {
 
 
   }
+
+  openTab($event: MouseEvent, tabPage: string) {
+    let i, tabContent, tabLinks;
+    tabContent  = document.getElementsByClassName('tab-content');
+    for (i = 0; i < tabContent.length; i++) {
+      tabContent[i].style.display = 'none';
+    }
+    /*
+    tabLinks  = document.getElementsByClassName('tab-links');
+    for (i = 0; i < tabLinks.length; i++) {
+      tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+    }
+
+     */
+    document.getElementById(tabPage).style.display  = 'block';
+    //(<HTMLElement>$event.currentTarget).className  += " active";
+  }
 }

@@ -49,7 +49,7 @@
     <ion-col size="7">
 
 
-        <ion-row size="1">
+        <ion-row>
           <ion-card style="width: 100%">
             <ion-card-content style="width: 100%">
               <ion-row>
@@ -100,6 +100,15 @@
     <!-- 'Modifiers' Side Menu Tab Component -->
     <ion-col size="2.5" class="tab-content" id="Modifiers">
       <ion-card>
+        <ion-card-header>
+          <ion-button size="small" fill="clear" class="tab-links" (click)="openTab($event,'Modifiers')">
+            <ion-icon name="invert-mode-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button size="small" fill="clear" class="tab-links" (click)="openTab($event,'Changes')">
+            <ion-icon name="eyedrop-outline" ></ion-icon>
+          </ion-button>
+        </ion-card-header>
         <ion-card-content>
           <div>
             <ion-item>
@@ -160,7 +169,13 @@
     <ion-col size="2.5" class="tab-content" id="Changes">
       <ion-card>
         <ion-card-header>
-          <ion-card-header>Changes</ion-card-header>
+          <ion-button size="small" fill="clear" class="tab-links" (click)="openTab($event,'Modifiers')">
+            <ion-icon name="invert-mode-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button size="small" fill="clear" class="tab-links" (click)="openTab($event,'Changes')">
+            <ion-icon name="eyedrop-outline" ></ion-icon>
+          </ion-button>
         </ion-card-header>
         <ion-card-content>
           <ion-list>
