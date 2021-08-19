@@ -97,7 +97,20 @@ app.get("/api/getCollections", (req, res) => {
         res.json(retValue);
     }).catch((error) => {
         // TODO: send error response for if no collections were found
+        console.log("Could not find collections");
         console.log(error);
+        gAPI.createFolder(req.session.accessToken, "SPA")
+            .then((SPAFolderResult) => {
+            const SPAFolderDetails = SPAFolderResult.data;
+            console.log(SPAFolderDetails.id);
+            const collectionsPromise = gAPI.createFolder(req.session.accessToken, "Collections", SPAFolderDetails.id);
+            const patternsPromise = gAPI.createFolder(req.session.accessToken, "Patterns", SPAFolderDetails.id);
+            const motifsPromise = gAPI.createFolder(req.session.accessToken, "Motifs", SPAFolderDetails.id);
+            Promise.all([collectionsPromise, patternsPromise, motifsPromise])
+                .then((promiseResultArray) => {
+                res.json({ collections: [] = [] });
+            });
+        });
     });
 });
 // define a route handler for the default home page
@@ -122,6 +135,9 @@ app.get("/api/getMotifs", (req, res) => {
             });
             // console.log(permissionsRes);
         });
+    })
+        .catch(() => {
+        res.json({ motifDetails: [] = [] }); // TODO: use motif Array interface motifArray.interface.ts
     });
 });
 app.get("/api/createFolder", (req, res) => {
@@ -155,24 +171,25 @@ app.post("/api/updateFile", (req, res) => {
 });
 app.post("/api/getFileByID", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
-    // "1GZw_Uog5thUHWy42jqP16L2lAuyftnlB"
     gAPI.getFileByID(req.session.accessToken, req.body.fileID).then((fileContents) => {
         res.json(fileContents);
     });
 });
 app.post("/api/newCollection", (req, res) => {
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
-    gAPI.getFolderID(req.session.accessToken, "SPA", true).then((resultSPAid) => {
-        const motifsPromise = gAPI.getFolderID(req.session.accessToken, "Motifs", false);
-        const patternsPromise = gAPI.getFolderID(req.session.accessToken, "Patterns", false);
-        Promise.all([motifsPromise, patternsPromise])
+    gAPI.getFolderID(req.session.accessToken, "SPA").then((resultSPAid) => {
+        const motifsPromise = gAPI.getFolderID(req.session.accessToken, "Motifs");
+        const patternsPromise = gAPI.getFolderID(req.session.accessToken, "Patterns");
+        const collectionsPromise = gAPI.getFolderID(req.session.accessToken, "Collections");
+        Promise.all([motifsPromise, patternsPromise, collectionsPromise])
             .then((folderIDResults) => {
             console.log(folderIDResults);
             const motifFolderDetails = folderIDResults[0];
             const patternFolderDetails = folderIDResults[1];
-            const SPAfolderDetails = resultSPAid;
+            const collectionsFolderDetails = folderIDResults[2];
+            const SPAfolderDetails = resultSPAid; // TODO: replace getFolderID with session implementation
             console.log("The collection name is: " + req.body.collectionName);
-            gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, "", SPAfolderDetails.fileID)
+            gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, "", collectionsFolderDetails.fileID)
                 .then((result) => {
                 const emptyCollectionID = result;
                 console.log(emptyCollectionID.id);
@@ -181,9 +198,9 @@ app.post("/api/newCollection", (req, res) => {
                     collectionID: emptyCollectionID.id,
                     motifsFolderID: motifFolderDetails.fileID,
                     patternsFolderID: patternFolderDetails.fileID,
-                    childPatterns: [],
+                    childPatterns: [] = [],
                     story: "a story here",
-                    colorThemes: []
+                    colorThemes: [] = []
                 };
                 gAPI.updateJSONFile(req.session.accessToken, emptyCollectionID.id, JSON.stringify(fileBody))
                     .then((updateResult) => {
@@ -197,6 +214,8 @@ app.post("/api/newCollection", (req, res) => {
             .catch((error) => {
             console.log(error + "Could not fetch Motifs and/or Pattern Folder IDs");
         });
+    }).catch((error) => {
+        console.log(error);
     });
 });
 app.post("/api/createNewJSONFile", (req, res) => {
@@ -211,33 +230,29 @@ app.post("/api/createNewJSONFile", (req, res) => {
 app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
     const files = req.files;
     const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
-    // "./uploads/frame.png"
-    // console.log(files[0].filename);
-    const uploadPromisesArray = [];
-    for (const file in files) {
-        if (file) {
-            const filePath = "./uploads/" + files[file].filename;
-            console.log(filePath);
-            if (fs_1.default.existsSync(filePath)) {
-                const uploadPromise = gAPI.uploadMotif(req.session.accessToken, files[file].filename);
-                uploadPromisesArray.push(uploadPromise);
-            }
-            else {
-                console.log("Does not exist");
+    gAPI.getFolderID(req.session.accessToken, "Motifs")
+        .then((resultMotifsID) => {
+        const motifFolderDetails = resultMotifsID;
+        const uploadPromisesArray = [];
+        for (const file in files) {
+            if (files.hasOwnProperty(file)) { // complains if its just "file"
+                const filePath = "./uploads/" + files[file].filename;
+                console.log(filePath);
+                if (fs_1.default.existsSync(filePath)) {
+                    const uploadPromise = gAPI.uploadMotif(req.session.accessToken, files[file].filename, motifFolderDetails.fileID);
+                    uploadPromisesArray.push(uploadPromise);
+                }
+                else {
+                    console.log("Does not exist");
+                }
             }
         }
-    }
-    Promise.all(uploadPromisesArray).then(() => {
-        res.json({ Status: "200 - success" });
-    }).catch(() => {
-        res.json({ Status: "404 - no file found in request" });
+        Promise.all(uploadPromisesArray).then(() => {
+            res.json({ Status: "200 - success" });
+        }).catch(() => {
+            res.json({ Status: "404 - no file found in request" });
+        });
     });
-    // if (Array.isArray(files) && files.length > 0) {
-    //
-    // } else {
-    //
-    // }
-    // console.log(req);
 });
 // start the Express server
 app.listen(port, () => {
