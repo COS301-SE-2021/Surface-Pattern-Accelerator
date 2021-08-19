@@ -10,6 +10,7 @@ import { ColorComponent } from './components/color/color.component';
 
 //services
 import { CollectionsServiceService } from './services/collections-service.service';
+import {CollectionBasicOperationsComponent} from './popovers/collection-basic-operations/collection-basic-operations.component';
 
 describe('AppComponent', () => {
   //Fixtures
@@ -121,7 +122,7 @@ describe('AppComponent', () => {
   it('Integration test: testing to see if the color editor calls the change color component', () => {
     colorFixture = TestBed.createComponent(ColorComponent);
 
-    colorComponent = colorFixture.debugElement.nativeElement.componentInstance;
+    colorComponent = colorFixture.componentInstance;
 
     colorFixture.whenStable().then( () => {
 
@@ -131,5 +132,26 @@ describe('AppComponent', () => {
 
       expect(colorComponent.changeFill).toHaveBeenCalled();
     });
+  });
+
+  it('Integration tes: testing the collection components interaction with the popover component', () => {
+
+    let componentBasicOp: CollectionBasicOperationsComponent;
+
+    let compBasicOperationsFixture: ComponentFixture<CollectionBasicOperationsComponent>;
+
+    newCollectionFixture = TestBed.createComponent(NewCollectionComponent);
+
+    newCollection = newCollectionFixture.debugElement.componentInstance;
+
+    newCollectionFixture.whenStable().then( () => {
+
+      const el = newCollectionFixture.debugElement.nativeElement.querySelector('#newCol');
+
+      el.click();
+
+      expect(newCollection).toBeTruthy();
+    });
+    expect().nothing();
   });
 });
