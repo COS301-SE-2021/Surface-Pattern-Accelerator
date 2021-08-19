@@ -142,7 +142,7 @@ app.get("/api/getCollections", (req, res) => {
 
                 Promise.all([collectionsPromise, patternsPromise, motifsPromise])
                     .then((promiseResultArray) => {
-                        res.json({collections: [] = []} as ICollectionsInterface);
+                        res.json({collections: [] = []} as unknown as ICollectionsInterface);
                     });
 
             });
@@ -253,7 +253,7 @@ app.post("/api/newCollection", (req, res) => {
                             childPatterns: [] = [],
                             story: "a story here",
                             colorThemes: [] = []
-                        } as ICollectionsContent;
+                        } as unknown as ICollectionsContent;
 
                         gAPI.updateJSONFile(req.session.accessToken, emptyCollectionID.id, JSON.stringify(fileBody))
                             .then((updateResult) => {
