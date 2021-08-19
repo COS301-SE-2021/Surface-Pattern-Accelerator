@@ -55,9 +55,10 @@ export class PatternComponent implements OnInit {
   check: boolean = false;
   defaultBack: string = "#878787";//default background color
   scale: number = 6;
-  three: boolean = false;
-  six: boolean = true;
-  twelve: boolean = false;
+  pixel: number = 5;
+
+
+
 
   //Needed For Undo
   _state: Konva.Layer[] = new Array();
@@ -760,11 +761,11 @@ export class PatternComponent implements OnInit {
     if(this.check === true)
     {
       this.createBack();
-      const dataURL = this.downStage.toDataURL({ pixelRatio: 3 });//get current canvas
+      const dataURL = this.downStage.toDataURL({ pixelRatio: this.pixel });//get current canvas
       this.downloadURI(dataURL, 'pattern.png');
     }
     else{
-      const dataURL = this.stage.toDataURL({ pixelRatio: 3 });//get current canvas
+      const dataURL = this.stage.toDataURL({ pixelRatio: this.pixel });//get current canvas
       this.downloadURI(dataURL, 'pattern.png');
     }
   }
@@ -859,6 +860,20 @@ export class PatternComponent implements OnInit {
     this.generate();
   }
 
+  export2(){
+    this.pixel = 2;
+    this.download();
+  }
+
+  export5(){
+    this.pixel = 5;
+    this.download();
+  }
+
+  export10(){
+    this.pixel = 10;
+    this.download();
+  }
 
   sliceURL(currentURL: string) {
     return currentURL.slice(36); //TODO: once we dont use cors, remove this function
