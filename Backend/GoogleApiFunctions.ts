@@ -147,33 +147,45 @@ export class GoogleApiFunctions {
 
         return new Promise((resolve, reject) => {
             const drive = google.drive({version: "v3", auth});
-            drive.files.list({
-                q: "mimeType='image/svg+xml'",
-                spaces: "drive",
-                pageSize: 10,
-                fields: "nextPageToken, files(id, name)",
-            }, (err, res) => {
-                if (err) { return console.log("The API returned an error: " + err); }
-                const files = res.data.files;
-                if (files.length) {
 
-                    console.log("Files:");
-                    files.map((file) => {
-                        console.log(`${file.name} (${file.id})`);
-                        const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}');
-                        motifContainer.motifName = file.name;
-                        motifContainer.motifID = file.id;
-                        // obj.motifNames.push(file.id);
-                        motifDetails.motifNames.push(motifContainer);
+            this.getFolderID(token, "Motifs")
+                .then((motifsFolderResult) => {
+
+                    const motifsFolderDetails: IFolderInterface = motifsFolderResult as IFolderInterface;
+                    const FILE_ID = "'" + motifsFolderDetails.fileID + "' in parents and trashed=false";
+
+                    drive.files.list({
+                        // q: "mimeType='image/svg+xml'",
+                        q: FILE_ID,
+                        pageSize: 10,
+                        fields: "nextPageToken, files(id, name)",
+                    }, (err, res) => {
+                        if (err) { return console.log("The API returned an error: " + err); }
+                        const files = res.data.files;
+                        if (files.length) {
+
+                            console.log("Files:");
+                            files.map((file) => {
+                                console.log(`${file.name} (${file.id})`);
+                                const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}');
+                                motifContainer.motifName = file.name;
+                                motifContainer.motifID = file.id;
+                                // obj.motifNames.push(file.id);
+                                motifDetails.motifNames.push(motifContainer);
+                            });
+                            console.log(motifDetails);
+                            resolve(motifDetails);
+
+                        } else {
+                            reject({text: "No Motifs Found"});
+                            console.log("No files found.");
+                        }
                     });
-                    console.log(motifDetails);
-                    resolve(motifDetails);
-
-                } else {
+                })
+                .catch((getMotifsFolderError) => {
                     reject({text: "something went wrong with fetching motifs"});
-                    console.log("No files found.");
-                }
-            });
+                });
+
         });
     }
 
@@ -311,12 +323,11 @@ export class GoogleApiFunctions {
         const auth = this.createAuthObject(token);
 
         return new Promise((resolve, reject) => {
-            this.getFolderID(token, "SPA", true) // get folder ID of name "SPA", true to create folder SPA folder if it does not exist
+            this.getFolderID(token, "Collections") //
                 .then((folderIDResult) => { // Then get all contents of folder
                     // TODO: insert try catch if type is wrong
                     const fDetails: IFolderInterface = folderIDResult as IFolderInterface;
-                    // const ID = "1bBwaYPMKdkuarODP5dVuaiTakehLu183";
-                    // const ID = fDetails.fileID;
+
                     console.log("The file ID is: " + fDetails.fileID);
                     const FILE_ID = "'" + fDetails.fileID + "' in parents and trashed=false";
 
@@ -331,10 +342,7 @@ export class GoogleApiFunctions {
                         }
                         const files = res.data.files;
                         if (files.length) {
-
-                            // const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
-                            // const collections = JSON.parse('{"collectionNames": []}');
-                            const collectionsJSON: ICollectionsInterface = {collections: []} as unknown as ICollectionsInterface;
+                            const collectionsJSON: ICollectionsInterface = {collections: [] = []} as ICollectionsInterface;
 
                             console.log("Contents in folder:");
                             files.map((file) => {
@@ -343,7 +351,6 @@ export class GoogleApiFunctions {
                                     collectionsJSON.collections.push({collectionName: file.name, collectionID: file.id} as ICollectionDetailsInterface);
                                 }
                             });
-                            // console.log(collectionsJSON);
                             resolve(collectionsJSON);
 
                         } else {
@@ -359,65 +366,42 @@ export class GoogleApiFunctions {
         });
     }
 
-    public getFolderID(token: ITokenInterface, folderName: string, createIfNone: boolean) {
+    public getFolderID(token: ITokenInterface, folderName: string) {
         return new Promise((success, failure) => {
 
             const auth = this.createAuthObject(token);
-
             const drive = google.drive({version: "v3", auth});
+
             drive.files.list({
                 q: "mimeType = 'application/vnd.google-apps.folder'",
                 spaces: "drive",
                 pageSize: 20,
                 fields: "nextPageToken, files(id, name, mimeType)",
-            }, (err, driveRes) => {
-                let spaFolderFound = false;
-                if (err) { return console.log("The API returned an error: " + err); }
-                const files = driveRes.data.files;
+            }).then((filesListResult) => {
+                const files = filesListResult.data.files;
                 if (files.length) {
                     files.forEach((file) => { // loop through all files and search for name === folderName
                         console.log(`${file.name} (${file.id})`);
                         if (file.name === folderName) {
                             console.log("SPA folder found");
                             const folderDetails: IFolderInterface = {fileName: file.name, fileID: file.id } as IFolderInterface;
-                            spaFolderFound = true;
                             success(folderDetails); // if found: success
                             return;
-                            // ends function here
                         }
                     });
-                    // end of loop so folder not found
-                    // create folder if parameter createIfNone === true
-                    if (createIfNone === true && spaFolderFound === false) {
-                        this.createFolder(token, "SPA").then((r) => {
-                            console.log("SPA Folder created as it was not found");
-                            console.log(r.data);
-                            const idResponse: any = r.data;
-
-                            const PatternsPromise = this.createFolder(token, "Patterns", idResponse.id); // create Patterns sub folder
-                            const MotifsPromise = this.createFolder(token, "Motifs", idResponse.id); // create Motifs sub folder
-
-                            Promise.all([PatternsPromise, MotifsPromise]).then((subFoldersResponse) => {
-                                console.log(subFoldersResponse);
-                                const folderDetails: IFolderInterface = {fileName: "SPA", fileID: idResponse.id } as IFolderInterface;
-                                success(folderDetails); // if found: success
-                            });
-
-                        }).catch((error) => {
-                            console.log(error);
-                        });
-                    }
-                    failure();
+                    failure({text: "No Folder \'" + folderName + "\' was found"});
 
                 } else {
-                    console.log("No files found.");
-                    failure(); // TODO: create folder if the users google drive is empty
+                    console.log("Zero folders exist on the users drive");
+                    failure({text: "The users google drive is empty "}); // TODO: create folder if the users google drive is empty
                 }
             });
-        }).then( (folderDetails) => {
-            // console.log(folderDetails);
-            return folderDetails;
+
         });
+        //     .then( (folderDetails) => {
+        //     // console.log(folderDetails);
+        //     return folderDetails;
+        // });
     }
 
     public createFolder(token: ITokenInterface, folderName: string, parentID: string = "") {
@@ -539,25 +523,44 @@ export class GoogleApiFunctions {
         });
     }
 
-    public uploadMotif(token: ITokenInterface, fileName: string) {
+    public uploadMotif(token: ITokenInterface, fileName: string, parentID: string = "") {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});
         const filePath = "./uploads/" + fileName;
 
-        const fileMetadata = {
-            name: fileName
-        };
-        const media = {
-            mimeType: "image/svg+xml",
-            body: fs.createReadStream(filePath)
-        };
+        if (parentID === "") {
+            const fileMetadata = {
+                name: fileName
+            };
+            const media = {
+                mimeType: "image/svg+xml",
+                body: fs.createReadStream(filePath)
+            };
 
-        return drive.files.create({
-            // @ts-ignore
-            resource: fileMetadata,
-            media,
-            fields: "id"
-        });
+            return drive.files.create({
+                // @ts-ignore
+                resource: fileMetadata,
+                media,
+                fields: "id"
+            });
+        } else {
+            const fileMetadata = {
+                name: fileName,
+                parents: [parentID]
+            };
+            const media = {
+                mimeType: "image/svg+xml",
+                body: fs.createReadStream(filePath)
+            };
+
+            return drive.files.create({
+                // @ts-ignore
+                resource: fileMetadata,
+                media,
+                fields: "id"
+            });
+        }
+
     }
 
 }

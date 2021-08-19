@@ -15,6 +15,7 @@ import {IFolderInterface} from "./Interfaces/folder.interface";
 
 import {rejects} from "assert";
 import multer from "multer" ;
+import {ICollectionsInterface} from "./Interfaces/collections.interface";
 
 // tslint:disable-next-line:interface-name
 declare module "express-session" { interface Session { accessToken: ITokenInterface; } }
@@ -128,7 +129,23 @@ app.get("/api/getCollections", (req, res) => {
             res.json(retValue);
     }).catch((error) => {
         // TODO: send error response for if no collections were found
+        console.log("Could not find collections");
         console.log(error);
+        gAPI.createFolder(req.session.accessToken, "SPA")
+            .then((SPAFolderResult) => {
+                const SPAFolderDetails = SPAFolderResult.data as unknown as {id: string};
+                console.log(SPAFolderDetails.id);
+
+                const collectionsPromise = gAPI.createFolder(req.session.accessToken, "Collections", SPAFolderDetails.id);
+                const patternsPromise = gAPI.createFolder(req.session.accessToken, "Patterns", SPAFolderDetails.id);
+                const motifsPromise = gAPI.createFolder(req.session.accessToken, "Motifs", SPAFolderDetails.id);
+
+                Promise.all([collectionsPromise, patternsPromise, motifsPromise])
+                    .then((promiseResultArray) => {
+                        res.json({collections: [] = []} as ICollectionsInterface);
+                    });
+
+            });
     });
 });
 
@@ -156,6 +173,9 @@ app.get("/api/getMotifs", (req, res) => {
                     // console.log(permissionsRes);
                 });
 
+        })
+        .catch(() => {
+            res.json({motifDetails: [] = []}); // TODO: use motif Array interface motifArray.interface.ts
         });
 });
 
@@ -195,7 +215,6 @@ app.post("/api/updateFile", (req, res) => {
 app.post("/api/getFileByID", (req, res) => {
 
     const gAPI = new GoogleApiFunctions();
-    // "1GZw_Uog5thUHWy42jqP16L2lAuyftnlB"
     gAPI.getFileByID(req.session.accessToken, req.body.fileID).then((fileContents) => {
         res.json(fileContents);
     });
@@ -204,22 +223,24 @@ app.post("/api/getFileByID", (req, res) => {
 app.post("/api/newCollection", (req, res) => {
 
     const gAPI = new GoogleApiFunctions();
-    gAPI.getFolderID(req.session.accessToken, "SPA", true).then((resultSPAid) => {
+    gAPI.getFolderID(req.session.accessToken, "SPA").then((resultSPAid) => {
 
-        const motifsPromise = gAPI.getFolderID(req.session.accessToken, "Motifs", false);
-        const patternsPromise = gAPI.getFolderID(req.session.accessToken, "Patterns", false);
+        const motifsPromise = gAPI.getFolderID(req.session.accessToken, "Motifs");
+        const patternsPromise = gAPI.getFolderID(req.session.accessToken, "Patterns");
+        const collectionsPromise = gAPI.getFolderID(req.session.accessToken, "Collections");
 
-        Promise.all([motifsPromise, patternsPromise])
+        Promise.all([motifsPromise, patternsPromise, collectionsPromise])
             .then((folderIDResults) => {
                 console.log(folderIDResults);
 
                 const motifFolderDetails: IFolderInterface = folderIDResults[0] as IFolderInterface;
                 const patternFolderDetails: IFolderInterface = folderIDResults[1] as IFolderInterface;
+                const collectionsFolderDetails: IFolderInterface = folderIDResults[2] as IFolderInterface;
 
-                const SPAfolderDetails: IFolderInterface = resultSPAid as IFolderInterface;
+                const SPAfolderDetails: IFolderInterface = resultSPAid as IFolderInterface; // TODO: replace getFolderID with session implementation
 
                 console.log("The collection name is: " + req.body.collectionName);
-                gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, "", SPAfolderDetails.fileID)
+                gAPI.createNewJSONFile(req.session.accessToken, req.body.collectionName, "", collectionsFolderDetails.fileID)
                     .then((result) => {
                         const emptyCollectionID: any = result;
                         console.log(emptyCollectionID.id);
@@ -229,10 +250,10 @@ app.post("/api/newCollection", (req, res) => {
                             collectionID: emptyCollectionID.id,
                             motifsFolderID: motifFolderDetails.fileID,
                             patternsFolderID: patternFolderDetails.fileID,
-                            childPatterns: [],
+                            childPatterns: [] = [],
                             story: "a story here",
-                            colorThemes: []
-                        } as unknown as ICollectionsContent;
+                            colorThemes: [] = []
+                        } as ICollectionsContent;
 
                         gAPI.updateJSONFile(req.session.accessToken, emptyCollectionID.id, JSON.stringify(fileBody))
                             .then((updateResult) => {
@@ -248,6 +269,8 @@ app.post("/api/newCollection", (req, res) => {
                 console.log(error + "Could not fetch Motifs and/or Pattern Folder IDs");
             });
 
+    }).catch((error) => {
+        console.log(error);
     });
 
 });
@@ -267,38 +290,32 @@ app.post("/api/createNewJSONFile", (req, res) => {
 app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
     const files: any = req.files;
     const gAPI = new GoogleApiFunctions();
-    // "./uploads/frame.png"
 
-    // console.log(files[0].filename);
+    gAPI.getFolderID(req.session.accessToken, "Motifs")
+        .then((resultMotifsID) => {
+            const motifFolderDetails: IFolderInterface = resultMotifsID as IFolderInterface;
+            const uploadPromisesArray: any[] = [];
+            for (const file in files) {
+                if (files.hasOwnProperty(file)) { // complains if its just "file"
+                    const filePath = "./uploads/" + files[file].filename;
+                    console.log(filePath);
+                    if (fs.existsSync(filePath)) {
+                        const uploadPromise = gAPI.uploadMotif(req.session.accessToken, files[file].filename, motifFolderDetails.fileID);
+                        uploadPromisesArray.push(uploadPromise);
+                    } else {
+                        console.log("Does not exist");
+                    }
+                }
 
-    const uploadPromisesArray: any[] = [];
-    for (const file in files) {
-        if (file) {
-            const filePath = "./uploads/" + files[file].filename;
-            console.log(filePath);
-            if (fs.existsSync(filePath)) {
-                const uploadPromise = gAPI.uploadMotif(req.session.accessToken, files[file].filename);
-                uploadPromisesArray.push(uploadPromise);
-            } else {
-                console.log("Does not exist");
             }
-        }
 
-    }
+            Promise.all(uploadPromisesArray).then(() => {
+                res.json({Status: "200 - success"});
+            }).catch(() => {
+                res.json({Status: "404 - no file found in request"});
+            });
+        });
 
-    Promise.all(uploadPromisesArray).then(() => {
-        res.json({Status: "200 - success"});
-    }).catch(() => {
-        res.json({Status: "404 - no file found in request"});
-    });
-
-    // if (Array.isArray(files) && files.length > 0) {
-    //
-    // } else {
-    //
-    // }
-
-    // console.log(req);
 });
 
 // start the Express server
