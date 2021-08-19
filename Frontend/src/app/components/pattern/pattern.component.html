@@ -80,7 +80,17 @@
         <ion-card>
           <ion-card-content>
 
-              <div class="workArea" id="container" style="margin: auto;"></div>
+              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>
+            <div #menu class="customContext" (click)="stopPropagation($event)">
+              <ul>
+                <li (click)="newFlipX()">FlipX</li>
+                <li (click)="newFlipY()">FlipY</li>
+                <li (click)="newDelete()">Delete</li>
+                <li (click)="newToTop()">Top</li>
+                <li (click)="newToBottom()">Bottom</li>
+              </ul>
+            </div>
+
               <div class="view" id="preview" style="margin: auto;"></div>
             <br>
               <div id="can" style="margin: auto;"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
