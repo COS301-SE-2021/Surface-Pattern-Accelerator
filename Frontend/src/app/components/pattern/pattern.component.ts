@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MotifServiceService } from '../../services/motif-service.service';
 import Konva from "konva";
 import { Group } from 'konva/lib/Group';
@@ -23,7 +23,7 @@ import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.compon
 })
 export class PatternComponent implements OnInit {
   private serverAPIURL = 'http://localhost:3000/api';
-
+  selected!:(Group | Shape);
   selectedPattern: any;
 
   stage!: Konva.Stage;
@@ -333,6 +333,23 @@ export class PatternComponent implements OnInit {
     this.layer2.add(path2);
   }
 
+  @ViewChild('menu') menu!:ElementRef;
+  contextMenu(e){
+    e.preventDefault();
+
+    console.log(this.selected);
+    this.menu.nativeElement.style.display = "block";
+    this.menu.nativeElement.style.top = e.pageY + "px";
+    this.menu.nativeElement.style.left = e.pageX + "px"
+  }
+  dissapearContext(){
+    this.menu.nativeElement.style.display = "none";
+  }
+  stopPropagation(e){
+    e.stopPropagation(e);
+  }
+
+
   spawnMotifWithURL(motifURL: string, xCoord: number=0, yCoord: number=0, scaleX: number=1, scaleY:number=1, rotation: number=0)
   {
 
@@ -348,7 +365,9 @@ export class PatternComponent implements OnInit {
         image.scale();
         image.draggable(true);
         console.log( image);
-
+        image.addEventListener('click', ()=>{
+          this.selected = image;
+        })
         this.layer2.add(image);
         this.canvasMotifs[this.motifCount] = image;
 
@@ -374,6 +393,11 @@ export class PatternComponent implements OnInit {
     this.addState();
   }
 
+  /* For motif selection */
+  // clicked(){
+  //
+  //   this.tr.nodes([this.selected]);
+  // }
 
   moveUp(img: Group | Shape<ShapeConfig>)
   {
@@ -475,6 +499,88 @@ export class PatternComponent implements OnInit {
         this.layer2.children[i].scaleY( (- this.layer2.children[i].scaleY()))
       }
     }
+  }
+  newFlipX()
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (this.selected._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetX( this.layer2.children[i].width() / 2)
+        this.layer2.children[i].scaleX( (- this.layer2.children[i].scaleX()))
+      }
+    }
+  }
+  newFlipY()
+  {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (this.selected._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].offsetY( this.layer2.children[i].height() / 2)
+        this.layer2.children[i].scaleY( (- this.layer2.children[i].scaleY()))
+      }
+    }
+  }
+  newDelete(){
+    let index = 0;
+    let position = 0;
+    let motifNum = 0;
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (this.selected._id+1 == this.layer2.children[i]._id) {
+        this.layer2.children[i].remove();
+        this.layer2.draw();
+        break;
+      }
+    }
+    for (var i = 0; i < this.layer2.children.length; i++) {
+
+      if (this.selected._id == this.layer2.children[i]._id) {
+        motifNum = i;
+        this.layer2.children[i].remove();
+        if(this.motifCount!=0)
+          this.motifCount--;
+        this.layer2.draw();
+        break;
+      }
+    }
+    for(var i = 0 ; i < this.canvasMotifs.length; i++)
+    {
+      if(this.selected._id == this.canvasMotifs[i]._id)
+      {
+        index = i;
+        this.canvasMotifs.splice(index, 1);
+      }
+    }
+
+    let s = document.querySelectorAll(".MotifImage2");
+    if(s[index])
+      s[index].remove();
+    this.menu.nativeElement.style.display = "none";
+  }
+
+  newToTop() {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (this.selected._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToTop();
+      }
+    }
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (this.selected._id + 1 == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToTop();
+      }
+    }
+    //this.back();
+  }
+
+  newToBottom() {
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (this.selected._id+1 == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToBottom();
+      }
+    }
+    for (var i = 0; i < this.layer2.children.length; i++) {
+      if (this.selected._id == this.layer2.children[i]._id) {
+        this.layer2.children[i].moveToBottom();
+      }
+    }
+    //this.back();
   }
 
 
