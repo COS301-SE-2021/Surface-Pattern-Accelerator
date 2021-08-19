@@ -299,8 +299,8 @@ class GoogleApiFunctions {
                         return console.log("The API returned an error: " + err);
                     }
                     const files = res.data.files;
+                    const collectionsJSON = { collections: [] = [] };
                     if (files.length) {
-                        const collectionsJSON = { collections: [] = [] };
                         console.log("Contents in folder:");
                         files.map((file) => {
                             console.log(`${file.name} (${file.id}) ${file.mimeType}`);
@@ -311,8 +311,8 @@ class GoogleApiFunctions {
                         resolve(collectionsJSON);
                     }
                     else {
-                        reject({ text: "something went wrong with fetching folder content - No Collections Found" });
-                        console.log("No files found.");
+                        resolve(collectionsJSON);
+                        console.log("something went wrong with fetching folder content - No Collections Found");
                     }
                 });
             }).catch((noFolderWithThatNameError) => {
@@ -326,9 +326,8 @@ class GoogleApiFunctions {
             const auth = this.createAuthObject(token);
             const drive = googleapis_1.google.drive({ version: "v3", auth });
             drive.files.list({
-                q: "mimeType = 'application/vnd.google-apps.folder'",
+                q: "mimeType = 'application/vnd.google-apps.folder'" + " and trashed=false",
                 spaces: "drive",
-                pageSize: 20,
                 fields: "nextPageToken, files(id, name, mimeType)",
             }).then((filesListResult) => {
                 const files = filesListResult.data.files;

@@ -332,7 +332,7 @@ export class GoogleApiFunctions {
                     const FILE_ID = "'" + fDetails.fileID + "' in parents and trashed=false";
 
                     const drive = google.drive({version: "v3", auth});
-                    drive.files.list({ // gets folder content
+                    drive.files.list({ // gets folder content***************
                         q: FILE_ID,
                         pageSize: 10,
                         fields: "nextPageToken, files(id, name, mimeType)",
@@ -341,8 +341,8 @@ export class GoogleApiFunctions {
                             return console.log("The API returned an error: " + err);
                         }
                         const files = res.data.files;
+                        const collectionsJSON: ICollectionsInterface = {collections: [] = []} as unknown as ICollectionsInterface;
                         if (files.length) {
-                            const collectionsJSON: ICollectionsInterface = {collections: [] = []} as unknown as ICollectionsInterface;
 
                             console.log("Contents in folder:");
                             files.map((file) => {
@@ -353,9 +353,11 @@ export class GoogleApiFunctions {
                             });
                             resolve(collectionsJSON);
 
-                        } else {
-                            reject({text: "something went wrong with fetching folder content - No Collections Found"});
-                            console.log("No files found.");
+                        } else
+                        {
+                            //Folder is empty
+                            resolve(collectionsJSON);
+                            console.log("Collections folder is empty");
                         }
                     });
             }).catch((noFolderWithThatNameError) => {
@@ -373,9 +375,8 @@ export class GoogleApiFunctions {
             const drive = google.drive({version: "v3", auth});
 
             drive.files.list({
-                q: "mimeType = 'application/vnd.google-apps.folder'",
+                q: "mimeType = 'application/vnd.google-apps.folder'" + " and trashed=false",
                 spaces: "drive",
-                pageSize: 20,
                 fields: "nextPageToken, files(id, name, mimeType)",
             }).then((filesListResult) => {
                 const files = filesListResult.data.files;
