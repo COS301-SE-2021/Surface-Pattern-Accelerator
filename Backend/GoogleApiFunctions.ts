@@ -342,7 +342,7 @@ export class GoogleApiFunctions {
                         }
                         const files = res.data.files;
                         if (files.length) {
-                            const collectionsJSON: ICollectionsInterface = {collections: [] = []} as ICollectionsInterface;
+                            const collectionsJSON: ICollectionsInterface = {collections: [] = []} as unknown as ICollectionsInterface;
 
                             console.log("Contents in folder:");
                             files.map((file) => {

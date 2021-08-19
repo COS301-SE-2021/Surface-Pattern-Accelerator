@@ -23,7 +23,7 @@
               <div *ngIf="motifs">
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
 
-                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL("https://cors-anywhere.herokuapp.com/" + motif.motifLink);'>
+                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL(motif.motifLink);'>
                     <ion-row>
                       <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
                     </ion-row>
@@ -135,9 +135,9 @@
               <div *ngIf="motifs" >
                 <div *ngFor="let motif of this.canvasMotifs; let i = index" [attr.data-index]="i" class="temp">
                   <div class="MotifImage2">
-                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image"> <!-- does resolve, ignore warning -->
+                    <img [src]= "sliceURL(motif.attrs.image.currentSrc)" alt="motif-image"> <!-- does resolve, ignore warning -->
                     <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
-                    motif.attrs.image.outerHTML
+<!--                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image">-->
                     <!--       <button (click)="moveUp(motif)">MoveUp</button>
                            <button (click)="moveDown(motif)">MoveDown</button>
                            -->
