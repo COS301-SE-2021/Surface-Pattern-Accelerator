@@ -15,7 +15,7 @@ Our vision is to develop a specialized software package capable of creating patt
 * :scroll: [User manual](https://www.overleaf.com/read/tcnzswypsdzd)
 
 ## Technical Installation Manual
-* :floppy_disk: [Technical Installation Guide](https://www.overleaf.com/read/)
+* :floppy_disk: [Technical Installation Guide](https://www.overleaf.com/read/dnvytdqmtcsg)
 
 ## Project demos
 * :tv: [Demo1 Video](https://drive.google.com/file/d/1K6xgb0ALsqWLqd_uVz9dR12Jfqt4rZtr/view?usp=sharing)
@@ -26,7 +26,6 @@ Our vision is to develop a specialized software package capable of creating patt
 ## Documentation
 * :open_book: [Software Requirements Specification](https://www.overleaf.com/read/mkwjqmjkhzry)
 * :open_book: [Coding Standards](https://www.overleaf.com/read/gcjfyjhhsrhg)
-* :open_book: [Technical Installation manual](https://www.overleaf.com/read/dnvytdqmtcsg)
 
 ## Project Management Tools
 
