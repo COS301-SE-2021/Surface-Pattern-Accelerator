@@ -1,0 +1,52 @@
+<ion-content [scrollY]="contentScrollActive">
+<div id="page">
+
+  <div id = "side" class="bord item-group">
+    <h2 class="fixed">Motifs</h2>
+    <br>
+    <p>Drag and drop onto Canvas</p>
+
+    <button class="motif" id="box" (click)='generateMotif()'></button>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="fig_motif drag">
+    </div>
+
+    <div class="item-group">
+
+    </div>
+
+  </div>
+
+  <div id="canvasContained" class="bord">
+    <div id="canvasFrame">
+      <canvas id="myCanvas" width="{{width}}" height="{{height}}" class="drop-area" #dropzoneA>
+        Your browser does not support the HTML canvas tag.</canvas>
+
+      <div id="container"></div>
+    </div>
+
+    <div id="preview"></div>
+  </div>
+
+  <div id = "frame" class = "bord">
+
+    <button class="buttons" id="rect" (click)='chooseCanvasSymbol(false)' color="dark" >Rectangle Frame</button>
+    <br>
+    <button class="buttons" id="square" (click)='chooseCanvasSymbol(true)' color="dark">Square Frame</button>
+    <br>
+    <button class="buttons" id="save" (click)='download()'>Save as image</button>
+    <br>
+    <button class="buttons" id="pre" (click)='preview()'>Refresh</button>
+    <br>
+    <label for="fav_color">Select a color: </label>
+    <input type="color" id="fav_color" name="fav_color" value="#ff0000">
+    <br>
+    <button class="buttons" id = "col" (click)='changeColor()'>Change Color</button>
+
+  </div>
+
+</div>
+  </ion-content>
