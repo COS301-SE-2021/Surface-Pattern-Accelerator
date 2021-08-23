@@ -38,6 +38,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
 import { MaterialModule } from './material/material.module';
+import {GLoginComponent} from './components/g-login/g-login.component'
 
 
 
@@ -60,7 +61,8 @@ import { MaterialModule } from './material/material.module';
     BodyComponent,
     MotifUploadComponent,
     MotifCatalogueComponent,
-    NewPatternComponent
+    NewPatternComponent,
+    GLoginComponent
 
   ],
 
