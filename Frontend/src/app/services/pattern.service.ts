@@ -12,7 +12,8 @@ export class PatternService {
   private serverAPIURL = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController
+              ) { }
 
   currentCollection?: ICollectionsContent;
   currentPattern?: IPatternContentsInterface;
@@ -36,7 +37,6 @@ export class PatternService {
   {
       if (this.currentCollection !== null)
       {
-
         this.loadingController.create({
           message: "Creating Pattern..."
         }).then(loaderResult => {
@@ -72,19 +72,12 @@ export class PatternService {
                       console.log(collectionUpdateResult) //prints
                       loaderResult.dismiss().then();
                     })
-
                   })
                 }
               }
-
             })
           })
-
         })
-
-
-
-
         console.log(this.currentCollection);
       }
   }

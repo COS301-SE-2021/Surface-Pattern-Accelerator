@@ -92,27 +92,10 @@ export class PatternComponent implements OnInit {
     })
   }
 
-
   getMotifs(): void
   {
     this.motifService.getMotifs()
-      .subscribe(motifs =>
-      {
 
-        this.motifs = motifs
-
-        for (let mot in this.motifs.motifDetails)
-        {
-          if(motifs.motifDetails.hasOwnProperty(mot))
-          {
-            this.motifs.motifDetails[mot].motifID
-            this.motifObjects.push(new motif(this.motifs.motifDetails[mot].motifLink,this.motifs.motifDetails[mot].motifID));
-          }
-
-        }
-
-        console.log(motifs)
-      });
   }
 
 
