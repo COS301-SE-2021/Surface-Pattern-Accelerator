@@ -50,7 +50,10 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-const upload = multer({storage});
+const upload = multer({
+    storage,
+    limits: {fileSize: 1000*1000}
+});
 
 app.use(cors({origin: // cors so it can work with application on another domain
         ["http://localhost:8100"],
