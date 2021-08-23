@@ -1,0 +1,14 @@
+<title>
+  Google Sign In
+</title>
+<p>Sign In</p>
+<script src="https://apis.google.com/js/api.js"></script>
+<ion-button (click)="signIn()">Sign In with Google</ion-button>
+<ion-button (click)="createAccessToken()">Set Auth Code</ion-button>
+<ion-button (click)="printFile()">print</ion-button>
+
+<div *ngIf="user != null">
+  <div>You are signed in {{user.getBasicProfile().getName()}}</div>
+</div>
+
+
