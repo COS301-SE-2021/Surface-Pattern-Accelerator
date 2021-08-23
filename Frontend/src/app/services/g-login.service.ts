@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import {Observable, ReplaySubject} from "rxjs";
+import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
+import {LoadingController} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GLoginService {
-
+  private serverAPIURL = 'http://localhost:3000/api';
   private auth2: gapi.auth2.GoogleAuth;
   private subject = new ReplaySubject<gapi.auth2.GoogleUser>(1);
 
-  constructor() {
+  constructor(private router: Router, private http: HttpClient, public loadingController: LoadingController) {
     gapi.load('auth2', () => {
       console.log("Gapi created");
-      this.auth2 = gapi.auth2.init({ //TODO: replace with environment variables
-        client_id: '838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com'
+      this.auth2 = gapi.auth2.init({
+        client_id: '838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com' //TODO: replace with environment variables
       })
     })
   }
@@ -26,6 +29,20 @@ export class GLoginService {
     })
       .then( user => {
         this.subject.next(user);
+        this.loadingController.create({
+          message: "Connecting to server..."
+        }).then(loaderResult => {
+          loaderResult.present().then(r => {
+            this.createAccessTokenOnServer(user) //create access token on server and store in session. Used to fetch data from g drive
+              .subscribe(response => {
+                console.log(response);
+                this.router.navigate(['collections']) //navigate to collections when access token is set
+                  .then(() => {
+                  loaderResult.dismiss(); //dismiss loading animation when successfully navigated to collections
+                });
+              });
+          })
+        })
       })
       .catch(() => {
         this.subject.next(null);
@@ -43,6 +60,16 @@ export class GLoginService {
   observable() : Observable<gapi.auth2.GoogleUser>
   {
     return this.subject.asObservable();
+  }
+
+  createAccessTokenOnServer(user: any)
+  {
+    console.log("createAccessToken fired");
+    console.log(user.Zb.access_token);
+    return this.http.post(this.serverAPIURL + '/createAccessToken',
+      { userLoginResponse: user },
+      {withCredentials: true
+      })
   }
 
   //gets file contents

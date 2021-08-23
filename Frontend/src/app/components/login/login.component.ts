@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {GLoginService} from "../../services/g-login.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -8,19 +9,35 @@ import { LoginService } from '../../services/login.service';
 })
 
 export class LoginComponent implements OnInit {
-  loggedIn = false;
-  email?: string;
-  password?: string;
+  private serverAPIURL = 'http://localhost:3000/api';
+  user: any;
 
-  constructor(private loginService: LoginService) {
+  constructor(private gLoginService: GLoginService, private ref: ChangeDetectorRef) {
 
   }
 
-  ngOnInit() {}
-
-  doLogin() {
-    this.loginService.loginWithGoogle();
+  ngOnInit() {
+    this.gLoginService.observable().subscribe(user => {
+      this.user = user;
+      console.log(user);
+      this.ref.detectChanges();
+    })
   }
 
-  loginWithGoogle() {}
+  signIn()
+  {
+    console.log("Test");
+    this.gLoginService.signIn();
+  }
+
+  signOut()
+  {
+    this.gLoginService.signOut();
+  }
+
+
+
+  printFile() {
+    this.gLoginService.printFile("1uBUHbTjn1NuTIV6M9DhLHmT9dY1hs6Wm");
+  }
 }
