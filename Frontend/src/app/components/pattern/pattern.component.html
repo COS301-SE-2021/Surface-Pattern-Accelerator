@@ -80,22 +80,18 @@
         <ion-card>
           <ion-card-content>
 
-              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>
-            <div #menu class="customContext" (click)="stopPropagation($event)">
-              <ul>
-                <li (click)="newFlipX()">FlipX</li>
-                <li (click)="newFlipY()">FlipY</li>
-                <li (click)="newDelete()">Delete</li>
-                <li (click)="newToTop()">Top</li>
-                <li (click)="newToBottom()">Bottom</li>
-                <li (click)="clone()">Clone</li>
-              </ul>
-            </div>
+<!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
+            <canvas id="patternFrame" width="500px" height="500px" style="border: #0d0d0d"></canvas>
+<!--            <div #menu class="customContext" (click)="stopPropagation($event)">-->
+<!--              <ul>-->
 
-              <div class="view" id="preview" style="margin: auto;"></div>
-            <br>
-              <div id="can" style="margin: auto;"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-              <div id="down"></div>
+<!--              </ul>-->
+<!--            </div>-->
+
+<!--              <div class="view" id="preview" style="margin: auto;"></div>-->
+<!--            <br>-->
+<!--              <div id="can" style="margin: auto;"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>-->
+<!--              <div id="down"></div>-->
 
             <ion-row class="row">
 <!--              <div class="workArea" id="container"></div>-->
@@ -129,17 +125,17 @@
           <div>
             <ion-item>
               <ion-label>Show Gridlines</ion-label>
-              <mat-checkbox (change)="addGrid($event)"></mat-checkbox>
+              <mat-checkbox ></mat-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>Enable Background</ion-label>
-              <mat-checkbox (change)="addBack($event)"></mat-checkbox>
+              <mat-checkbox ></mat-checkbox>
             </ion-item>
             <ion-item>
-              <ion-button color="medium" (click)="backButton()">Undo</ion-button>
+              <ion-button color="medium" >Undo</ion-button>
             </ion-item>
             <ion-item>
-              <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
+              <ion-button color="medium" >Save Pattern</ion-button>
             </ion-item>
           </div>
 
@@ -156,27 +152,23 @@
             <div class="layerBorder">
               <ion-label>Layer</ion-label>
 
-              <div *ngIf="motifs" >
-                <div *ngFor="let motif of this.canvasMotifs; let i = index" [attr.data-index]="i" class="temp">
-                  <div class="MotifImage2">
-                    <div class="layerBlock" style="background-color: #949494; padding: 10px">
-                      <img [src]= "sliceURL(motif.attrs.image.currentSrc)" alt="motif-image" class="layerMotif">
-                    </div>
-                  <!-- does resolve, ignore warning -->
-                    <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
-<!--                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image">-->
-                    <!--       <button (click)="moveUp(motif)">MoveUp</button>
-                           <button (click)="moveDown(motif)">MoveDown</button>
-                           -->
-                    <br>
-                    <ion-button size="small" color="light" (click)="moveToTop(motif)">Top</ion-button>
-                    <ion-button size="small" color="light" (click)="moveToBottom(motif)">Bottom</ion-button>
-                    <ion-button size="small" color="light" (click)="delete(motif, i)">Delete</ion-button>
-                    <ion-button size="small" color="light" (click)="flipX(motif)">FlipX</ion-button>
-                    <ion-button size="small" color="light" (click)="flipY(motif)">FlipY</ion-button>
-                  </div >
-                </div>
-              </div>
+<!--              <div *ngIf="motifs" >-->
+<!--                <div *ngFor="let motif of this.canvasMotifs; let i = index" [attr.data-index]="i" class="temp">-->
+<!--                  <div class="MotifImage2">-->
+<!--                    <div class="layerBlock" style="background-color: #949494; padding: 10px">-->
+<!--                      <img [src]= "sliceURL(motif.attrs.image.currentSrc)" alt="motif-image" class="layerMotif">-->
+<!--                    </div>-->
+<!--                  &lt;!&ndash; does resolve, ignore warning &ndash;&gt;-->
+<!--                    &lt;!&ndash;                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image">&ndash;&gt;-->
+<!--                    &lt;!&ndash;       <button (click)="moveUp(motif)">MoveUp</button>-->
+<!--                           <button (click)="moveDown(motif)">MoveDown</button>-->
+<!--                           &ndash;&gt;-->
+<!--                    <br>-->
+<!-- -->
+<!--                  </div >-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </div> <!-- .layerNumbers -->
         </ion-card-content>
@@ -205,7 +197,7 @@
             </ion-list-header>
           </ion-list>
           <ion-item>
-            <ion-button id="pre" color="dark" style="width:100%;" (click)="generate()">Refresh Preview</ion-button>
+            <ion-button id="pre" color="dark" style="width:100%;" >Refresh Preview</ion-button>
           </ion-item>
           <!--          <ion-item>-->
           <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>-->
@@ -216,9 +208,9 @@
           </ion-item>
 
           <ion-item>
-            <ion-button color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="export5()">3000x3000</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="export10()">6000x6000</ion-button>
+<!--            <ion-button color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>-->
+<!--            <ion-button color="dark" style="width:100%;" (click)="export5()">3000x3000</ion-button>-->
+<!--            <ion-button color="dark" style="width:100%;" (click)="export10()">6000x6000</ion-button>-->
           </ion-item>
 
 
@@ -229,7 +221,7 @@
               <input type="color" id="fav_color" name="fav_color" value="#7E7C7C">
             </ion-item>
             <ion-item>
-              <ion-button id = "col" color="dark" style="width:100%;" (click)='changeColor()'>Change Color</ion-button>
+<!--              <ion-button id = "col" color="dark" style="width:100%;" (click)='changeColor()'>Change Color</ion-button>-->
             </ion-item>
           </form>
 
@@ -239,9 +231,9 @@
 
 
           <ion-item>
-            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
+<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>-->
+<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>-->
+<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>-->
           </ion-item>
 
 
