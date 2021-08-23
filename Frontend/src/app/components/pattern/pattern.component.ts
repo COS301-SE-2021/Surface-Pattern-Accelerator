@@ -9,6 +9,7 @@ import {MotifCatalogueComponent} from "../../popovers/motif-catalogue/motif-cata
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component"
 import {IPatternContentsInterface} from "../../Interfaces/patternContents.interface"
 import {HttpClient} from "@angular/common/http";
+import {fabric} from "fabric";
 
 
 import { ActivatedRoute } from '@angular/router';
