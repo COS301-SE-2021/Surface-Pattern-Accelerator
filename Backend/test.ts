@@ -52,7 +52,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage,
-    limits: {fileSize: 1000*1000}
+    limits: {fileSize: 1000 * 1000}
 });
 
 app.use(cors({origin: // cors so it can work with application on another domain
@@ -116,6 +116,17 @@ app.post("/api/consumeAccessCode", (req, res) => { // read about express middlew
     }).catch((failure) => {
         res.status(503).send({ // 503 - Service unavailable
             Message: failure
+        });
+    });
+});
+
+app.post("/api/createAccessToken", (req, res) => { // read about express middlewares, like validatePayload
+
+    const gAPI = new GoogleApiFunctions();
+    gAPI.createAccessToken(req.body.userLoginResponse).then((success) => {
+        req.session.accessToken = success as ITokenInterface;
+        res.status(200).send({ // 200 - OK
+            Message: "Access token is now set!"
         });
     });
 

@@ -27,7 +27,7 @@ export class GoogleApiFunctions {
             '        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",\n' +
             '        "client_secret":"qykE5ojYUpiRNSl3WFTlCIfR",\n' +
             '        "redirect_uris":["http://localhost:8100/loginResponse"],\n' +
-            '        "javascript_origins":["http://localhost:3000"]\n' +
+            '        "javascript_origins":["http://localhost:3000","http://localhost:8100"]\n' +
             "    }\n" +
             "}");
     }
@@ -79,20 +79,42 @@ export class GoogleApiFunctions {
         const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
         return new Promise((resolve, reject) => {
+            console.log(accessCode);
             oAuth2Client.getToken(accessCode, (err: any, token: ITokenInterface) => {
                 if (err) { return console.error("Error retrieving access token", err); }
 
                 console.log("access token: " + token.access_token);
-                oAuth2Client.setCredentials(token);
+                // oAuth2Client.setCredentials(token);
 
                 // const gAPI = new GoogleApiFunctions(this.userSessionID);
                 // gAPI.storeAccessCredentials(new AuthClientObjectWrapper(oAuth2Client, this.userSessionID), authArr); // Stores access credentials in array
 
                 // resolve({text: "access code successfully set"});
                 resolve(token);
-
             });
         });
+    }
+
+    public createAccessToken(clientResponse: any) {
+
+        const {client_secret, client_id, redirect_uris} = this.globalCredentials.installed; // 'installed' name in  json file
+        const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+
+        return new Promise((resolve, reject) => {
+
+            const token = {
+                access_token: clientResponse.Zb.access_token,
+                scope: "https://www.googleapis.com/auth/drive",
+                token_type: clientResponse.Zb.token_type,
+                expiry_date: clientResponse.Zb.expires_at
+            };
+
+            console.log(token);
+            // oAuth2Client.setCredentials(token);
+            resolve(token);
+
+        });
+
     }
 
     public createAuthObject(token: ITokenInterface) {

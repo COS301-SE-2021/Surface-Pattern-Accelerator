@@ -35,7 +35,10 @@ const storage = multer_1.default.diskStorage({
         cb(null, file.originalname);
     }
 });
-const upload = multer_1.default({ storage });
+const upload = multer_1.default({
+    storage,
+    limits: { fileSize: 1000 * 1000 }
+});
 app.use(cors_1.default({ origin: // cors so it can work with application on another domain
     ["http://localhost:8100"],
     credentials: true }));
@@ -84,6 +87,15 @@ app.post("/api/consumeAccessCode", (req, res) => {
     }).catch((failure) => {
         res.status(503).send({
             Message: failure
+        });
+    });
+});
+app.post("/api/createAccessToken", (req, res) => {
+    const gAPI = new GoogleApiFunctions_1.GoogleApiFunctions();
+    gAPI.createAccessToken(req.body.userLoginResponse).then((success) => {
+        req.session.accessToken = success;
+        res.status(200).send({
+            Message: "Access token is now set!"
         });
     });
 });
