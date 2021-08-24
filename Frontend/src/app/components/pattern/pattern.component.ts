@@ -13,7 +13,7 @@ import {fabric} from "fabric";
 
 
 import { ActivatedRoute } from '@angular/router';
-import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
+import {IMotifStateInterface} from "../../Interfaces/motifDetails.interface"
 import {PopoverController} from "@ionic/angular";
 import {ICollectionsContent} from "../../Interfaces/collectionContents.interface";
 import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.component"
@@ -33,8 +33,8 @@ export class PatternComponent implements OnInit {
   //motifs?: motifsInterface;
 
   canvas?: fabric.Canvas;
-
-  motifObjects: motif[] = [];
+  motifSaveStates: IMotifStateInterface[] = [];
+  motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string}[]} = {objects: []};
 
 
 
@@ -58,7 +58,7 @@ export class PatternComponent implements OnInit {
     })
 
     this.getMotifs();
-    this.canvas = new fabric.Canvas('patternFrame')
+    this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true })
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
@@ -111,20 +111,21 @@ export class PatternComponent implements OnInit {
 
   }
 
-
+  //This functions spawns the motifs on the canvas, its called from the HTML
   spawnMotifObject(motifObject: motif)
   {
     if (motifObject.obj) //check if object exists
     {
       let objectToSpawn = motifObject.obj;
-      objectToSpawn.scaleToHeight(this.canvas.height-100)
-        .set({left: this.canvas.width/2, top: this.canvas.height/2})
+      objectToSpawn.scaleToHeight(this.canvas.height-250)
+        .set({left: this.canvas.width/15, top: this.canvas.height/15})
         .setCoords();
       console.log("Spawn Motif Path")
-      objectToSpawn.clone( (clone) => {
-        this.canvas.add(clone).renderAll();
+      objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
+        this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
+        this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id }); //TODO: create interface
+        console.log(this.motifsOnCanvas.objects[0].objectRef.left)
       })
-
     }
   }
 
@@ -182,5 +183,25 @@ export class PatternComponent implements OnInit {
     document.getElementById(tabPage).style.display  = 'block';
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
     //(<HTMLElement>$event.currentTarget).className  += " active";
+  }
+
+  savePattern() {
+    this.motifSaveStates = [];
+    for (let mot in this.motifsOnCanvas.objects)
+    {
+      //this.motifsOnCanvas.objects[mot].objectRef.
+      this.motifSaveStates.push({
+        left: this.motifsOnCanvas.objects[mot].objectRef.left,
+        top: this.motifsOnCanvas.objects[mot].objectRef.top,
+        width: this.motifsOnCanvas.objects[mot].objectRef.getScaledWidth(),
+        height: this.motifsOnCanvas.objects[mot].objectRef.getScaledHeight(),
+        rotation: this.motifsOnCanvas.objects[mot].objectRef.angle,
+        layer: 0, //Temp
+        motifID: this.motifsOnCanvas.objects[mot].objectID,
+        motifName: this.motifsOnCanvas.objects[mot].objectName,
+
+      })
+    }
+    console.log(this.motifSaveStates);
   }
 }

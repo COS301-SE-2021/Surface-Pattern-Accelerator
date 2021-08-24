@@ -1,9 +1,12 @@
-export interface IMotifDetailsInterface {
-    xCoord: number;
-    yCoord: number;
-    scaleX: number;
-    scaleY: number;
+
+export interface IMotifStateInterface {
+    left: number;
+    top: number;
+    width: number;
+    height: number;
     rotation: number;
-    url: string;
+    layer: number;
+    motifID: string;
+    motifName: string;
   }
 

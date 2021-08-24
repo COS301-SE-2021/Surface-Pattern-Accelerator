@@ -77,8 +77,8 @@
 
 
         </ion-row>
-        <ion-card>
-          <ion-card-content>
+        <ion-card style="width: 100%">
+          <ion-card-content style="width: 100%">
 
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
             <canvas id="patternFrame" width="500px" height="500px" style="border: #0d0d0d"></canvas>
@@ -135,7 +135,7 @@
               <ion-button color="medium" >Undo</ion-button>
             </ion-item>
             <ion-item>
-              <ion-button color="medium" >Save Pattern</ion-button>
+              <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
             </ion-item>
           </div>
 
