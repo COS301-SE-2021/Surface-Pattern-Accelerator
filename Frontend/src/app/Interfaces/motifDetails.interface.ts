@@ -4,6 +4,7 @@ export interface IMotifStateInterface {
     top: number;
     width: number;
     height: number;
+    scale: any;
     rotation: number;
     layer: number;
     motifID: string;
