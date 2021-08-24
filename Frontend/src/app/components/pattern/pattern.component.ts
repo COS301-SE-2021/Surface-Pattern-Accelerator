@@ -34,7 +34,7 @@ export class PatternComponent implements OnInit {
 
   canvas?: fabric.Canvas;
   motifSaveStates: IMotifStateInterface[] = [];
-  motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string}[]} = {objects: []};
+  motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
 
 
 
@@ -126,7 +126,7 @@ export class PatternComponent implements OnInit {
       console.log("Spawn Motif Path")
       objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
         this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
-        this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id }); //TODO: create interface
+        this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id, motifURL: motifObject.motifURL}); //TODO: create interface
         //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
       })
     }
@@ -169,7 +169,7 @@ export class PatternComponent implements OnInit {
             this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
 
             //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
-            this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id }); //TODO: create interface
+            this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
             //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
           })
         }
@@ -270,5 +270,13 @@ export class PatternComponent implements OnInit {
 
 
     console.log(this.patternContents);
+  }
+
+  moveUp(motif) {
+
+  }
+
+  moveDown(motif) {
+
   }
 }
