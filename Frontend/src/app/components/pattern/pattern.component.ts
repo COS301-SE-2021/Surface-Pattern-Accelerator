@@ -272,11 +272,44 @@ export class PatternComponent implements OnInit {
     console.log(this.patternContents);
   }
 
-  moveUp(motif) {
+  moveUp(index: number) {
+    console.log("Layer: " + index)
+    console.log(this.motifsOnCanvas.objects[index].objectName)
+    if (this.motifsOnCanvas.objects[index + 1])
+    {
+      console.log("upper exists")
+      const temp = this.motifsOnCanvas.objects[index + 1];
+      this.motifsOnCanvas.objects[index + 1] = this.motifsOnCanvas.objects[index]
+      this.motifsOnCanvas.objects[index] = temp;
 
+      for (index; index < this.motifsOnCanvas.objects.length; index++)
+      {
+        this.canvas.remove(this.motifsOnCanvas.objects[index].objectRef)
+        this.canvas.add(this.motifsOnCanvas.objects[index].objectRef).renderAll();
+      }
+    }
+    else
+    {
+      console.log("is upper")
+    }
   }
 
-  moveDown(motif) {
+  moveDown(index: number) {
+    console.log("Layer: " + index)
+    console.log(this.motifsOnCanvas.objects[index].objectName)
+    if (this.motifsOnCanvas.objects[index - 1]) {
+      console.log("lower exists")
+      const temp = this.motifsOnCanvas.objects[index - 1];                          //
+      this.motifsOnCanvas.objects[index - 1] = this.motifsOnCanvas.objects[index]   // swap motifs on array
+      this.motifsOnCanvas.objects[index] = temp;                                    //
 
+      for (index; index < this.motifsOnCanvas.objects.length; index++)
+      {
+        this.canvas.remove(this.motifsOnCanvas.objects[index].objectRef)
+        this.canvas.add(this.motifsOnCanvas.objects[index].objectRef).renderAll();
+      }
+    } else {
+      console.log("is lower")
+    }
   }
 }
