@@ -14,11 +14,6 @@ export class motif
     this.motifURL = motifURL;
     this.motifName = motifName;
     console.log("Constructed: " + this.motifName + " with ID: " + this.id)
-
-    // fabric.loadSVGFromURL(motifURL, (objects, options) => {
-    //   this.obj = fabric.util.groupSVGElements(objects, options); //TODO: see what is contained in objects and option
-    //   console.log("Cached: " + motifID)
-    // })
   }
 
   //gets file contents

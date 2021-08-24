@@ -13,7 +13,7 @@ export class MotifServiceService {
 
   private serverURL = 'http://localhost:3000';
   motifs?: motifsInterface;
-  motifObjects: motif[] = [];
+  cachedMotifs: motif[] = [];
 
   constructor(private http: HttpClient, private gLoginService: GLoginService) { }
 
@@ -30,8 +30,8 @@ export class MotifServiceService {
           if(motifs.motifDetails.hasOwnProperty(mot))
           {
             //let svgPathPromise = this.getSVGPaths(this.motifs.motifDetails[mot]);
-            this.motifObjects.push(new motif(this.motifs.motifDetails[mot].motifLink,this.motifs.motifDetails[mot].motifID, this.motifs.motifDetails[mot].motifName));
-            this.motifObjects[mot].cacheSVGInMemory();
+            this.cachedMotifs.push(new motif(this.motifs.motifDetails[mot].motifLink,this.motifs.motifDetails[mot].motifID, this.motifs.motifDetails[mot].motifName));
+            this.cachedMotifs[mot].cacheSVGInMemory();
           }
         }
 

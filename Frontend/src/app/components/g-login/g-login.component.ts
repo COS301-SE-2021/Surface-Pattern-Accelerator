@@ -37,7 +37,7 @@ export class GLoginComponent implements OnInit {
   createAccessToken()
   {
     console.log("createAccessToken fired");
-    console.log(this.user.Zb.access_token);
+    console.log(this.user);
     return this.http.post(this.serverAPIURL + '/createAccessToken',
       { userLoginResponse: this.user },
       {withCredentials: true

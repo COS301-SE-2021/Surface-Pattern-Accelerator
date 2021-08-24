@@ -20,12 +20,12 @@
               <ion-searchbar placeholder="Search"></ion-searchbar>
             </div>
             <ion-row>
-              <div *ngIf="motifs">
-                <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
+              <div *ngIf="motifService.cachedMotifs">
+                <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
-                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL(motif.motifLink);'>
+                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifObject(motif);'>
                     <ion-row>
-                      <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                      <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
                     </ion-row>
                     <ion-row>
                       <ion-text> {{motif.motifName}} </ion-text>

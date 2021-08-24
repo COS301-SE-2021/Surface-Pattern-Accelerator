@@ -30,9 +30,8 @@ export class PatternComponent implements OnInit {
   private serverAPIURL = 'http://localhost:3000/api';
   selected!:(Group | Shape);
   selectedPattern: any;
-  motifs?: motifsInterface;
+  //motifs?: motifsInterface;
 
-  //frame = document.getElementById('container');//get div of workarea
   canvas?: fabric.Canvas;
 
   motifObjects: motif[] = [];
@@ -44,7 +43,7 @@ export class PatternComponent implements OnInit {
 
 
 
-  constructor(private motifService: MotifServiceService,
+  constructor(public motifService: MotifServiceService,
               private route: ActivatedRoute,
               public patternService: PatternService,
               private popoverController: PopoverController,
@@ -113,25 +112,22 @@ export class PatternComponent implements OnInit {
   }
 
 
-  spawnMotifWithURL(motifURL: string, xCoord: number=0, yCoord: number=0, scaleX: number=1, scaleY:number=1, rotation: number=0)
+  spawnMotifObject(motifObject: motif)
   {
-    if (!motifURL.includes("https://cors-anywhere.herokuapp.com/"))
+    if (motifObject.obj) //check if object exists
     {
-      motifURL = "https://cors-anywhere.herokuapp.com/" + motifURL;
-    }
-
-    //util.promisify(fabric.loadSVGFromURL)
-    fabric.loadSVGFromURL(motifURL, (objects, options) => {
-      let obj = fabric.util.groupSVGElements(objects, options);
-      obj.scaleToHeight(this.canvas.height-10)
+      let objectToSpawn = motifObject.obj;
+      objectToSpawn.scaleToHeight(this.canvas.height-100)
         .set({left: this.canvas.width/2, top: this.canvas.height/2})
         .setCoords();
-      console.log("Spawn")
+      console.log("Spawn Motif Path")
+      objectToSpawn.clone( (clone) => {
+        this.canvas.add(clone).renderAll();
+      })
 
-      this.canvas.add(obj).renderAll();
-    })
-
+    }
   }
+
 
   newPattern(patternName: string)
   {
@@ -150,25 +146,6 @@ export class PatternComponent implements OnInit {
 
     });
   }
-
-
-
-  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-
-  downloadURI(uri, name) {
-    const link = document.createElement('a');
-    link.download = name;
-    link.href = uri;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    //delete this.link;
-  }
-
-
-
-
-
 
   newPatternPopover() {
     let popoverReference:  HTMLIonPopoverElement;
@@ -194,9 +171,6 @@ export class PatternComponent implements OnInit {
   }
 
 
-  sliceURL(currentURL: string) {
-    return currentURL.slice(36); //TODO: once we dont use cors, remove this function
-  }
 
   openTab($event: MouseEvent, tabPage: string) {
     let i, tabContent, tabLinks;
