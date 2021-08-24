@@ -120,7 +120,7 @@ export class PatternComponent implements OnInit {
     if (motifObject.obj) //check if object exists
     {
       let objectToSpawn = motifObject.obj;
-      objectToSpawn//.scaleToHeight(this.canvas.height-250) //this is relative? Keep same in both spawn functions******
+      objectToSpawn.scaleToHeight(this.canvas.height-250) //this is relative? Keep same in both spawn functions******
         .set({left: this.canvas.width/15, top: this.canvas.height/15})
         .setCoords();
       console.log("Spawn Motif Path")
@@ -144,7 +144,7 @@ export class PatternComponent implements OnInit {
         if (motStateTemp.motifID === cachedMotTemp.id) //if if in cached motifs match motif ID in pattern JSON then spawn than motif
         {
           let objectToSpawn = cachedMotTemp.obj;
-          objectToSpawn
+
 
             // .set({
             //   left: motStateTemp.left,
@@ -153,24 +153,19 @@ export class PatternComponent implements OnInit {
             //   height: motStateTemp.height* motStateTemp.scale.scaleY,
             //   width: motStateTemp.width* motStateTemp.scale.scaleX
             // })
-            .set({
-              left: motStateTemp.left,
-              top: motStateTemp.top,
-              angle: motStateTemp.rotation,
-              //height: motStateTemp.height* motStateTemp.scale.scaleY,
-              //width: motStateTemp.width* motStateTemp.scale.scaleX
-              scaleX: motStateTemp.scale.scaleX,
-              scaleY: motStateTemp.scale.scaleY,
-            })
-
-
-
-
-
-
 
           objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
-
+            clone
+              .set({
+                left: motStateTemp.left,
+                top: motStateTemp.top,
+                angle: motStateTemp.rotation,
+                //height: motStateTemp.height* motStateTemp.scale.scaleY,
+                //width: motStateTemp.width* motStateTemp.scale.scaleX
+                scaleX: motStateTemp.scale.scaleX,
+                scaleY: motStateTemp.scale.scaleY,
+              })
+              .setCoords()
             this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
 
             //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
@@ -191,6 +186,13 @@ export class PatternComponent implements OnInit {
 
   onPatternChange(selectedPatternID: any) {
     console.log(selectedPatternID);
+
+    for (let motOnCanvas in this.motifsOnCanvas.objects)
+    {
+      this.canvas.remove(this.motifsOnCanvas.objects[motOnCanvas].objectRef)
+    }
+
+
     this.http.post(this.serverAPIURL + '/getFileByID',
       { fileID: selectedPatternID },
       {withCredentials: true
