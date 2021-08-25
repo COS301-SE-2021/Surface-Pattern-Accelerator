@@ -64,7 +64,7 @@ export class PatternComponent implements OnInit {
     this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true })
     this.canvas.setHeight(600);
     this.canvas.setWidth(600);
-    this.canvas.backgroundColor = "white"
+    this.canvas.backgroundColor = null;
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
   }
@@ -504,5 +504,12 @@ export class PatternComponent implements OnInit {
     }
 
   }
+
+
+  setPreview(){
+    (<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
+  }
+
+
 
 }
