@@ -69,6 +69,10 @@ export class MotifServiceService {
   spawnMotifObjectsFromSaveState(patternContents: IPatternContentsInterface, canvas: fabric.Canvas)
   {
     this.motifsOnCanvas = {objects: []}; //clears motifs on canvas
+    if(!patternContents)
+    {
+      return;
+    }
     for (let motState in patternContents.motifs) //the json file of the pattern contents gotten from the server
     {
       let motStateTemp = patternContents.motifs[motState] //temp value, store as its potentially accessed a lot - for performance

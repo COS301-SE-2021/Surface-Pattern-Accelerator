@@ -79,6 +79,7 @@ export class PatternService {
                       {withCredentials: true
                       }).subscribe(collectionUpdateResult => {
                       console.log(collectionUpdateResult) //prints
+                      this.selectedPatternID = newPatternDriveDetails.id;
                       loaderResult.dismiss().then();
                     })
                   })
@@ -145,7 +146,7 @@ export class PatternService {
 
     if (this.currentCollection)
     {
-      if (!this.selectedPatternID)
+      if (!this.selectedPatternID && this.currentCollection.childPatterns)
       {
         this.selectedPatternID = this.currentCollection.childPatterns[0].patternID
       }

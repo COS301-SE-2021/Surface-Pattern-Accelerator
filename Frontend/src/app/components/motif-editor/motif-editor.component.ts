@@ -12,7 +12,7 @@ import {fabric} from "fabric";
   styleUrls: ['./motif-editor.component.scss'],
 })
 export class MotifEditorComponent implements OnInit {
-  selectedPattern: any;
+
   canvas?: fabric.Canvas;
 
 
@@ -33,9 +33,7 @@ export class MotifEditorComponent implements OnInit {
 
   }
 
-  openTab($event: any, modifiers: string) {
 
-  }
 
 
 
