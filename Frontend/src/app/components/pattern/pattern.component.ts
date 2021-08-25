@@ -498,16 +498,32 @@ export class PatternComponent implements OnInit {
       let motifs = this.canvas.getObjects();
       for(var i = 0 ; i < motifs.length ; i++){
         if(motifs[i].selectable === false){
-          this.canvas.remove(motifs[i]);
+          this.canvas.remove(motifs[i]);//delete all clone motifs that arent selectable
         }
       }
     }
 
   }
 
-
   setPreview(){
     (<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
+  }
+
+  toggleBackground(e){
+    if(e.detail.checked)
+    {
+      console.log("background enabled");
+      this.canvas.backgroundColor = "white";
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = "white";
+      this.canvas.renderAll();
+    }
+    else{
+      this.canvas.backgroundColor = null;
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = null;
+      this.canvas.renderAll();
+    }
+    this.canvas.requestRenderAll();
+    this.setPreview();
   }
 
 
