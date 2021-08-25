@@ -94,6 +94,10 @@
                     <img id='img'/>
                 </div>
 
+                <div class="frame">
+                  <img id='imgPreview'/>
+                </div>
+
 <!--            <div #menu class="customContext" (click)="stopPropagation($event)">-->
 <!--              <ul>-->
 
@@ -137,11 +141,11 @@
           <div>
             <ion-item>
               <ion-label>Show Gridlines</ion-label>
-              <mat-checkbox ></mat-checkbox>
+              <ion-checkbox ></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-label>Enable Background</ion-label>
-              <mat-checkbox ></mat-checkbox>
+              <ion-checkbox (ionChange)="toggleBackground($event)"></ion-checkbox>
             </ion-item>
             <ion-item>
               <ion-button color="medium" >Undo</ion-button>
