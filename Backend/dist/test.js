@@ -35,7 +35,10 @@ const storage = multer_1.default.diskStorage({
         cb(null, file.originalname);
     }
 });
-const upload = multer_1.default({ storage });
+const upload = multer_1.default({
+    storage,
+    limits: { fileSize: 1000 * 1000 }
+});
 app.use(cors_1.default({ origin: // cors so it can work with application on another domain
     ["http://localhost:8100"],
     credentials: true }));

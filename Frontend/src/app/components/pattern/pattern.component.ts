@@ -16,12 +16,54 @@ import {IMotifDetailsInterface} from "../../Interfaces/motifDetails.interface"
 import {PopoverController} from "@ionic/angular";
 import {ICollectionsContent} from "../../Interfaces/collectionContents.interface";
 import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.component"
+
+////search
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
   styleUrls: ['./pattern.component.scss'],
 })
 export class PatternComponent implements OnInit {
+  ///search
+  items = [{ name: "archie" }, { name: "jake" }, { name: "richard" }];
+  values = [];
+  searchableMotifs=[]
+  onKey(event: any) { // without type info
+    //this.values += event.target.value + ' | ';
+    ///const its = Array.from(document.querySelector('ion-card.squareContainer').children);
+    const query = event.target.value.toLowerCase();
+    const p = document.querySelector('p.testing');
+
+  console.log(query)
+    requestAnimationFrame(() => {
+      //console.log(this.searchableMotifs)
+      this.searchableMotifs.forEach(item => {
+       /// const shouldShow = item.motifName.toLowerCase().indexOf(query) > -1;
+        if (item.motifName.toLowerCase().indexOf(query) > -1){
+             ///items that need to be diplayed
+              console.log(item)
+        }
+
+      })
+
+      //   item.style.display = shouldShow ? 'block' : 'none';
+      // });
+    });
+  }
+  handleInput(event) {
+    // const its = Array.from(document.querySelector('ion-card.squareContainer').children);
+    // const query = event.target.value.toLowerCase();
+    // requestAnimationFrame(() => {
+    //   // this.items.forEach(item => {
+    //   const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+    //   //   item.style.display = shouldShow ? 'block' : 'none';
+    //   // });
+    // });
+  }
+
+
   private serverAPIURL = 'http://localhost:3000/api';
   selected!:(Group | Shape);
   selectedPattern: any;
@@ -332,8 +374,9 @@ export class PatternComponent implements OnInit {
     this.motifService.getMotifs()
       .subscribe(motifs =>
       {
-
+        this.searchableMotifs=motifs.motifDetails
         this.motifs = motifs
+        console.log("motifs")
         console.log(motifs)
       });
   }

@@ -1,4 +1,6 @@
 
+
+
 <ion-grid>
   <ion-row class="maxHeight">
     <ion-col size="2.5">
@@ -16,14 +18,17 @@
             </ion-item>
           </ion-list>
 
-            <div>
-              <ion-searchbar placeholder="Search"></ion-searchbar>
-            </div>
+          <ion-toolbar>
+            <ion-searchbar (keyup)="onKey($event)" ></ion-searchbar>
+            <p class="testing">{{values}}</p>
+          </ion-toolbar>
+
+
             <ion-row>
               <div *ngIf="motifs">
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
 
-                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifWithURL(motif.motifLink);'>
+                  <button style="overflow:hidden;" class="motifBtn"   (click)='spawnMotifWithURL(motif.motifLink);'>
                     <ion-row>
                       <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
                     </ion-row>
