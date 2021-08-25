@@ -14,6 +14,7 @@ import { NewCollectionComponent } from './components/collection-creator/new-coll
 import { MainComponent } from './components/launchpage/main/main.component';
 //import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import {GLoginComponent} from './components/g-login/g-login.component'
+import {MotifEditorComponent} from "./components/motif-editor/motif-editor.component";
 
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'preview', component: PreviewComponent },
   { path: 'color', component: ColorComponent},
   { path: 'newCollection', component: NewCollectionComponent },
-  { path: 'glogin', component: GLoginComponent}
+  { path: 'glogin', component: GLoginComponent},
+  { path: 'motifEditor', component: MotifEditorComponent} //TODO: potentially add route same as pattern component
 ];
 
 @NgModule({

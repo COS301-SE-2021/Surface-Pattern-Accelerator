@@ -1,0 +1,196 @@
+ion-card{
+  height: 100%;
+  overflow: auto;
+}
+
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+
+ion-content{
+  height: 100%;
+}
+.layerMotif{
+  height: 2cm;
+
+}
+
+ion-grid{
+  height: 100%;
+  width: 100%;
+}
+.customContext{
+  position: fixed;
+  background: #111;
+  width: 150px;
+  z-index: 100000;
+  display: none;
+}
+.customContext ul{
+  padding: 0;
+  margin: 0;
+}
+.customContext ul li{
+  list-style-type: none;
+  padding: 10px 14px;
+  border-bottom: 1px solid red;
+  color: gray;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+.customContext ul li:hover{
+  background: #111111;
+  color: red;
+}
+
+//ion-row{
+//  height: 100%;
+//}
+
+.maxHeight{
+  height: 100%;
+}
+
+ion-col {
+  height: 100%;
+  --ion-grid-column-padding: 0px;
+}
+
+ion-card-content {
+  padding: 1px;
+}
+
+ion-card-header{
+  font-size: large;
+  text-align: center;
+  border-bottom: 1px solid slategray;
+  height: 50px;
+}
+
+ion-item {
+  height: 40px;
+}
+
+
+.motifBtn
+{
+  height: 100%;
+}
+
+.motifImg
+{
+  width: 100%;
+  vertical-align:middle;
+}
+.MotifImage{
+  width: 43%;
+  height: 4cm;
+  //background-color: black;
+  text-align: center;
+  //padding :50px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border: solid black 1px;
+  display: flex;
+  align-items: center;
+  float: left;
+}
+
+// Colors
+$bg-color: hsl(0,1,90);
+$dot-color: hsl(255,71,34);
+
+// Dimensions
+$dot-size: 1.5px;
+$dot-space: 15px;
+
+.row{
+  background:
+    linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+    $dot-color;
+  background-size: $dot-space $dot-space;
+  width: 100%;
+}
+
+#can{
+  border: solid black 3px;
+  width: 600px;
+  height: 600px;
+  margin: 15px;
+  background-color: white;
+}
+#container{
+  background-color: white;
+  border: solid black 3px;
+  text-align : center;
+}
+
+.workArea{
+  //margin-left: 280px;
+  //background-color: aqua;
+  width: 600px;
+  height: 600px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+  text-align : center;
+  margin: 15px;
+}
+
+.view{
+  //margin-left: 280px;
+  //background-color: aqua;
+  width: 600px;
+  height: 600px;
+  //border-radius: 10px;
+  border: solid grey 1px;
+  text-align : center;
+  margin: 15px;
+}
+
+#preview {
+  position: relative;
+  top: 2px;
+  right: 2px;
+  width: 600px;
+  height: 600px;
+  border: 1px solid grey;
+  background-color: lightgray;
+  display:none;
+  margin: 5px;
+}
+
+.layerNumbers{
+  border: solid grey 1px;
+}
+
+.layerBorder{
+  padding: 5px;
+  text-align: center;
+}
+
+@media screen and (max-width:1500px){
+  .button-text {
+    display: none;
+  }
+}

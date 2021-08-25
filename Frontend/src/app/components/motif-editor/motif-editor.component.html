@@ -1,0 +1,63 @@
+
+<ion-grid>
+  <ion-row class="maxHeight">
+
+
+    <ion-col size="7">
+
+
+      <ion-row size="1">
+        <ion-card style="width: 100%">
+          <ion-card-content style="width: 100%">
+            <ion-row>
+              <ion-col size="10">
+                <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
+                  <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+                    <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <ion-col>
+                <div>
+                  <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
+
+                </div>
+              </ion-col>
+            </ion-row>
+
+          </ion-card-content>
+
+        </ion-card>
+
+
+      </ion-row>
+      <ion-card >
+        <ion-card-content style="width: 100%">
+
+          <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
+          <canvas id="patternFrame" width="500px" height="500px" style="border: #0d0d0d"></canvas>
+
+          <ion-row class="row">
+
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+
+
+    </ion-col>
+
+    <!-- Editor -->
+    <ion-col size="5" class="tab-content" id="Modifiers">
+      <ion-card>
+        <ion-card-header>
+          Editor
+        </ion-card-header>
+        <ion-card-content>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+

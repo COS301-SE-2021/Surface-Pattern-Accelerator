@@ -145,15 +145,6 @@ export class PatternComponent implements OnInit {
         {
           let objectToSpawn = cachedMotTemp.obj;
 
-
-            // .set({
-            //   left: motStateTemp.left,
-            //   top: motStateTemp.top,
-            //   angle: motStateTemp.rotation,
-            //   height: motStateTemp.height* motStateTemp.scale.scaleY,
-            //   width: motStateTemp.width* motStateTemp.scale.scaleX
-            // })
-
           objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
             clone
               .set({
@@ -175,7 +166,6 @@ export class PatternComponent implements OnInit {
         }
       }
     }
-
   }
 
 
@@ -192,7 +182,6 @@ export class PatternComponent implements OnInit {
       this.canvas.remove(this.motifsOnCanvas.objects[motOnCanvas].objectRef)
     }
 
-
     this.http.post(this.serverAPIURL + '/getFileByID',
       { fileID: selectedPatternID },
       {withCredentials: true
@@ -200,7 +189,6 @@ export class PatternComponent implements OnInit {
       this.patternContents = fileContent as IPatternContentsInterface;
       console.log(this.patternContents);
       this.spawnMotifObjectsFromSaveState();
-
     });
   }
 
@@ -226,8 +214,6 @@ export class PatternComponent implements OnInit {
       });
     })
   }
-
-
 
   openTab($event: MouseEvent, tabPage: string) {
     let i, tabContent, tabLinks;
@@ -267,8 +253,6 @@ export class PatternComponent implements OnInit {
       }).subscribe(patternUpdateResult => {
       console.log(patternUpdateResult) //prints
     })
-
-
     console.log(this.patternContents);
   }
 
