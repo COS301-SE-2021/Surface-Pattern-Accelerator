@@ -11,6 +11,8 @@ import {LoadingController} from "@ionic/angular";
 export class PatternService {
   private serverAPIURL = 'http://localhost:3000/api';
 
+  patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
+
   constructor(private http: HttpClient,
               public loadingController: LoadingController
               ) { }
