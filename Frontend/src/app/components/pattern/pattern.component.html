@@ -144,6 +144,11 @@
             <ion-item>
               <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
             </ion-item>
+            <ion-item>
+              <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>
+              <ion-label> Seamless </ion-label>
+            </ion-item>
+
           </div>
 
           <ion-list>

@@ -35,7 +35,10 @@ export class PatternComponent implements OnInit {
   canvas?: fabric.Canvas;
   motifSaveStates: IMotifStateInterface[] = [];
   motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
-
+  motifObjects: motif[] = [];
+  canvasMotifs: fabric.Object[] = [];
+  seamlessClones: fabric.Object[] = [];
+  motifCount: number = 0;
 
 
   //saving patterns in pattern Contents interface
@@ -59,7 +62,9 @@ export class PatternComponent implements OnInit {
 
     this.getMotifs();
     this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true })
-
+    this.canvas.setHeight(600);
+    this.canvas.setWidth(600);
+    this.canvas.backgroundColor = "white"
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
   }
@@ -124,10 +129,13 @@ export class PatternComponent implements OnInit {
         .set({left: this.canvas.width/15, top: this.canvas.height/15})
         .setCoords();
       console.log("Spawn Motif Path")
-      objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
-        this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
+      objectToSpawn.clone( (clone) => {
+        this.canvas.add(clone).renderAll();
+       this.canvasMotifs[this.motifCount++] = clone;
         this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id, motifURL: motifObject.motifURL}); //TODO: create interface
-        //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
+
+        (<HTMLInputElement> document.getElementById("seamlessCheck")).checked = false;
+        this.notSeamless();
       })
     }
   }
@@ -175,7 +183,6 @@ export class PatternComponent implements OnInit {
         }
       }
     }
-
   }
 
 
@@ -312,4 +319,190 @@ export class PatternComponent implements OnInit {
       console.log("is lower")
     }
   }
+
+  notSeamless(){
+    let motifs = this.canvas.getObjects();
+   for(var i = 0 ; i < motifs.length ; i++){
+     if(motifs[i].selectable === false){
+       this.canvas.remove(motifs[i]);
+     }
+   }
+
+  }
+
+  toggleSeamless(e) {
+    if(e.detail.checked )
+    {
+      let motifs = this.canvas.getObjects();
+
+      for (let i = 0; i < motifs.length; i++) {
+        let clone1, clone2, clone3, clone4, clone5, clone6, clone7, clone8;
+
+        motifs[i].clone((o) => {
+          clone1 = o;
+          this.canvas.add(clone1);
+          clone1.set("left",  motifs[i].left - 600);
+          clone1.set("top",  motifs[i].top);
+          clone1.set("selectable", false);
+          clone1.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        motifs[i].clone((o) => {
+          clone2 = o;
+          this.canvas.add(clone2);
+          clone2.set("left",  motifs[i].left + 600);
+          clone2.set("top",  motifs[i].top);
+          clone2.set("selectable", false);
+          clone2.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        motifs[i].clone((o) => {
+          clone3 = o;
+          this.canvas.add(clone3);
+          clone3.set("left",  motifs[i].left);
+          clone3.set("top",  motifs[i].top - 600);
+          clone3.set("selectable", false);
+          clone3.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        motifs[i].clone((o) => {
+          clone4 = o;
+          this.canvas.add(clone4);
+          clone4.set("left",  motifs[i].left);
+          clone4.set("top",  motifs[i].top + 600);
+          clone4.set("selectable", false);
+          clone4.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        motifs[i].clone((o) => {
+          clone5 = o;
+          this.canvas.add(clone5);
+          clone5.set("left",  motifs[i].left - 600);
+          clone5.set("top",  motifs[i].top - 600);
+          clone5.set("selectable", false);
+          clone5.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        motifs[i].clone((o) => {
+          clone6 = o;
+          this.canvas.add(clone6);
+          clone6.set("left",  motifs[i].left - 600);
+          clone6.set("top",  motifs[i].top + 600);
+          clone6.set("selectable", false);
+          clone6.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        motifs[i].clone((o) => {
+          clone7 = o;
+          this.canvas.add(clone7);
+          clone7.set("left",  motifs[i].left + 600);
+          clone7.set("top",  motifs[i].top - 600);
+          clone7.set("selectable", false);
+          clone7.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        motifs[i].clone((o) => {
+          clone8 = o;
+          this.canvas.add(clone8);
+          clone8.set("left",  motifs[i].left + 600);
+          clone8.set("top",  motifs[i].top + 600);
+          clone8.set("selectable", false);
+          clone8.set("opacity", 0.3);
+          this.canvas.renderAll();
+        });
+
+        this.canvas.requestRenderAll();
+
+
+
+
+
+        let actions = ['moving', 'scaling', 'rotating'];
+
+        motifs[i].on('moving', function(){
+          clone1.set("left",  motifs[i].left+600);
+          clone1.set("top",  motifs[i].top);
+          clone1.set("scaleX",  motifs[i].scaleX);
+          clone1.set("scaleY",  motifs[i].scaleY);
+          clone1.rotate( motifs[i].angle);
+          clone1.set('flipX', motifs[i].flipX);
+          clone1.set('flipY', motifs[i].flipY);
+
+          clone2.set("left",  motifs[i].left-600);
+          clone2.set("top",  motifs[i].top);
+          clone2.set("scaleX",  motifs[i].scaleX);
+          clone2.set("scaleY",  motifs[i].scaleY);
+          clone2.rotate( motifs[i].angle);
+          clone2.set('flipX', motifs[i].flipX);
+          clone2.set('flipY', motifs[i].flipY);
+
+          clone3.set("left",  motifs[i].left);
+          clone3.set("top",  motifs[i].top+600);
+          clone3.set("scaleX",  motifs[i].scaleX);
+          clone3.set("scaleY",  motifs[i].scaleY);
+          clone3.rotate( motifs[i].angle);
+          clone3.set('flipX', motifs[i].flipX);
+          clone3.set('flipY', motifs[i].flipY);
+
+          clone4.set("left",  motifs[i].left);
+          clone4.set("top",  motifs[i].top-600);
+          clone4.set("scaleX",  motifs[i].scaleX);
+          clone4.set("scaleY",  motifs[i].scaleY);
+          clone4.rotate( motifs[i].angle);
+          clone4.set('flipX', motifs[i].flipX);
+          clone4.set('flipY', motifs[i].flipY);
+
+          clone5.set("left",  motifs[i].left-600);
+          clone5.set("top",  motifs[i].top-600);
+          clone5.set("scaleX",  motifs[i].scaleX);
+          clone5.set("scaleY",  motifs[i].scaleY);
+          clone5.rotate( motifs[i].angle);
+          clone5.set('flipX', motifs[i].flipX);
+          clone5.set('flipY', motifs[i].flipY);
+
+          clone6.set("left",  motifs[i].left-600);
+          clone6.set("top",  motifs[i].top+600);
+          clone6.set("scaleX",  motifs[i].scaleX);
+          clone6.set("scaleY",  motifs[i].scaleY);
+          clone6.rotate( motifs[i].angle);
+          clone6.set('flipX', motifs[i].flipX);
+          clone6.set('flipY', motifs[i].flipY);
+
+          clone7.set("left",  motifs[i].left+600);
+          clone7.set("top",  motifs[i].top-600);
+          clone7.set("scaleX",  motifs[i].scaleX);
+          clone7.set("scaleY",  motifs[i].scaleY);
+          clone7.rotate( motifs[i].angle);
+          clone7.set('flipX', motifs[i].flipX);
+          clone7.set('flipY', motifs[i].flipY);
+
+          clone8.set("left",  motifs[i].left+600);
+          clone8.set("top",  motifs[i].top+600);
+          clone8.set("scaleX",  motifs[i].scaleX);
+          clone8.set("scaleY",  motifs[i].scaleY);
+          clone8.rotate( motifs[i].angle);
+          clone8.set('flipX', motifs[i].flipX);
+          clone8.set('flipY', motifs[i].flipY);
+        })
+      }
+    }
+    else
+    {
+      let motifs = this.canvas.getObjects();
+      for(var i = 0 ; i < motifs.length ; i++){
+        if(motifs[i].selectable === false){
+          this.canvas.remove(motifs[i]);
+        }
+      }
+    }
+
+  }
+
 }
