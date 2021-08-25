@@ -59,6 +59,15 @@ export class PatternComponent implements OnInit {
     this.getMotifs();
     this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true })
 
+    this.canvas.on("selection:created",(r) => {
+      this.getSelectedObject()
+    })
+
+    this.canvas.on("selection:updated",(r) => {
+      this.getSelectedObject()
+    })
+
+
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
   }
@@ -203,6 +212,41 @@ export class PatternComponent implements OnInit {
     } else {
       console.log("is lower")
     }
+  }
+
+
+  listCanvasObjects() {
+    console.log(this.canvas.getObjects());
+  }
+
+  getSelectedObject()
+  {
+    //TODO: do this only when in color editor mode/ polygon mode
+    console.log(this.canvas.getObjects())
+    for (let obj in this.canvas.getObjects())
+    {
+      this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj]
+    }
+
+    let object = this.canvas.getActiveObject();
+
+
+
+    // let selectedObject = this.canvas.getActiveObject();
+    // if (selectedObject)
+    // {
+    //   for (let obj in this.motifService.motifsOnCanvas)
+    //   {
+    //     if (selectedObject.ownMatrixCache.key === this.motifService.motifsOnCanvas[obj].ownMatrixCache.key)
+    //     {
+    //       console.log("equal: " + obj);
+    //     }
+    //   }
+    //   console.log("End")
+    // }
+
+
+
   }
 
 

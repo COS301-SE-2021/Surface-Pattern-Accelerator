@@ -62,9 +62,6 @@ export class motif
     {
       this.getSpecialDownloadURL(this.id).then((content: string) => {
         fabric.loadSVGFromString(content, (objects, options) => {
-
-
-
           this.obj = fabric.util.groupSVGElements(objects, options); //TODO: see what is contained in objects and option
           console.log("Cached: " + content)
           accept(this.id);

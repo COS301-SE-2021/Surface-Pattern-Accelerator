@@ -19,13 +19,15 @@ export class PatternService {
 
   patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
 
+  currentCollection?: ICollectionsContent;
+  //currentPattern?: IPatternContentsInterface;
+
   constructor(private http: HttpClient,
               public loadingController: LoadingController,
               public motifService: MotifServiceService
               ) { }
 
-  currentCollection?: ICollectionsContent;
-  currentPattern?: IPatternContentsInterface;
+
 
   getCurrentCollectionJSON(fileID: string)
   {
@@ -67,7 +69,7 @@ export class PatternService {
                 if (this.currentCollection["childPatterns"][i].patternID === "" ) //if a pattern does not have an ID
                 {
                   this.currentCollection["childPatterns"][i].patternID = newPatternDriveDetails.id; //give it the ID of the reservation file
-                  let tempPattern: IPatternContentsInterface = this.currentPattern = {patternName: patternName, patternID: newPatternDriveDetails.id,  motifs: []} as unknown as IPatternContentsInterface; //
+                  let tempPattern: IPatternContentsInterface = this.patternContents = {patternName: patternName, patternID: newPatternDriveDetails.id,  motifs: []} as unknown as IPatternContentsInterface; //
                   this.http.post(this.serverAPIURL + '/updateFile', //send contents to reservation file
                     { fileID: this.currentCollection["childPatterns"][i].patternID, content: JSON.stringify(tempPattern), newName: patternName },
                     {withCredentials: true
@@ -111,6 +113,8 @@ export class PatternService {
 
       })
     }
+    console.log("Contents are:")
+    console.log(this.patternContents)
     this.patternContents.motifs = this.motifSaveStates;
 
     this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
@@ -135,28 +139,51 @@ export class PatternService {
       { fileID: selectedPatternID },
       {withCredentials: true
       }).subscribe(fileContent => {
-      this.patternContents = fileContent as IPatternContentsInterface;
-      console.log(this.patternContents);
-      this.motifService.spawnMotifObjectsFromSaveState(this.patternContents, canvas);
+        if (fileContent)
+        {
+          this.patternContents = fileContent as IPatternContentsInterface;
+          console.log(this.patternContents);
+          this.motifService.spawnMotifObjectsFromSaveState(this.patternContents, canvas);
+        }
+
     });
   }
 
 
   checkIfPatternsExistAndSetDefault() { //default selection
 
-    if (this.currentCollection)
-    {
-      if (!this.selectedPatternID && this.currentCollection.childPatterns)
+    try {
+      if (this.currentCollection)
       {
-        this.selectedPatternID = this.currentCollection.childPatterns[0].patternID
-      }
+        if (!this.selectedPatternID && this.currentCollection.childPatterns)
+        {
+          this.selectedPatternID = this.currentCollection.childPatterns[0].patternID
+        }
 
-      return true
+        return true
+      }
+      else
+      {
+        return false
+      }
     }
-    else
+    catch (error)
     {
       return false
     }
+
+  }
+
+  purgeContent()
+  {
+    this.selectedPatternID = undefined;
+    this.motifSaveStates = [];
+
+
+    //this.patternContents = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
+
+    this.currentCollection = {} as ICollectionsContent;
+    //this.currentPattern = {} as IPatternContentsInterface;
   }
 
 }

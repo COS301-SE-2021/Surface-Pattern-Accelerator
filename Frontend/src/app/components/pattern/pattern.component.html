@@ -1,6 +1,7 @@
 
 <ion-grid>
   <ion-row class="maxHeight">
+
     <ion-col size="2.5">
       <ion-card id="leftSidebar">
         <ion-card-header>
@@ -84,22 +85,10 @@
 
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
             <canvas id="patternFrame" width="500px" height="500px" style="border: #0d0d0d"></canvas>
-<!--            <div #menu class="customContext" (click)="stopPropagation($event)">-->
-<!--              <ul>-->
 
-<!--              </ul>-->
-<!--            </div>-->
-
-<!--              <div class="view" id="preview" style="margin: auto;"></div>-->
-<!--            <br>-->
-<!--              <div id="can" style="margin: auto;"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>-->
-<!--              <div id="down"></div>-->
 
             <ion-row class="row">
-<!--              <div class="workArea" id="container"></div>-->
-<!--              <div class="view" id="preview"></div>-->
-<!--              <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>-->
-<!--              <div id="down"></div>-->
+
 
             </ion-row>
           </ion-card-content>
@@ -187,62 +176,7 @@
           </ion-button>
         </ion-card-header>
         <ion-card-content>
-          <ion-list>
-            <ion-list-header>
-              <ion-title style="text-align:center;">Changes</ion-title>
-            </ion-list-header>
-          </ion-list>
-          <ion-item>
-            <ion-button id="pre" color="dark" style="width:100%;" >Refresh Preview</ion-button>
-          </ion-item>
-          <!--          <ion-item>-->
-          <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>-->
-          <!--          </ion-item>-->
-
-          <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Select Export Dimension options: </ion-label>
-          </ion-item>
-
-          <ion-item>
-<!--            <ion-button color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="export5()">3000x3000</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="export10()">6000x6000</ion-button>-->
-          </ion-item>
-
-
-
-          <form>
-            <ion-item>
-              <ion-label style="margin: auto; text-align:center;">Select a color: </ion-label>
-              <input type="color" id="fav_color" name="fav_color" value="#7E7C7C">
-            </ion-item>
-            <ion-item>
-<!--              <ion-button id = "col" color="dark" style="width:100%;" (click)='changeColor()'>Change Color</ion-button>-->
-            </ion-item>
-          </form>
-
-          <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Select the amount of frames to be in pattern: </ion-label>
-          </ion-item>
-
-
-          <ion-item>
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>-->
-          </ion-item>
-
-
-          <!--          <ion-item>-->
-          <!--            <ion-label style="margin: auto; text-align:center;">Select Frame Shape: </ion-label>-->
-          <!--          </ion-item>-->
-
-          <!--          <ion-item>-->
-          <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="rect()">Rectangle Frame</ion-button>-->
-          <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="square()">Square Frame</ion-button>-->
-          <!--          </ion-item>-->
-
-          <br>
+          <button (click)="listCanvasObjects()">List Objects Test</button>
         </ion-card-content>
       </ion-card>
     </ion-col>

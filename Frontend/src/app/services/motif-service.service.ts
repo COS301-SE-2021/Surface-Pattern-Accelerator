@@ -51,7 +51,7 @@ export class MotifServiceService {
 
   spawnMotifObject(motifObject: motif, canvas: fabric.Canvas)
   {
-    if (motifObject.obj) //check if object exists
+    if (motifObject) //check if object exists
     {
       let objectToSpawn = motifObject.obj;
       objectToSpawn.scaleToHeight(canvas.height-250) //this is relative? Keep same in both spawn functions******
@@ -106,7 +106,13 @@ export class MotifServiceService {
     }
   }
 
-
+  //deletes all data stored in this service to have it clean for the next collection
+  purgeContent()
+  {
+    this.motifs = {motifDetails: []} as motifsInterface;
+    this.cachedMotifs = [];
+    this.motifsOnCanvas = {objects: []};
+  }
 
 
 }
