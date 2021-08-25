@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import { ICollectionsContent } from "../Interfaces/collectionContents.interface"
 import { IPatternContentsInterface } from "../Interfaces/patternContents.interface"
 import {LoadingController} from "@ionic/angular";
+import {IMotifStateInterface} from "../Interfaces/motifDetails.interface";
+import {MotifServiceService} from "./motif-service.service";
 
 
 @Injectable({
@@ -10,11 +12,14 @@ import {LoadingController} from "@ionic/angular";
 })
 export class PatternService {
   private serverAPIURL = 'http://localhost:3000/api';
+  motifSaveStates: IMotifStateInterface[] = [];
+
 
   patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
 
   constructor(private http: HttpClient,
-              public loadingController: LoadingController
+              public loadingController: LoadingController,
+              public motifService: MotifServiceService
               ) { }
 
   currentCollection?: ICollectionsContent;
@@ -82,6 +87,36 @@ export class PatternService {
         })
         console.log(this.currentCollection);
       }
+  }
+
+  savePattern() {
+    this.motifSaveStates = [];
+    let tempMotifsOnCanvas = this.motifService.motifsOnCanvas.objects; //for performance, to have a local copy and not go to the service each time
+    for (let mot in tempMotifsOnCanvas)
+    {
+      //this.motifsOnCanvas.objects[mot].objectRef.
+      this.motifSaveStates.push({
+        left: tempMotifsOnCanvas[mot].objectRef.left,
+        top: tempMotifsOnCanvas[mot].objectRef.top,
+        width: tempMotifsOnCanvas[mot].objectRef.getScaledWidth(),
+        height: tempMotifsOnCanvas[mot].objectRef.getScaledHeight(),
+        scale: tempMotifsOnCanvas[mot].objectRef.getObjectScaling(),
+        rotation: tempMotifsOnCanvas[mot].objectRef.angle,
+        layer: 0, //Temp
+        motifID: tempMotifsOnCanvas[mot].objectID,
+        motifName: tempMotifsOnCanvas[mot].objectName,
+
+      })
+    }
+    this.patternContents.motifs = this.motifSaveStates;
+
+    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+      { fileID: this.patternContents.patternID, content: JSON.stringify(this.patternContents) },
+      {withCredentials: true
+      }).subscribe(patternUpdateResult => {
+      console.log(patternUpdateResult) //prints
+    })
+    console.log(this.patternContents);
   }
 
 }

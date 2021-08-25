@@ -33,7 +33,6 @@ export class PatternComponent implements OnInit {
   //motifs?: motifsInterface;
 
   canvas?: fabric.Canvas;
-  motifSaveStates: IMotifStateInterface[] = [];
 
 
 
@@ -178,34 +177,7 @@ export class PatternComponent implements OnInit {
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 
-  savePattern() {
-    this.motifSaveStates = [];
-    for (let mot in this.motifService.motifsOnCanvas.objects)
-    {
-      //this.motifsOnCanvas.objects[mot].objectRef.
-      this.motifSaveStates.push({
-        left: this.motifService.motifsOnCanvas.objects[mot].objectRef.left,
-        top: this.motifService.motifsOnCanvas.objects[mot].objectRef.top,
-        width: this.motifService.motifsOnCanvas.objects[mot].objectRef.getScaledWidth(),
-        height: this.motifService.motifsOnCanvas.objects[mot].objectRef.getScaledHeight(),
-        scale: this.motifService.motifsOnCanvas.objects[mot].objectRef.getObjectScaling(),
-        rotation: this.motifService.motifsOnCanvas.objects[mot].objectRef.angle,
-        layer: 0, //Temp
-        motifID: this.motifService.motifsOnCanvas.objects[mot].objectID,
-        motifName: this.motifService.motifsOnCanvas.objects[mot].objectName,
 
-      })
-    }
-    this.patternService.patternContents.motifs = this.motifSaveStates;
-
-    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
-      { fileID: this.patternService.patternContents.patternID, content: JSON.stringify(this.patternService.patternContents) },
-      {withCredentials: true
-      }).subscribe(patternUpdateResult => {
-      console.log(patternUpdateResult) //prints
-    })
-    console.log(this.patternService.patternContents);
-  }
 
   moveUp(index: number) {
     console.log("Layer: " + index)

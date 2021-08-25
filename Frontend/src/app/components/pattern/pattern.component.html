@@ -23,7 +23,7 @@
               <div *ngIf="motifService.cachedMotifs">
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
-                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifObject(motif);'>
+                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
                     <ion-row>
                       <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
                     </ion-row>
@@ -135,7 +135,7 @@
               <ion-button color="medium" >Undo</ion-button>
             </ion-item>
             <ion-item>
-              <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
+              <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>
             </ion-item>
           </div>
 
@@ -152,14 +152,14 @@
             <div class="layerBorder">
               <ion-label>Layer</ion-label>
 
-              <div *ngIf="motifsOnCanvas" >
-                <div *ngFor="let motif of this.motifsOnCanvas.objects.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
+              <div *ngIf="this.motifService.motifsOnCanvas" >
+                <div *ngFor="let motif of this.motifService.motifsOnCanvas.objects.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
                   <div class="MotifImage2">
                     <div class="layerBlock" style="background-color: #949494; padding: 10px">
                       <img src= "{{motif.motifURL}}" alt="motif-image" class="layerMotif">
                     </div>
-                      <ion-button (click)="moveUp(this.motifsOnCanvas.objects.length - 1 - i)">MoveUp</ion-button>
-                      <ion-button (click)="moveDown(this.motifsOnCanvas.objects.length - 1 - i)">MoveDown</ion-button>
+                      <ion-button (click)="moveUp(this.motifService.motifsOnCanvas.objects.length - 1 - i)">MoveUp</ion-button>
+                      <ion-button (click)="moveDown(this.motifService.motifsOnCanvas.objects.length - 1 - i)">MoveDown</ion-button>
                     <br>
                   </div >
                 </div>
