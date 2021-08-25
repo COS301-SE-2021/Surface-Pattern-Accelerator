@@ -84,10 +84,15 @@
               <ion-card-content>
 
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
-                <div id="frame">
+                <div class="frame">
                   <canvas id="patternFrame" width="600px" height="600px"></canvas>
                 </div>
 
+                <br>
+
+                <div class="frame">
+                    <img id='img'/>
+                </div>
 
 <!--            <div #menu class="customContext" (click)="stopPropagation($event)">-->
 <!--              <ul>-->
@@ -204,7 +209,7 @@
             </ion-list-header>
           </ion-list>
           <ion-item>
-            <ion-button id="pre" color="dark" style="width:100%;" >Refresh Preview</ion-button>
+            <ion-button id="pre" color="dark" style="width:100%;" (click)="setPreview()" >Refresh Preview</ion-button>
           </ion-item>
           <!--          <ion-item>-->
           <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>-->
