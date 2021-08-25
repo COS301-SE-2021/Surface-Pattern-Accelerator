@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {PatternService} from "../../services/pattern.service";
 import {PopoverController} from "@ionic/angular";
 import {HttpClient} from "@angular/common/http";
+import {fabric} from "fabric";
 
 @Component({
   selector: 'app-motif-editor',
@@ -12,6 +13,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class MotifEditorComponent implements OnInit {
   selectedPattern: any;
+  canvas?: fabric.Canvas;
+
 
   constructor(public motifService: MotifServiceService,
               private route: ActivatedRoute,
@@ -19,11 +22,12 @@ export class MotifEditorComponent implements OnInit {
               private popoverController: PopoverController,
               private http: HttpClient) { }
 
-  ngOnInit() {}
-
-  onPatternChange(selectedPattern: any) {
-
+  ngOnInit() {
+    this.canvas = new fabric.Canvas('patternFrame_MotifEditor', { preserveObjectStacking: true })
+    this.patternService.onPatternChange(this.patternService.selectedPatternID, this.canvas);
   }
+
+
 
   newPatternPopover() {
 
@@ -33,11 +37,6 @@ export class MotifEditorComponent implements OnInit {
 
   }
 
-  uploadFilePopover() {
 
-  }
 
-  collectionCataloguePopover() {
-
-  }
 }

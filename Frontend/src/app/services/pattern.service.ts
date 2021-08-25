@@ -5,6 +5,7 @@ import { IPatternContentsInterface } from "../Interfaces/patternContents.interfa
 import {LoadingController} from "@ionic/angular";
 import {IMotifStateInterface} from "../Interfaces/motifDetails.interface";
 import {MotifServiceService} from "./motif-service.service";
+import {fabric} from "fabric";
 
 
 @Injectable({
@@ -12,6 +13,7 @@ import {MotifServiceService} from "./motif-service.service";
 })
 export class PatternService {
   private serverAPIURL = 'http://localhost:3000/api';
+  selectedPatternID?: string; //for default pattern selection in pattern dropdowns
   motifSaveStates: IMotifStateInterface[] = [];
 
 
@@ -117,6 +119,43 @@ export class PatternService {
       console.log(patternUpdateResult) //prints
     })
     console.log(this.patternContents);
+  }
+
+  onPatternChange(selectedPatternID: any, canvas: fabric.Canvas) {
+    console.log("on pattern change");
+    canvas.clear();
+
+    for (let motOnCanvas in this.motifService.motifsOnCanvas.objects)
+    {
+      canvas.remove(this.motifService.motifsOnCanvas.objects[motOnCanvas].objectRef)
+    }
+
+    this.http.post(this.serverAPIURL + '/getFileByID',
+      { fileID: selectedPatternID },
+      {withCredentials: true
+      }).subscribe(fileContent => {
+      this.patternContents = fileContent as IPatternContentsInterface;
+      console.log(this.patternContents);
+      this.motifService.spawnMotifObjectsFromSaveState(this.patternContents, canvas);
+    });
+  }
+
+
+  checkIfPatternsExistAndSetDefault() { //default selection
+
+    if (this.currentCollection)
+    {
+      if (!this.selectedPatternID)
+      {
+        this.selectedPatternID = this.currentCollection.childPatterns[0].patternID
+      }
+
+      return true
+    }
+    else
+    {
+      return false
+    }
   }
 
 }

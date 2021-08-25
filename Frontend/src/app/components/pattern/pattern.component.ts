@@ -95,6 +95,7 @@ export class PatternComponent implements OnInit {
     this.motifService.getMotifs()
       .then(() => {
         console.log("All motifs loaded"); //load motifs can be called here in the future when a pattern gets automatically selected
+        this.patternService.onPatternChange(this.patternService.selectedPatternID, this.canvas);
       }) //load motifs
 
   }
@@ -124,23 +125,7 @@ export class PatternComponent implements OnInit {
     return this.patternService.newPattern(patternName);
   }
 
-  onPatternChange(selectedPatternID: any) {
-    console.log(selectedPatternID);
 
-    for (let motOnCanvas in this.motifService.motifsOnCanvas.objects)
-    {
-      this.canvas.remove(this.motifService.motifsOnCanvas.objects[motOnCanvas].objectRef)
-    }
-
-    this.http.post(this.serverAPIURL + '/getFileByID',
-      { fileID: selectedPatternID },
-      {withCredentials: true
-      }).subscribe(fileContent => {
-      this.patternService.patternContents = fileContent as IPatternContentsInterface;
-      console.log(this.patternService.patternContents);
-      this.motifService.spawnMotifObjectsFromSaveState(this.patternService.patternContents, this.canvas);
-    });
-  }
 
   newPatternPopover() {
     let popoverReference:  HTMLIonPopoverElement;
@@ -219,4 +204,7 @@ export class PatternComponent implements OnInit {
       console.log("is lower")
     }
   }
+
+
+
 }

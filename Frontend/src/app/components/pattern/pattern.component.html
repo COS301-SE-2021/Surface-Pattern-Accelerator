@@ -54,10 +54,12 @@
             <ion-card-content style="width: 100%">
               <ion-row>
                 <ion-col size="10">
-                <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
-                  <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+                <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">
+
+                  <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.onPatternChange(patternService.selectedPatternID, this.canvas)" >
                     <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
                   </ion-select>
+
                 </ion-item>
                 </ion-col>
 
