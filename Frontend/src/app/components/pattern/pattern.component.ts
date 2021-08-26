@@ -505,8 +505,19 @@ export class PatternComponent implements OnInit {
 
   }
 
+
   setPreview(){
-    (<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
+
+    //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
+
+    let pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    pcan.height = 200;
+    pcan.width = 200;
+    pcan.src = this.canvas.toDataURL();
+
+
+
+
   }
 
   toggleBackground(e){
