@@ -39,6 +39,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
 import { MaterialModule } from './material/material.module';
 import {GLoginComponent} from './components/g-login/g-login.component'
+import {MotifEditorComponent} from './components/motif-editor/motif-editor.component'
 
 
 
@@ -62,7 +63,8 @@ import {GLoginComponent} from './components/g-login/g-login.component'
     MotifUploadComponent,
     MotifCatalogueComponent,
     NewPatternComponent,
-    GLoginComponent
+    GLoginComponent,
+    MotifEditorComponent
 
   ],
 
