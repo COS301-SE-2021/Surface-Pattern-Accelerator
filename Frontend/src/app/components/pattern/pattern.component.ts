@@ -52,20 +52,6 @@ export class PatternComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /////////////////////
   private serverAPIURL = 'http://localhost:3000/api';
   selected!:(Group | Shape);
@@ -75,12 +61,7 @@ export class PatternComponent implements OnInit {
   canvas?: fabric.Canvas;
 
 
-
-
   //saving patterns in pattern Contents interface
-
-
-
 
   constructor(public motifService: MotifServiceService,
               private route: ActivatedRoute,
@@ -150,8 +131,6 @@ export class PatternComponent implements OnInit {
 
   }
 
-
-
   @ViewChild('menu') menu!:ElementRef;
   contextMenu(e){
     e.preventDefault();
@@ -167,15 +146,10 @@ export class PatternComponent implements OnInit {
   //This functions spawns the motifs on the canvas, its called from the HTML
 
 
-
-
-
   newPattern(patternName: string)
   {
     return this.patternService.newPattern(patternName);
   }
-
-
 
   newPatternPopover() {
     let popoverReference:  HTMLIonPopoverElement;
@@ -211,7 +185,6 @@ export class PatternComponent implements OnInit {
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
-
 
 
   moveUp(index: number) {
@@ -286,26 +259,6 @@ export class PatternComponent implements OnInit {
     //   console.log("End")
     // }
 
-
-
   }
-
-
-
-
-  /////for seacrh  ---------- delete
-  // getMotifsSearch(): void
-  // {
-  //   this.motifService.getMotifs()
-  //     .subscribe(motifs =>
-  //     {
-  //       this.searchableMotifs=motifs.motifDetails
-  //       this.motifs = motifs
-  //       console.log("motifs")
-  //       console.log(motifs)
-  //     });
-  // }
-
-
 
 }
