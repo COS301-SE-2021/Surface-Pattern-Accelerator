@@ -27,6 +27,46 @@ import {motif} from "../../Classes/motif.class"
   styleUrls: ['./pattern.component.scss'],
 })
 export class PatternComponent implements OnInit {
+
+  ///search
+  items = [{ name: "archie" }, { name: "jake" }, { name: "richard" }];
+  values = [];
+  searchableMotifs=[]
+
+
+  @ViewChild("parent") private parentRef: ElementRef<HTMLElement>;
+
+  onKey(event: any) {
+    const query = event.target.value.toLowerCase();
+    const p = document.querySelector('p.testing');
+    console.log(query)
+    console.table(this.searchableMotifs)
+    var doc = document.getElementById("testing");
+    var arrs =Array.from(this.parentRef.nativeElement.children as HTMLCollectionOf<HTMLElement>)
+    console.log(arrs.length)
+    requestAnimationFrame(() => {
+        arrs.forEach(async item => {
+        const shouldShow =await item.textContent.toLowerCase().indexOf(query) > -1;
+        item.style.display = shouldShow ? 'block' : 'none';
+      })
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /////////////////////
   private serverAPIURL = 'http://localhost:3000/api';
   selected!:(Group | Shape);
   selectedPattern: any;
@@ -102,7 +142,8 @@ export class PatternComponent implements OnInit {
   getMotifs(): void
   {
     this.motifService.getMotifs()
-      .then(() => {
+      .then((motifs ) => {
+        console.log(motifs )
         console.log("All motifs loaded"); //load motifs can be called here in the future when a pattern gets automatically selected
         this.patternService.onPatternChange(this.patternService.selectedPatternID, this.canvas);
       }) //load motifs
@@ -248,6 +289,22 @@ export class PatternComponent implements OnInit {
 
 
   }
+
+
+
+
+  /////for seacrh  ---------- delete
+  // getMotifsSearch(): void
+  // {
+  //   this.motifService.getMotifs()
+  //     .subscribe(motifs =>
+  //     {
+  //       this.searchableMotifs=motifs.motifDetails
+  //       this.motifs = motifs
+  //       console.log("motifs")
+  //       console.log(motifs)
+  //     });
+  // }
 
 
 
