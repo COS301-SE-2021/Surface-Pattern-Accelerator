@@ -33,12 +33,18 @@ export class PatternComponent implements OnInit {
   //motifs?: motifsInterface;
 
   canvas?: fabric.Canvas;
+  canvasPre?: fabric.Canvas;
+  img?: fabric.Image;
   motifSaveStates: IMotifStateInterface[] = [];
   motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
   motifObjects: motif[] = [];
   canvasMotifs: fabric.Object[] = [];
   seamlessClones: fabric.Object[] = [];
   motifCount: number = 0;
+  scale: number = 6;
+
+  width: number = 600;
+  height: number = 600;
 
 
   //saving patterns in pattern Contents interface
@@ -61,11 +67,18 @@ export class PatternComponent implements OnInit {
     })
 
     this.getMotifs();
-    this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true })
-    this.canvas.setHeight(600);
-    this.canvas.setWidth(600);
+    this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true });
+    this.canvas.setHeight(this.width);
+    this.canvas.setWidth(this.height);
     this.canvas.backgroundColor = null;
     //this.frame = document.getElementById('patternFrame');//get div of workarea
+
+    this.canvasPre = new fabric.Canvas('previewFrame', { preserveObjectStacking: true });
+    this.canvasPre.setHeight(this.width);
+    this.canvasPre.setWidth(this.height);
+    this.canvasPre.backgroundColor = null;
+
+    this.img = new fabric.Image('previewFrame');
 
   }
 
@@ -506,19 +519,67 @@ export class PatternComponent implements OnInit {
   }
 
 
+
+
   setPreview(){
 
     //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
 
-    let pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
-    pcan.height = 200;
-    pcan.width = 200;
+    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    pcan.height = this.height / this.scale;
+    pcan.width = this.width / this.scale;
     pcan.src = this.canvas.toDataURL();
+
+    let can = this.canvasPre;
+    let con = can.getContext();
+
+    //pcan will be reflected for the preview seamlessly
+
+    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+
+    for (let i = 0; i < this.scale; i++)//rows, Y
+    {
+      for (let j = 0; j < this.scale; j++)//columns, X
+      {
+        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+      }
+    }
+
+    //this.refresh();
+
+  }
+
+
+  refresh(){
+    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    pcan.height = this.height / this.scale;
+    pcan.width = this.width / this.scale;
+    pcan.src = this.canvas.toDataURL();
+
+    let can = this.canvasPre;
+    let con = can.getContext();
+
+    //pcan will be reflected for the preview seamlessly
+
+    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+
+    for (let i = 0; i < this.scale; i++)//rows, Y
+    {
+      for (let j = 0; j < this.scale; j++)//columns, X
+      {
+
+        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+      }
+    }
+    console.log("Preview Generated");
+
 
 
 
 
   }
+
+
 
   toggleBackground(e){
     if(e.detail.checked)
