@@ -133,18 +133,6 @@ $dot-space: 15px;
   width: 100%;
 }
 
-
-#patternFrame{
-  background-color: white;
-}
-
-
-.frame {
-  width: 608px;//included borders
-  margin: 0px auto;
-  border: 4px solid grey;
-}
-
 #can{
   border: solid black 3px;
   width: 600px;
@@ -205,16 +193,4 @@ $dot-space: 15px;
   .button-text {
     display: none;
   }
-}
-
-.motifNames{
-  width: 100px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-
-.motifBtn{
-  cursor: pointer;
 }

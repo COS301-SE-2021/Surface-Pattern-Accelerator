@@ -27,18 +27,38 @@ import {motif} from "../../Classes/motif.class"
   styleUrls: ['./pattern.component.scss'],
 })
 export class PatternComponent implements OnInit {
+
+  ///search
+  items = [{ name: "archie" }, { name: "jake" }, { name: "richard" }];
+  values = [];
+  searchableMotifs=[]
+
+
+  @ViewChild("parent") private parentRef: ElementRef<HTMLElement>;
+
+  onKey(event: any) {
+    const query = event.target.value.toLowerCase();
+    const p = document.querySelector('p.testing');
+    console.log(query)
+    console.table(this.searchableMotifs)
+    var doc = document.getElementById("testing");
+    var arrs =Array.from(this.parentRef.nativeElement.children as HTMLCollectionOf<HTMLElement>)
+    console.log(arrs.length)
+    requestAnimationFrame(() => {
+        arrs.forEach(async item => {
+        const shouldShow =await item.textContent.toLowerCase().indexOf(query) > -1;
+        item.style.display = shouldShow ? 'block' : 'none';
+      })
+    });
+  }
+
+  /////////////////////
   private serverAPIURL = 'http://localhost:3000/api';
   selected!:(Group | Shape);
   selectedPattern: any;
   //motifs?: motifsInterface;
 
   canvas?: fabric.Canvas;
-  motifSaveStates: IMotifStateInterface[] = [];
-  motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
-  motifObjects: motif[] = [];
-  canvasMotifs: fabric.Object[] = [];
-  seamlessClones: fabric.Object[] = [];
-  motifCount: number = 0;
 
 
   //saving patterns in pattern Contents interface
@@ -65,6 +85,16 @@ export class PatternComponent implements OnInit {
     this.canvas.setHeight(600);
     this.canvas.setWidth(600);
     this.canvas.backgroundColor = null;
+
+    this.canvas.on("selection:created",(r) => {
+      this.getSelectedObject()
+    })
+
+    this.canvas.on("selection:updated",(r) => {
+      this.getSelectedObject()
+    })
+
+
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
   }
@@ -99,8 +129,10 @@ export class PatternComponent implements OnInit {
   getMotifs(): void
   {
     this.motifService.getMotifs()
-      .then(() => {
+      .then((motifs ) => {
+        console.log(motifs )
         console.log("All motifs loaded"); //load motifs can be called here in the future when a pattern gets automatically selected
+        this.patternService.onPatternChange(this.patternService.selectedPatternID, this.canvas);
       }) //load motifs
 
   }
@@ -120,70 +152,6 @@ export class PatternComponent implements OnInit {
   }
 
   //This functions spawns the motifs on the canvas, its called from the HTML
-  spawnMotifObject(motifObject: motif)
-  {
-    if (motifObject.obj) //check if object exists
-    {
-      let objectToSpawn = motifObject.obj;
-      objectToSpawn.scaleToHeight(this.canvas.height-250) //this is relative? Keep same in both spawn functions******
-        .set({left: this.canvas.width/15, top: this.canvas.height/15})
-        .setCoords();
-      console.log("Spawn Motif Path")
-      objectToSpawn.clone( (clone) => {
-        this.canvas.add(clone).renderAll();
-       this.canvasMotifs[this.motifCount++] = clone;
-        this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id, motifURL: motifObject.motifURL}); //TODO: create interface
-
-        (<HTMLInputElement> document.getElementById("seamlessCheck")).checked = false;
-        this.notSeamless();
-      })
-    }
-  }
-
-  spawnMotifObjectsFromSaveState()
-  {
-    this.motifsOnCanvas = {objects: []}; //clears motifs on canvas
-    for (let motState in this.patternContents.motifs) //the json file of the pattern contents gotten from the server
-    {
-      let motStateTemp = this.patternContents.motifs[motState] //temp value, store as its potentially accessed a lot - for performance
-      for (let cachedMot in this.motifService.cachedMotifs) //array of cached motifs, "the library" to select from
-      {
-        let cachedMotTemp = this.motifService.cachedMotifs[cachedMot] //store reference to cached motif, less cluttered
-        if (motStateTemp.motifID === cachedMotTemp.id) //if if in cached motifs match motif ID in pattern JSON then spawn than motif
-        {
-          let objectToSpawn = cachedMotTemp.obj;
-
-
-            // .set({
-            //   left: motStateTemp.left,
-            //   top: motStateTemp.top,
-            //   angle: motStateTemp.rotation,
-            //   height: motStateTemp.height* motStateTemp.scale.scaleY,
-            //   width: motStateTemp.width* motStateTemp.scale.scaleX
-            // })
-
-          objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
-            clone
-              .set({
-                left: motStateTemp.left,
-                top: motStateTemp.top,
-                angle: motStateTemp.rotation,
-                //height: motStateTemp.height* motStateTemp.scale.scaleY,
-                //width: motStateTemp.width* motStateTemp.scale.scaleX
-                scaleX: motStateTemp.scale.scaleX,
-                scaleY: motStateTemp.scale.scaleY,
-              })
-              .setCoords()
-            this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
-
-            //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
-            this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
-            //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
-          })
-        }
-      }
-    }
-  }
 
 
   newPattern(patternName: string)
@@ -248,51 +216,21 @@ export class PatternComponent implements OnInit {
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 
-  savePattern() {
-    this.motifSaveStates = [];
-    for (let mot in this.motifsOnCanvas.objects)
-    {
-      //this.motifsOnCanvas.objects[mot].objectRef.
-      this.motifSaveStates.push({
-        left: this.motifsOnCanvas.objects[mot].objectRef.left,
-        top: this.motifsOnCanvas.objects[mot].objectRef.top,
-        width: this.motifsOnCanvas.objects[mot].objectRef.getScaledWidth(),
-        height: this.motifsOnCanvas.objects[mot].objectRef.getScaledHeight(),
-        scale: this.motifsOnCanvas.objects[mot].objectRef.getObjectScaling(),
-        rotation: this.motifsOnCanvas.objects[mot].objectRef.angle,
-        layer: 0, //Temp
-        motifID: this.motifsOnCanvas.objects[mot].objectID,
-        motifName: this.motifsOnCanvas.objects[mot].objectName,
-
-      })
-    }
-    this.patternContents.motifs = this.motifSaveStates;
-
-    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
-      { fileID: this.patternContents.patternID, content: JSON.stringify(this.patternContents) },
-      {withCredentials: true
-      }).subscribe(patternUpdateResult => {
-      console.log(patternUpdateResult) //prints
-    })
-
-
-    console.log(this.patternContents);
-  }
 
   moveUp(index: number) {
     console.log("Layer: " + index)
-    console.log(this.motifsOnCanvas.objects[index].objectName)
-    if (this.motifsOnCanvas.objects[index + 1])
+    console.log(this.motifService.motifsOnCanvas.objects[index].objectName)
+    if (this.motifService.motifsOnCanvas.objects[index + 1])
     {
       console.log("upper exists")
-      const temp = this.motifsOnCanvas.objects[index + 1];
-      this.motifsOnCanvas.objects[index + 1] = this.motifsOnCanvas.objects[index]
-      this.motifsOnCanvas.objects[index] = temp;
+      const temp = this.motifService.motifsOnCanvas.objects[index + 1];
+      this.motifService.motifsOnCanvas.objects[index + 1] = this.motifService.motifsOnCanvas.objects[index]
+      this.motifService.motifsOnCanvas.objects[index] = temp;
 
-      for (index; index < this.motifsOnCanvas.objects.length; index++)
+      for (index; index < this.motifService.motifsOnCanvas.objects.length; index++)
       {
-        this.canvas.remove(this.motifsOnCanvas.objects[index].objectRef)
-        this.canvas.add(this.motifsOnCanvas.objects[index].objectRef).renderAll();
+        this.canvas.remove(this.motifService.motifsOnCanvas.objects[index].objectRef)
+        this.canvas.add(this.motifService.motifsOnCanvas.objects[index].objectRef).renderAll();
       }
     }
     else
@@ -303,22 +241,56 @@ export class PatternComponent implements OnInit {
 
   moveDown(index: number) {
     console.log("Layer: " + index)
-    console.log(this.motifsOnCanvas.objects[index].objectName)
-    if (this.motifsOnCanvas.objects[index - 1]) {
+    console.log(this.motifService.motifsOnCanvas.objects[index].objectName)
+    if (this.motifService.motifsOnCanvas.objects[index - 1]) {
       console.log("lower exists")
-      const temp = this.motifsOnCanvas.objects[index - 1];                          //
-      this.motifsOnCanvas.objects[index - 1] = this.motifsOnCanvas.objects[index]   // swap motifs on array
-      this.motifsOnCanvas.objects[index] = temp;                                    //
+      const temp = this.motifService.motifsOnCanvas.objects[index - 1];                          //
+      this.motifService.motifsOnCanvas.objects[index - 1] = this.motifService.motifsOnCanvas.objects[index]   // swap motifs on array
+      this.motifService.motifsOnCanvas.objects[index] = temp;                                    //
 
-      for (index; index < this.motifsOnCanvas.objects.length; index++)
+      for (index; index < this.motifService.motifsOnCanvas.objects.length; index++)
       {
-        this.canvas.remove(this.motifsOnCanvas.objects[index].objectRef)
-        this.canvas.add(this.motifsOnCanvas.objects[index].objectRef).renderAll();
+        this.canvas.remove(this.motifService.motifsOnCanvas.objects[index].objectRef)
+        this.canvas.add(this.motifService.motifsOnCanvas.objects[index].objectRef).renderAll();
       }
     } else {
       console.log("is lower")
     }
   }
+
+
+  listCanvasObjects() {
+    console.log(this.canvas.getObjects());
+  }
+
+  getSelectedObject()
+  {
+    //TODO: do this only when in color editor mode/ polygon mode
+    console.log(this.canvas.getObjects())
+    for (let obj in this.canvas.getObjects())
+    {
+      this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj]
+    }
+
+    let object = this.canvas.getActiveObject();
+
+
+
+    // let selectedObject = this.canvas.getActiveObject();
+    // if (selectedObject)
+    // {
+    //   for (let obj in this.motifService.motifsOnCanvas)
+    //   {
+    //     if (selectedObject.ownMatrixCache.key === this.motifService.motifsOnCanvas[obj].ownMatrixCache.key)
+    //     {
+    //       console.log("equal: " + obj);
+    //     }
+    //   }
+    //   console.log("End")
+    // }
+
+  }
+
 
   notSeamless(){
     let motifs = this.canvas.getObjects();

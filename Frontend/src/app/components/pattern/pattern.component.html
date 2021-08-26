@@ -16,24 +16,26 @@
             </ion-item>
           </ion-list>
 
-            <div>
-              <ion-searchbar placeholder="Search"></ion-searchbar>
-            </div>
-            <ion-row>
-              <div *ngIf="motifService.cachedMotifs">
+          <ion-toolbar>
+            <ion-searchbar (keyup)="onKey($event)" ></ion-searchbar>
+            <p class="testing">{{values}}</p>
+          </ion-toolbar>
+
+            <ion-row id=""testing >
+              <div *ngIf="motifService.cachedMotifs" #parent>
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
-                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawnMotifObject(motif);'>
+                  <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
                     <ion-row>
                       <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
                     </ion-row>
                     <ion-row>
-                      <ion-text> {{motif.motifName}} </ion-text>
+                      <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
                     </ion-row>
 
 
                      <!-- variable name is not unresolved, ignore -->
-                  </button>
+                  </div>
                 </ion-card>
               </div>
             </ion-row>
@@ -54,10 +56,12 @@
             <ion-card-content style="width: 100%">
               <ion-row>
                 <ion-col size="10">
-                <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
-                  <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
+                <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">
+
+                  <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.onPatternChange(patternService.selectedPatternID, this.canvas)" >
                     <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
                   </ion-select>
+
                 </ion-item>
                 </ion-col>
 
@@ -102,19 +106,9 @@
 <!--            <div #menu class="customContext" (click)="stopPropagation($event)">-->
 <!--              <ul>-->
 
-<!--              </ul>-->
-<!--            </div>-->
-
-<!--              <div class="view" id="preview" style="margin: auto;"></div>-->
-<!--            <br>-->
-<!--              <div id="can" style="margin: auto;"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>-->
-<!--              <div id="down"></div>-->
 
             <ion-row class="row">
-<!--              <div class="workArea" id="container"></div>-->
-<!--              <div class="view" id="preview"></div>-->
-<!--              <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>-->
-<!--              <div id="down"></div>-->
+
 
             </ion-row>
           </ion-card-content>
@@ -152,7 +146,7 @@
               <ion-button color="medium" >Undo</ion-button>
             </ion-item>
             <ion-item>
-              <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
+              <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>
             </ion-item>
             <ion-item>
               <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>
@@ -174,14 +168,14 @@
             <div class="layerBorder">
               <ion-label>Layer</ion-label>
 
-              <div *ngIf="motifsOnCanvas" >
-                <div *ngFor="let motif of this.motifsOnCanvas.objects.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
+              <div *ngIf="this.motifService.motifsOnCanvas" >
+                <div *ngFor="let motif of this.motifService.motifsOnCanvas.objects.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
                   <div class="MotifImage2">
                     <div class="layerBlock" style="background-color: #949494; padding: 10px">
                       <img src= "{{motif.motifURL}}" alt="motif-image" class="layerMotif">
                     </div>
-                      <ion-button (click)="moveUp(this.motifsOnCanvas.objects.length - 1 - i)">MoveUp</ion-button>
-                      <ion-button (click)="moveDown(this.motifsOnCanvas.objects.length - 1 - i)">MoveDown</ion-button>
+                      <ion-button (click)="moveUp(this.motifService.motifsOnCanvas.objects.length - 1 - i)">MoveUp</ion-button>
+                      <ion-button (click)="moveDown(this.motifService.motifsOnCanvas.objects.length - 1 - i)">MoveDown</ion-button>
                     <br>
                   </div >
                 </div>
@@ -201,8 +195,7 @@
             <ion-icon name="invert-mode-outline"></ion-icon>
           </ion-button>
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTab($event,'Changes')" id="Changes1">
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links" (click)="openTab($event,'Changes')" id="Changes1">
             <ion-label class="button-text">Changes</ion-label>
             <ion-icon name="eyedrop-outline" ></ion-icon>
           </ion-button>
