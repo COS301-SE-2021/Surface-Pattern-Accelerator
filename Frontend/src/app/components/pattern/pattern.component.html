@@ -17,24 +17,26 @@
             </ion-item>
           </ion-list>
 
-            <div>
-              <ion-searchbar placeholder="Search"></ion-searchbar>
-            </div>
-            <ion-row>
-              <div *ngIf="motifService.cachedMotifs">
+          <ion-toolbar>
+            <ion-searchbar (keyup)="onKey($event)" ></ion-searchbar>
+            <p class="testing">{{values}}</p>
+          </ion-toolbar>
+
+            <ion-row id=""testing >
+              <div *ngIf="motifService.cachedMotifs" #parent>
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
-                  <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
+                  <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
                     <ion-row>
                       <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
                     </ion-row>
                     <ion-row>
-                      <ion-text> {{motif.motifName}} </ion-text>
+                      <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
                     </ion-row>
 
 
                      <!-- variable name is not unresolved, ignore -->
-                  </button>
+                  </div>
                 </ion-card>
               </div>
             </ion-row>

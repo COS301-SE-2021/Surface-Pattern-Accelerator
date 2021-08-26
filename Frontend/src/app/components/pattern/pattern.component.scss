@@ -194,3 +194,15 @@ $dot-space: 15px;
     display: none;
   }
 }
+
+.motifNames{
+  width: 100px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+
+.motifBtn{
+  cursor: pointer;
+}
