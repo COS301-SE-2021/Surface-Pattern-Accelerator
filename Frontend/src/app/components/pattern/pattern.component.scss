@@ -51,7 +51,7 @@ ion-grid{
 .customContext ul li{
   list-style-type: none;
   padding: 10px 14px;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid white;
   color: gray;
   width: 100%;
   cursor: pointer;
@@ -59,7 +59,7 @@ ion-grid{
 }
 .customContext ul li:hover{
   background: #111111;
-  color: red;
+  color: dodgerblue;
 }
 
 //ion-row{
