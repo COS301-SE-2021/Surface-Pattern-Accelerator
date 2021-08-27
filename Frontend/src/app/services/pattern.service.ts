@@ -5,7 +5,7 @@ import { IPatternContentsInterface } from "../Interfaces/patternContents.interfa
 import {LoadingController} from "@ionic/angular";
 import {IMotifStateInterface} from "../Interfaces/motifDetails.interface";
 import {MotifServiceService} from "./motif-service.service";
-import {fabric} from "fabric";
+
 
 
 @Injectable({

@@ -5,7 +5,7 @@ import {motifsInterface} from "../Interfaces/motifsInterface";
 import {GLoginService} from "./g-login.service";
 import {motif} from "../Classes/motif.class";
 import {motifBodyInterface} from "../Interfaces/motifBodyInterface";
-import {fabric} from "fabric";
+import {fabric} from 'fabric'
 import {IPatternContentsInterface} from "../Interfaces/patternContents.interface";
 
 @Injectable({
@@ -54,11 +54,13 @@ export class MotifServiceService {
     if (motifObject) //check if object exists
     {
       let objectToSpawn = motifObject.obj;
+      console.log(motifObject.obj.googleDriveID)
       objectToSpawn.scaleToHeight(canvas.height-250) //this is relative? Keep same in both spawn functions******
         .set({left: canvas.width/15, top: canvas.height/15})
         .setCoords();
       console.log("Spawn Motif Path")
       objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
+        console.log(clone.googleDriveID);
         canvas.add(clone).renderAll(); //the clone is spawned on the canvas
         this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id, motifURL: motifObject.motifURL}); //TODO: create interface
         //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
@@ -96,6 +98,7 @@ export class MotifServiceService {
               })
               .setCoords()
             canvas.add(clone).renderAll(); //the clone is spawned on the canvas
+
 
             //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
             this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface

@@ -12,6 +12,7 @@ import {HttpClient} from "@angular/common/http";
 import {fabric} from "fabric";
 
 
+
 import { ActivatedRoute } from '@angular/router';
 import {IMotifStateInterface} from "../../Interfaces/motifDetails.interface"
 import {PopoverController} from "@ionic/angular";
