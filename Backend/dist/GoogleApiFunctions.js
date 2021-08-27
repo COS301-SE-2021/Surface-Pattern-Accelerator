@@ -84,10 +84,10 @@ class GoogleApiFunctions {
         const oAuth2Client = new googleapis_1.google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
         return new Promise((resolve, reject) => {
             const token = {
-                access_token: clientResponse.Zb.access_token,
+                access_token: clientResponse.Xb.access_token,
                 scope: "https://www.googleapis.com/auth/drive",
-                token_type: clientResponse.Zb.token_type,
-                expiry_date: clientResponse.Zb.expires_at
+                token_type: clientResponse.Xb.token_type,
+                expiry_date: clientResponse.Xb.expires_at
             };
             console.log(token);
             // oAuth2Client.setCredentials(token);

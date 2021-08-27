@@ -159,25 +159,7 @@ export class PatternComponent implements OnInit {
     return this.patternService.newPattern(patternName);
   }
 
-  onPatternChange(selectedPatternID: any) {
-    console.log(selectedPatternID);
 
-    for (let motOnCanvas in this.motifsOnCanvas.objects)
-    {
-      this.canvas.remove(this.motifsOnCanvas.objects[motOnCanvas].objectRef)
-    }
-
-
-    this.http.post(this.serverAPIURL + '/getFileByID',
-      { fileID: selectedPatternID },
-      {withCredentials: true
-      }).subscribe(fileContent => {
-      this.patternContents = fileContent as IPatternContentsInterface;
-      console.log(this.patternContents);
-      this.spawnMotifObjectsFromSaveState();
-
-    });
-  }
 
   newPatternPopover() {
     let popoverReference:  HTMLIonPopoverElement;

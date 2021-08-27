@@ -34,17 +34,7 @@ export class GLoginComponent implements OnInit {
     this.gLoginService.signOut();
   }
 
-  createAccessToken()
-  {
-    console.log("createAccessToken fired");
-    console.log(this.user);
-    return this.http.post(this.serverAPIURL + '/createAccessToken',
-      { userLoginResponse: this.user },
-      {withCredentials: true
-      }).subscribe(response => {
-        console.log(response);
-    });
-  }
+
 
   printFile() {
     this.gLoginService.printFile("1uBUHbTjn1NuTIV6M9DhLHmT9dY1hs6Wm");
