@@ -166,13 +166,24 @@ export class PatternComponent implements OnInit {
   @ViewChild('menu') menu!:ElementRef;
   contextMenu(e){
     e.preventDefault();
-    if(this.selected != undefined)
+    console.log(e);
+    if( this.canvas.getActiveObjects().length == 1 )
     {
       this.menu.nativeElement.style.display = "block";
-      this.menu.nativeElement.style.top = e.pageY + "px";
+      if(e.pageY > 600)
+        this.menu.nativeElement.style.top = "600px";
+      else
+        this.menu.nativeElement.style.top = e.pageY + "px";
       this.menu.nativeElement.style.left = e.pageX + "px"
     }
 
+  }
+
+  dissapearContext(){
+    this.menu.nativeElement.style.display = "none";
+  }
+  stopPropagation(e){
+    e.stopPropagation(e);
   }
 
   //This functions spawns the motifs on the canvas, its called from the HTML
@@ -307,6 +318,65 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  deleteRightClick(){
+    let objects = this.canvas.getActiveObject();
+    let html = document.querySelectorAll(".temp");
+
+    for(var i = 0 ; i < this.canvas._objects.length ; i++){
+      if(objects == this.canvas._objects[i]){
+        this.canvas.remove(this.canvas.getActiveObject());
+        html[html.length - i - 1].remove();
+        this.motifsOnCanvas.objects.splice(i, 1);
+        this.canvas.renderAll();
+        break;
+      }
+    }
+
+    this.dissapearContext();
+
+  }
+  flipXRightClick(){
+    (this.canvas.getActiveObject()).toggle('flipX');
+    this.canvas.renderAll();
+  }
+
+  flipYRightClick(){
+    (this.canvas.getActiveObject()).toggle('flipY');
+    this.canvas.renderAll();
+  }
+  moveUpRightClick(){
+    let object = this.canvas.getActiveObject();
+    let html = document.querySelectorAll(".temp");
+
+    for(var i = 0 ; i < this.canvas._objects.length ; i++){
+      if(object == this.canvas._objects[i]){
+        // console.log(html);
+        // console.log(object);
+        // console.log(i);
+        this.moveUp(i);
+        this.dissapearContext();
+        break;
+      }
+    }
+  }
+
+  moveDownRightClick(){
+    let object = this.canvas.getActiveObject();
+    let html = document.querySelectorAll(".temp");
+
+    for(var i = 0 ; i < this.canvas._objects.length ; i++){
+      if(object == this.canvas._objects[i]){
+        this.moveDown(i);
+        this.dissapearContext();
+        break;
+      }
+    }
+  }
+
+  cloneRightClick(){ //TODO
+
+  }
+
 
   listCanvasObjects() {
     console.log(this.canvas.getObjects());
@@ -318,7 +388,13 @@ export class PatternComponent implements OnInit {
     console.log(this.canvas.getObjects())
     for (let obj in this.canvas.getObjects())
     {
-      this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj]
+
+      this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj];
+      let shape = this.canvas.getObjects()[obj];
+      // shape.set('fill', 'red');
+      // shape.set('stroke', 'blue');
+      // this.canvas.renderAll();
+      // console.log(this.canvas.getObjects()[obj].fill);
     }
 
     let object = this.canvas.getActiveObject();
