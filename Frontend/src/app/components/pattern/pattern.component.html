@@ -88,8 +88,17 @@
               <ion-card-content style="overflow-y:scroll;">
 
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
-                <div class="frame">
+                <div class="frame" (contextmenu)="contextMenu($event)" (click)="dissapearContext();">
                   <canvas id="patternFrame" width="600px" height="600px"></canvas>
+                </div>
+                <div #menu class="customContext" (click)="stopPropagation($event)">
+                  <ul>
+                    <li (click)="flipXRightClick()">FlipX</li>
+                    <li (click)="flipYRightClick()">FlipY</li>
+                    <li (click)="deleteRightClick()">Delete</li>
+                    <li (click)="moveUpRightClick()" >Move Up</li>
+                    <li (click)="moveDownRightClick()" >Move Down</li>
+                  </ul>
                 </div>
 
                 <br>
