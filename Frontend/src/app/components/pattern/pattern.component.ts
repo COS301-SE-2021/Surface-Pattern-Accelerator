@@ -19,6 +19,8 @@ import {ICollectionsContent} from "../../Interfaces/collectionContents.interface
 import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.component"
 
 import {motif} from "../../Classes/motif.class"
+import Konva from "konva";
+import pixelRatio = Konva.pixelRatio;
 
 
 @Component({
@@ -611,6 +613,21 @@ export class PatternComponent implements OnInit {
     this.setPreview();
   }
 
+
+  scaleCanvas3(){
+    this.scale = 3;
+    this.setPreview();
+  }
+
+  scaleCanvas6(){
+    this.scale = 6;
+    this.setPreview();
+  }
+
+  scaleCanvas9(){
+    this.scale = 9;
+    this.setPreview();
+  }
 
 
 }
