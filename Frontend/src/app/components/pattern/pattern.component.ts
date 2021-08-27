@@ -59,6 +59,18 @@ export class PatternComponent implements OnInit {
   //motifs?: motifsInterface;
 
   canvas?: fabric.Canvas;
+  canvasPre?: fabric.Canvas;
+  img?: fabric.Image;
+  motifSaveStates: IMotifStateInterface[] = [];
+  motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
+  motifObjects: motif[] = [];
+  canvasMotifs: fabric.Object[] = [];
+  seamlessClones: fabric.Object[] = [];
+  motifCount: number = 0;
+  scale: number = 6;
+
+  width: number = 600;
+  height: number = 600;
 
 
   //saving patterns in pattern Contents interface
@@ -81,9 +93,9 @@ export class PatternComponent implements OnInit {
     })
 
     this.getMotifs();
-    this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true })
-    this.canvas.setHeight(600);
-    this.canvas.setWidth(600);
+    this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true });
+    this.canvas.setHeight(this.width);
+    this.canvas.setWidth(this.height);
     this.canvas.backgroundColor = null;
 
     this.canvas.on("selection:created",(r) => {
@@ -96,6 +108,13 @@ export class PatternComponent implements OnInit {
 
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
+
+    this.canvasPre = new fabric.Canvas('previewFrame', { preserveObjectStacking: true });
+    this.canvasPre.setHeight(this.width);
+    this.canvasPre.setWidth(this.height);
+    this.canvasPre.backgroundColor = null;
+
+    this.img = new fabric.Image('previewFrame');
 
   }
 
@@ -152,7 +171,50 @@ export class PatternComponent implements OnInit {
   }
 
   //This functions spawns the motifs on the canvas, its called from the HTML
+  spawnMotifObjectsFromSaveState()
+  {
+    this.motifsOnCanvas = {objects: []}; //clears motifs on canvas
+    for (let motState in this.patternContents.motifs) //the json file of the pattern contents gotten from the server
+    {
+      let motStateTemp = this.patternContents.motifs[motState] //temp value, store as its potentially accessed a lot - for performance
+      for (let cachedMot in this.motifService.cachedMotifs) //array of cached motifs, "the library" to select from
+      {
+        let cachedMotTemp = this.motifService.cachedMotifs[cachedMot] //store reference to cached motif, less cluttered
+        if (motStateTemp.motifID === cachedMotTemp.id) //if if in cached motifs match motif ID in pattern JSON then spawn than motif
+        {
+          let objectToSpawn = cachedMotTemp.obj;
 
+
+          // .set({
+          //   left: motStateTemp.left,
+          //   top: motStateTemp.top,
+          //   angle: motStateTemp.rotation,
+          //   height: motStateTemp.height* motStateTemp.scale.scaleY,
+          //   width: motStateTemp.width* motStateTemp.scale.scaleX
+          // })
+
+          objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
+            clone
+              .set({
+                left: motStateTemp.left,
+                top: motStateTemp.top,
+                angle: motStateTemp.rotation,
+                //height: motStateTemp.height* motStateTemp.scale.scaleY,
+                //width: motStateTemp.width* motStateTemp.scale.scaleX
+                scaleX: motStateTemp.scale.scaleX,
+                scaleY: motStateTemp.scale.scaleY,
+              })
+              .setCoords()
+            this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
+
+            //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
+            this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
+            //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
+          })
+        }
+      }
+    }
+  }
 
   newPattern(patternName: string)
   {
@@ -464,15 +526,61 @@ export class PatternComponent implements OnInit {
 
     //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
 
-    let pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
-    pcan.height = 200;
-    pcan.width = 200;
+    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    pcan.height = this.height / this.scale;
+    pcan.width = this.width / this.scale;
     pcan.src = this.canvas.toDataURL();
+
+    let can = this.canvasPre;
+    let con = can.getContext();
+
+    //pcan will be reflected for the preview seamlessly
+
+    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+
+    for (let i = 0; i < this.scale; i++)//rows, Y
+    {
+      for (let j = 0; j < this.scale; j++)//columns, X
+      {
+        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+      }
+    }
+
+    //this.refresh();
+
+  }
+
+
+  refresh(){
+    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    pcan.height = this.height / this.scale;
+    pcan.width = this.width / this.scale;
+    pcan.src = this.canvas.toDataURL();
+
+    let can = this.canvasPre;
+    let con = can.getContext();
+
+    //pcan will be reflected for the preview seamlessly
+
+    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+
+    for (let i = 0; i < this.scale; i++)//rows, Y
+    {
+      for (let j = 0; j < this.scale; j++)//columns, X
+      {
+
+        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+      }
+    }
+    console.log("Preview Generated");
+
 
 
 
 
   }
+
+
 
   toggleBackground(e){
     if(e.detail.checked)
