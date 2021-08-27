@@ -72,6 +72,9 @@ export class PatternComponent implements OnInit {
   width: number = 600;
   height: number = 600;
 
+  pixel: number = 2;
+  opacity: number = 1;
+
 
   //saving patterns in pattern Contents interface
   patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
@@ -360,7 +363,7 @@ export class PatternComponent implements OnInit {
           clone1.set("left",  motifs[i].left - 600);
           clone1.set("top",  motifs[i].top);
           clone1.set("selectable", false);
-          clone1.set("opacity", 0.3);
+          clone1.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -370,7 +373,7 @@ export class PatternComponent implements OnInit {
           clone2.set("left",  motifs[i].left + 600);
           clone2.set("top",  motifs[i].top);
           clone2.set("selectable", false);
-          clone2.set("opacity", 0.3);
+          clone2.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -380,7 +383,7 @@ export class PatternComponent implements OnInit {
           clone3.set("left",  motifs[i].left);
           clone3.set("top",  motifs[i].top - 600);
           clone3.set("selectable", false);
-          clone3.set("opacity", 0.3);
+          clone3.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -390,7 +393,7 @@ export class PatternComponent implements OnInit {
           clone4.set("left",  motifs[i].left);
           clone4.set("top",  motifs[i].top + 600);
           clone4.set("selectable", false);
-          clone4.set("opacity", 0.3);
+          clone4.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -400,7 +403,7 @@ export class PatternComponent implements OnInit {
           clone5.set("left",  motifs[i].left - 600);
           clone5.set("top",  motifs[i].top - 600);
           clone5.set("selectable", false);
-          clone5.set("opacity", 0.3);
+          clone5.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -410,7 +413,7 @@ export class PatternComponent implements OnInit {
           clone6.set("left",  motifs[i].left - 600);
           clone6.set("top",  motifs[i].top + 600);
           clone6.set("selectable", false);
-          clone6.set("opacity", 0.3);
+          clone6.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -420,7 +423,7 @@ export class PatternComponent implements OnInit {
           clone7.set("left",  motifs[i].left + 600);
           clone7.set("top",  motifs[i].top - 600);
           clone7.set("selectable", false);
-          clone7.set("opacity", 0.3);
+          clone7.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -430,7 +433,7 @@ export class PatternComponent implements OnInit {
           clone8.set("left",  motifs[i].left + 600);
           clone8.set("top",  motifs[i].top + 600);
           clone8.set("selectable", false);
-          clone8.set("opacity", 0.3);
+          clone8.set("opacity", this.opacity);
           this.canvas.renderAll();
         });
 
@@ -547,6 +550,15 @@ export class PatternComponent implements OnInit {
     }
 
     //this.refresh();
+
+
+    const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
+    precan.height = this.height;
+    precan.width = this.width;
+    precan.src = con.canvas.toDataURL();
+
+
+
 
   }
 
