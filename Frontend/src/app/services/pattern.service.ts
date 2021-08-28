@@ -96,35 +96,36 @@ export class PatternService {
   }
 
   savePattern() {
-    // this.motifSaveStates = [];
-    // let tempMotifsOnCanvas = this.motifService.motifsOnCanvas.objects; //for performance, to have a local copy and not go to the service each time
-    // for (let mot in tempMotifsOnCanvas)
-    // {
-    //   //this.motifsOnCanvas.objects[mot].objectRef.
-    //   this.motifSaveStates.push({
-    //     left: tempMotifsOnCanvas[mot].objectRef.left,
-    //     top: tempMotifsOnCanvas[mot].objectRef.top,
-    //     width: tempMotifsOnCanvas[mot].objectRef.getScaledWidth(),
-    //     height: tempMotifsOnCanvas[mot].objectRef.getScaledHeight(),
-    //     scale: tempMotifsOnCanvas[mot].objectRef.getObjectScaling(),
-    //     rotation: tempMotifsOnCanvas[mot].objectRef.angle,
-    //     layer: 0, //Temp
-    //     motifID: tempMotifsOnCanvas[mot].objectID,
-    //     motifName: tempMotifsOnCanvas[mot].objectName,
-    //
-    //   })
-    // }
-    // console.log("Contents are:")
-    // console.log(this.patternContents)
-    // this.patternContents.motifs = this.motifSaveStates;
-    //
-    // this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
-    //   { fileID: this.patternContents.patternID, content: JSON.stringify(this.patternContents) },
-    //   {withCredentials: true
-    //   }).subscribe(patternUpdateResult => {
-    //   console.log(patternUpdateResult) //prints
-    // })
-    // console.log(this.patternContents);
+    this.motifSaveStates = [];
+    let tempMotifsOnCanvas = this.motifService.motifsOnCanvas; //for performance, to have a local copy and not go to the service each time
+    for (let mot in tempMotifsOnCanvas)
+    {
+      //this.motifsOnCanvas.objects[mot].objectRef.
+      this.motifSaveStates.push({
+        left: tempMotifsOnCanvas[mot].left,
+        top: tempMotifsOnCanvas[mot].top,
+        width: tempMotifsOnCanvas[mot].getScaledWidth(),
+        height: tempMotifsOnCanvas[mot].getScaledHeight(),
+        scale: tempMotifsOnCanvas[mot].getObjectScaling(),
+        rotation: tempMotifsOnCanvas[mot].angle,
+        layer: 0, //Temp
+        motifID: tempMotifsOnCanvas[mot].googleDriveID,
+        motifName: tempMotifsOnCanvas[mot].motifName,
+        motifURL: tempMotifsOnCanvas[mot].motifURL
+
+      })
+    }
+    console.log("Contents are:")
+    console.log(this.patternContents)
+    this.patternContents.motifs = this.motifSaveStates;
+
+    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+      { fileID: this.patternContents.patternID, content: JSON.stringify(this.patternContents) },
+      {withCredentials: true
+      }).subscribe(patternUpdateResult => {
+      console.log(patternUpdateResult) //prints
+    })
+    console.log(this.patternContents);
   }
 
   onPatternChange(selectedPatternID: any, canvas: fabric.Canvas) {

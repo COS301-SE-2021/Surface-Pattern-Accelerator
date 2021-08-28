@@ -67,6 +67,7 @@ export class MotifServiceService {
         clone.googleDriveID = motifObject.id;
         clone.IDOnCanvas = this.motifIndexIncValue++;
         clone.motifURL = motifObject.motifURL;
+        clone.motifName = motifObject.motifName;
 
         this.motifsOnCanvas.push(clone); //used for layers
         canvas.add(clone).renderAll(); //the clone is spawned on the canvas
@@ -105,6 +106,10 @@ export class MotifServiceService {
                 scaleY: motStateTemp.scale.scaleY,
               })
               .setCoords()
+            clone.googleDriveID = motStateTemp.motifID;
+            clone.IDOnCanvas = this.motifIndexIncValue++;
+            clone.motifURL = motStateTemp.motifURL;
+            clone.motifName = motStateTemp.motifName;
             canvas.add(clone).renderAll(); //the clone is spawned on the canvas
 
 
@@ -115,6 +120,7 @@ export class MotifServiceService {
         }
       }
     }
+    this.motifsOnCanvas = canvas.getObjects();
   }
 
   //deletes all data stored in this service to have it clean for the next collection

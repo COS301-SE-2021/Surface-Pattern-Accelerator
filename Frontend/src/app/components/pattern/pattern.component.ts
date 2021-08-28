@@ -254,7 +254,6 @@ export class PatternComponent implements OnInit {
 
 
   moveUp(objectID: number) {
-    console.log("Layer: " + objectID)
     let currentObjects = this.canvas.getObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
@@ -285,7 +284,6 @@ export class PatternComponent implements OnInit {
   }
 
   moveDown(objectID: number) {
-    console.log("Layer: " + objectID)
     let currentObjects = this.canvas.getObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
