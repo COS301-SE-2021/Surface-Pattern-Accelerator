@@ -185,15 +185,6 @@ export class PatternComponent implements OnInit {
         {
           let objectToSpawn = cachedMotTemp.obj;
 
-
-          // .set({
-          //   left: motStateTemp.left,
-          //   top: motStateTemp.top,
-          //   angle: motStateTemp.rotation,
-          //   height: motStateTemp.height* motStateTemp.scale.scaleY,
-          //   width: motStateTemp.width* motStateTemp.scale.scaleX
-          // })
-
           objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
             clone
               .set({
@@ -262,44 +253,65 @@ export class PatternComponent implements OnInit {
   }
 
 
-  moveUp(index: number) {
-    console.log("Layer: " + index)
-    console.log(this.motifService.motifsOnCanvas.objects[index].objectName)
-    if (this.motifService.motifsOnCanvas.objects[index + 1])
-    {
-      console.log("upper exists")
-      const temp = this.motifService.motifsOnCanvas.objects[index + 1];
-      this.motifService.motifsOnCanvas.objects[index + 1] = this.motifService.motifsOnCanvas.objects[index]
-      this.motifService.motifsOnCanvas.objects[index] = temp;
+  moveUp(objectID: number) {
+    console.log("Layer: " + objectID)
+    let currentObjects = this.canvas.getObjects();
 
-      for (index; index < this.motifService.motifsOnCanvas.objects.length; index++)
-      {
-        this.canvas.remove(this.motifService.motifsOnCanvas.objects[index].objectRef)
-        this.canvas.add(this.motifService.motifsOnCanvas.objects[index].objectRef).renderAll();
-      }
-    }
-    else
+    for (let index = 0; index < currentObjects.length; index ++)
     {
-      console.log("is upper")
+      if (currentObjects[index].IDOnCanvas === objectID)
+      {
+        if (currentObjects[index + 1])
+        {
+          const temp = currentObjects[index + 1];
+          currentObjects[index + 1] = currentObjects[index];
+          currentObjects[index] = temp;
+
+          for (let reRenderIndex = index; reRenderIndex < currentObjects.length; reRenderIndex++ )
+          {
+            this.canvas.remove(currentObjects[reRenderIndex]);
+            this.canvas.add(currentObjects[reRenderIndex]);
+          }
+          this.canvas.renderAll(); //renders everything when done
+          this.motifService.motifsOnCanvas = currentObjects;
+          return;
+        }
+        else
+        {
+          console.log("Is upper");
+        }
+      }
     }
   }
 
-  moveDown(index: number) {
-    console.log("Layer: " + index)
-    console.log(this.motifService.motifsOnCanvas.objects[index].objectName)
-    if (this.motifService.motifsOnCanvas.objects[index - 1]) {
-      console.log("lower exists")
-      const temp = this.motifService.motifsOnCanvas.objects[index - 1];                          //
-      this.motifService.motifsOnCanvas.objects[index - 1] = this.motifService.motifsOnCanvas.objects[index]   // swap motifs on array
-      this.motifService.motifsOnCanvas.objects[index] = temp;                                    //
+  moveDown(objectID: number) {
+    console.log("Layer: " + objectID)
+    let currentObjects = this.canvas.getObjects();
 
-      for (index; index < this.motifService.motifsOnCanvas.objects.length; index++)
+    for (let index = 0; index < currentObjects.length; index ++)
+    {
+      if (currentObjects[index].IDOnCanvas === objectID)
       {
-        this.canvas.remove(this.motifService.motifsOnCanvas.objects[index].objectRef)
-        this.canvas.add(this.motifService.motifsOnCanvas.objects[index].objectRef).renderAll();
+        if (currentObjects[index - 1])
+        {
+          const temp = currentObjects[index - 1];
+          currentObjects[index - 1] = currentObjects[index];
+          currentObjects[index] = temp;
+
+          for (let reRenderIndex = index; reRenderIndex < currentObjects.length; reRenderIndex++ )
+          {
+            this.canvas.remove(currentObjects[reRenderIndex]);
+            this.canvas.add(currentObjects[reRenderIndex]);
+          }
+          this.canvas.renderAll(); //renders everything when done
+          this.motifService.motifsOnCanvas = currentObjects;
+          return;
+        }
+        else
+        {
+          console.log("Is Lower");
+        }
       }
-    } else {
-      console.log("is lower")
     }
   }
 
@@ -310,14 +322,11 @@ export class PatternComponent implements OnInit {
 
   getSelectedObject()
   {
-    //TODO: do this only when in color editor mode/ polygon mode
-    console.log(this.canvas.getObjects())
-    for (let obj in this.canvas.getObjects())
-    {
-      this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj]
-    }
 
-    let object = this.canvas.getActiveObject();
+    //TODO: do this only when in color editor mode/ polygon mode
+    console.log(this.canvas.getActiveObject().IDOnCanvas)
+    console.log(this.canvas.getActiveObject().googleDriveID)
+
 
 
 

@@ -176,13 +176,13 @@
               <ion-label>Layer</ion-label>
 
               <div *ngIf="this.motifService.motifsOnCanvas" >
-                <div *ngFor="let motif of this.motifService.motifsOnCanvas.objects.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
+                <div *ngFor="let motif of this.motifService.motifsOnCanvas.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
                   <div class="MotifImage2">
                     <div class="layerBlock" style="background-color: #949494; padding: 10px">
                       <img src= "{{motif.motifURL}}" alt="motif-image" class="layerMotif">
                     </div>
-                      <ion-button (click)="moveUp(this.motifService.motifsOnCanvas.objects.length - 1 - i)">MoveUp</ion-button>
-                      <ion-button (click)="moveDown(this.motifService.motifsOnCanvas.objects.length - 1 - i)">MoveDown</ion-button>
+                      <ion-button (click)="moveUp(motif.IDOnCanvas)">MoveUp</ion-button>
+                      <ion-button (click)="moveDown(motif.IDOnCanvas)">MoveDown</ion-button>
                     <br>
                   </div >
                 </div>

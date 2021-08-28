@@ -14,9 +14,11 @@ import {IPatternContentsInterface} from "../Interfaces/patternContents.interface
 export class MotifServiceService {
 
   private serverURL = 'http://localhost:3000';
+  motifIndexIncValue: number = 0;
   motifs?: motifsInterface;
-  cachedMotifs: motif[] = [];
-  motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
+  cachedMotifs: motif[] = []; //created at startup, clones are made of motif objects in this array and then added to canvas
+  //motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
+  motifsOnCanvas: fabric.Object[] = [];
 
   constructor(private http: HttpClient, private gLoginService: GLoginService) { }
 
@@ -59,10 +61,16 @@ export class MotifServiceService {
         .set({left: canvas.width/15, top: canvas.height/15})
         .setCoords();
       console.log("Spawn Motif Path")
+      //TODO: create factory function
       objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
-        console.log(clone.googleDriveID);
+
+        clone.googleDriveID = motifObject.id;
+        clone.IDOnCanvas = this.motifIndexIncValue++;
+        clone.motifURL = motifObject.motifURL;
+
+        this.motifsOnCanvas.push(clone); //used for layers
         canvas.add(clone).renderAll(); //the clone is spawned on the canvas
-        this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id, motifURL: motifObject.motifURL}); //TODO: create interface
+        //this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id, motifURL: motifObject.motifURL}); //TODO: create interface
         //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
       })
     }
@@ -70,7 +78,7 @@ export class MotifServiceService {
 
   spawnMotifObjectsFromSaveState(patternContents: IPatternContentsInterface, canvas: fabric.Canvas)
   {
-    this.motifsOnCanvas = {objects: []}; //clears motifs on canvas
+    //this.motifsOnCanvas = {objects: []}; //clears motifs on canvas
     if(!patternContents)
     {
       return;
@@ -101,7 +109,7 @@ export class MotifServiceService {
 
 
             //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
-            this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
+            //this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
             //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
           })
         }
@@ -114,7 +122,7 @@ export class MotifServiceService {
   {
     this.motifs = {motifDetails: []} as motifsInterface;
     this.cachedMotifs = [];
-    this.motifsOnCanvas = {objects: []};
+    //this.motifsOnCanvas = {objects: []};
   }
 
 

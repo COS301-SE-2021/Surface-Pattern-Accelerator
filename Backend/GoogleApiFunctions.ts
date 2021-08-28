@@ -103,10 +103,10 @@ export class GoogleApiFunctions {
         return new Promise((resolve, reject) => {
 
             const token = {
-                access_token: clientResponse.Xb.access_token,
+                access_token: clientResponse.Zb.access_token,
                 scope: "https://www.googleapis.com/auth/drive",
-                token_type: clientResponse.Xb.token_type,
-                expiry_date: clientResponse.Xb.expires_at
+                token_type: clientResponse.Zb.token_type,
+                expiry_date: clientResponse.Zb.expires_at
             };
 
             console.log(token);
