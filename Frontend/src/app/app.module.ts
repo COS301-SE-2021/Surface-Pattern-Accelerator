@@ -13,8 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 /////search
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 //popovers
-import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component'
-import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component'
+import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component';
+import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component';
 
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -31,6 +31,7 @@ import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from 'angularx-social-login';
 import { CanvasColoursComponent } from './components/canvas-colours/canvas-colours.component';
+import { ColorPaletteComponent} from './components/color-palette/color-palette.component';
 
 
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -62,7 +63,8 @@ import { MaterialModule } from './material/material.module';
     BodyComponent,
     MotifUploadComponent,
     MotifCatalogueComponent,
-    NewPatternComponent
+    NewPatternComponent,
+    ColorPaletteComponent
 
   ],
 
