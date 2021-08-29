@@ -4,7 +4,7 @@ import { CollectionsComponent } from './components/collections/collections.compo
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
 import { PatternComponent } from './components/pattern/pattern.component';
 import { WorkareaComponent} from './components/workarea/workarea.component';
-import { CollorPalletComponent } from './components/collor-pallet/collor-pallet.component';
+import { ColorPaletteComponent} from './components/color-palette/color-palette.component';
 import { CanvasColoursComponent } from './components/canvas-colours/canvas-colours.component';
 import {PreviewComponent} from './components/preview/preview.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,7 +22,7 @@ const routes: Routes = [
   // { path: '',    redirectTo: 'login',    pathMatch: 'full'  },
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
-  { path: 'colorpallet', component: CollorPalletComponent},
+  { path: 'color-palette', component: ColorPaletteComponent},
   { path: 'pattern/:collectionID/:collectionName', component: PatternComponent},
   { path: 'workarea', component: WorkareaComponent },
   { path: 'loginResponse', component: LoginResponseComponent },
