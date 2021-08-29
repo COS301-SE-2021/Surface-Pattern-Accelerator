@@ -641,7 +641,6 @@ export class PatternComponent implements OnInit {
         return;
       }
 
-
       this.activeObject.reflections = [
         this.reflectionCreator(this.activeObject, -this.canvasWidth, +this.canvasHeight),
         this.reflectionCreator(this.activeObject, -this.canvasWidth, 0),
@@ -651,7 +650,6 @@ export class PatternComponent implements OnInit {
         this.reflectionCreator(this.activeObject, +this.canvasWidth, +this.canvasHeight),
         this.reflectionCreator(this.activeObject, +this.canvasWidth, 0),
         this.reflectionCreator(this.activeObject, +this.canvasWidth, -this.canvasHeight)
-
       ]
 
       this.activeObject.hasReflections = true;
@@ -672,7 +670,10 @@ export class PatternComponent implements OnInit {
 
     }
     else {
-      this.activeObject.hasReflections = false
+      this.activeObject.hasReflections = false;
+      //this.motifsOnCanvas = this.getNonSpecialObjects()
+
+      this.renderAllWithSpecial(this.getNonSpecialObjects())
     }
   }
 
