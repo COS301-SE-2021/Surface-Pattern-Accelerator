@@ -34,6 +34,9 @@ export class PatternComponent implements OnInit {
   values = [];
   searchableMotifs=[]
 
+  canvasWidth: number = 600;
+  canvasHeight: number = 600;
+
 
   @ViewChild("parent") private parentRef: ElementRef<HTMLElement>;
   activeObject: fabric.Object;
@@ -106,6 +109,30 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on("selection:updated",(r) => {
       this.getSelectedObject()
+    })
+
+    this.canvas.on("object:moving" ,(r) => {
+      if (this.activeObject.hasReflections)
+      {
+        this.updateReflectionsOfSelected()
+        console.log("Moving Reflections")
+      }
+    })
+
+    this.canvas.on("object:rotating" ,(r) => {
+      if (this.activeObject.hasReflections)
+      {
+        this.updateReflectionsOfSelected()
+        console.log("Moving Reflections")
+      }
+    })
+
+    this.canvas.on("object:scaling" ,(r) => {
+      if (this.activeObject.hasReflections)
+      {
+        this.updateReflectionsOfSelected()
+        console.log("Moving Reflections")
+      }
     })
 
 
@@ -267,12 +294,9 @@ export class PatternComponent implements OnInit {
           currentObjects[index + 1] = currentObjects[index];
           currentObjects[index] = temp;
 
-          for (let reRenderIndex = index; reRenderIndex < currentObjects.length; reRenderIndex++ )
-          {
-            this.canvas.remove(currentObjects[reRenderIndex]);
-            this.canvas.add(currentObjects[reRenderIndex]);
-          }
-          this.canvas.renderAll(); //renders everything when done
+          //this.canvas._objects = currentObjects;
+          //this.canvas.renderAll(); //renders everything when done
+          this.renderAllWithSpecial(currentObjects)
           this.motifService.motifsOnCanvas = currentObjects;
           return;
         }
@@ -297,12 +321,9 @@ export class PatternComponent implements OnInit {
           currentObjects[index - 1] = currentObjects[index];
           currentObjects[index] = temp;
 
-          for (let reRenderIndex = index; reRenderIndex < currentObjects.length; reRenderIndex++ )
-          {
-            this.canvas.remove(currentObjects[reRenderIndex]);
-            this.canvas.add(currentObjects[reRenderIndex]);
-          }
-          this.canvas.renderAll(); //renders everything when done
+          //this.canvas._objects = currentObjects;
+          //this.canvas.renderAll(); //renders everything when done
+          this.renderAllWithSpecial(currentObjects)
           this.motifService.motifsOnCanvas = currentObjects;
           return;
         }
@@ -622,8 +643,15 @@ export class PatternComponent implements OnInit {
 
 
       this.activeObject.reflections = [
-        this.reflectionCreator(this.activeObject, 50, 0),
-        this.reflectionCreator(this.activeObject, 0, 50)
+        this.reflectionCreator(this.activeObject, -this.canvasWidth, +this.canvasHeight),
+        this.reflectionCreator(this.activeObject, -this.canvasWidth, 0),
+        this.reflectionCreator(this.activeObject, -this.canvasWidth, -this.canvasHeight),
+        this.reflectionCreator(this.activeObject, 0, +this.canvasHeight),
+        this.reflectionCreator(this.activeObject, 0, -this.canvasHeight),
+        this.reflectionCreator(this.activeObject, +this.canvasWidth, +this.canvasHeight),
+        this.reflectionCreator(this.activeObject, +this.canvasWidth, 0),
+        this.reflectionCreator(this.activeObject, +this.canvasWidth, -this.canvasHeight)
+
       ]
 
       this.activeObject.hasReflections = true;
@@ -676,4 +704,54 @@ export class PatternComponent implements OnInit {
     return nonSpecialObjects;
   }
 
+  renderAllWithSpecial(objects: fabric.Object[])
+  {
+    let withoutSpecial: fabric.Object[] = [];
+    for (let obj in objects) //check to make sure no special objects are in this array
+    {
+      if (objects[obj].IDOnCanvas != undefined)
+      {
+        withoutSpecial.push(objects[obj]);
+      }
+    }
+
+    let objectsToRender: fabric.Object[] = [];
+    for (let obj in withoutSpecial)
+    {
+      if (withoutSpecial[obj].hasReflections)
+      {
+        for(let reflection in withoutSpecial[obj].reflections)
+        {
+          objectsToRender.push(withoutSpecial[obj].reflections[reflection])
+        }
+      }
+      objectsToRender.push(withoutSpecial[obj])
+    }
+    this.canvas._objects = objectsToRender;
+    this.canvas.renderAll();
+  }
+
+  updateReflectionsOfSelected() {
+
+    this.reflectionUpdater(0, -this.canvasWidth, +this.canvasHeight)
+    this.reflectionUpdater(1, -this.canvasWidth, 0)
+    this.reflectionUpdater(2, -this.canvasWidth, -this.canvasHeight)
+    this.reflectionUpdater(3, 0, +this.canvasHeight)
+    this.reflectionUpdater(4, 0, -this.canvasHeight)
+    this.reflectionUpdater(5, +this.canvasWidth, +this.canvasHeight)
+    this.reflectionUpdater(6, +this.canvasWidth, 0)
+    this.reflectionUpdater(7, +this.canvasWidth, -this.canvasHeight)
+  }
+
+  reflectionUpdater(reflectionIndex: number, topOffset: number, leftOffset: number)
+  {
+    let ref = this.activeObject.reflections[reflectionIndex];
+    ref.set("top",  this.activeObject.top + topOffset);
+    ref.set("left",  this.activeObject.left + leftOffset);
+    ref.set("scaleX",  this.activeObject.scaleX);
+    ref.set("scaleY",  this.activeObject.scaleY);
+    ref.rotate( this.activeObject.angle);
+    ref.set('flipX', this.activeObject.flipX);
+    ref.set('flipY', this.activeObject.flipY);
+  }
 }
