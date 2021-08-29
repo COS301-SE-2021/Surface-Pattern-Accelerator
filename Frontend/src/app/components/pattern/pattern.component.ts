@@ -36,6 +36,7 @@ export class PatternComponent implements OnInit {
 
 
   @ViewChild("parent") private parentRef: ElementRef<HTMLElement>;
+  activeObject: fabric.Object;
 
   onKey(event: any) {
     const query = event.target.value.toLowerCase();
@@ -254,7 +255,7 @@ export class PatternComponent implements OnInit {
 
 
   moveUp(objectID: number) {
-    let currentObjects = this.canvas.getObjects();
+    let currentObjects = this.getNonSpecialObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
     {
@@ -284,7 +285,7 @@ export class PatternComponent implements OnInit {
   }
 
   moveDown(objectID: number) {
-    let currentObjects = this.canvas.getObjects();
+    let currentObjects = this.getNonSpecialObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
     {
@@ -322,6 +323,7 @@ export class PatternComponent implements OnInit {
   {
 
     //TODO: do this only when in color editor mode/ polygon mode
+    this.activeObject = this.canvas.getActiveObject();
     console.log(this.canvas.getActiveObject().IDOnCanvas)
     console.log(this.canvas.getActiveObject().googleDriveID)
 
@@ -608,5 +610,70 @@ export class PatternComponent implements OnInit {
   }
 
 
+  seamlessModifier(event: any) {
+    console.log(event.detail.checked );
+    //TODO: initialize hasReflections to fix error in console when changing from undefined to true/false when check box is ticked
+    if (event.detail.checked === true)
+    {
+      if (this.activeObject.hasReflections)
+      {
+        return;
+      }
+
+
+      this.activeObject.reflections = [
+        this.reflectionCreator(this.activeObject, 50, 0),
+        this.reflectionCreator(this.activeObject, 0, 50)
+      ]
+
+      this.activeObject.hasReflections = true;
+
+      for (let object = 0; object < this.canvas.getObjects().length; object++)
+      {
+        if (this.activeObject.IDOnCanvas === this.canvas.getObjects()[object].IDOnCanvas)
+        {
+          console.log("Found")
+          for (let reflection = 0; reflection <  this.activeObject.reflections.length; reflection++)
+          {
+            this.canvas._objects.splice(object, 0, this.activeObject.reflections[reflection] )
+          }
+          this.canvas.renderAll()
+          return;
+        }
+      }
+
+    }
+    else {
+      this.activeObject.hasReflections = false
+    }
+  }
+
+  reflectionCreator(parent: fabric.Object, topOffset: number, leftOffset: number)
+  {
+    let tempReflection: fabric.Object;
+    parent.clone((reflection) => {
+      reflection.set("top", parent.top + topOffset);
+      reflection.set("left", parent.left + leftOffset);
+      reflection.set("selectable", false);
+      reflection.set("evented", false);
+      reflection.set("opacity", 0.3);
+      tempReflection = reflection;
+    })
+    return tempReflection;
+  }
+
+  getNonSpecialObjects()
+  {
+    let tempAllObjects = this.canvas.getObjects();
+    let nonSpecialObjects: fabric.Object[] = [];
+    for (let i = 0; i < tempAllObjects.length; i++)
+    {
+      if (tempAllObjects[i].IDOnCanvas > -1)
+      {
+        nonSpecialObjects.push(tempAllObjects[i])
+      }
+    }
+    return nonSpecialObjects;
+  }
 
 }
