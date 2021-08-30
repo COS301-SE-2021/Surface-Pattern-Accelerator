@@ -81,7 +81,9 @@ export class PatternComponent implements OnInit {
 
   pixel: number = 2;
   opacity: number = 1;
-
+  color: string = "white";
+  colorOrginal: string = "white";
+  background: boolean = false;
 
   //saving patterns in pattern Contents interface
   patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
@@ -707,11 +709,13 @@ export class PatternComponent implements OnInit {
     if(e.detail.checked)
     {
       console.log("background enabled");
-      this.canvas.backgroundColor = "white";
-      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = "white";
+      this.background = true;
+      this.canvas.backgroundColor = this.color;
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
       this.canvas.renderAll();
     }
     else{
+      this.background = false;
       this.canvas.backgroundColor = null;
       (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = null;
       this.canvas.renderAll();
@@ -721,14 +725,21 @@ export class PatternComponent implements OnInit {
   }
 
   changeColor(){
+    if(this.background === true)
+    {
+      //get color from input color
+      const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
+      this.color = color;
 
-    //get color from input color
-    const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
-
-    this.canvas.backgroundColor = color;
-    (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = color;
-    this.canvas.renderAll();
-    this.setPreview();//refresh preview
+      this.canvas.backgroundColor = this.color;
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
+      this.canvas.renderAll();
+      this.setPreview();//refresh preview
+    }
+    else{
+      this.setPreview();//refresh preview
+      return;
+    }
 
   }
 
