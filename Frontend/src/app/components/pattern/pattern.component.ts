@@ -349,6 +349,18 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  delete(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
+    for (let index = 0; index < currentObjects.length; index ++)
+    {
+      if (currentObjects[index].IDOnCanvas === objectID) {
+        this.canvas.remove(currentObjects[index]);
+        this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
+        this.renderAllWithSpecial(this.canvas._objects);
+      }
+    }
+  }
+
   deleteRightClick(){
     let objects = this.canvas.getActiveObject();
     let html = document.querySelectorAll(".temp");
