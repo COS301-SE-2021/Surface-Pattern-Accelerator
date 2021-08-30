@@ -65,7 +65,7 @@ export class GLoginService {
   createAccessTokenOnServer(user: any)
   {
     console.log("createAccessToken fired");
-    console.log(user.Xb.access_token);
+    console.log(user.Zb.access_token);
     return this.http.post(this.serverAPIURL + '/createAccessToken',
       { userLoginResponse: user },
       {withCredentials: true

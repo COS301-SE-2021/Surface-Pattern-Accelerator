@@ -44,6 +44,7 @@ import {MotifEditorComponent} from './components/motif-editor/motif-editor.compo
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import {MotifEditorComponent} from './components/motif-editor/motif-editor.compo
     MotifCatalogueComponent,
     NewPatternComponent,
     GLoginComponent,
-    MotifEditorComponent
+    MotifEditorComponent,
+
 
   ],
 
@@ -80,6 +82,8 @@ import {MotifEditorComponent} from './components/motif-editor/motif-editor.compo
     MatCheckboxModule,
     MatButtonModule,
     SocialLoginModule,
+
+
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),

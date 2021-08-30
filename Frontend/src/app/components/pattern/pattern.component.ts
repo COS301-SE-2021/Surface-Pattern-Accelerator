@@ -12,6 +12,7 @@ import {HttpClient} from "@angular/common/http";
 import {fabric} from "fabric";
 
 
+
 import { ActivatedRoute } from '@angular/router';
 import {IMotifStateInterface} from "../../Interfaces/motifDetails.interface"
 import {PopoverController} from "@ionic/angular";
@@ -35,8 +36,12 @@ export class PatternComponent implements OnInit {
   values = [];
   searchableMotifs=[]
 
+  canvasWidth: number = 600;
+  canvasHeight: number = 600;
+
 
   @ViewChild("parent") private parentRef: ElementRef<HTMLElement>;
+  activeObject: fabric.Object;
 
   onKey(event: any) {
     const query = event.target.value.toLowerCase();
@@ -109,6 +114,30 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on("selection:updated",(r) => {
       this.getSelectedObject()
+    })
+
+    this.canvas.on("object:moving" ,(r) => {
+      if (this.activeObject.hasReflections)
+      {
+        this.updateReflectionsOfSelected()
+        console.log("Moving Reflections")
+      }
+    })
+
+    this.canvas.on("object:rotating" ,(r) => {
+      if (this.activeObject.hasReflections)
+      {
+        this.updateReflectionsOfSelected()
+        console.log("Moving Reflections")
+      }
+    })
+
+    this.canvas.on("object:scaling" ,(r) => {
+      if (this.activeObject.hasReflections)
+      {
+        this.updateReflectionsOfSelected()
+        console.log("Moving Reflections")
+      }
     })
 
 
@@ -200,15 +229,6 @@ export class PatternComponent implements OnInit {
         {
           let objectToSpawn = cachedMotTemp.obj;
 
-
-          // .set({
-          //   left: motStateTemp.left,
-          //   top: motStateTemp.top,
-          //   angle: motStateTemp.rotation,
-          //   height: motStateTemp.height* motStateTemp.scale.scaleY,
-          //   width: motStateTemp.width* motStateTemp.scale.scaleX
-          // })
-
           objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
             clone
               .set({
@@ -277,44 +297,55 @@ export class PatternComponent implements OnInit {
   }
 
 
-  moveUp(index: number) {
-    console.log("Layer: " + index)
-    console.log(this.motifService.motifsOnCanvas.objects[index].objectName)
-    if (this.motifService.motifsOnCanvas.objects[index + 1])
-    {
-      console.log("upper exists")
-      const temp = this.motifService.motifsOnCanvas.objects[index + 1];
-      this.motifService.motifsOnCanvas.objects[index + 1] = this.motifService.motifsOnCanvas.objects[index]
-      this.motifService.motifsOnCanvas.objects[index] = temp;
+  moveUp(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
 
-      for (index; index < this.motifService.motifsOnCanvas.objects.length; index++)
-      {
-        this.canvas.remove(this.motifService.motifsOnCanvas.objects[index].objectRef)
-        this.canvas.add(this.motifService.motifsOnCanvas.objects[index].objectRef).renderAll();
-      }
-    }
-    else
+    for (let index = 0; index < currentObjects.length; index ++)
     {
-      console.log("is upper")
+      if (currentObjects[index].IDOnCanvas === objectID)
+      {
+        if (currentObjects[index + 1])
+        {
+          const temp = currentObjects[index + 1];
+          currentObjects[index + 1] = currentObjects[index];
+          currentObjects[index] = temp;
+
+          //this.canvas._objects = currentObjects;
+          //this.canvas.renderAll(); //renders everything when done
+          this.renderAllWithSpecial(currentObjects)
+          this.motifService.motifsOnCanvas = currentObjects;
+          return;
+        }
+        else
+        {
+          console.log("Is upper");
+        }
+      }
     }
   }
 
-  moveDown(index: number) {
-    console.log("Layer: " + index)
-    console.log(this.motifService.motifsOnCanvas.objects[index].objectName)
-    if (this.motifService.motifsOnCanvas.objects[index - 1]) {
-      console.log("lower exists")
-      const temp = this.motifService.motifsOnCanvas.objects[index - 1];                          //
-      this.motifService.motifsOnCanvas.objects[index - 1] = this.motifService.motifsOnCanvas.objects[index]   // swap motifs on array
-      this.motifService.motifsOnCanvas.objects[index] = temp;                                    //
+  moveDown(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
 
-      for (index; index < this.motifService.motifsOnCanvas.objects.length; index++)
+    for (let index = 0; index < currentObjects.length; index ++)
+    {
+      if (currentObjects[index].IDOnCanvas === objectID)
       {
-        this.canvas.remove(this.motifService.motifsOnCanvas.objects[index].objectRef)
-        this.canvas.add(this.motifService.motifsOnCanvas.objects[index].objectRef).renderAll();
+        if (currentObjects[index - 1])
+        {
+          const temp = currentObjects[index - 1];
+          currentObjects[index - 1] = currentObjects[index];
+          currentObjects[index] = temp;
+
+          this.renderAllWithSpecial(currentObjects)
+          this.motifService.motifsOnCanvas = currentObjects;
+          return;
+        }
+        else
+        {
+          console.log("Is Lower");
+        }
       }
-    } else {
-      console.log("is lower")
     }
   }
 
@@ -384,7 +415,11 @@ export class PatternComponent implements OnInit {
 
   getSelectedObject()
   {
+
     //TODO: do this only when in color editor mode/ polygon mode
+    this.activeObject = this.canvas.getActiveObject();
+    console.log(this.canvas.getActiveObject().IDOnCanvas)
+    console.log(this.canvas.getActiveObject().googleDriveID)
     console.log(this.canvas.getObjects())
     for (let obj in this.canvas.getObjects())
     {
@@ -397,7 +432,6 @@ export class PatternComponent implements OnInit {
       // console.log(this.canvas.getObjects()[obj].fill);
     }
 
-    let object = this.canvas.getActiveObject();
 
 
 
@@ -705,5 +739,130 @@ export class PatternComponent implements OnInit {
     this.setPreview();
   }
 
+  seamlessModifier(event: any) {
+    console.log(event.detail.checked );
+    //TODO: initialize hasReflections to fix error in console when changing from undefined to true/false when check box is ticked
+    if (event.detail.checked === true)
+    {
+      if (this.activeObject.hasReflections)
+      {
+        return;
+      }
 
+      this.activeObject.reflections = [
+        this.reflectionCreator(this.activeObject, -this.canvasWidth, +this.canvasHeight),
+        this.reflectionCreator(this.activeObject, -this.canvasWidth, 0),
+        this.reflectionCreator(this.activeObject, -this.canvasWidth, -this.canvasHeight),
+        this.reflectionCreator(this.activeObject, 0, +this.canvasHeight),
+        this.reflectionCreator(this.activeObject, 0, -this.canvasHeight),
+        this.reflectionCreator(this.activeObject, +this.canvasWidth, +this.canvasHeight),
+        this.reflectionCreator(this.activeObject, +this.canvasWidth, 0),
+        this.reflectionCreator(this.activeObject, +this.canvasWidth, -this.canvasHeight)
+      ]
+
+      this.activeObject.hasReflections = true;
+
+      for (let object = 0; object < this.canvas.getObjects().length; object++)
+      {
+        if (this.activeObject.IDOnCanvas === this.canvas.getObjects()[object].IDOnCanvas)
+        {
+          console.log("Found")
+          for (let reflection = 0; reflection <  this.activeObject.reflections.length; reflection++)
+          {
+            this.canvas._objects.splice(object, 0, this.activeObject.reflections[reflection] )
+          }
+          this.canvas.renderAll()
+          return;
+        }
+      }
+
+    }
+    else {
+      this.activeObject.hasReflections = false;
+      //this.motifsOnCanvas = this.getNonSpecialObjects()
+
+      this.renderAllWithSpecial(this.getNonSpecialObjects())
+    }
+  }
+
+  reflectionCreator(parent: fabric.Object, topOffset: number, leftOffset: number)
+  {
+    let tempReflection: fabric.Object;
+    parent.clone((reflection) => {
+      reflection.set("top", parent.top + topOffset);
+      reflection.set("left", parent.left + leftOffset);
+      reflection.set("selectable", false);
+      reflection.set("evented", false);
+      reflection.set("opacity", 0.3);
+      tempReflection = reflection;
+    })
+    return tempReflection;
+  }
+
+  getNonSpecialObjects()
+  {
+    let tempAllObjects = this.canvas.getObjects();
+    let nonSpecialObjects: fabric.Object[] = [];
+    for (let i = 0; i < tempAllObjects.length; i++)
+    {
+      if (tempAllObjects[i].IDOnCanvas > -1)
+      {
+        nonSpecialObjects.push(tempAllObjects[i])
+      }
+    }
+    return nonSpecialObjects;
+  }
+
+  //takes objects array as parameter to render
+  //The reflections are added to the array and then displayed
+  renderAllWithSpecial(objects: fabric.Object[])
+  {
+    let withoutSpecial: fabric.Object[] = [];
+    for (let obj in objects) //check to make sure no special objects are in this array
+    {
+      if (objects[obj].IDOnCanvas != undefined)
+      {
+        withoutSpecial.push(objects[obj]);
+      }
+    }
+
+    let objectsToRender: fabric.Object[] = [];
+    for (let obj in withoutSpecial)
+    {
+      if (withoutSpecial[obj].hasReflections)
+      {
+        for(let reflection in withoutSpecial[obj].reflections)
+        {
+          objectsToRender.push(withoutSpecial[obj].reflections[reflection])
+        }
+      }
+      objectsToRender.push(withoutSpecial[obj])
+    }
+    this.canvas._objects = objectsToRender;
+    this.canvas.renderAll();
+  }
+
+  updateReflectionsOfSelected() {
+
+    this.reflectionUpdater(0, -this.canvasWidth, +this.canvasHeight)
+    this.reflectionUpdater(1, -this.canvasWidth, 0)
+    this.reflectionUpdater(2, -this.canvasWidth, -this.canvasHeight)
+    this.reflectionUpdater(3, 0, +this.canvasHeight)
+    this.reflectionUpdater(4, 0, -this.canvasHeight)
+    this.reflectionUpdater(5, +this.canvasWidth, +this.canvasHeight)
+    this.reflectionUpdater(6, +this.canvasWidth, 0)
+    this.reflectionUpdater(7, +this.canvasWidth, -this.canvasHeight)
+  }
+
+  reflectionUpdater(reflectionIndex: number, topOffset: number, leftOffset: number)
+  {
+    let ref = this.activeObject.reflections[reflectionIndex];
+    ref.set("top",  this.activeObject.top + topOffset);
+    ref.set("left",  this.activeObject.left + leftOffset);
+    ref.set("scaleX",  this.activeObject.scaleX);
+    ref.set("scaleY",  this.activeObject.scaleY);
+    ref.rotate( this.activeObject.angle);
+    ref.set('flipX', this.activeObject.flipX);
+    ref.set('flipY', this.activeObject.flipY);
+  }
 }

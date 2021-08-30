@@ -6,6 +6,7 @@ import {PopoverController} from "@ionic/angular";
 import {HttpClient} from "@angular/common/http";
 import {fabric} from "fabric";
 
+
 @Component({
   selector: 'app-motif-editor',
   templateUrl: './motif-editor.component.html',

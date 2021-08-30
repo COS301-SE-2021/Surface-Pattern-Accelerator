@@ -9,5 +9,6 @@ export interface IMotifStateInterface {
     layer: number;
     motifID: string;
     motifName: string;
+    motifURL: string;
   }
 

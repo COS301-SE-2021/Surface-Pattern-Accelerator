@@ -1,0 +1,67 @@
+diff --git a/node_modules/@types/fabric/LICENSE b/node_modules/@types/fabric/LICENSE
+deleted file mode 100644
+index 9e841e7..0000000
+--- a/node_modules/@types/fabric/LICENSE
++++ /dev/null
+@@ -1,21 +0,0 @@
+-    MIT License
+-
+-    Copyright (c) Microsoft Corporation.
+-
+-    Permission is hereby granted, free of charge, to any person obtaining a copy
+-    of this software and associated documentation files (the "Software"), to deal
+-    in the Software without restriction, including without limitation the rights
+-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-    copies of the Software, and to permit persons to whom the Software is
+-    furnished to do so, subject to the following conditions:
+-
+-    The above copyright notice and this permission notice shall be included in all
+-    copies or substantial portions of the Software.
+-
+-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+-    SOFTWARE
+diff --git a/node_modules/@types/fabric/README.md b/node_modules/@types/fabric/README.md
+deleted file mode 100644
+index b2e51d1..0000000
+--- a/node_modules/@types/fabric/README.md
++++ /dev/null
+@@ -1,16 +0,0 @@
+-# Installation
+-> `npm install --save @types/fabric`
+-
+-# Summary
+-This package contains type definitions for FabricJS (http://fabricjs.com/).
+-
+-# Details
+-Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/fabric.
+-
+-### Additional Details
+- * Last updated: Fri, 13 Aug 2021 20:01:24 GMT
+- * Dependencies: none
+- * Global values: `fabric`
+-
+-# Credits
+-These definitions were written by [Oliver Klemencic](https://github.com/oklemencic), [Joseph Livecchi](https://github.com/joewashear007), [Michael Randolph](https://github.com/mrand01), [Tiger Oakes](https://github.com/NotWoods), [Brian Martinson](https://github.com/bmartinson), [Rogerio Teixeira](https://github.com/RogerioTeixeira), [Bradley Hill](https://github.com/BradleyHill), [Bryan Krol](https://github.com/bmkrol823), [Glenn Gartner](https://github.com/glenngartner), [Codertx](https://github.com/codertx), [Mike Moore](https://github.com/mike667), [Natalie Marleny](https://github.com/nataliemarleny), and [Cody Brooks](https://github.com/buzzyboy).
+diff --git a/node_modules/@types/fabric/fabric-impl.d.ts b/node_modules/@types/fabric/fabric-impl.d.ts
+index 0141c6d..eb01391 100644
+--- a/node_modules/@types/fabric/fabric-impl.d.ts
++++ b/node_modules/@types/fabric/fabric-impl.d.ts
+@@ -3161,6 +3161,13 @@ export class Object {
+         mtr?: boolean | undefined;
+     };
+ 
++  googleDriveID: string;
++  IDOnCanvas: number;
++  motifURL: string;
++  motifName: string;
++  reflections: fabric.Object[];
++  hasReflections: Boolean;
++
+     controls: { [key: string]: Control };
+ 
+     constructor(options?: IObjectOptions);

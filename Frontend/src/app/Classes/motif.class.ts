@@ -1,5 +1,6 @@
-import {fabric} from "fabric";
+
 import {motifBodyInterface} from "../Interfaces/motifBodyInterface";
+import {fabric} from "fabric"
 export class motif
 {
   obj :  fabric.Object | fabric.Group;
@@ -63,6 +64,8 @@ export class motif
       this.getSpecialDownloadURL(this.id).then((content: string) => {
         fabric.loadSVGFromString(content, (objects, options) => {
           this.obj = fabric.util.groupSVGElements(objects, options); //TODO: see what is contained in objects and option
+          this.obj.googleDriveID = "test ID here";
+          //console.log(this.obj.googleDriveID)
           console.log("Cached: " + content)
           accept(this.id);
         })
