@@ -384,31 +384,12 @@ export class PatternComponent implements OnInit {
   }
   moveUpRightClick(){
     let object = this.canvas.getActiveObject();
-    let html = document.querySelectorAll(".temp");
-
-    for(var i = 0 ; i < this.canvas._objects.length ; i++){
-      if(object == this.canvas._objects[i]){
-        // console.log(html);
-        // console.log(object);
-        // console.log(i);
-        this.moveUp(i);
-        this.dissapearContext();
-        break;
-      }
-    }
+    this.moveUp(object.IDOnCanvas);
   }
 
   moveDownRightClick(){
     let object = this.canvas.getActiveObject();
-    let html = document.querySelectorAll(".temp");
-
-    for(var i = 0 ; i < this.canvas._objects.length ; i++){
-      if(object == this.canvas._objects[i]){
-        this.moveDown(i);
-        this.dissapearContext();
-        break;
-      }
-    }
+    this.moveDown(object.IDOnCanvas);
   }
 
   cloneRightClick(){
@@ -422,7 +403,7 @@ export class PatternComponent implements OnInit {
         clone.motifName = selection.motifName;
         clone.hasReflections = false;
         clone.IDOnCanvas = this.motifService.motifIndexIncValue++;
-        clone.set('left', selection.left + selection.width);
+        clone.set('left', selection.left + 50);
         this.canvas.add(clone);
         this.motifService.motifsOnCanvas.push(clone);
         this.dissapearContext();
