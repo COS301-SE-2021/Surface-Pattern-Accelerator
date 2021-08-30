@@ -1007,14 +1007,7 @@ export class PatternComponent implements OnInit {
     for (i = 0; i < tabContent.length; i++) {
       tabContent[i].style.display = 'none';
     }
-    /*
-    tabLinks  = document.getElementsByClassName('tab-links');
-    for (i = 0; i < tabLinks.length; i++) {
-      tabLinks[i].className = tabLinks[i].className.replace(" active", "");
-    }
-     */
     document.getElementById(tabPage).style.display  = 'block';
-    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
-    //(<HTMLElement>$event.currentTarget).className  += " active";
+    //(<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
   }
 }
