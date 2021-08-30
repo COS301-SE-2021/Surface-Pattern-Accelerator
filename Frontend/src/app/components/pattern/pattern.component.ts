@@ -411,8 +411,23 @@ export class PatternComponent implements OnInit {
     }
   }
 
-  cloneRightClick(){ //TODO
-
+  cloneRightClick(){
+    let selection = this.canvas.getActiveObject();
+    if(selection == undefined) {return;}
+    else
+    {
+      selection.clone((clone)=>{
+        clone.googleDriveID = selection.googleDriveID;
+        clone.motifURL = selection.motifURL;
+        clone.motifName = selection.motifName;
+        clone.hasReflections = false;
+        clone.IDOnCanvas = this.motifService.motifIndexIncValue++;
+        clone.set('left', selection.left + selection.width);
+        this.canvas.add(clone);
+        this.motifService.motifsOnCanvas.push(clone);
+        this.dissapearContext();
+      })
+    }
   }
 
 
