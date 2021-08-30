@@ -420,17 +420,19 @@ export class PatternComponent implements OnInit {
     this.activeObject = this.canvas.getActiveObject();
     console.log(this.canvas.getActiveObject().IDOnCanvas)
     console.log(this.canvas.getActiveObject().googleDriveID)
-    console.log(this.canvas.getObjects())
-    for (let obj in this.canvas.getObjects())
-    {
 
-      this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj];
-      let shape = this.canvas.getObjects()[obj];
-      // shape.set('fill', 'red');
-      // shape.set('stroke', 'blue');
-      // this.canvas.renderAll();
-      // console.log(this.canvas.getObjects()[obj].fill);
-    }
+
+    // console.log(this.canvas.getObjects())
+    // for (let obj in this.canvas.getObjects())
+    // {
+    //
+    //   this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj];
+    //   let shape = this.canvas.getObjects()[obj];
+    //   // shape.set('fill', 'red');
+    //   // shape.set('stroke', 'blue');
+    //   // this.canvas.renderAll();
+    //   // console.log(this.canvas.getObjects()[obj].fill);
+    // }
 
 
 
