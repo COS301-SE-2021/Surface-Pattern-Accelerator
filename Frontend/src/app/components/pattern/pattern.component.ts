@@ -674,42 +674,10 @@ export class PatternComponent implements OnInit {
     precan.width = this.width;
     precan.src = con.canvas.toDataURL();
 
-
-
-
-  }
-
-
-  refresh(){
-    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
-    pcan.height = this.height / this.scale;
-    pcan.width = this.width / this.scale;
-    pcan.src = this.canvas.toDataURL();
-
-    let can = this.canvasPre;
-    let con = can.getContext();
-
-    //pcan will be reflected for the preview seamlessly
-
-    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
-
-    for (let i = 0; i < this.scale; i++)//rows, Y
-    {
-      for (let j = 0; j < this.scale; j++)//columns, X
-      {
-
-        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
-      }
-    }
     console.log("Preview Generated");
 
 
-
-
-
   }
-
-
 
   toggleBackground(e){
     if(e.detail.checked)
@@ -798,7 +766,7 @@ export class PatternComponent implements OnInit {
       reflection.set("left", parent.left + leftOffset);
       reflection.set("selectable", false);
       reflection.set("evented", false);
-      reflection.set("opacity", 0.3);
+      reflection.set("opacity", this.opacity);
       tempReflection = reflection;
     })
     return tempReflection;
@@ -847,6 +815,18 @@ export class PatternComponent implements OnInit {
     this.canvas.renderAll();
   }
 
+  reflectionUpdater(reflectionIndex: number, topOffset: number, leftOffset: number)
+  {
+    const ref = this.activeObject.reflections[reflectionIndex];
+    ref.set("top",  this.activeObject.top + topOffset);
+    ref.set("left",  this.activeObject.left + leftOffset);
+    ref.set("scaleX",  this.activeObject.scaleX);
+    ref.set("scaleY",  this.activeObject.scaleY);
+    ref.rotate( this.activeObject.angle);
+    ref.set('flipX', this.activeObject.flipX);
+    ref.set('flipY', this.activeObject.flipY);
+  }
+
   updateReflectionsOfSelected() {
 
     this.reflectionUpdater(0, -this.canvasWidth, +this.canvasHeight)
@@ -859,15 +839,5 @@ export class PatternComponent implements OnInit {
     this.reflectionUpdater(7, +this.canvasWidth, -this.canvasHeight)
   }
 
-  reflectionUpdater(reflectionIndex: number, topOffset: number, leftOffset: number)
-  {
-    let ref = this.activeObject.reflections[reflectionIndex];
-    ref.set("top",  this.activeObject.top + topOffset);
-    ref.set("left",  this.activeObject.left + leftOffset);
-    ref.set("scaleX",  this.activeObject.scaleX);
-    ref.set("scaleY",  this.activeObject.scaleY);
-    ref.rotate( this.activeObject.angle);
-    ref.set('flipX', this.activeObject.flipX);
-    ref.set('flipY', this.activeObject.flipY);
-  }
+
 }
