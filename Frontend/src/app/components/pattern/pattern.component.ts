@@ -720,6 +720,19 @@ export class PatternComponent implements OnInit {
     this.setPreview();
   }
 
+  changeColor(){
+
+    //get color from input color
+    const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
+
+    this.canvas.backgroundColor = color;
+    (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = color;
+    this.canvas.renderAll();
+    this.setPreview();//refresh preview
+
+  }
+
+
 
   scaleCanvas3(){
     this.scale = 3;
@@ -862,4 +875,8 @@ export class PatternComponent implements OnInit {
     this.reflectionUpdater(6, +this.canvasWidth, 0);
     this.reflectionUpdater(7, +this.canvasWidth, -this.canvasHeight);
   }
+
+
+
+
 }
