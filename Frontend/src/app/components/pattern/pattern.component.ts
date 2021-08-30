@@ -109,26 +109,26 @@ export class PatternComponent implements OnInit {
     this.canvas.backgroundColor = null;
 
     this.canvas.on("selection:created",(r) => {
-      this.getSelectedObject()
+      this.getSelectedObject();
     })
 
     this.canvas.on("selection:updated",(r) => {
-      this.getSelectedObject()
+      this.getSelectedObject();
     })
 
     this.canvas.on("object:moving" ,(r) => {
       if (this.activeObject.hasReflections)
       {
-        this.updateReflectionsOfSelected()
-        console.log("Moving Reflections")
+        this.updateReflectionsOfSelected();
+        console.log("Moving Reflections");
       }
     })
 
     this.canvas.on("object:rotating" ,(r) => {
       if (this.activeObject.hasReflections)
       {
-        this.updateReflectionsOfSelected()
-        console.log("Moving Reflections")
+        this.updateReflectionsOfSelected();
+        console.log("Moving Reflections");
       }
     })
 
@@ -287,6 +287,30 @@ export class PatternComponent implements OnInit {
   openTab($event: MouseEvent, tabPage: string) {
     let i, tabContent, tabLinks;
     tabContent  = document.getElementsByClassName('tab-content');
+    for (i = 0; i < tabContent.length; i++) {
+      tabContent[i].style.display = 'none';
+    }
+
+    document.getElementById(tabPage).style.display  = 'block';
+    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
+    //(<HTMLElement>$event.currentTarget).className  += " active";
+  }
+
+  openTabSide($event: MouseEvent, tabPage: string) {
+    let i, tabContent, tabLinks;
+    tabContent  = document.getElementsByClassName('tab-content-side');
+    for (i = 0; i < tabContent.length; i++) {
+      tabContent[i].style.display = 'none';
+    }
+
+    document.getElementById(tabPage).style.display  = 'block';
+    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
+    //(<HTMLElement>$event.currentTarget).className  += " active";
+  }
+
+  openTabMain($event: MouseEvent, tabPage: string) {
+    let i, tabContent, tabLinks;
+    tabContent  = document.getElementsByClassName('tab-content-main');
     for (i = 0; i < tabContent.length; i++) {
       tabContent[i].style.display = 'none';
     }
@@ -739,12 +763,12 @@ export class PatternComponent implements OnInit {
       {
         if (this.activeObject.IDOnCanvas === this.canvas.getObjects()[object].IDOnCanvas)
         {
-          console.log("Found")
+          console.log("Found");
           for (let reflection = 0; reflection <  this.activeObject.reflections.length; reflection++)
           {
-            this.canvas._objects.splice(object, 0, this.activeObject.reflections[reflection] )
+            this.canvas._objects.splice(object, 0, this.activeObject.reflections[reflection] );
           }
-          this.canvas.renderAll()
+          this.canvas.renderAll();
           return;
         }
       }
@@ -754,7 +778,7 @@ export class PatternComponent implements OnInit {
       this.activeObject.hasReflections = false;
       //this.motifsOnCanvas = this.getNonSpecialObjects()
 
-      this.renderAllWithSpecial(this.getNonSpecialObjects())
+      this.renderAllWithSpecial(this.getNonSpecialObjects());
     }
   }
 
@@ -780,7 +804,7 @@ export class PatternComponent implements OnInit {
     {
       if (tempAllObjects[i].IDOnCanvas > -1)
       {
-        nonSpecialObjects.push(tempAllObjects[i])
+        nonSpecialObjects.push(tempAllObjects[i]);
       }
     }
     return nonSpecialObjects;
@@ -806,10 +830,10 @@ export class PatternComponent implements OnInit {
       {
         for(let reflection in withoutSpecial[obj].reflections)
         {
-          objectsToRender.push(withoutSpecial[obj].reflections[reflection])
+          objectsToRender.push(withoutSpecial[obj].reflections[reflection]);
         }
       }
-      objectsToRender.push(withoutSpecial[obj])
+      objectsToRender.push(withoutSpecial[obj]);
     }
     this.canvas._objects = objectsToRender;
     this.canvas.renderAll();
@@ -829,15 +853,13 @@ export class PatternComponent implements OnInit {
 
   updateReflectionsOfSelected() {
 
-    this.reflectionUpdater(0, -this.canvasWidth, +this.canvasHeight)
-    this.reflectionUpdater(1, -this.canvasWidth, 0)
-    this.reflectionUpdater(2, -this.canvasWidth, -this.canvasHeight)
-    this.reflectionUpdater(3, 0, +this.canvasHeight)
-    this.reflectionUpdater(4, 0, -this.canvasHeight)
-    this.reflectionUpdater(5, +this.canvasWidth, +this.canvasHeight)
-    this.reflectionUpdater(6, +this.canvasWidth, 0)
-    this.reflectionUpdater(7, +this.canvasWidth, -this.canvasHeight)
+    this.reflectionUpdater(0, -this.canvasWidth, +this.canvasHeight);
+    this.reflectionUpdater(1, -this.canvasWidth, 0);
+    this.reflectionUpdater(2, -this.canvasWidth, -this.canvasHeight);
+    this.reflectionUpdater(3, 0, +this.canvasHeight);
+    this.reflectionUpdater(4, 0, -this.canvasHeight);
+    this.reflectionUpdater(5, +this.canvasWidth, +this.canvasHeight);
+    this.reflectionUpdater(6, +this.canvasWidth, 0);
+    this.reflectionUpdater(7, +this.canvasWidth, -this.canvasHeight);
   }
-
-
 }
