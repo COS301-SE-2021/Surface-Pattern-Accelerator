@@ -362,22 +362,17 @@ export class PatternComponent implements OnInit {
   }
 
   deleteRightClick(){
-    let objects = this.canvas.getActiveObject();
-    let html = document.querySelectorAll(".temp");
-
-    for(var i = 0 ; i < this.canvas._objects.length ; i++){
-      if(objects == this.canvas._objects[i]){
-        this.canvas.remove(this.canvas.getActiveObject());
-        html[html.length - i - 1].remove();
-        this.motifsOnCanvas.objects.splice(i, 1);
-        this.canvas.renderAll();
-        break;
-      }
+    let selection = this.canvas.getActiveObject();
+    if(selection == undefined) {return;}
+    else
+    {
+      this.canvas.remove(selection);
+      this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
+      this.renderAllWithSpecial(this.canvas._objects);
+      this.dissapearContext();
     }
-
-    this.dissapearContext();
-
   }
+
   flipXRightClick(){
     (this.canvas.getActiveObject()).toggle('flipX');
     this.canvas.renderAll();
