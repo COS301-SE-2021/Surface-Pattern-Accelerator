@@ -104,13 +104,13 @@
 
                 <br>
 
-                <div class="frame">
-                  <canvas id="previewFrame" width="600px" height="600px"></canvas>
-                </div>
+<!--                <div class="frame">-->
+<!--                  <canvas id="previewFrame" width="600px" height="600px"></canvas>-->
+<!--                </div>-->
 
                 <br>
 
-                <div class="frame">
+                <div class="frame" id="inv">
                   <img id='imgPreview'/>
                 </div>
 
@@ -218,7 +218,7 @@
             </ion-list-header>
           </ion-list>
           <ion-item>
-            <ion-button id="pre" color="dark" style="width:100%;" (click)="setPreview()" >Refresh Preview</ion-button>
+            <ion-button id="pre" color="medium" style="width:100%;" (click)="setPreview()" >Refresh Preview</ion-button>
           </ion-item>
           <!--          <ion-item>-->
           <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>-->
@@ -251,10 +251,12 @@
           </ion-item>
 
 
+          <ion-item>
+           <ion-button color="medium" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
+           <ion-button color="medium" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
+           <ion-button color="medium" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
+          </ion-item>
 
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>-->
           <ion-item *ngIf="this.activeObject">
             <ion-checkbox id="seamlessModifier" (ionChange)="seamlessModifier($event)" slot="end" [checked]="(this.activeObject.hasReflections)"></ion-checkbox>
             <ion-label> Set Seamless </ion-label>
