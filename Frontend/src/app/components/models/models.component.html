@@ -1,2 +1,51 @@
 <ion-grid>
+  <ion-row>
+    <!-- Models Tab -->
+    <ion-col size="3" class="tab-content" id="model">
+      <ion-card>
+        <ion-card-header>
+          <ion-button color="dark" size="medium" fill="clear" class="tab-link"
+                      (click)="openTab($event,'model')">
+            <ion-label class="button-text">Models</ion-label>
+            <ion-icon name="invert-mode-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTab($event,'applyPatterns')">
+            <ion-label class="button-text">Apply Patterns</ion-label>
+            <ion-icon name="eyedrop-outline" ></ion-icon>
+          </ion-button>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+
+    <!-- Apply Pattern Tab -->
+    <ion-col class="tab-content" size="3" id="applyPatterns" style="display: none">
+      <ion-card>
+        <ion-card-header>
+          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
+                      (click)="openTab($event,'model')">
+            <ion-label class="button-text">Models</ion-label>
+            <ion-icon name="invert-mode-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                      (click)="openTab($event,'applyPatterns')">
+            <ion-label class="button-text">Apply Patterns</ion-label>
+            <ion-icon name="eyedrop-outline" ></ion-icon>
+          </ion-button>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+
+    <!-- Model Display -->
+    <ion-col>
+      <ion-card>
+        <ion-card-content id="displayContentArea">
+          <!-- 3D Model canvas will be appended here -->
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+  </ion-row>
 </ion-grid>
