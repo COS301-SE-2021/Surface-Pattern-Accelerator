@@ -117,7 +117,7 @@ export class PatternComponent implements OnInit {
     this.canvas.on("object:moving" ,(r) => {
       if (this.activeObject.hasReflections)
       {
-        this.updateReflectionsOfSelected()
+        this.updateReflectionsOf(this.activeObject)
 
         console.log("Moving Reflections")
       }
@@ -127,7 +127,7 @@ export class PatternComponent implements OnInit {
     this.canvas.on("object:rotating" ,(r) => {
       if (this.activeObject.hasReflections)
       {
-        this.updateReflectionsOfSelected()
+        this.updateReflectionsOf(this.activeObject)
         ;
         console.log("Moving Reflections")
       }
@@ -137,7 +137,7 @@ export class PatternComponent implements OnInit {
     this.canvas.on("object:scaling" ,(r) => {
       if (this.activeObject.hasReflections)
       {
-        this.updateReflectionsOfSelected()
+        this.updateReflectionsOf(this.activeObject)
 
         console.log("Moving Reflections")
       }
@@ -473,18 +473,7 @@ export class PatternComponent implements OnInit {
         return;
       }
 
-      this.activeObject.reflections = [
-        this.reflectionCreator(this.activeObject, -this.canvasWidth, +this.canvasHeight),
-        this.reflectionCreator(this.activeObject, -this.canvasWidth, 0),
-        this.reflectionCreator(this.activeObject, -this.canvasWidth, -this.canvasHeight),
-        this.reflectionCreator(this.activeObject, 0, +this.canvasHeight),
-        this.reflectionCreator(this.activeObject, 0, -this.canvasHeight),
-        this.reflectionCreator(this.activeObject, +this.canvasWidth, +this.canvasHeight),
-        this.reflectionCreator(this.activeObject, +this.canvasWidth, 0),
-        this.reflectionCreator(this.activeObject, +this.canvasWidth, -this.canvasHeight)
-      ]
-
-      this.activeObject.hasReflections = true;
+      this.addReflectionsToObject(this.activeObject)
 
       for (let object = 0; object < this.canvas.getObjects().length; object++)
       {
@@ -500,13 +489,40 @@ export class PatternComponent implements OnInit {
         }
       }
 
+
     }
     else {
       this.activeObject.hasReflections = false;
+      if (this.activeObject.arrayModifierElements)
+      {
+        for (let arrModElem in this.activeObject.arrayModifierElements)
+        {
+          this.activeObject.arrayModifierElements[arrModElem].hasReflections = false;
+        }
+      }
       //this.motifsOnCanvas = this.getNonSpecialObjects()
 
       this.renderAllWithSpecial(this.getNonSpecialObjects())
     }
+  }
+
+  addReflectionsToObject(objectToAddTo: fabric.Object)
+  {
+    //adds reflections to the specified object
+    objectToAddTo.reflections = [
+      this.reflectionCreator(objectToAddTo, -this.canvasWidth, +this.canvasHeight),
+      this.reflectionCreator(objectToAddTo, -this.canvasWidth, 0),
+      this.reflectionCreator(objectToAddTo, -this.canvasWidth, -this.canvasHeight),
+      this.reflectionCreator(objectToAddTo, 0, +this.canvasHeight),
+      this.reflectionCreator(objectToAddTo, 0, -this.canvasHeight),
+      this.reflectionCreator(objectToAddTo, +this.canvasWidth, +this.canvasHeight),
+      this.reflectionCreator(objectToAddTo, +this.canvasWidth, 0),
+      this.reflectionCreator(objectToAddTo, +this.canvasWidth, -this.canvasHeight)
+    ]
+
+    objectToAddTo.hasReflections = true;
+
+
   }
 
   reflectionCreator(parent: fabric.Object, topOffset: number, leftOffset: number)
@@ -569,7 +585,18 @@ export class PatternComponent implements OnInit {
       {
         for(let arrModObj in withoutSpecial[obj].arrayModifierElements)
         {
+          //check if the array modifier object has reflections as well
+          if (withoutSpecial[obj].arrayModifierElements[arrModObj].hasReflections)
+          {
+            for (let arrModReflectionObj in withoutSpecial[obj].arrayModifierElements[arrModObj].reflections)
+            {
+              //push the array modifier object's reflections
+              objectsToRender.push(withoutSpecial[obj].arrayModifierElements[arrModObj].reflections[arrModReflectionObj])
+            }
+          }
+
           objectsToRender.push(withoutSpecial[obj].arrayModifierElements[arrModObj])
+
         }
       }
       objectsToRender.push(withoutSpecial[obj])
@@ -578,32 +605,36 @@ export class PatternComponent implements OnInit {
     this.canvas.renderAll();
   }
 
-  updateReflectionsOfSelected() {
-
-    this.reflectionUpdater(0, -this.canvasWidth, +this.canvasHeight)
-    this.reflectionUpdater(1, -this.canvasWidth, 0)
-    this.reflectionUpdater(2, -this.canvasWidth, -this.canvasHeight)
-    this.reflectionUpdater(3, 0, +this.canvasHeight)
-    this.reflectionUpdater(4, 0, -this.canvasHeight)
-    this.reflectionUpdater(5, +this.canvasWidth, +this.canvasHeight)
-    this.reflectionUpdater(6, +this.canvasWidth, 0)
-    this.reflectionUpdater(7, +this.canvasWidth, -this.canvasHeight)
+  updateReflectionsOf(obj: fabric.Object) {
+    this.reflectionUpdater(obj,0, -this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
+    this.reflectionUpdater(obj,1, -this.canvasWidth, 0, this.updateReflectionsOf)
+    this.reflectionUpdater(obj,2, -this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
+    this.reflectionUpdater(obj,3, 0, +this.canvasHeight, this.updateReflectionsOf)
+    this.reflectionUpdater(obj,4, 0, -this.canvasHeight, this.updateReflectionsOf)
+    this.reflectionUpdater(obj,5, +this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
+    this.reflectionUpdater(obj,6, +this.canvasWidth, 0, this.updateReflectionsOf)
+    this.reflectionUpdater(obj,7, +this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
   }
 
-  reflectionUpdater(reflectionIndex: number, topOffset: number, leftOffset: number)
+  reflectionUpdater(parentObj: fabric.Object, reflectionIndex: number, topOffset: number, leftOffset: number, callback)
   {
-    let ref = this.activeObject.reflections[reflectionIndex];
-    ref.set("top",  this.activeObject.top + topOffset);
-    ref.set("left",  this.activeObject.left + leftOffset);
-    ref.set("scaleX",  this.activeObject.scaleX);
-    ref.set("scaleY",  this.activeObject.scaleY);
-    ref.rotate( this.activeObject.angle);
-    ref.set('flipX', this.activeObject.flipX);
-    ref.set('flipY', this.activeObject.flipY);
+    let ref = parentObj.reflections[reflectionIndex];
+    ref.set("top",  parentObj.top + topOffset);
+    ref.set("left",  parentObj.left + leftOffset);
+    ref.set("scaleX",  parentObj.scaleX);
+    ref.set("scaleY",  parentObj.scaleY);
+    ref.rotate( parentObj.angle);
+    ref.set('flipX', parentObj.flipX);
+    ref.set('flipY', parentObj.flipY);
+
+
+
   }
 
   arrayModUpdater(arrayModIndex: number, topOffset: number, leftOffset: number)
   {
+
+
     let ref = this.activeObject.arrayModifierElements[arrayModIndex];
     ref.set("top",  this.activeObject.top + topOffset);
     ref.set("left",  this.activeObject.left + leftOffset);
@@ -612,6 +643,13 @@ export class PatternComponent implements OnInit {
     ref.rotate( this.activeObject.angle);
     ref.set('flipX', this.activeObject.flipX);
     ref.set('flipY', this.activeObject.flipY);
+
+    if (ref.reflections)
+    {
+      this.updateReflectionsOf(ref);
+      console.log("Has reflections")
+    }
+
   }
 
 
@@ -631,7 +669,18 @@ export class PatternComponent implements OnInit {
       {
         //if number is positive, add new clone
         const {y, x} = this.calculatePositionFromDirection(distance, this.activeObject.nrOfArrayObjects);
-        this.activeObject.arrayModifierElements.push(this.reflectionCreator(this.activeObject, y, x));
+
+
+        let tempObject = this.reflectionCreator(this.activeObject, y, x);
+        if (this.activeObject.hasReflections)
+        {
+          this.addReflectionsToObject(tempObject); //adds reflections to objects in arrayModifier
+          //tempObject.hasReflections = false;
+        }
+
+
+
+        this.activeObject.arrayModifierElements.push(tempObject);
       }
       else
       {
@@ -675,7 +724,8 @@ export class PatternComponent implements OnInit {
         this.arrayModUpdater(arrObj,  y, x);
       }
     }
-    this.renderAllWithSpecial(this.getNonSpecialObjects());
+    //this.renderAllWithSpecial(this.getNonSpecialObjects());
+    this.canvas.renderAll()
     console.log(this.directionSliderValue)
   }
 }
