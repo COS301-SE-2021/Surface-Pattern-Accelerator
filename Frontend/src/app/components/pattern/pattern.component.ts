@@ -689,7 +689,7 @@ export class PatternComponent implements OnInit {
 
 
 
-    this.canvasPre = new fabric.Canvas('previewFrame');//set to 2nd Frame
+    this.canvasPre = new fabric.Canvas('previewFrame', {selection: false});//set to 2nd Frame
     this.canvasPre.setHeight(this.width);
     this.canvasPre.setWidth(this.height);
 
@@ -704,7 +704,8 @@ export class PatternComponent implements OnInit {
           left: j * (this.width / this.scale),
           top: i * (this.width / this.scale),
           scaleY: 1 / this.scale,
-          scaleX: 1 / this.scale
+          scaleX: 1 / this.scale,
+          selectable: false//REMOVE THIS TO CREATE ACCIDENTAL PATTERN GAME :D
         });
 
         this.canvasPre.add(frame);
