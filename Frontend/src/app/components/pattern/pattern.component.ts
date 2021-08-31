@@ -85,6 +85,9 @@ export class PatternComponent implements OnInit {
   colorOrginal: string = "white";
   background: boolean = false;
 
+
+  pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+
   //saving patterns in pattern Contents interface
   patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
 
@@ -145,12 +148,12 @@ export class PatternComponent implements OnInit {
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
-    this.canvasPre = new fabric.Canvas('previewFrame', { preserveObjectStacking: true });
-    this.canvasPre.setHeight(this.width);
-    this.canvasPre.setWidth(this.height);
-    this.canvasPre.backgroundColor = null;
-
-    this.img = new fabric.Image('previewFrame');
+    // this.canvasPre = new fabric.Canvas('previewFrame', { preserveObjectStacking: true });
+    // this.canvasPre.setHeight(this.width);
+    // this.canvasPre.setWidth(this.height);
+    // this.canvasPre.backgroundColor = null;
+    //
+    // this.img = new fabric.Image('previewFrame');
 
   }
 
@@ -672,35 +675,91 @@ export class PatternComponent implements OnInit {
 
     //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
 
-    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
-    pcan.height = this.height / this.scale;
-    pcan.width = this.width / this.scale;
-    pcan.src = this.canvas.toDataURL();
+    this.pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    this.pcan.height = this.height / this.scale;
+    this.pcan.width = this.width / this.scale;
+    this.pcan.src = this.canvas.toDataURL();
 
-    let can = this.canvasPre;
-    let con = can.getContext();
 
-    //pcan will be reflected for the preview seamlessly
 
-    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+
+
+
+    this.canvasPre = new fabric.Canvas('previewFrame');//set to 2nd Frame
+    this.canvasPre.setHeight(this.width);
+    this.canvasPre.setWidth(this.height);
+
+
 
     for (let i = 0; i < this.scale; i++)//rows, Y
     {
       for (let j = 0; j < this.scale; j++)//columns, X
       {
-        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+
+        let frame = new fabric.Image('imgPreview',{
+          left: j * (this.width / this.scale),
+          top: i * (this.width / this.scale),
+          scaleY: 1 / this.scale,
+          scaleX: 1 / this.scale
+        });
+
+        this.canvasPre.add(frame);
+
       }
     }
 
-    //this.refresh();
 
 
-    const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
-    precan.height = this.height;
-    precan.width = this.width;
-    precan.src = con.canvas.toDataURL();
 
-    console.log("Preview Generated");
+    //this.img = new fabric.Image('previewFrame');
+
+
+
+
+
+    //const canvas = (<HTMLInputElement>document.getElementById("previewFrame"));
+
+
+
+
+     let can = this.canvasPre;
+     let con = can.getContext();
+     //this.canvas.renderAll();
+
+
+
+    //let con = this.canvas.getContext();
+
+     con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+
+     for (let i = 0; i < this.scale; i++)//rows, Y
+     {
+       for (let j = 0; j < this.scale; j++)//columns, X
+       {
+         con.drawImage(<CanvasImageSource><unknown>this.pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+       }
+     }
+
+    //pcan will be reflected for the preview seamlessly
+
+
+
+      const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
+      precan.height = this.height;
+      precan.width = this.width;
+     //
+     // //con.canvas.getContext("2d");
+     //
+
+      this.img = new fabric.Image('previewFrame');
+
+      console.log(this.img._toSVG());//can this turn the image into an SVG???
+
+      //this.img._toSVG()
+      precan.src = this.img.getSrc();
+
+
+     console.log("Preview Generated");
 
 
   }
