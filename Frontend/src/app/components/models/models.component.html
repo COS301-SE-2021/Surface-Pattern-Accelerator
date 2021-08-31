@@ -6,14 +6,14 @@
         <ion-card-header>
           <ion-button color="dark" size="small" fill="clear" class="tab-link"
                       (click)="openTab($event,'model')">
-            <ion-label class="button-text2">Models</ion-label>
-            <ion-icon name="invert-mode-outline"></ion-icon>
+            <ion-label class="button-text2">Models </ion-label>
+            <ion-icon name="american-football"></ion-icon>
           </ion-button>
 
           <ion-button color="medium" size="small" fill="clear" class="tab-links"
                       (click)="openTab($event,'applyPatterns')">
-            <ion-label class="button-text2">Apply Patterns</ion-label>
-            <ion-icon name="eyedrop-outline" ></ion-icon>
+            <ion-label class="button-text2">Apply Patterns </ion-label>
+            <ion-icon name="brush"></ion-icon>
           </ion-button>
         </ion-card-header>
       </ion-card>
@@ -25,14 +25,14 @@
         <ion-card-header>
           <ion-button color="medium" size="small" fill="clear" class="tab-link"
                       (click)="openTab($event,'model')">
-            <ion-label class="button-text">Models</ion-label>
-            <ion-icon name="invert-mode-outline"></ion-icon>
+            <ion-label class="button-text">Models </ion-label>
+            <ion-icon name="american-football"></ion-icon>
           </ion-button>
 
           <ion-button color="dark" size="small" fill="clear" class="tab-links"
                       (click)="openTab($event,'applyPatterns')">
-            <ion-label class="button-text">Apply Patterns</ion-label>
-            <ion-icon name="eyedrop-outline" ></ion-icon>
+            <ion-label class="button-text">Apply Patterns </ion-label>
+            <ion-icon name="brush"></ion-icon>
           </ion-button>
         </ion-card-header>
       </ion-card>
@@ -43,6 +43,9 @@
       <ion-card>
         <ion-card-content id="displayContentArea">
           <!-- 3D Model canvas will be appended here -->
+          <div class="relative h-256 w-356">
+            <div id="scene"></div>
+          </div>
         </ion-card-content>
       </ion-card>
     </ion-col>

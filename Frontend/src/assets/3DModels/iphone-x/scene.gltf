@@ -1,0 +1,454 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 412,
+      "max": [
+        27.817127227783203,
+        49.154132843017578,
+        102.32371520996094
+      ],
+      "min": [
+        -22.055698394775391,
+        -43.036197662353516,
+        15.408798217773438
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 4944,
+      "componentType": 5126,
+      "count": 412,
+      "max": [
+        0.98847764730453491,
+        0.9518665075302124,
+        0.99526399374008179
+      ],
+      "min": [
+        -0.99269884824752808,
+        -0.95716071128845215,
+        -0.99461030960083008
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 412,
+      "max": [
+        0.9776008129119873,
+        0,
+        0.65454351902008057,
+        1
+      ],
+      "min": [
+        0,
+        -0.75352561473846436,
+        -0.20413641631603241,
+        -1
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 412,
+      "max": [
+        0.88535666465759277,
+        0.98687690496444702
+      ],
+      "min": [
+        0.11754186451435089,
+        0.015776382759213448
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 1191,
+      "max": [
+        411
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 9888,
+      "componentType": 5126,
+      "count": 283,
+      "max": [
+        27.589374542236328,
+        48.773052215576172,
+        100.48829650878906
+      ],
+      "min": [
+        -20.343837738037109,
+        -41.286975860595703,
+        15.531951904296875
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 13284,
+      "componentType": 5126,
+      "count": 283,
+      "max": [
+        0.81922227144241333,
+        0.85391771793365479,
+        0.75479984283447266
+      ],
+      "min": [
+        -0.80274873971939087,
+        -0.8545951247215271,
+        -0.75870305299758911
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 6592,
+      "componentType": 5126,
+      "count": 283,
+      "max": [
+        0,
+        0.60819393396377563,
+        0,
+        1
+      ],
+      "min": [
+        -0.71408462524414062,
+        0,
+        -0.34837460517883301,
+        1
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 3296,
+      "componentType": 5126,
+      "count": 283,
+      "max": [
+        0.98783683776855469,
+        0.98563075065612793
+      ],
+      "min": [
+        0.012095421552658081,
+        0.007403891533613205
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 4764,
+      "componentType": 5125,
+      "count": 495,
+      "max": [
+        282
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "deeey (https://sketchfab.com/deeey)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/models/788bf9efa5ef43dcae1d1f6c2e275e0a",
+      "title": "Iphone-x"
+    },
+    "generator": "Sketchfab-3.29.3",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 6744,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5560,
+      "byteOffset": 6744,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 16680,
+      "byteOffset": 12304,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 11120,
+      "byteOffset": 28984,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 40104,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsRequired": [
+    "KHR_materials_pbrSpecularGlossiness"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_pbrSpecularGlossiness"
+  ],
+  "images": [
+    {
+      "uri": "textures/Material_40_diffuse.jpeg"
+    },
+    {
+      "uri": "textures/Material_39_diffuse.jpeg"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": false,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "diffuseTexture": {
+            "index": 1,
+            "texCoord": 0
+          },
+          "glossinessFactor": 0.98999999999999999,
+          "specularFactor": [
+            0.29999999999999999,
+            0.29999999999999999,
+            0.29999999999999999
+          ]
+        }
+      },
+      "name": "Material_39"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            0.80000000000000004,
+            0.80000000000000004,
+            0.80000000000000004,
+            1
+          ],
+          "diffuseTexture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "glossinessFactor": 0.98999999999999999,
+          "specularFactor": [
+            0.29999999999999999,
+            0.29999999999999999,
+            0.29999999999999999
+          ]
+        }
+      },
+      "name": "Material_40"
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Plane001_Material #39_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Plane001_Material #40_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TANGENT": 7,
+            "TEXCOORD_0": 8
+          },
+          "indices": 9,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "iphone model.fbx"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        5
+      ],
+      "matrix": [
+        2.2033168033787298,
+        0.58122906138075103,
+        -1.7986147149096909,
+        0,
+        -1.4502296001210278,
+        1.6816206653215022,
+        -1.2331203717033683,
+        0,
+        0.79499037796770067,
+        1.834428905316265,
+        1.5666718534818715,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "Plane001"
+    },
+    {
+      "children": [
+        6,
+        7
+      ],
+      "matrix": [
+        1,
+        0,
+        -0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -1.8308284282684326,
+        -3.4091501235961914,
+        -58.378623962402344,
+        1
+      ],
+      "name": ""
+    },
+    {
+      "mesh": 0,
+      "name": "Plane001_Material #39_0"
+    },
+    {
+      "mesh": 1,
+      "name": "Plane001_Material #40_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ]
+}
+
