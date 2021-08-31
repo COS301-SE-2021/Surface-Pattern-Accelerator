@@ -314,6 +314,7 @@ export class PatternComponent implements OnInit {
   }
 
   openTabMain($event: MouseEvent, tabPage: string) {
+    this.refresh();
     let i, tabContent, tabLinks;
     tabContent  = document.getElementsByClassName('tab-content-main');
     for (i = 0; i < tabContent.length; i++) {
@@ -671,17 +672,20 @@ export class PatternComponent implements OnInit {
   }
 
 
-  setPreview(){
-
-    //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
-
+  refresh(){
     this.pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
     this.pcan.height = this.height / this.scale;
     this.pcan.width = this.width / this.scale;
     this.pcan.src = this.canvas.toDataURL();
+  }
+
+  setPreview(){
+
+    //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
 
 
 
+    this.refresh();
 
 
 
@@ -730,33 +734,33 @@ export class PatternComponent implements OnInit {
 
     //let con = this.canvas.getContext();
 
-     con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
-
-     for (let i = 0; i < this.scale; i++)//rows, Y
-     {
-       for (let j = 0; j < this.scale; j++)//columns, X
-       {
-         con.drawImage(<CanvasImageSource><unknown>this.pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
-       }
-     }
+     // con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+     //
+     // for (let i = 0; i < this.scale; i++)//rows, Y
+     // {
+     //   for (let j = 0; j < this.scale; j++)//columns, X
+     //   {
+     //     con.drawImage(<CanvasImageSource><unknown>this.pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+     //   }
+     // }
 
     //pcan will be reflected for the preview seamlessly
 
 
 
-      const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
-      precan.height = this.height;
-      precan.width = this.width;
-     //
-     // //con.canvas.getContext("2d");
-     //
+      // const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
+      // precan.height = this.height;
+      // precan.width = this.width;
+      //
+      // this.img = new fabric.Image('previewFrame');
+      //
+      // console.log(this.img._toSVG());//can this turn the image into an SVG???
+      //
 
-      this.img = new fabric.Image('previewFrame');
 
-      console.log(this.img._toSVG());//can this turn the image into an SVG???
-
-      //this.img._toSVG()
-      precan.src = this.img.getSrc();
+      //KEEP THIS< VERY IMPORTANT!!!!
+      // //this.img._toSVG()
+      // precan.src = this.img.getSrc();
 
 
      console.log("Preview Generated");
