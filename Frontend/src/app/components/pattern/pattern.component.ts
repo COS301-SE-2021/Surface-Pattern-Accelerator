@@ -689,7 +689,7 @@ export class PatternComponent implements OnInit {
 
 
 
-    this.canvasPre = new fabric.Canvas('previewFrame', {selection: false});//set to 2nd Frame
+    this.canvasPre = new fabric.Canvas('previewFrame', {preserveObjectStacking: false});//set to 2nd Frame
     this.canvasPre.setHeight(this.width);
     this.canvasPre.setWidth(this.height);
 
@@ -705,7 +705,8 @@ export class PatternComponent implements OnInit {
           top: i * (this.width / this.scale),
           scaleY: 1 / this.scale,
           scaleX: 1 / this.scale,
-          selectable: false//REMOVE THIS TO CREATE ACCIDENTAL PATTERN GAME :D
+          selectable: false, //REMOVE THIS TO CREATE ACCIDENTAL PATTERN GAME :D
+          evented: false 
         });
 
         this.canvasPre.add(frame);
@@ -713,25 +714,12 @@ export class PatternComponent implements OnInit {
       }
     }
 
-
-
-
     //this.img = new fabric.Image('previewFrame');
 
-
-
-
-
     //const canvas = (<HTMLInputElement>document.getElementById("previewFrame"));
-
-
-
-
      let can = this.canvasPre;
      let con = can.getContext();
      //this.canvas.renderAll();
-
-
 
     //let con = this.canvas.getContext();
 
@@ -747,8 +735,6 @@ export class PatternComponent implements OnInit {
 
     //pcan will be reflected for the preview seamlessly
 
-
-
       // const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
       // precan.height = this.height;
       // precan.width = this.width;
@@ -757,7 +743,6 @@ export class PatternComponent implements OnInit {
       //
       // console.log(this.img._toSVG());//can this turn the image into an SVG???
       //
-
 
       //KEEP THIS< VERY IMPORTANT!!!!
       // //this.img._toSVG()
@@ -953,5 +938,29 @@ export class PatternComponent implements OnInit {
 
 
 
+
+
+
+  downloadURI(uri, name) {
+    const link = document.createElement('a');
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    //delete this.link;
+  }
+
+
+  export2(){
+    console.log("EXPORT LOW RESOLUTION");
+  }
+
+  export5(){
+    console.log("EXPORT MEDIUM RESOLUTION");
+  }
+  export10(){
+    console.log("EXPORT HIGH RESOLUTION");
+  }
 
 }
