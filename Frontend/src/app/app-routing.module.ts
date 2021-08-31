@@ -12,7 +12,9 @@ import { LoginResponseComponent} from './components/login-response/login-respons
 import { ColorComponent} from './components/color/color.component';
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
 import { MainComponent } from './components/launchpage/main/main.component';
+import { ModelsComponent } from './components/models/models.component';
 //import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
+
 
 
 const routes: Routes = [
@@ -29,7 +31,8 @@ const routes: Routes = [
   { path: 'canvasColours', component: CanvasColoursComponent },
   { path: 'preview', component: PreviewComponent },
   { path: 'color', component: ColorComponent},
-  { path: 'newCollection', component: NewCollectionComponent }
+  { path: 'newCollection', component: NewCollectionComponent },
+  { path: 'models', component: ModelsComponent}
 ];
 
 @NgModule({
