@@ -249,6 +249,23 @@
             <ion-label> Set Seamless </ion-label>
           </ion-item>
 
+          <ion-item *ngIf="this.activeObject">
+            <ion-badge>{{directionSliderValue}}</ion-badge>
+            <ion-range min="0" max="359" color="secondary" [(ngModel)]="directionSliderValue" (ionChange)="updateArrModOfSelected()">
+              <ion-label slot="start">0</ion-label>
+              <ion-label slot="end">359</ion-label>
+            </ion-range>
+          </ion-item>
+
+
+          <ion-item *ngIf="this.activeObject">
+            <ion-button (click)="changeArrayModifierNumber(1, distBetweenArrayModElements)">Add</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(-1, distBetweenArrayModElements)">Remove</ion-button>
+            {{this.activeObject.nrOfArrayObjects}}
+          </ion-item>
+
+          <ion-input type="number" value=distBetweenArrayModElements [(ngModel)]="distBetweenArrayModElements" (ionChange)="updateArrModOfSelected()"></ion-input>
+
 
 
 

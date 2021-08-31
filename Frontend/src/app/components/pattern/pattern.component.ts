@@ -77,6 +77,9 @@ export class PatternComponent implements OnInit {
   width: number = 600;
   height: number = 600;
 
+  directionSliderValue: number = 0;
+  distBetweenArrayModElements: number = 200;
+
 
   //saving patterns in pattern Contents interface
   patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
@@ -115,24 +118,30 @@ export class PatternComponent implements OnInit {
       if (this.activeObject.hasReflections)
       {
         this.updateReflectionsOfSelected()
+
         console.log("Moving Reflections")
       }
+      this.updateArrModOfSelected();
     })
 
     this.canvas.on("object:rotating" ,(r) => {
       if (this.activeObject.hasReflections)
       {
         this.updateReflectionsOfSelected()
+        ;
         console.log("Moving Reflections")
       }
+      this.updateArrModOfSelected()
     })
 
     this.canvas.on("object:scaling" ,(r) => {
       if (this.activeObject.hasReflections)
       {
         this.updateReflectionsOfSelected()
+
         console.log("Moving Reflections")
       }
+      this.updateArrModOfSelected();
     })
 
 
@@ -530,6 +539,8 @@ export class PatternComponent implements OnInit {
 
   //takes objects array as parameter to render
   //The reflections are added to the array and then displayed
+
+
   renderAllWithSpecial(objects: fabric.Object[])
   {
     let withoutSpecial: fabric.Object[] = [];
@@ -544,11 +555,21 @@ export class PatternComponent implements OnInit {
     let objectsToRender: fabric.Object[] = [];
     for (let obj in withoutSpecial)
     {
+      //TODO: change implementation here to allow the user to pick what modifiers elements to render first
+      //do reflections first
       if (withoutSpecial[obj].hasReflections)
       {
         for(let reflection in withoutSpecial[obj].reflections)
         {
           objectsToRender.push(withoutSpecial[obj].reflections[reflection])
+        }
+      }
+      //then do array modifier
+      if (withoutSpecial[obj].hasArrayModifier)
+      {
+        for(let arrModObj in withoutSpecial[obj].arrayModifierElements)
+        {
+          objectsToRender.push(withoutSpecial[obj].arrayModifierElements[arrModObj])
         }
       }
       objectsToRender.push(withoutSpecial[obj])
@@ -579,5 +600,82 @@ export class PatternComponent implements OnInit {
     ref.rotate( this.activeObject.angle);
     ref.set('flipX', this.activeObject.flipX);
     ref.set('flipY', this.activeObject.flipY);
+  }
+
+  arrayModUpdater(arrayModIndex: number, topOffset: number, leftOffset: number)
+  {
+    let ref = this.activeObject.arrayModifierElements[arrayModIndex];
+    ref.set("top",  this.activeObject.top + topOffset);
+    ref.set("left",  this.activeObject.left + leftOffset);
+    ref.set("scaleX",  this.activeObject.scaleX);
+    ref.set("scaleY",  this.activeObject.scaleY);
+    ref.rotate( this.activeObject.angle);
+    ref.set('flipX', this.activeObject.flipX);
+    ref.set('flipY', this.activeObject.flipY);
+  }
+
+
+  changeArrayModifierNumber(num: number, distance: number) {
+    //if the value is undefined, define it then add num to it
+    if (!this.activeObject.nrOfArrayObjects)
+    {
+      this.activeObject.nrOfArrayObjects = 0;
+      this.activeObject.arrayModifierElements = []; //initialize array
+    }
+    //makes so the nr of array modifier elements cant be negative
+    if (!(this.activeObject.nrOfArrayObjects == 0 && num < 0))
+    {
+      this.activeObject.hasArrayModifier = true;
+      this.activeObject.nrOfArrayObjects += num;
+      if (num > 0)
+      {
+        //if number is positive, add new clone
+        const {y, x} = this.calculatePositionFromDirection(distance, this.activeObject.nrOfArrayObjects);
+        this.activeObject.arrayModifierElements.push(this.reflectionCreator(this.activeObject, y, x));
+      }
+      else
+      {
+        //if negative, pop object
+        this.activeObject.arrayModifierElements.pop();
+      }
+      console.log(this.directionSliderValue)
+      this.renderAllWithSpecial(this.getNonSpecialObjects());
+    }
+    else
+    {
+      this.activeObject.hasArrayModifier = false;
+    }
+
+
+
+
+  }
+
+  toRadians (angle) {
+    return angle * (Math.PI / 180);
+  }
+
+  //object index is the nth object in the parent objects array-modifier array
+  calculatePositionFromDirection(distance: number, objIndex: number)
+  {
+    const tempDist = distance * objIndex;
+    const tempSlideVal = this.toRadians( this.directionSliderValue - 180);
+    const y = tempDist * Math.sin(tempSlideVal)
+    const x = tempDist * Math.sin(1.5708 - tempSlideVal)
+    return {y, x}; //return coordinates
+  }
+
+  updateArrModOfSelected() {
+
+    if (this.activeObject.nrOfArrayObjects)
+    {
+      for (let arrObj = 0; arrObj < this.activeObject.nrOfArrayObjects; arrObj++)
+      {
+        const {y, x} = this.calculatePositionFromDirection(this.distBetweenArrayModElements, arrObj + 1)
+        this.arrayModUpdater(arrObj,  y, x);
+      }
+    }
+    this.renderAllWithSpecial(this.getNonSpecialObjects());
+    console.log(this.directionSliderValue)
   }
 }
