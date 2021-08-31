@@ -115,7 +115,7 @@ export class PatternComponent implements OnInit {
     })
 
     this.canvas.on("object:moving" ,(r) => {
-      if (this.activeObject.hasReflections)
+      if (this.activeObject.shouldDisplaySeamlessMod)
       {
         this.updateReflectionsOf(this.activeObject)
 
@@ -125,7 +125,7 @@ export class PatternComponent implements OnInit {
     })
 
     this.canvas.on("object:rotating" ,(r) => {
-      if (this.activeObject.hasReflections)
+      if (this.activeObject.shouldDisplaySeamlessMod)
       {
         this.updateReflectionsOf(this.activeObject)
         ;
@@ -135,7 +135,7 @@ export class PatternComponent implements OnInit {
     })
 
     this.canvas.on("object:scaling" ,(r) => {
-      if (this.activeObject.hasReflections)
+      if (this.activeObject.shouldDisplaySeamlessMod)
       {
         this.updateReflectionsOf(this.activeObject)
 
@@ -355,36 +355,7 @@ export class PatternComponent implements OnInit {
     console.log(this.canvas.getActiveObject().IDOnCanvas)
     console.log(this.canvas.getActiveObject().googleDriveID)
 
-
-
-
-    // let selectedObject = this.canvas.getActiveObject();
-    // if (selectedObject)
-    // {
-    //   for (let obj in this.motifService.motifsOnCanvas)
-    //   {
-    //     if (selectedObject.ownMatrixCache.key === this.motifService.motifsOnCanvas[obj].ownMatrixCache.key)
-    //     {
-    //       console.log("equal: " + obj);
-    //     }
-    //   }
-    //   console.log("End")
-    // }
-
   }
-
-
-  notSeamless(){
-    let motifs = this.canvas.getObjects();
-   for(var i = 0 ; i < motifs.length ; i++){
-     if(motifs[i].selectable === false){
-       this.canvas.remove(motifs[i]);
-     }
-   }
-
-  }
-
-
   setPreview(){
 
     //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
@@ -463,47 +434,19 @@ export class PatternComponent implements OnInit {
   }
 
 
-  seamlessModifier(event: any) {
-    console.log(event.detail.checked );
+  setSeamlessModifier(event: any) {
     //TODO: initialize hasReflections to fix error in console when changing from undefined to true/false when check box is ticked
     if (event.detail.checked === true)
     {
-      if (this.activeObject.hasReflections)
-      {
-        return;
-      }
-
       this.addReflectionsToObject(this.activeObject)
-
-      for (let object = 0; object < this.canvas.getObjects().length; object++)
-      {
-        if (this.activeObject.IDOnCanvas === this.canvas.getObjects()[object].IDOnCanvas)
-        {
-          console.log("Found")
-          for (let reflection = 0; reflection <  this.activeObject.reflections.length; reflection++)
-          {
-            this.canvas._objects.splice(object, 0, this.activeObject.reflections[reflection] )
-          }
-          this.canvas.renderAll()
-          return;
-        }
-      }
-
-
     }
-    else {
-      this.activeObject.hasReflections = false;
-      if (this.activeObject.arrayModifierElements)
-      {
-        for (let arrModElem in this.activeObject.arrayModifierElements)
-        {
-          this.activeObject.arrayModifierElements[arrModElem].hasReflections = false;
-        }
-      }
-      //this.motifsOnCanvas = this.getNonSpecialObjects()
-
-      this.renderAllWithSpecial(this.getNonSpecialObjects())
+    else
+    {
+      this.activeObject.reflections = [];
     }
+
+    this.renderAllWithSpecial(this.getNonSpecialObjects())
+
   }
 
   addReflectionsToObject(objectToAddTo: fabric.Object)
@@ -519,10 +462,6 @@ export class PatternComponent implements OnInit {
       this.reflectionCreator(objectToAddTo, +this.canvasWidth, 0),
       this.reflectionCreator(objectToAddTo, +this.canvasWidth, -this.canvasHeight)
     ]
-
-    objectToAddTo.hasReflections = true;
-
-
   }
 
   reflectionCreator(parent: fabric.Object, topOffset: number, leftOffset: number)
@@ -559,61 +498,66 @@ export class PatternComponent implements OnInit {
 
   renderAllWithSpecial(objects: fabric.Object[])
   {
-    let withoutSpecial: fabric.Object[] = [];
+    let userObjects: fabric.Object[] = []; //all objects the user spawned in, not including reflections or arrayMod objects
     for (let obj in objects) //check to make sure no special objects are in this array
     {
       if (objects[obj].IDOnCanvas != undefined)
       {
-        withoutSpecial.push(objects[obj]);
+        userObjects.push(objects[obj]);
       }
     }
 
     let objectsToRender: fabric.Object[] = [];
-    for (let obj in withoutSpecial)
+    for (let userObj in userObjects)
     {
-      //TODO: change implementation here to allow the user to pick what modifiers elements to render first
-      //do reflections first
-      if (withoutSpecial[obj].hasReflections)
+      if (userObjects[userObj].IDOnCanvas > -1)
       {
-        for(let reflection in withoutSpecial[obj].reflections)
-        {
-          objectsToRender.push(withoutSpecial[obj].reflections[reflection])
-        }
-      }
-      //then do array modifier
-      if (withoutSpecial[obj].hasArrayModifier)
-      {
-        for(let arrModObj in withoutSpecial[obj].arrayModifierElements)
-        {
-          //check if the array modifier object has reflections as well
-          if (withoutSpecial[obj].arrayModifierElements[arrModObj].hasReflections)
-          {
-            for (let arrModReflectionObj in withoutSpecial[obj].arrayModifierElements[arrModObj].reflections)
-            {
-              //push the array modifier object's reflections
-              objectsToRender.push(withoutSpecial[obj].arrayModifierElements[arrModObj].reflections[arrModReflectionObj])
-            }
-          }
+        this.decideRenderOrder(userObjects[userObj], objectsToRender, userObjects[userObj].shouldDisplaySeamlessMod);
 
-          objectsToRender.push(withoutSpecial[obj].arrayModifierElements[arrModObj])
-
-        }
+        //objectsToRender.push(userObjects[userObj]);
       }
-      objectsToRender.push(withoutSpecial[obj])
     }
     this.canvas._objects = objectsToRender;
     this.canvas.renderAll();
   }
 
+  decideRenderOrder(obj: fabric.Object, futureRenderObjects: fabric.Object[], shouldDisplaySeamless: Boolean)
+  {
+
+    if (shouldDisplaySeamless && obj.reflections != undefined)
+    {
+      console.log("Pushed")
+      //console.log(...obj.reflections)
+      futureRenderObjects.push(...obj.reflections); //spread operator, pushes the reflection array to the objectsToRender array
+    }
+    futureRenderObjects.push(obj);
+
+    if (obj.arrayModifierElements == undefined)
+    {
+      obj.arrayModifierElements = [];
+    }
+    for (let i = 0; i < obj.arrayModifierElements.length ; i++)
+    {
+      //console.log(obj.arrayModifierElements[i].reflections)
+      this.decideRenderOrder(obj.arrayModifierElements[i], futureRenderObjects, shouldDisplaySeamless)
+    }
+
+
+  }
+
   updateReflectionsOf(obj: fabric.Object) {
-    this.reflectionUpdater(obj,0, -this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
-    this.reflectionUpdater(obj,1, -this.canvasWidth, 0, this.updateReflectionsOf)
-    this.reflectionUpdater(obj,2, -this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
-    this.reflectionUpdater(obj,3, 0, +this.canvasHeight, this.updateReflectionsOf)
-    this.reflectionUpdater(obj,4, 0, -this.canvasHeight, this.updateReflectionsOf)
-    this.reflectionUpdater(obj,5, +this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
-    this.reflectionUpdater(obj,6, +this.canvasWidth, 0, this.updateReflectionsOf)
-    this.reflectionUpdater(obj,7, +this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
+    if (obj.reflections != undefined && obj.reflections.length > 0)
+    {
+      this.reflectionUpdater(obj,0, -this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,1, -this.canvasWidth, 0, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,2, -this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,3, 0, +this.canvasHeight, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,4, 0, -this.canvasHeight, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,5, +this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,6, +this.canvasWidth, 0, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,7, +this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
+    }
+
   }
 
   reflectionUpdater(parentObj: fabric.Object, reflectionIndex: number, topOffset: number, leftOffset: number, callback)
@@ -626,15 +570,10 @@ export class PatternComponent implements OnInit {
     ref.rotate( parentObj.angle);
     ref.set('flipX', parentObj.flipX);
     ref.set('flipY', parentObj.flipY);
-
-
-
   }
 
   arrayModUpdater(arrayModIndex: number, topOffset: number, leftOffset: number)
   {
-
-
     let ref = this.activeObject.arrayModifierElements[arrayModIndex];
     ref.set("top",  this.activeObject.top + topOffset);
     ref.set("left",  this.activeObject.left + leftOffset);
@@ -663,41 +602,23 @@ export class PatternComponent implements OnInit {
     //makes so the nr of array modifier elements cant be negative
     if (!(this.activeObject.nrOfArrayObjects == 0 && num < 0))
     {
-      this.activeObject.hasArrayModifier = true;
       this.activeObject.nrOfArrayObjects += num;
       if (num > 0)
       {
         //if number is positive, add new clone
         const {y, x} = this.calculatePositionFromDirection(distance, this.activeObject.nrOfArrayObjects);
-
-
-        let tempObject = this.reflectionCreator(this.activeObject, y, x);
-        if (this.activeObject.hasReflections)
-        {
-          this.addReflectionsToObject(tempObject); //adds reflections to objects in arrayModifier
-          //tempObject.hasReflections = false;
-        }
-
-
-
+        let tempObject = this.reflectionCreator(this.activeObject, y, x); //create the array modifier object with offset
+        this.addReflectionsToObject(tempObject) //add reflections to array modifier object
         this.activeObject.arrayModifierElements.push(tempObject);
+        console.log("Pushed new arr mod obj")
       }
       else
       {
         //if negative, pop object
         this.activeObject.arrayModifierElements.pop();
       }
-      console.log(this.directionSliderValue)
       this.renderAllWithSpecial(this.getNonSpecialObjects());
     }
-    else
-    {
-      this.activeObject.hasArrayModifier = false;
-    }
-
-
-
-
   }
 
   toRadians (angle) {
