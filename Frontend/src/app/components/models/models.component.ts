@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // ThreeJS
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 @Component({
   selector: 'app-models',
@@ -14,72 +15,25 @@ export class ModelsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    /*
-    let mount = document.querySelector('#scene');
-    let width = document.querySelector<HTMLDivElement>('#scene').offsetWidth;
-    let height = document.querySelector<HTMLDivElement>('#scene').offsetHeight;
-
-    let scene = new THREE.Scene();
-    let camera = new THREE.PerspectiveCamera(
-      75, // Field of View
-      width/height,	// Aspect Ratio
-      0.1,	// Minimum distance
-      1000  // Maximum distance
-    );
-    camera.position.z = 5;
-    // Could be antialias : true
-    let renderer = new THREE.WebGLRenderer({antialias: true});
-    renderer.setClearColor("#e5e5e5");
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(width,height);
-    mount.appendChild(renderer.domElement);
-
-    let geometry = new THREE.SphereGeometry(1, 10, 10);
-    let material = new THREE.MeshLambertMaterial({color: 0xFFCC00});
-    let mesh = new THREE.Mesh(geometry, material);
-    mesh.position.x = 2;
-    scene.add(mesh);
-
-
-    // Defining the loader object to load 3D Models
-    //const loader = new GLTFLoader();
-    // We will save our GLTF scene into this object
-    //let obj;
-    // Function defines what we do with the gltf information
-    //loader.load('../assets/3DModels/iphone-x/scene.gltf', function(gltf) {
-      // We save it so we can rotate the object later
-      //obj = gltf.scene;
-      // Get the scene information and add it to our scene
-      //scene.add(gltf.scene);
-    //});
-
-
-    //let light = new THREE.HemisphereLight(0xffffff, 0x000000, 10);
-    //scene.add(light);
-    // Set the color, intensity and distance
-    let light = new THREE.PointLight(0xFFFFFF,1,500);
-    light.position.set(10,0,25);
-    scene.add(light);
-
-    function animate() {
-      requestAnimationFrame(animate);
-      mesh.rotation.x += 0.01;
-      renderer.render(scene, camera);
-    }
-    animate();
-     */
     let scene =	new THREE.Scene();
     let camera	= new THREE.PerspectiveCamera(
       75,	// Field of View
       window.innerWidth/window.innerHeight,	// Aspect Ratio
       0.1,	// Near and far plane
-      300
+      1000
     )
     // Setting the camera position
+    // The smaller the value is the closer it is
     camera.position.z = 1;
     let renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setClearColor("#e5e5e5");	// Background color
     renderer.setSize(window.innerWidth,window.innerHeight);
+
+    const controls = new OrbitControls( camera, renderer.domElement );
+    controls.enableDamping = true;
+    //controls.enablePan = false;
+    //camera.position.set( 0, 20, 1 );
+    controls.update();
 
     // Create canvas element with our renderer settings
     document.body.appendChild(renderer.domElement);
@@ -102,7 +56,7 @@ export class ModelsComponent implements OnInit {
     //We need to combine the geometry and material into was called a mesh
     let mesh = new THREE.Mesh(geometry, material);
     // To be able to move around an object in space
-    mesh.position.x = 2;
+    mesh.position.x = 5;
     //Add the mesh to the scene
     //scene.add(mesh);
 
@@ -111,7 +65,7 @@ export class ModelsComponent implements OnInit {
     // We will save our GLTF scene into this object
     let obj;
     // Function defines what we do with the gltf information
-    loader.load('../assets/3DModels/mug-cup/scene.gltf', function(gltf) {
+    loader.load('../assets/3DModels/book/scene.gltf', function(gltf) {
     // We save it so we can rotate the object later
     obj = gltf.scene;
     // Get the scene information and add it to our scene
@@ -132,6 +86,9 @@ export class ModelsComponent implements OnInit {
       // which is essentially 60 frames per second
       mesh.rotation.x += 0.01;
       obj.rotation.x += 0.01;
+      //obj.rotation.y += 0.01;
+      // required if controls.enableDamping or controls.autoRotate are set to true
+      controls.update();
       // We have to call the renderer method on the renderer
       renderer.render(scene, camera);
     }
