@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
+import { PaymentsComponent } from './components/payments/payments.component';
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -60,7 +61,8 @@ import { MaterialModule } from './material/material.module';
     BodyComponent,
     MotifUploadComponent,
     MotifCatalogueComponent,
-    NewPatternComponent
+    NewPatternComponent,
+    PaymentsComponent
 
   ],
 
