@@ -1,18 +1,18 @@
 <ion-grid>
-  <ion-row>
+  <ion-row class="maxHeight">
     <!-- Models Tab -->
     <ion-col size="3" class="tab-content" id="model">
       <ion-card>
         <ion-card-header>
-          <ion-button color="dark" size="medium" fill="clear" class="tab-link"
+          <ion-button color="dark" size="small" fill="clear" class="tab-link"
                       (click)="openTab($event,'model')">
-            <ion-label class="button-text">Models</ion-label>
+            <ion-label class="button-text2">Models</ion-label>
             <ion-icon name="invert-mode-outline"></ion-icon>
           </ion-button>
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+          <ion-button color="medium" size="small" fill="clear" class="tab-links"
                       (click)="openTab($event,'applyPatterns')">
-            <ion-label class="button-text">Apply Patterns</ion-label>
+            <ion-label class="button-text2">Apply Patterns</ion-label>
             <ion-icon name="eyedrop-outline" ></ion-icon>
           </ion-button>
         </ion-card-header>
@@ -23,13 +23,13 @@
     <ion-col class="tab-content" size="3" id="applyPatterns" style="display: none">
       <ion-card>
         <ion-card-header>
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
+          <ion-button color="medium" size="small" fill="clear" class="tab-link"
                       (click)="openTab($event,'model')">
             <ion-label class="button-text">Models</ion-label>
             <ion-icon name="invert-mode-outline"></ion-icon>
           </ion-button>
 
-          <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+          <ion-button color="dark" size="small" fill="clear" class="tab-links"
                       (click)="openTab($event,'applyPatterns')">
             <ion-label class="button-text">Apply Patterns</ion-label>
             <ion-icon name="eyedrop-outline" ></ion-icon>

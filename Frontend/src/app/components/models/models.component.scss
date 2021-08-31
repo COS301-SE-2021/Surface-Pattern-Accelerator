@@ -7,3 +7,37 @@ ion-grid{
   height: 100%;
   width: 100%;
 }
+
+
+.maxHeight{
+  height: 100%;
+}
+
+ion-col {
+  height: 100%;
+  --ion-grid-column-padding: 0px;
+}
+
+ion-card-content {
+  padding: 1px;
+}
+
+ion-card-header{
+  font-size: large;
+  text-align: center;
+  border-bottom: 1px solid slategray;
+  height: 50px;
+}
+
+ion-item {
+  height: 40px;
+}
+
+ion-content{
+  height: 100%;
+}
+@media screen and (max-width:1200px){
+  .button-text2 {
+    display: none;
+  }
+}
