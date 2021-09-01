@@ -48,8 +48,17 @@ export class MotifServiceService {
             })
         });
     })
+  }
+
+  getAllMotifs()
+  {
+
+      console.log("get all motifs fired!");
+      const getCollectionsURL = this.serverURL + '/api/getMotifs';
+      return this.http.get<motifsInterface>(getCollectionsURL, {withCredentials: true})
 
   }
+
 
   spawnMotifObject(motifObject: motif, canvas: fabric.Canvas)
   {
