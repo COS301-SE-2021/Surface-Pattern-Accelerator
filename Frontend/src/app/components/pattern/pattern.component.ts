@@ -529,10 +529,10 @@ export class PatternComponent implements OnInit {
       for (let j = 0; j < this.scale; j++)//columns, X
       {
         let frame = new fabric.Image('imgPreview',{
-          left: j * (this.canvasPre.width),
-          top: i * (this.canvasPre.width),
-          scaleY: this.pixel,
-          scaleX: this.pixel,
+          left: j * (this.canvasPre.width / this.scale),
+          top: i * (this.canvasPre.width / this.scale),
+          scaleY: this.pixel / this.scale,
+          scaleX: this.pixel / this.scale,
           selectable: false, //REMOVE THIS TO CREATE ACCIDENTAL PATTERN GAME :D
           evented: false
         });
@@ -897,23 +897,20 @@ export class PatternComponent implements OnInit {
   }
 
 
-  export2(){
+  export1(){
     console.log("EXPORT LOW RESOLUTION");
-    this.downWidth = this.downHeight = 1200;
-    this.pixel = 2;
+    this.pixel = 1;
     this.download();
   }
 
-  export5(){
+  export2(){
     console.log("EXPORT MEDIUM RESOLUTION");
-    this.downWidth = this.downHeight = 3000;
-    this.pixel = 5;
+    this.pixel = 2;
     this.download();
   }
-  export10(){
+  export5(){
     console.log("EXPORT HIGH RESOLUTION");
-    this.downWidth = this.downHeight = 6000;
-    this.pixel = 10;
+    this.pixel = 5;
     this.download();
   }
 
