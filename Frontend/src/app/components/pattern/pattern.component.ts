@@ -78,7 +78,7 @@ export class PatternComponent implements OnInit {
   _state: fabric.Object[][];
   width: number = 600;
   height: number = 600;
-
+  undoLimit: number = 20;
   pixel: number = 2;
   opacity: number = 1;
   color: string = "white";
@@ -118,6 +118,7 @@ export class PatternComponent implements OnInit {
     this.canvas.setHeight(this.width);
     this.canvas.setWidth(this.height);
     this.canvas.backgroundColor = null;
+    this._state = new Array<Array<fabric.Object>>(this.undoLimit);
     this._state = [];
 
     this.canvas.on("selection:created",(r) => {
@@ -172,8 +173,8 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on("object:moved" ,(r) => {
       this.addState();
+      console.log(this._state);
     })
-
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
@@ -200,14 +201,17 @@ export class PatternComponent implements OnInit {
           state.push(clone);
         })
       }
-      this._state.push(state);
+      this._state.unshift(state);
+      if(this._state.length > 20)
+        this._state.pop();
   }
 
   undo()
   {
     if(this._state.length == 0) return;
     else {
-      const state = [...(this._state.pop())];
+      const state = [...(this._state.shift())];
+      console.log(state);
       this.motifService.motifsOnCanvas = state;
       this.canvas.clear();
       this.canvas._objects = [];
@@ -216,6 +220,11 @@ export class PatternComponent implements OnInit {
       }
       this.renderAllWithSpecial(state);
     }
+  }
+
+  emptyState()
+  {
+    this._state = [];
   }
 
   collectionCataloguePopover()
