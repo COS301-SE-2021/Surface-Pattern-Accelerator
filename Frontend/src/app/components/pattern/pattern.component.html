@@ -206,10 +206,10 @@
         <ion-card-content>
           <div>
 
-            <ion-item *ngIf="this.activeObject">
-              <ion-checkbox id="seamlessModifier" (ionChange)="seamlessModifier($event)" slot="end" [checked]="(this.activeObject.hasReflections)"></ion-checkbox>
-              <ion-label> Set Seamless </ion-label>
-            </ion-item>
+<!--            <ion-item *ngIf="this.activeObject">-->
+<!--              <ion-checkbox id="seamlessModifier" (ionChange)="seamlessModifier($event)" slot="end" [checked]="(this.activeObject.hasReflections)"></ion-checkbox>-->
+<!--              <ion-label> Set Seamless </ion-label>-->
+<!--            </ion-item>-->
 
             <ion-item>
               <ion-label>Show Gridlines</ion-label>
@@ -225,10 +225,10 @@
             <ion-item>
               <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>
             </ion-item>
-            <ion-item>
-              <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>
-              <ion-label> Seamless </ion-label>
-            </ion-item>
+<!--            <ion-item>-->
+<!--              <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>-->
+<!--              <ion-label> Seamless </ion-label>-->
+<!--            </ion-item>-->
             <br>
 
           </div>
