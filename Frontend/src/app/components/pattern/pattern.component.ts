@@ -498,33 +498,25 @@ export class PatternComponent implements OnInit {
   }
 
   refresh(){
+    console.log("refresh fired");
     this.pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
     this.pcan.height = this.height / this.scale;
     this.pcan.width = this.width / this.scale;
     this.pcan.src = this.canvas.toDataURL();
+    this.setPreview(true);
   }
 
-  setPreview(){
-
-    //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
-
-
-
-    this.refresh();
-
-
+  setPreview(shouldDisplay: boolean = false){
+    console.log("set preview fired");
 
     this.canvasPre = new fabric.Canvas('previewFrame', {preserveObjectStacking: false});//set to 2nd Frame
     this.canvasPre.setHeight(this.width);
     this.canvasPre.setWidth(this.height);
 
-
-
     for (let i = 0; i < this.scale; i++)//rows, Y
     {
       for (let j = 0; j < this.scale; j++)//columns, X
       {
-
         let frame = new fabric.Image('imgPreview',{
           left: j * (this.width / this.scale),
           top: i * (this.width / this.scale),
@@ -535,48 +527,20 @@ export class PatternComponent implements OnInit {
         });
 
         this.canvasPre.add(frame);
-
       }
+
+
+    }
+    if (shouldDisplay)
+    {
+      setTimeout(()=>{
+        this.setPreview()
+      }, 50)
     }
 
-    //this.img = new fabric.Image('previewFrame');
 
-    //const canvas = (<HTMLInputElement>document.getElementById("previewFrame"));
      let can = this.canvasPre;
-     let con = can.getContext();
-     //this.canvas.renderAll();
-
-    //let con = this.canvas.getContext();
-
-     // con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
-     //
-     // for (let i = 0; i < this.scale; i++)//rows, Y
-     // {
-     //   for (let j = 0; j < this.scale; j++)//columns, X
-     //   {
-     //     con.drawImage(<CanvasImageSource><unknown>this.pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
-     //   }
-     // }
-
-    //pcan will be reflected for the preview seamlessly
-
-      // const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
-      // precan.height = this.height;
-      // precan.width = this.width;
-      //
-      // this.img = new fabric.Image('previewFrame');
-      //
-      // console.log(this.img._toSVG());//can this turn the image into an SVG???
-      //
-
-      //KEEP THIS< VERY IMPORTANT!!!!
-      // //this.img._toSVG()
-      // precan.src = this.img.getSrc();
-
-
      console.log("Preview Generated");
-
-
   }
 
   toggleBackground(e){
