@@ -20,6 +20,8 @@ import {ICollectionsContent} from "../../Interfaces/collectionContents.interface
 import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.component"
 
 import {motif} from "../../Classes/motif.class"
+import Konva from "konva";
+import pixelRatio = Konva.pixelRatio;
 
 
 @Component({
@@ -79,10 +81,18 @@ export class PatternComponent implements OnInit {
 
   pixel: number = 2;
   opacity: number = 1;
+  color: string = "white";
+  colorOrginal: string = "white";
+  background: boolean = false;
+
+  downWidth: number = null;
+  downHeight: number = null;
 
   directionSliderValue: number = 0;
   distBetweenArrayModElements: number = 200;
 
+
+  pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
 
   //saving patterns in pattern Contents interface
   patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
@@ -110,11 +120,11 @@ export class PatternComponent implements OnInit {
     this.canvas.backgroundColor = null;
 
     this.canvas.on("selection:created",(r) => {
-      this.getSelectedObject()
+      this.getSelectedObject();
     })
 
     this.canvas.on("selection:updated",(r) => {
-      this.getSelectedObject()
+      this.getSelectedObject();
     })
 
     this.canvas.on("object:moving" ,(r) => {
@@ -131,7 +141,7 @@ export class PatternComponent implements OnInit {
       if (this.activeObject.shouldDisplaySeamlessMod)
       {
         this.updateReflectionsOf(this.activeObject)
-        ;
+
         console.log("Moving Reflections")
       }
       this.updateArrModOfSelected()
@@ -150,12 +160,12 @@ export class PatternComponent implements OnInit {
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
-    this.canvasPre = new fabric.Canvas('previewFrame', { preserveObjectStacking: true });
-    this.canvasPre.setHeight(this.width);
-    this.canvasPre.setWidth(this.height);
-    this.canvasPre.backgroundColor = null;
-
-    this.img = new fabric.Image('previewFrame');
+    // this.canvasPre = new fabric.Canvas('previewFrame', { preserveObjectStacking: true });
+    // this.canvasPre.setHeight(this.width);
+    // this.canvasPre.setWidth(this.height);
+    // this.canvasPre.backgroundColor = null;
+    //
+    // this.img = new fabric.Image('previewFrame');
 
   }
 
@@ -303,6 +313,31 @@ export class PatternComponent implements OnInit {
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 
+  openTabSide($event: MouseEvent, tabPage: string) {
+    let i, tabContent, tabLinks;
+    tabContent  = document.getElementsByClassName('tab-content-side');
+    for (i = 0; i < tabContent.length; i++) {
+      tabContent[i].style.display = 'none';
+    }
+
+    document.getElementById(tabPage).style.display  = 'block';
+    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
+    //(<HTMLElement>$event.currentTarget).className  += " active";
+  }
+
+  openTabMain($event: MouseEvent, tabPage: string) {
+    this.refresh();
+    let i, tabContent, tabLinks;
+    tabContent  = document.getElementsByClassName('tab-content-main');
+    for (i = 0; i < tabContent.length; i++) {
+      tabContent[i].style.display = 'none';
+    }
+
+    document.getElementById(tabPage).style.display  = 'block';
+    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
+    //(<HTMLElement>$event.currentTarget).className  += " active";
+  }
+
 
   moveUp(objectID: number) {
     let currentObjects = this.getNonSpecialObjects();
@@ -356,6 +391,68 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  delete(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
+    for (let index = 0; index < currentObjects.length; index ++)
+    {
+      if (currentObjects[index].IDOnCanvas === objectID) {
+        this.canvas.remove(currentObjects[index]);
+        this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
+        this.renderAllWithSpecial(this.canvas._objects);
+      }
+    }
+  }
+
+  deleteRightClick(){
+    let selection = this.canvas.getActiveObject();
+    if(selection == undefined) {return;}
+    else
+    {
+      this.canvas.remove(selection);
+      this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
+      this.renderAllWithSpecial(this.canvas._objects);
+      this.dissapearContext();
+    }
+  }
+
+  flipXRightClick(){
+    (this.canvas.getActiveObject()).toggle('flipX');
+    this.canvas.renderAll();
+  }
+
+  flipYRightClick(){
+    (this.canvas.getActiveObject()).toggle('flipY');
+    this.canvas.renderAll();
+  }
+  moveUpRightClick(){
+    let object = this.canvas.getActiveObject();
+    this.moveUp(object.IDOnCanvas);
+  }
+
+  moveDownRightClick(){
+    let object = this.canvas.getActiveObject();
+    this.moveDown(object.IDOnCanvas);
+  }
+
+  cloneRightClick(){
+    let selection = this.canvas.getActiveObject();
+    if(selection == undefined) {return;}
+    else
+    {
+      selection.clone((clone)=>{
+        clone.googleDriveID = selection.googleDriveID;
+        clone.motifURL = selection.motifURL;
+        clone.motifName = selection.motifName;
+        clone.hasReflections = false;
+        clone.IDOnCanvas = this.motifService.motifIndexIncValue++;
+        clone.set('left', selection.left + 50);
+        this.canvas.add(clone);
+        this.motifService.motifsOnCanvas.push(clone);
+        this.dissapearContext();
+      })
+    }
+  }
+
 
   listCanvasObjects() {
     console.log(this.canvas.getObjects());
@@ -369,91 +466,155 @@ export class PatternComponent implements OnInit {
     console.log(this.canvas.getActiveObject().IDOnCanvas)
     console.log(this.canvas.getActiveObject().googleDriveID)
 
+
+    // console.log(this.canvas.getObjects())
+    // for (let obj in this.canvas.getObjects())
+    // {
+    //
+    //   this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj];
+    //   let shape = this.canvas.getObjects()[obj];
+    //   // shape.set('fill', 'red');
+    //   // shape.set('stroke', 'blue');
+    //   // this.canvas.renderAll();
+    //   // console.log(this.canvas.getObjects()[obj].fill);
+    // }
+
+
+
+
+    // let selectedObject = this.canvas.getActiveObject();
+    // if (selectedObject)
+    // {
+    //   for (let obj in this.motifService.motifsOnCanvas)
+    //   {
+    //     if (selectedObject.ownMatrixCache.key === this.motifService.motifsOnCanvas[obj].ownMatrixCache.key)
+    //     {
+    //       console.log("equal: " + obj);
+    //     }
+    //   }
+    //   console.log("End")
+    // }
+
   }
+
+  refresh(){
+    this.pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    this.pcan.height = this.height / this.scale;
+    this.pcan.width = this.width / this.scale;
+    this.pcan.src = this.canvas.toDataURL();
+  }
+
   setPreview(){
 
     //(<HTMLInputElement>document.getElementById('img')).src = this.canvas.toDataURL();
 
-    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
-    pcan.height = this.height / this.scale;
-    pcan.width = this.width / this.scale;
-    pcan.src = this.canvas.toDataURL();
-
-    let can = this.canvasPre;
-    let con = can.getContext();
-
-    //pcan will be reflected for the preview seamlessly
-
-    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
-
-    for (let i = 0; i < this.scale; i++)//rows, Y
-    {
-      for (let j = 0; j < this.scale; j++)//columns, X
-      {
-        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
-      }
-    }
-
-    //this.refresh();
 
 
-    const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
-    precan.height = this.height;
-    precan.width = this.width;
-    precan.src = con.canvas.toDataURL();
+    this.refresh();
 
 
 
+    this.canvasPre = new fabric.Canvas('previewFrame', {preserveObjectStacking: false});//set to 2nd Frame
+    this.canvasPre.setHeight(this.width);
+    this.canvasPre.setWidth(this.height);
 
-  }
 
-
-  refresh(){
-    const pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
-    pcan.height = this.height / this.scale;
-    pcan.width = this.width / this.scale;
-    pcan.src = this.canvas.toDataURL();
-
-    let can = this.canvasPre;
-    let con = can.getContext();
-
-    //pcan will be reflected for the preview seamlessly
-
-    con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
 
     for (let i = 0; i < this.scale; i++)//rows, Y
     {
       for (let j = 0; j < this.scale; j++)//columns, X
       {
 
-        con.drawImage(<CanvasImageSource><unknown>pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+        let frame = new fabric.Image('imgPreview',{
+          left: j * (this.width / this.scale),
+          top: i * (this.width / this.scale),
+          scaleY: 1 / this.scale,
+          scaleX: 1 / this.scale,
+          selectable: false, //REMOVE THIS TO CREATE ACCIDENTAL PATTERN GAME :D
+          evented: false
+        });
+
+        this.canvasPre.add(frame);
+
       }
     }
-    console.log("Preview Generated");
+
+    //this.img = new fabric.Image('previewFrame');
+
+    //const canvas = (<HTMLInputElement>document.getElementById("previewFrame"));
+     let can = this.canvasPre;
+     let con = can.getContext();
+     //this.canvas.renderAll();
+
+    //let con = this.canvas.getContext();
+
+     // con.clearRect(0, 0, this.canvas.width, this.canvas.height);//clear context
+     //
+     // for (let i = 0; i < this.scale; i++)//rows, Y
+     // {
+     //   for (let j = 0; j < this.scale; j++)//columns, X
+     //   {
+     //     con.drawImage(<CanvasImageSource><unknown>this.pcan, j * (this.width / this.scale) , i * (this.height / this.scale) , (this.width / this.scale) , (this.height / this.scale));
+     //   }
+     // }
+
+    //pcan will be reflected for the preview seamlessly
+
+      // const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
+      // precan.height = this.height;
+      // precan.width = this.width;
+      //
+      // this.img = new fabric.Image('previewFrame');
+      //
+      // console.log(this.img._toSVG());//can this turn the image into an SVG???
+      //
+
+      //KEEP THIS< VERY IMPORTANT!!!!
+      // //this.img._toSVG()
+      // precan.src = this.img.getSrc();
 
 
-
+     console.log("Preview Generated");
 
 
   }
-
-
 
   toggleBackground(e){
     if(e.detail.checked)
     {
       console.log("background enabled");
-      this.canvas.backgroundColor = "white";
-      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = "white";
+      this.background = true;
+      this.canvas.backgroundColor = this.color;
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
       this.canvas.renderAll();
     }
     else{
+      this.background = false;
       this.canvas.backgroundColor = null;
       (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = null;
       this.canvas.renderAll();
     }
     this.canvas.requestRenderAll();
     this.setPreview();
+  }
+
+  changeColor(){
+    if(this.background === true)
+    {
+      //get color from input color
+      const color	= (<HTMLInputElement>document.getElementById('fav_color')).value;
+      this.color = color;
+
+      this.canvas.backgroundColor = this.color;
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
+      this.canvas.renderAll();
+      this.setPreview();//refresh preview
+    }
+    else{
+      this.setPreview();//refresh preview
+      return;
+    }
+
   }
 
 
@@ -510,7 +671,7 @@ export class PatternComponent implements OnInit {
       reflection.set("left", parent.left + leftOffset);
       reflection.set("selectable", false);
       reflection.set("evented", false);
-      reflection.set("opacity", 0.3);
+      reflection.set("opacity", this.opacity);
       tempReflection = reflection;
     })
     return tempReflection;
@@ -524,7 +685,7 @@ export class PatternComponent implements OnInit {
     {
       if (tempAllObjects[i].IDOnCanvas > -1)
       {
-        nonSpecialObjects.push(tempAllObjects[i])
+        nonSpecialObjects.push(tempAllObjects[i]);
       }
     }
     return nonSpecialObjects;
@@ -685,4 +846,55 @@ export class PatternComponent implements OnInit {
     this.canvas.renderAll()
     console.log(this.directionSliderValue)
   }
+
+  download(){
+    console.log("downloading");
+    this.setPreview();
+
+
+    const context = this.canvasPre.getContext();
+
+    //scale up canvas
+    //this.canvasPre.width = this.canvasPre.width * this.pixel;
+    //this.canvasPre.height = this.canvasPre.height * this.pixel;
+
+    //scale up context
+    //context.scale(this.pixel, this.pixel); //200%, 500%, 1000%
+
+
+    const dataURL = this.canvasPre.toDataURL();
+
+    this.downloadURI(dataURL, 'pattern.png');
+  }
+
+  downloadURI(uri, name) {
+    const link = document.createElement('a');
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    //delete this.link;
+
+    this.setPreview();//REFRESH AFTER DOWNLOAD
+  }
+
+
+  export2(){
+    console.log("EXPORT LOW RESOLUTION");
+    this.downWidth = this.downHeight = 1200;
+    this.download();
+  }
+
+  export5(){
+    console.log("EXPORT MEDIUM RESOLUTION");
+    this.downWidth = this.downHeight = 3000;
+    this.download();
+  }
+  export10(){
+    console.log("EXPORT HIGH RESOLUTION");
+    this.downWidth = this.downHeight = 6000;
+    this.download();
+  }
+
 }

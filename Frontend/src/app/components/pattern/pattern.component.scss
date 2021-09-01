@@ -30,13 +30,57 @@ ion-content{
 }
 .layerMotif{
   height: 2cm;
-
 }
 
 ion-grid{
   height: 100%;
   width: 100%;
 }
+
+
+//IDS
+
+#preview {
+  position: relative;
+  top: 2px;
+  right: 2px;
+  width: 600px;
+  height: 600px;
+  border: 1px solid grey;
+  background-color: lightgray;
+  display:none;
+  margin: 5px;
+}
+
+#patternFrame{
+  background-color: white;
+}
+
+
+#can{
+  border: solid black 3px;
+  width: 600px;
+  height: 600px;
+  margin: 15px;
+  background-color: white;
+}
+#container{
+  background-color: white;
+  border: solid black 3px;
+  text-align : center;
+}
+
+#inv{
+  display: none;
+}
+
+#save{
+  display: none;
+}
+
+
+//CLASSES
+
 .customContext{
   position: fixed;
   background: #111;
@@ -61,10 +105,6 @@ ion-grid{
   background: #111111;
   color: dodgerblue;
 }
-
-//ion-row{
-//  height: 100%;
-//}
 
 .maxHeight{
   height: 100%;
@@ -134,31 +174,6 @@ $dot-space: 15px;
 }
 
 
-#patternFrame{
-  background-color: white;
-}
-
-
-.frame {
-  width: 608px;//included borders
-  height: 608px;//included borders
-  margin: 0px auto;
-  border: 4px solid grey;
-}
-
-#can{
-  border: solid black 3px;
-  width: 600px;
-  height: 600px;
-  margin: 15px;
-  background-color: white;
-}
-#container{
-  background-color: white;
-  border: solid black 3px;
-  text-align : center;
-}
-
 .workArea{
   //margin-left: 280px;
   //background-color: aqua;
@@ -181,16 +196,11 @@ $dot-space: 15px;
   margin: 15px;
 }
 
-#preview {
-  position: relative;
-  top: 2px;
-  right: 2px;
-  width: 600px;
-  height: 600px;
-  border: 1px solid grey;
-  background-color: lightgray;
-  display:none;
-  margin: 5px;
+.frame {
+  width: 608px;//included borders
+  height: 608px;//included borders
+  margin: 0px auto;
+  border: 4px solid grey;
 }
 
 .layerNumbers{
