@@ -559,7 +559,7 @@ export class PatternComponent implements OnInit {
       this.canvas.renderAll();
     }
     this.canvas.requestRenderAll();
-    this.setPreview();
+    this.refresh();
   }
 
   changeColor(){
@@ -572,10 +572,10 @@ export class PatternComponent implements OnInit {
       this.canvas.backgroundColor = this.color;
       (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
       this.canvas.renderAll();
-      this.setPreview();//refresh preview
+      this.refresh();//refresh preview
     }
     else{
-      this.setPreview();//refresh preview
+      this.refresh();//refresh preview
       return;
     }
 
@@ -613,17 +613,17 @@ export class PatternComponent implements OnInit {
   }
   scaleCanvas3(){
     this.scale = 3;
-    this.setPreview();
+    this.refresh();
   }
 
   scaleCanvas6(){
     this.scale = 6;
-    this.setPreview();
+    this.refresh();
   }
 
   scaleCanvas9(){
     this.scale = 9;
-    this.setPreview();
+    this.refresh();
   }
 
 
@@ -813,7 +813,7 @@ export class PatternComponent implements OnInit {
 
   download(){
     console.log("downloading");
-    this.setPreview();
+    this.refresh();
 
 
     const context = this.canvasPre.getContext();
@@ -840,24 +840,27 @@ export class PatternComponent implements OnInit {
     document.body.removeChild(link);
     //delete this.link;
 
-    this.setPreview();//REFRESH AFTER DOWNLOAD
+    this.refresh();//REFRESH AFTER DOWNLOAD
   }
 
 
   export2(){
     console.log("EXPORT LOW RESOLUTION");
     this.downWidth = this.downHeight = 1200;
+    this.pixel = 2;
     this.download();
   }
 
   export5(){
     console.log("EXPORT MEDIUM RESOLUTION");
     this.downWidth = this.downHeight = 3000;
+    this.pixel = 5;
     this.download();
   }
   export10(){
     console.log("EXPORT HIGH RESOLUTION");
     this.downWidth = this.downHeight = 6000;
+    this.pixel = 10;
     this.download();
   }
 
