@@ -514,6 +514,51 @@ export class PatternComponent implements OnInit {
     this.setPreview(true);
   }
 
+
+  setDownload(shouldDisplay: boolean = false){
+    console.log("downloading image...");
+
+    this.canvasPre = new fabric.Canvas('previewFrame', {preserveObjectStacking: false});//set to 2nd Frame
+    this.canvasPre.setHeight(this.width * this.pixel);
+    this.canvasPre.setWidth(this.height * this.pixel);
+
+    //alert(this.canvasPre.getWidth());//TESTING VALUE, seems good
+
+    for (let i = 0; i < this.scale; i++)//rows, Y
+    {
+      for (let j = 0; j < this.scale; j++)//columns, X
+      {
+        let frame = new fabric.Image('imgPreview',{
+          left: j * (this.canvasPre.width),
+          top: i * (this.canvasPre.width),
+          scaleY: this.pixel,
+          scaleX: this.pixel,
+          selectable: false, //REMOVE THIS TO CREATE ACCIDENTAL PATTERN GAME :D
+          evented: false
+        });
+
+        this.canvasPre.add(frame);
+      }
+
+
+    }
+    if (shouldDisplay)
+    {
+      setTimeout(()=>{
+        this.setPreview()
+      }, 50)
+    }
+
+
+    let can = this.canvasPre;
+
+
+
+
+  }
+
+
+
   setPreview(shouldDisplay: boolean = false){
     console.log("set preview fired");
 
@@ -821,8 +866,8 @@ export class PatternComponent implements OnInit {
 
   download(){
     console.log("downloading");
-    this.refresh();
-
+    //this.refresh();
+    this.setDownload();
 
     const context = this.canvasPre.getContext();
 
