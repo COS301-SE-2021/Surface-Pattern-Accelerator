@@ -513,8 +513,6 @@ export class PatternComponent implements OnInit {
       if (userObjects[userObj].IDOnCanvas > -1)
       {
         this.decideRenderOrder(userObjects[userObj], objectsToRender, userObjects[userObj].shouldDisplaySeamlessMod);
-
-        //objectsToRender.push(userObjects[userObj]);
       }
     }
     this.canvas._objects = objectsToRender;
