@@ -179,7 +179,7 @@ export class GoogleApiFunctions {
                     drive.files.list({
                         // q: "mimeType='image/svg+xml'",
                         q: FILE_ID,
-                        pageSize: 10,
+                        // pageSize: 10,
                         fields: "nextPageToken, files(id, name)",
                     }, (err, res) => {
                         if (err) { return console.log("The API returned an error: " + err); }

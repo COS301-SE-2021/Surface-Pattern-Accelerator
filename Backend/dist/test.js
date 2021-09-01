@@ -211,6 +211,7 @@ app.post("/api/newCollection", (req, res) => {
                     motifsFolderID: motifFolderDetails.fileID,
                     patternsFolderID: patternFolderDetails.fileID,
                     childPatterns: [] = [],
+                    childMotifs: [],
                     story: "a story here",
                     colorThemes: [] = []
                 };
