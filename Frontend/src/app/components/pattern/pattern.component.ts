@@ -75,7 +75,7 @@ export class PatternComponent implements OnInit {
   seamlessClones: fabric.Object[] = [];
   motifCount: number = 0;
   scale: number = 6;
-
+  _state: fabric.Object[][];
   width: number = 600;
   height: number = 600;
 
@@ -118,6 +118,7 @@ export class PatternComponent implements OnInit {
     this.canvas.setHeight(this.width);
     this.canvas.setWidth(this.height);
     this.canvas.backgroundColor = null;
+    this._state = [];
 
     this.canvas.on("selection:created",(r) => {
       this.getSelectedObject();
@@ -157,6 +158,22 @@ export class PatternComponent implements OnInit {
       this.updateArrModOfSelected();
     })
 
+    this.canvas.on("object:rotated" ,(r) => {
+      this.addState();
+    })
+
+    this.canvas.on("object:scaled" ,(r) => {
+      this.addState();
+    })
+
+    this.canvas.on("object:removed" ,(r) => {
+      this.addState();
+    })
+
+    this.canvas.on("object:moved" ,(r) => {
+      this.addState();
+    })
+
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
 
@@ -167,6 +184,38 @@ export class PatternComponent implements OnInit {
     //
     // this.img = new fabric.Image('previewFrame');
 
+  }
+
+  addState()
+  {
+      let state : fabric.Object[] = [];
+      let motifs = this.getNonSpecialObjects();
+      for( let i = 0 ; i < this.getNonSpecialObjects().length ; i++ ){
+        motifs[i].clone((clone)=>{
+          clone.googleDriveID =  motifs[i].googleDriveID;
+          clone.motifURL =  motifs[i].motifURL;
+          clone.motifName =  motifs[i].motifName;
+          clone.IDOnCanvas = motifs[i].IDOnCanvas;
+          clone.hasReflections = false;
+          state.push(clone);
+        })
+      }
+      this._state.push(state);
+  }
+
+  undo()
+  {
+    if(this._state.length == 0) return;
+    else {
+      const state = [...(this._state.pop())];
+      this.motifService.motifsOnCanvas = state;
+      this.canvas.clear();
+      this.canvas._objects = [];
+      for(let i = 0 ; i < state.length ; i++){
+        this.canvas.add(state[i]);
+      }
+      this.renderAllWithSpecial(state);
+    }
   }
 
   collectionCataloguePopover()
@@ -348,6 +397,7 @@ export class PatternComponent implements OnInit {
 
 
   moveUp(objectID: number) {
+    this.addState();
     let currentObjects = this.getNonSpecialObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
@@ -375,6 +425,7 @@ export class PatternComponent implements OnInit {
   }
 
   moveDown(objectID: number) {
+    this.addState();
     let currentObjects = this.getNonSpecialObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
