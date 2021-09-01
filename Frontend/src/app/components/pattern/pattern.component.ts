@@ -326,7 +326,15 @@ export class PatternComponent implements OnInit {
   }
 
   openTabMain($event: MouseEvent, tabPage: string) {
+
+    //Background preselected on, for better viewing of pattern
+    this.background = true;
+    this.canvas.backgroundColor = this.color;
+    (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
+    this.canvas.renderAll();
     this.refresh();
+
+
     let i, tabContent, tabLinks;
     tabContent  = document.getElementsByClassName('tab-content-main');
     for (i = 0; i < tabContent.length; i++) {
