@@ -77,6 +77,9 @@ export class PatternComponent implements OnInit {
   width: number = 600;
   height: number = 600;
 
+  pixel: number = 2;
+  opacity: number = 1;
+
   directionSliderValue: number = 0;
   distBetweenArrayModElements: number = 200;
 
@@ -199,13 +202,24 @@ export class PatternComponent implements OnInit {
   @ViewChild('menu') menu!:ElementRef;
   contextMenu(e){
     e.preventDefault();
-    if(this.selected != undefined)
+    console.log(e);
+    if( this.canvas.getActiveObjects().length == 1 )
     {
       this.menu.nativeElement.style.display = "block";
-      this.menu.nativeElement.style.top = e.pageY + "px";
+      if(e.pageY > 600)
+        this.menu.nativeElement.style.top = "600px";
+      else
+        this.menu.nativeElement.style.top = e.pageY + "px";
       this.menu.nativeElement.style.left = e.pageX + "px"
     }
 
+  }
+
+  dissapearContext(){
+    this.menu.nativeElement.style.display = "none";
+  }
+  stopPropagation(e){
+    e.stopPropagation(e);
   }
 
   //This functions spawns the motifs on the canvas, its called from the HTML
@@ -382,6 +396,15 @@ export class PatternComponent implements OnInit {
 
     //this.refresh();
 
+
+    const precan = (<HTMLInputElement>document.getElementById("imgPattern"));//canvas preview
+    precan.height = this.height;
+    precan.width = this.width;
+    precan.src = con.canvas.toDataURL();
+
+
+
+
   }
 
 
@@ -463,6 +486,21 @@ export class PatternComponent implements OnInit {
       this.reflectionCreator(objectToAddTo, +this.canvasWidth, -this.canvasHeight)
     ]
   }
+  scaleCanvas3(){
+    this.scale = 3;
+    this.setPreview();
+  }
+
+  scaleCanvas6(){
+    this.scale = 6;
+    this.setPreview();
+  }
+
+  scaleCanvas9(){
+    this.scale = 9;
+    this.setPreview();
+  }
+
 
   reflectionCreator(parent: fabric.Object, topOffset: number, leftOffset: number)
   {

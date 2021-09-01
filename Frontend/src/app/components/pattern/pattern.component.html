@@ -88,8 +88,17 @@
               <ion-card-content style="overflow-y:scroll;">
 
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
-                <div class="frame">
+                <div class="frame" (contextmenu)="contextMenu($event)" (click)="dissapearContext();">
                   <canvas id="patternFrame" width="600px" height="600px"></canvas>
+                </div>
+                <div #menu class="customContext" (click)="stopPropagation($event)">
+                  <ul>
+                    <li (click)="flipXRightClick()">FlipX</li>
+                    <li (click)="flipYRightClick()">FlipY</li>
+                    <li (click)="deleteRightClick()">Delete</li>
+                    <li (click)="moveUpRightClick()" >Move Up</li>
+                    <li (click)="moveDownRightClick()" >Move Down</li>
+                  </ul>
                 </div>
 
                 <br>
@@ -155,14 +164,21 @@
             <ion-item>
               <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>
             </ion-item>
+            <ion-item>
+              <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>
+              <ion-label> Seamless </ion-label>
+            </ion-item>
 
           </div>
 
-<!--          <ion-list>-->
-<!--            <ion-list-header>-->
-<!--              <ion-title style="text-align:center">Layers</ion-title>-->
-<!--            </ion-list-header>-->
-<!--          </ion-list>-->
+          <ion-list>
+            <ion-list-header>
+              <ion-title style="text-align:center">Modifiers</ion-title>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>New Layer</ion-label>
+            </ion-item>
+          </ion-list>
 
           <div class="layerNumbers">
             <div class="layerBorder">
@@ -240,7 +256,11 @@
           </ion-item>
 
 
-
+          <ion-item>
+            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
+            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
+            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
+          </ion-item>
 <!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>-->
 <!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>-->
 <!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>-->
