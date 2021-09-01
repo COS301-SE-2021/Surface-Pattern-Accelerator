@@ -70,14 +70,6 @@ ion-grid{
   text-align : center;
 }
 
-#inv{
-  display: none;
-}
-
-#save{
-  display: none;
-}
-
 
 //CLASSES
 
@@ -202,6 +194,11 @@ $dot-space: 15px;
   margin: 0px auto;
   border: 4px solid grey;
 }
+
+.inv{
+  display: none;
+}
+
 
 .layerNumbers{
   border: solid grey 1px;

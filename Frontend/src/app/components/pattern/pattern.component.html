@@ -81,8 +81,6 @@
 
 
         </ion-row>
-<!--        <ion-card style="width: 100%">-->
-<!--          <ion-card-content style="width: 100%">-->
 
 
           <ion-col size="12" class="tab-content-main" id="WorkArea">
@@ -125,22 +123,6 @@
 
                 <br>
 
-<!--                <div class="frame">-->
-<!--                  <canvas id="previewFrame" width="600px" height="600px"></canvas>-->
-<!--                </div>-->
-
-<!--                <br>-->
-
-<!--                <div class="frame" id="inv">-->
-<!--                  <img id='imgPreview'/>-->
-<!--                </div>-->
-
-<!--                <br>-->
-
-<!--                <div class="frame">-->
-<!--                  <img id='imgPattern'/>-->
-<!--                </div>-->
-
                </ion-card-content>
             </ion-card>
 
@@ -166,7 +148,7 @@
 
               <ion-card-content style="overflow-y:scroll;">
 
-                <div class="frame" id="inv">
+                <div class="frame inv">
                   <img id='imgPreview'/>
                 </div>
 
@@ -176,7 +158,7 @@
                 </div>
                 <br>
 
-                <div class="frame" id="save">
+                <div class="frame inv">
                   <img id='imgPattern'/>
                 </div>
 
@@ -284,12 +266,12 @@
           </ion-list>
 
           <ion-item>
-            <ion-button id="pre" color="medium" style="width:100%;" (click)="setPreview()" >Refresh Preview</ion-button>
+            <ion-button id="pre" color="medium" style="width:100%;" (click)="refresh()" >Refresh Preview</ion-button>
           </ion-item>
 
           <ion-item>
             <ion-label>Enable Background</ion-label>
-            <ion-checkbox (ionChange)="toggleBackground($event)"></ion-checkbox>
+            <ion-checkbox (ionChange)="toggleBackground($event)" checked="true"></ion-checkbox>
           </ion-item>
 
           <form>
@@ -327,9 +309,7 @@
            <ion-button color="medium" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
            <ion-button color="medium" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
           </ion-item>
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>-->
+
           <ion-item *ngIf="this.activeObject">
             <ion-checkbox id="seamlessModifier" (ionChange)="setSeamlessModifier($event)" slot="end" [(ngModel)]="this.activeObject.shouldDisplaySeamlessMod"></ion-checkbox>
             <ion-label> Set Seamless </ion-label>
