@@ -7,6 +7,8 @@ import {motif} from "../Classes/motif.class";
 import {motifBodyInterface} from "../Interfaces/motifBodyInterface";
 import {fabric} from 'fabric'
 import {IPatternContentsInterface} from "../Interfaces/patternContents.interface";
+import {PatternService} from "./pattern.service";
+import {IMotifStateInterface} from "../Interfaces/motifDetails.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -15,40 +17,66 @@ export class MotifServiceService {
 
   private serverURL = 'http://localhost:3000';
   motifIndexIncValue: number = 0;
-  motifs?: motifsInterface;
+  //motifs?: motifsInterface;
   cachedMotifs: motif[] = []; //created at startup, clones are made of motif objects in this array and then added to canvas
   //motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
   motifsOnCanvas: fabric.Object[] = [];
 
   constructor(private http: HttpClient, private gLoginService: GLoginService) { }
 
-  getMotifs()//: Observable< motifsInterface>
+  getMotifs(collectionMotifs: motifBodyInterface[])//: Observable< motifsInterface>
   {
+    this.cachedMotifs = [];
     let cachePromiseArray: Promise<any>[] = [];
     return new Promise((accept, reject) => {
       console.log("get motifs fired!");
-      const getCollectionsURL = this.serverURL + '/api/getMotifs';
-      this.http.get<motifsInterface>(getCollectionsURL, {withCredentials: true})
-        .subscribe(motifs =>
+
+      console.log(collectionMotifs)
+      for (let mot in collectionMotifs)
+      {
+        if(collectionMotifs.hasOwnProperty(mot))
         {
-          this.motifs = motifs
-          for (let mot in this.motifs.motifDetails)
-          {
-            if(motifs.motifDetails.hasOwnProperty(mot))
-            {
-              //let svgPathPromise = this.getSVGPaths(this.motifs.motifDetails[mot]);
-              this.cachedMotifs.push(new motif(this.motifs.motifDetails[mot].motifLink,this.motifs.motifDetails[mot].motifID, this.motifs.motifDetails[mot].motifName));
-              let cachePromise = this.cachedMotifs[mot].cacheSVGInMemory();
-              cachePromiseArray.push(cachePromise);
-            }
-          }
-          Promise.all(cachePromiseArray)
-            .then(() => {
-              accept({text: "successfully fetched all motifs"});
-            })
-        });
+          //let svgPathPromise = this.getSVGPaths(this.motifs.motifDetails[mot]);
+          this.cachedMotifs.push(new motif(collectionMotifs[mot].motifLink,collectionMotifs[mot].motifID, collectionMotifs[mot].motifName));
+          let cachePromise = this.cachedMotifs[mot].cacheSVGInMemory();
+          cachePromiseArray.push(cachePromise);
+        }
+      }
+      Promise.all(cachePromiseArray)
+        .then(() => {
+          accept({text: "successfully fetched all motifs"});
+        })
+
     })
   }
+
+  // getMotifs()//: Observable< motifsInterface>
+  // {
+  //   let cachePromiseArray: Promise<any>[] = [];
+  //   return new Promise((accept, reject) => {
+  //     console.log("get motifs fired!");
+  //     const getCollectionsURL = this.serverURL + '/api/getMotifs';
+  //     this.http.get<motifsInterface>(getCollectionsURL, {withCredentials: true})
+  //       .subscribe(motifs =>
+  //       {
+  //         this.motifs = motifs
+  //         for (let mot in this.motifs.motifDetails)
+  //         {
+  //           if(motifs.motifDetails.hasOwnProperty(mot))
+  //           {
+  //             //let svgPathPromise = this.getSVGPaths(this.motifs.motifDetails[mot]);
+  //             this.cachedMotifs.push(new motif(this.motifs.motifDetails[mot].motifLink,this.motifs.motifDetails[mot].motifID, this.motifs.motifDetails[mot].motifName));
+  //             let cachePromise = this.cachedMotifs[mot].cacheSVGInMemory();
+  //             cachePromiseArray.push(cachePromise);
+  //           }
+  //         }
+  //         Promise.all(cachePromiseArray)
+  //           .then(() => {
+  //             accept({text: "successfully fetched all motifs"});
+  //           })
+  //       });
+  //   })
+  // }
 
   getAllMotifs()
   {
@@ -135,7 +163,7 @@ export class MotifServiceService {
   //deletes all data stored in this service to have it clean for the next collection
   purgeContent()
   {
-    this.motifs = {motifDetails: []} as motifsInterface;
+    //this.motifs = {motifDetails: []} as motifsInterface;
     this.cachedMotifs = [];
     //this.motifsOnCanvas = {objects: []};
   }

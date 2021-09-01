@@ -34,13 +34,17 @@ export class PatternService {
   {
     console.log("getCollectionJSON fired! fileID is: " + fileID);
 
-    return this.http.post(this.serverAPIURL + '/getFileByID',
+    this.http.post(this.serverAPIURL + '/getFileByID',
       { fileID: fileID },
       {withCredentials: true
       }).subscribe(fileContent => {
         console.log(fileContent);
         this.currentCollection = fileContent as ICollectionsContent;
         console.log(this.currentCollection);
+        this.motifService.getMotifs(this.currentCollection.childMotifs)
+          .then(() => {
+            console.log("All motifs loaded");
+          })
         return fileContent;
     });
   }
@@ -94,6 +98,17 @@ export class PatternService {
         console.log(this.currentCollection);
       }
   }
+
+  updateCurrentCollection()
+  {
+    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+      { fileID: this.currentCollection["collectionID"], content: JSON.stringify(this.currentCollection) },
+      {withCredentials: true
+      }).subscribe(collectionUpdateResult => {
+      console.log(collectionUpdateResult) //prints
+    })
+  }
+
 
   savePattern() {
     this.motifSaveStates = [];

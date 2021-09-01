@@ -111,9 +111,10 @@ export class PatternComponent implements OnInit {
     //gets the requested Collections ID in the path
     this.route.params.subscribe(params => {
       this.patternService.getCurrentCollectionJSON(params['collectionID']);
+      //this.getMotifs();
     })
 
-    this.getMotifs();
+
     this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true });
     this.canvas.setHeight(this.width);
     this.canvas.setWidth(this.height);
@@ -198,12 +199,12 @@ export class PatternComponent implements OnInit {
 
   getMotifs(): void
   {
-    this.motifService.getMotifs()
-      .then((motifs ) => {
-        console.log(motifs )
-        console.log("All motifs loaded"); //load motifs can be called here in the future when a pattern gets automatically selected
-        this.patternService.onPatternChange(this.patternService.selectedPatternID, this.canvas);
-      }) //load motifs
+    // this.motifService.getMotifs(this.patternContents.motifs)
+    //   .then((motifs ) => {
+    //     console.log(motifs )
+    //     console.log("All motifs loaded"); //load motifs can be called here in the future when a pattern gets automatically selected
+    //     this.patternService.onPatternChange(this.patternService.selectedPatternID, this.canvas);
+    //   }) //load motifs
 
   }
 
