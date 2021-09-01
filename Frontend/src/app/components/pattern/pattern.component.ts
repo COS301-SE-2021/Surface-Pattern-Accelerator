@@ -20,8 +20,6 @@ import {ICollectionsContent} from "../../Interfaces/collectionContents.interface
 import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.component"
 
 import {motif} from "../../Classes/motif.class"
-import Konva from "konva";
-import pixelRatio = Konva.pixelRatio;
 
 
 @Component({
@@ -645,6 +643,7 @@ export class PatternComponent implements OnInit {
 
 
     }
+    //ATTENTION: DO NOT TOUCH THE BELOW
     if (shouldDisplay)
     {
       setTimeout(()=>{
