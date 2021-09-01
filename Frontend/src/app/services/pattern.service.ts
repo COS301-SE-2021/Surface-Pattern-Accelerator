@@ -124,6 +124,7 @@ export class PatternService {
       {withCredentials: true
       }).subscribe(patternUpdateResult => {
       console.log(patternUpdateResult) //prints
+      alert("Pattern Frame Saved Successfully");
     })
     console.log(this.patternContents);
   }
