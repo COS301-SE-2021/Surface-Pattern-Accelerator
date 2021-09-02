@@ -460,6 +460,16 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  makeSelected(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
+    for (let index = 0; index < currentObjects.length; index++) {
+      if (currentObjects[index].IDOnCanvas === objectID) {
+        this.canvas.setActiveObject(currentObjects[index]);
+        this.canvas.renderAll();
+      }
+    }
+  }
+
   delete(objectID: number) {
     let currentObjects = this.getNonSpecialObjects();
     for (let index = 0; index < currentObjects.length; index ++)
@@ -522,6 +532,15 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  recenter(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
+    for (let index = 0; index < currentObjects.length; index++) {
+      if (currentObjects[index].IDOnCanvas === objectID) {
+        currentObjects[index].center();
+        this.canvas.fire("object:moving");
+      }
+    }
+  }
 
   listCanvasObjects() {
     console.log(this.canvas.getObjects());
