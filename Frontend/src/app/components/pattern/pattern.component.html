@@ -112,12 +112,12 @@
                 </div>
                 <div #menu class="customContext" (click)="stopPropagation($event)">
                   <ul>
-                    <li (click)="flipXRightClick()">FlipX</li>
-                    <li (click)="flipYRightClick()">FlipY</li>
+                    <li (click)="cloneRightClick()" >Clone</li>
                     <li (click)="deleteRightClick()">Delete</li>
                     <li (click)="moveUpRightClick()" >Move Up</li>
                     <li (click)="moveDownRightClick()" >Move Down</li>
-                    <li (click)="cloneRightClick()" >Clone</li>
+                    <li (click)="flipXRightClick()">FlipX</li>
+                    <li (click)="flipYRightClick()">FlipY</li>
                   </ul>
                 </div>
 
@@ -153,13 +153,13 @@
                 </div>
 
                 <br>
-                <div class="frame" style="object-fit:contain">
-                  <canvas id="previewFrame" width="600px" height="600px" style="object-fit:contain"></canvas>
+                <div class="frame">
+                  <canvas id="previewFrame" width="600px" height="600px"></canvas>
                 </div>
                 <br>
 
                 <div class="frame inv">
-                  <img id='imgPattern'/>
+                  <img style="object-fit:cover; vertical-align: bottom;" id='imgPattern'/>
                 </div>
 
               </ion-card-content>

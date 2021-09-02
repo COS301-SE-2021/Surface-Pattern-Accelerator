@@ -624,16 +624,16 @@ export class PatternComponent implements OnInit {
     console.log("set preview fired");
 
     this.canvasPre = new fabric.Canvas('previewFrame', {preserveObjectStacking: false});//set to 2nd Frame
-    this.canvasPre.setHeight(this.width);
-    this.canvasPre.setWidth(this.height);
+    this.canvasPre.setHeight(this.height);//3000 pixels
+    this.canvasPre.setWidth(this.width);//3000 pixels
 
     for (let i = 0; i < this.scale; i++)//rows, Y
     {
       for (let j = 0; j < this.scale; j++)//columns, X
       {
         let frame = new fabric.Image('imgPreview',{
-          left: j * (this.width / this.scale),
-          top: i * (this.width / this.scale),
+          left: j * (this.canvasPre.width / this.scale),
+          top: i * (this.canvasPre.height / this.scale),
           scaleY: 1 / this.scale,
           scaleX: 1 / this.scale,
           selectable: false, //REMOVE THIS TO CREATE ACCIDENTAL PATTERN GAME :D
@@ -652,8 +652,19 @@ export class PatternComponent implements OnInit {
       }, 50)
     }
 
+    // const context = this.canvasPre.getContext();//get context of 3000x3000 canvas
+    //
+    //  const img = (<HTMLInputElement>document.getElementById("imgPattern"));//img quality test
+    //  img.width = this.canvasPre.width;
+    //  img.height = this.canvasPre.height;
+    //  img.src = this.canvasPre.toDataURL();
 
-     let can = this.canvasPre;
+
+    //context.scale(0.2,0.2);//scale down
+
+
+
+     //let can = this.canvasPre;
      console.log("Preview Generated");
   }
 
