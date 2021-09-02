@@ -539,6 +539,7 @@ export class PatternComponent implements OnInit {
     let currentObjects = this.getNonSpecialObjects();
     let index = this.getMotifIndex(objectID);
     currentObjects[index].center();
+    this.makeSelected(index);
     this.canvas.fire("object:moving");
   }
 
