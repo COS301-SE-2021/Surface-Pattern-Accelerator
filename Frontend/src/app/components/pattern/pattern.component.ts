@@ -74,7 +74,7 @@ export class PatternComponent implements OnInit {
   canvasMotifs: fabric.Object[] = [];
   seamlessClones: fabric.Object[] = [];
   motifCount: number = 0;
-  scale: number = 6;
+  scale: number = 3;
   _state: fabric.Object[][];
   width: number = 600;
   height: number = 600;
@@ -84,6 +84,7 @@ export class PatternComponent implements OnInit {
   color: string = "white";
   colorOrginal: string = "white";
   background: boolean = false;
+  ptn: boolean = false;
 
   downWidth: number = null;
   downHeight: number = null;
@@ -576,6 +577,13 @@ export class PatternComponent implements OnInit {
   }
 
 
+  toggleExport()
+  {
+
+  }
+
+
+
   setDownload(shouldDisplay: boolean = false){
     console.log("downloading image...");
 
@@ -738,16 +746,40 @@ export class PatternComponent implements OnInit {
   }
   scaleCanvas3(){
     this.scale = 3;
+
+    const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
+    btn.color = "dark";
+    const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
+    btn1.color = "medium";
+    const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
+    btn2.color = "medium";
+
     this.refresh();
   }
 
   scaleCanvas6(){
     this.scale = 6;
+
+    const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
+    btn.color = "medium";
+    const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
+    btn1.color = "dark";
+    const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
+    btn2.color = "medium";
+
     this.refresh();
   }
 
   scaleCanvas9(){
     this.scale = 9;
+
+    const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
+    btn.color = "medium";
+    const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
+    btn1.color = "medium";
+    const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
+    btn2.color = "dark";
+
     this.refresh();
   }
 
@@ -953,7 +985,17 @@ export class PatternComponent implements OnInit {
 
     const dataURL = this.canvasPre.toDataURL();
 
-    this.downloadURI(dataURL, 'pattern.png');
+
+
+    if(this.ptn)
+    {
+      this.downloadURI(dataURL, 'pattern.png');
+    }
+    else{
+      this.downloadURI(dataURL, 'frame.png');
+    }
+
+
   }
 
   downloadURI(uri, name) {
@@ -972,17 +1014,51 @@ export class PatternComponent implements OnInit {
   export1(){
     console.log("EXPORT LOW RESOLUTION");
     this.pixel = 1;
-    this.download();
+    const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
+    btn.color = "dark";
+    const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
+    btn1.color = "medium";
+    const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
+    btn2.color = "medium";
+
+    //this.download();
   }
 
   export2(){
     console.log("EXPORT MEDIUM RESOLUTION");
     this.pixel = 2;
-    this.download();
+
+    const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
+    btn.color = "medium";
+    const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
+    btn1.color = "dark";
+    const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
+    btn2.color = "medium";
+    //this.download();
   }
   export5(){
     console.log("EXPORT HIGH RESOLUTION");
     this.pixel = 5;
+
+    const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
+    btn.color = "medium";
+    const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
+    btn1.color = "medium";
+    const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
+    btn2.color = "dark";
+    //this.download();
+  }
+
+  frame(){
+    const scl = this.scale;//save state of scale
+    this.scale = 1;
+    this.ptn = false;//for the name of image
+    this.download();
+    this.scale = scl;//reset to prev state
+  }
+
+  pattern(){
+    this.ptn = true;//for the name of image
     this.download();
   }
 
