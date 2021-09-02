@@ -461,16 +461,29 @@ export class PatternComponent implements OnInit {
     }
   }
 
-  delete(objectID: number) {
+  getMotifIndex(objectID: number){
     let currentObjects = this.getNonSpecialObjects();
-    for (let index = 0; index < currentObjects.length; index ++)
-    {
+    for (let index = 0; index < currentObjects.length; index++) {
       if (currentObjects[index].IDOnCanvas === objectID) {
-        this.canvas.remove(currentObjects[index]);
-        this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
-        this.renderAllWithSpecial(this.canvas._objects);
+        return index;
       }
     }
+  }
+
+  makeSelected(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
+    let index = this.getMotifIndex(objectID);
+    this.canvas.setActiveObject(currentObjects[index]);
+    this.canvas.renderAll();
+  }
+
+  delete(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
+    let index = this.getMotifIndex(objectID);
+    this.canvas.remove(currentObjects[index]);
+    this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
+    this.renderAllWithSpecial(this.canvas._objects);
+
   }
 
   deleteRightClick(){
@@ -523,6 +536,13 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  recenter(objectID: number) {
+    let currentObjects = this.getNonSpecialObjects();
+    let index = this.getMotifIndex(objectID);
+    currentObjects[index].center();
+    this.makeSelected(index);
+    this.canvas.fire("object:moving");
+  }
 
   listCanvasObjects() {
     console.log(this.canvas.getObjects());
