@@ -52,12 +52,19 @@ export class MotifUploadComponent implements OnInit {
             .subscribe(response => {
               console.log(response)
               loaderResult.dismiss().then();
+
+              //refresh page?
+              //location.reload()
+
+
             })
         })
       })
 
 
     }
+
+
 
   }
 }
