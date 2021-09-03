@@ -50,22 +50,25 @@
   <br>
   <br>
   <ion-card id="menu">
-
     <ion-card-header>Icon import</ion-card-header>
+<div>
+  <input type="file" (change)="selectFiles($event); previewImage($event)" id="uploadImage" name="file" accept=".svg" multiple>
+</div>
+      <div>
+        <div *ngFor="let file of files" class="blockWraper">
+          <div class="imgBlock" >
+            <img class="uploadPreview" style="width: 100px; height: 100px;" />
+            <div id="motifName" >
+              {{file.name}}
+            </div>
+            <button>Change Name</button>
+          </div>
+          </div>
 
-    <ion-list>
-
-      <ion-item>
-        <input type="file" (change)="selectFiles($event)" name="file" accept=".svg" multiple>
-      </ion-item>
-
+      </div>
       <ion-item>
         <ion-button (click)="uploadFiles()" color="medium">Upload</ion-button>
         <ion-button color="medium">Cancel</ion-button>
       </ion-item>
-
-
-    </ion-list>
-
   </ion-card>
 </ion-content>
