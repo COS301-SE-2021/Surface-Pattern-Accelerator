@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // ThreeJS
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 @Component({
   selector: 'app-models',
@@ -15,26 +15,33 @@ export class ModelsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let canvasEl = document.getElementById("artifactCanvas");
+    let canvasWidth = window.innerWidth;
+    let canvasHeight = window.innerHeight/2;
+    canvasEl.style.width = String(canvasWidth);
+    canvasEl.style.height = String(canvasHeight);
+
+
     let scene =	new THREE.Scene();
     let camera	= new THREE.PerspectiveCamera(
       75,	// Field of View
-      window.innerWidth/window.innerHeight,	// Aspect Ratio
+      canvasWidth/canvasHeight, // Aspect Ratio
       0.1,	// Near and far plane
       1000
     )
+
     // Setting the camera position
     // The smaller the value is the closer it is
     camera.position.z = 1;
-    let renderer = new THREE.WebGLRenderer({antialias: true});
-    renderer.setClearColor("#e5e5e5");	// Background color
-    renderer.setSize(window.innerWidth,window.innerHeight);
+    let renderer = new THREE.WebGLRenderer({canvas: canvasEl});
 
-    document.body.appendChild(renderer.domElement);
+    renderer.setClearColor("#e5e5e5");	// Background color
+    renderer.setSize(canvasWidth,canvasHeight);
 
     // Make the created canvas responsive
     window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth,window.innerHeight);
-      camera.aspect = window.innerWidth/window.innerHeight;
+      renderer.setSize(canvasWidth,canvasHeight);
+      camera.aspect = canvasWidth/canvasHeight;
       camera.updateProjectionMatrix();
     })
 
