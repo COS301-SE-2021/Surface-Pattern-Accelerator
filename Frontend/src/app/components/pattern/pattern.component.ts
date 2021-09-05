@@ -67,6 +67,7 @@ export class PatternComponent implements OnInit {
 
   canvas?: fabric.Canvas;
   canvasPre?: fabric.Canvas;
+  path?: fabric.Path;
   img?: fabric.Image;
   motifSaveStates: IMotifStateInterface[] = [];
   motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
@@ -186,6 +187,33 @@ export class PatternComponent implements OnInit {
     // this.canvasPre.backgroundColor = null;
     //
     // this.img = new fabric.Image('previewFrame');
+
+
+    let journey = "";
+    let padding = 30;
+  //X LINES
+    for(let i = 1; i < (padding);i++)
+    {
+      journey = journey + "M 0 " + (i * (this.canvas.height / padding)) + "L "+ (this.canvas.width) + " " + (i * (this.canvas.width / padding)) + " ";
+    }
+  //Y LINES
+    for(let j = 1; j < (padding);j++)
+    {
+      journey = journey + "M " + (j * (this.canvas.width / padding)) + " 0 L " + (j * (this.canvas.width / padding)) + " " + (this.canvas.height) + " ";
+    }
+
+    this.path = new fabric.Path(journey, {
+        stroke: "black",
+        strokeWidth: 2,
+        selectable: false,
+        evented: false,
+        name: "grid",
+        opacity: 0.3
+      });
+
+
+
+
 
   }
 
@@ -695,6 +723,30 @@ export class PatternComponent implements OnInit {
      //let can = this.canvasPre;
      console.log("Preview Generated");
   }
+
+
+
+  gridOn(){
+    this.canvas.add(this.path);
+  }
+
+  gridOff(){
+    this.canvas.remove(this.path);
+  }
+
+  toggleGrid(e)
+  {
+    if(e.detail.checked)
+    {
+      this.gridOn();
+    }
+
+    else{
+      this.gridOff();
+    }
+
+  }
+
 
   toggleBackground(e){
     if(e.detail.checked)
