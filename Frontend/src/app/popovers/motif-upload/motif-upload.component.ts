@@ -4,6 +4,7 @@ import {HttpEventType, HttpResponse} from "@angular/common/http";
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
+import {motif} from "../../Classes/motif.class";
 
 
 
@@ -22,12 +23,29 @@ export class MotifUploadComponent implements OnInit {
 
   }
 
+  previewImage(e) {
+    let motifs = document.getElementsByClassName("uploadPreview");
+    let length = (<HTMLInputElement>document.getElementById("uploadImage")).files.length;
+    for (let i = 0; i < length; i++) {
+      let oFReader = new FileReader();
+      if (e.target)
+        oFReader.readAsDataURL((<HTMLInputElement>document.getElementById("uploadImage")).files[i]);
+        console.log(((<HTMLInputElement>document.getElementById("uploadImage")).files));
+
+         oFReader.onload = function (oFREvent) {
+
+        (<HTMLImageElement>motifs[i]).src = <string>oFREvent.target.result;
+      };
+    }
+  }
 
 
   selectFiles(event: any)
   {
     console.log("Files Selected");
+
     this.files = event.target.files;
+    console.log(this.files);
   }
 
   uploadFiles() {
@@ -52,12 +70,19 @@ export class MotifUploadComponent implements OnInit {
             .subscribe(response => {
               console.log(response)
               loaderResult.dismiss().then();
+
+              //refresh page?
+              //location.reload()
+
+
             })
         })
       })
 
 
     }
+
+
 
   }
 }

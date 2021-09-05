@@ -44,6 +44,31 @@
 <!--  </div>-->
 <!--</form>-->
 
-<input type="file" (change)="selectFiles($event)" name="file" accept=".svg" multiple>
-<ion-button (click)="uploadFiles()">Upload</ion-button>
-<ion-button>Cancel</ion-button>
+
+<ion-content>
+  <br>
+  <br>
+  <br>
+  <ion-card id="menu">
+    <ion-card-header>Icon import</ion-card-header>
+<div>
+  <input type="file" (change)="selectFiles($event); previewImage($event)" id="uploadImage" name="file" accept=".svg" multiple>
+</div>
+      <div>
+        <div *ngFor="let file of files" class="blockWraper">
+          <div class="imgBlock" >
+            <img class="uploadPreview" style="width: 100px; height: 100px;" />
+            <div id="motifName" >
+              {{file.name}}
+            </div>
+            <button>Change Name</button>
+          </div>
+          </div>
+
+      </div>
+      <ion-item>
+        <ion-button (click)="uploadFiles()" color="medium">Upload</ion-button>
+        <ion-button color="medium">Cancel</ion-button>
+      </ion-item>
+  </ion-card>
+</ion-content>

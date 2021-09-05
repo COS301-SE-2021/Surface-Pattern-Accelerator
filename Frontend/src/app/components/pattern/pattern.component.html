@@ -112,12 +112,12 @@
                 </div>
                 <div #menu class="customContext" (click)="stopPropagation($event)">
                   <ul>
-                    <li (click)="flipXRightClick()">FlipX</li>
-                    <li (click)="flipYRightClick()">FlipY</li>
+                    <li (click)="cloneRightClick()" >Clone</li>
                     <li (click)="deleteRightClick()">Delete</li>
                     <li (click)="moveUpRightClick()" >Move Up</li>
                     <li (click)="moveDownRightClick()" >Move Down</li>
-                    <li (click)="cloneRightClick()" >Clone</li>
+                    <li (click)="flipXRightClick()">FlipX</li>
+                    <li (click)="flipYRightClick()">FlipY</li>
                   </ul>
                 </div>
 
@@ -153,13 +153,13 @@
                 </div>
 
                 <br>
-                <div class="frame" style="object-fit:contain">
-                  <canvas id="previewFrame" width="600px" height="600px" style="object-fit:contain"></canvas>
+                <div class="frame">
+                  <canvas id="previewFrame" width="600px" height="600px"></canvas>
                 </div>
                 <br>
 
                 <div class="frame inv">
-                  <img id='imgPattern'/>
+                  <img style="object-fit:cover; vertical-align: bottom;" id='imgPattern'/>
                 </div>
 
               </ion-card-content>
@@ -184,6 +184,14 @@
               <ion-label class="button-text">Modifiers</ion-label>
               <ion-icon name="eyedrop-outline" ></ion-icon>
             </ion-button>
+
+            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                        (click)="openTabSide($event,'Exports')">
+              <ion-label class="button-text">Exports</ion-label>
+              <ion-icon name="archive-outline"></ion-icon>
+            </ion-button>
+
+
           </ion-card-header>
         <ion-card-content>
           <div>
@@ -192,6 +200,13 @@
 <!--              <ion-checkbox id="seamlessModifier" (ionChange)="seamlessModifier($event)" slot="end" [checked]="(this.activeObject.hasReflections)"></ion-checkbox>-->
 <!--              <ion-label> Set Seamless </ion-label>-->
 <!--            </ion-item>-->
+
+            <ion-list>
+              <ion-list-header>
+                <ion-title style="text-align:center;">Layers</ion-title>
+              </ion-list-header>
+            </ion-list>
+
 
             <ion-item>
               <ion-label>Show Gridlines</ion-label>
@@ -227,13 +242,14 @@
 
               <div *ngIf="this.motifService.motifsOnCanvas" >
                 <div *ngFor="let motif of this.motifService.motifsOnCanvas.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
-                  <div class="MotifImage2">
+                  <div class="MotifImage2" (click)="makeSelected(motif.IDOnCanvas)">
                     <div class="layerBlock" style="background-color: #949494; padding: 10px">
-                      <img src= "{{motif.motifURL}}" alt="motif-image" class="layerMotif">
+                      <img src= "{{motif.motifURL}}" alt="motif-image" class="layerMotif" >
                     </div>
-                      <ion-button (click)="moveUp(motif.IDOnCanvas)">MoveUp</ion-button>
-                      <ion-button (click)="moveDown(motif.IDOnCanvas)">MoveDown</ion-button>
-                      <ion-button (click)="delete(motif.IDOnCanvas)">Delete</ion-button>
+                      <ion-button color="medium" (click)="moveUp(motif.IDOnCanvas)">MoveUp</ion-button>
+                      <ion-button color="medium" (click)="moveDown(motif.IDOnCanvas)">MoveDown</ion-button>
+                      <ion-button color="medium" (click)="delete(motif.IDOnCanvas)">Delete</ion-button>
+                    <ion-button color="medium" (click)="recenter(motif.IDOnCanvas)">Recenter</ion-button>
                     <br>
                   </div >
                 </div>
@@ -248,14 +264,22 @@
     <ion-col size="2.5" class="tab-content-side" id="Changes">
       <ion-card>
         <ion-card-header>
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link" (click)="openTabSide($event,'Modifiers')">
+          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
+                      (click)="openTabSide($event,'Modifiers')">
             <ion-label class="button-text">Layers</ion-label>
             <ion-icon name="invert-mode-outline"></ion-icon>
           </ion-button>
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links" (click)="openTabSide($event,'Changes')" id="Changes1">
+          <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Changes')" id="Changes1">
             <ion-label class="button-text">Modifiers</ion-label>
             <ion-icon name="eyedrop-outline" ></ion-icon>
+          </ion-button>
+
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Exports')">
+            <ion-label class="button-text">Exports</ion-label>
+            <ion-icon name="archive-outline"></ion-icon>
           </ion-button>
         </ion-card-header>
         <ion-card-content>
@@ -288,15 +312,7 @@
           <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>-->
           <!--          </ion-item>-->
 
-          <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Select Export Dimension options: </ion-label>
-          </ion-item>
 
-          <ion-item>
-            <ion-button color="medium" style="width:100%;" (click)="export1()">600x600</ion-button>
-            <ion-button color="medium" style="width:100%;" (click)="export2()">1200x1200</ion-button>
-            <ion-button color="medium" style="width:100%;" (click)="export5()">3000x3000</ion-button>
-          </ion-item>
 
 
           <ion-item>
@@ -305,9 +321,9 @@
 
 
           <ion-item>
-           <ion-button color="medium" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
-           <ion-button color="medium" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
-           <ion-button color="medium" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
+           <ion-button id="s3" color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
+           <ion-button id="s6" color="medium" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
+           <ion-button id="s9" color="medium" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
           </ion-item>
 
           <ion-item *ngIf="this.activeObject">
@@ -317,20 +333,20 @@
 
           <ion-item *ngIf="this.activeObject">
             <ion-badge>{{directionSliderValue}}</ion-badge>
-            <ion-range min="0" max="359" color="secondary" [(ngModel)]="directionSliderValue" (ionChange)="updateArrModOfSelected()">
+            <ion-range min="0" max="359" color="medium" [(ngModel)]="directionSliderValue" (ionChange)="updateArrModOfSelected()">
               <ion-label slot="start">0</ion-label>
               <ion-label slot="end">359</ion-label>
             </ion-range>
           </ion-item>
 
 
-          <ion-item *ngIf="this.activeObject">
-            <ion-button (click)="changeArrayModifierNumber(1, distBetweenArrayModElements)">Add</ion-button>
-            <ion-button (click)="changeArrayModifierNumber(-1, distBetweenArrayModElements)">Remove</ion-button>
+          <ion-item *ngIf="this.activeObject" style="text-align: center">
+            <ion-button (click)="changeArrayModifierNumber(1, distBetweenArrayModElements)" color="medium">Add</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(-1, distBetweenArrayModElements)" color="medium">Remove</ion-button>
             {{this.activeObject.nrOfArrayObjects}}
           </ion-item>
 
-          <ion-input type="number" value=distBetweenArrayModElements [(ngModel)]="distBetweenArrayModElements" (ionChange)="updateArrModOfSelected()"></ion-input>
+          <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="distBetweenArrayModElements" (ionChange)="updateArrModOfSelected()"></ion-input>
 
 
 
@@ -348,6 +364,62 @@
         </ion-card-content>
       </ion-card>
     </ion-col>
+
+    <ion-col size="2.5" class="tab-content-side" id="Exports">
+      <ion-card>
+        <ion-card-header>
+          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
+                      (click)="openTabSide($event,'Modifiers')">
+            <ion-label class="button-text">Layers</ion-label>
+            <ion-icon name="invert-mode-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Changes')">
+            <ion-label class="button-text">Modifiers</ion-label>
+            <ion-icon name="eyedrop-outline" ></ion-icon>
+          </ion-button>
+
+          <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Exports')" id="Exports1">
+            <ion-label class="button-text">Exports</ion-label>
+            <ion-icon name="archive-outline"></ion-icon>
+          </ion-button>
+        </ion-card-header>
+
+        <ion-card-content>
+
+          <ion-list>
+            <ion-list-header>
+              <ion-title style="text-align:center;">Exports</ion-title>
+            </ion-list-header>
+          </ion-list>
+
+          <ion-item>
+            <ion-label style="margin: auto; text-align:center;">Select Export Dimension options: </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-button id="e1" color="medium" style="width:100%;" (click)="export1()">600x600</ion-button>
+            <ion-button id="e2" color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>
+            <ion-button id="e5" color="medium" style="width:100%;" (click)="export5()">3000x3000</ion-button>
+          </ion-item>
+
+          <ion-item>
+            <ion-label style="margin: auto; text-align:center;">Select what to export: </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-button id="patternDown" color="medium" style="width:100%;" (click)="pattern()">Pattern</ion-button>
+            <ion-button id="frameDown" color="medium" style="width:100%;" (click)="frame()">Frame</ion-button>
+          </ion-item>
+
+        </ion-card-content>
+
+      </ion-card>
+
+    </ion-col>
+
   </ion-row>
 </ion-grid>
 
