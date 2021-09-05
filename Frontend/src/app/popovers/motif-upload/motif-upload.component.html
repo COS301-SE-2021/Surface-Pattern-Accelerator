@@ -55,13 +55,13 @@
   <input type="file" (change)="selectFiles($event); previewImage($event)" id="uploadImage" name="file" accept=".svg" multiple>
 </div>
       <div>
-        <div *ngFor="let file of files" class="blockWraper">
+        <div *ngFor="let file of files; index as i" class="blockWraper" >
           <div class="imgBlock" >
             <img class="uploadPreview" style="width: 100px; height: 100px;" />
-            <div id="motifName" >
-              {{file.name}}
-            </div>
-            <button>Change Name</button>
+<!--            <div id="motifName" >-->
+<!--              {{file.name}}-->
+<!--            </div>-->
+            <ion-input value="{{file.name}}" [(ngModel)]="fileNames[i]"></ion-input>
           </div>
           </div>
 

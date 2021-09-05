@@ -48,10 +48,10 @@ index b2e51d1..0000000
 -# Credits
 -These definitions were written by [Oliver Klemencic](https://github.com/oklemencic), [Joseph Livecchi](https://github.com/joewashear007), [Michael Randolph](https://github.com/mrand01), [Tiger Oakes](https://github.com/NotWoods), [Brian Martinson](https://github.com/bmartinson), [Rogerio Teixeira](https://github.com/RogerioTeixeira), [Bradley Hill](https://github.com/BradleyHill), [Bryan Krol](https://github.com/bmkrol823), [Glenn Gartner](https://github.com/glenngartner), [Codertx](https://github.com/codertx), [Mike Moore](https://github.com/mike667), [Natalie Marleny](https://github.com/nataliemarleny), and [Cody Brooks](https://github.com/buzzyboy).
 diff --git a/node_modules/@types/fabric/fabric-impl.d.ts b/node_modules/@types/fabric/fabric-impl.d.ts
-index 0141c6d..da8cd4e 100644
+index 0141c6d..5f03284 100644
 --- a/node_modules/@types/fabric/fabric-impl.d.ts
 +++ b/node_modules/@types/fabric/fabric-impl.d.ts
-@@ -3161,6 +3161,21 @@ export class Object {
+@@ -3161,6 +3161,23 @@ export class Object {
          mtr?: boolean | undefined;
      };
  
@@ -69,6 +69,8 @@ index 0141c6d..da8cd4e 100644
 +  nrOfArrayObjects: number;
 +
 +  shouldDisplayArrayMod: Boolean;
++  ArrayModDirection: number;
++  ArrayModSpacing: number;
 +
      controls: { [key: string]: Control };
  

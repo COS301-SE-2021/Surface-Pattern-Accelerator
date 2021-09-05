@@ -312,6 +312,7 @@ app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
             const uploadPromisesArray: any[] = [];
             for (const file in files) {
                 if (files.hasOwnProperty(file)) { // complains if its just "file"
+
                     const filePath = "./uploads/" + files[file].filename;
                     console.log(filePath);
                     if (fs.existsSync(filePath)) {

@@ -118,6 +118,10 @@ ion-card-header{
   height: 50px;
 }
 
+.noIonCardHeader{
+border-bottom: 0px;
+}
+
 ion-item {
   height: 40px;
 }
@@ -134,14 +138,14 @@ ion-item {
   vertical-align:middle;
 }
 .MotifImage{
-  width: 43%;
+  width: 45%;
   height: 4cm;
   //background-color: black;
   text-align: center;
   //padding :50px;
   margin-top: 5px;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
   border: solid black 1px;
   display: flex;
   align-items: center;

@@ -26,19 +26,28 @@
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
                   <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
-                    <ion-row>
-                      <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-                    </ion-row>
-                    <ion-row>
+                    <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                    <ion-card-header class="noIonCardHeader">
+
                       <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
-                    </ion-row>
-
-
-                     <!-- variable name is not unresolved, ignore -->
+                    </ion-card-header>
                   </div>
                 </ion-card>
               </div>
             </ion-row>
+<!--          <ion-row id=""testing>-->
+<!--            <div *ngIf="motifService.cachedMotifs" style="overflow: hidden; text-align: center;" #parent>-->
+<!--              <ion-card *ngFor="let motif of motifService.cachedMotifs" text-wrap style="margin: 20px" class="motifBlock">-->
+<!--                <button class="buttonUnselected" mat-raised-button (click)="this.motifService.spawnMotifObject(motif, this.canvas);">-->
+<!--                  <img src={{motif.motifURL}} class="image">-->
+<!--                  <ion-card-header>-->
+<!--                    <ion-card-title >{{motif.motifName}}</ion-card-title>-->
+<!--                  </ion-card-header>-->
+<!--                </button>-->
+<!--              </ion-card>-->
+<!--            </div>-->
+<!--          </ion-row>-->
+
 
 
 <!--          <ion-row>-->
