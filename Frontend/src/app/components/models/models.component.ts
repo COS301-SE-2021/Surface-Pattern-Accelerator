@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// THREEJS
+// THREE JS
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+// Attempts at implementing Orbit Controls
+//import { OrbitControls } from '../../../assets/jsLibraries/OrbitControls';
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 @Component({
@@ -12,9 +14,15 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 
 export class ModelsComponent implements OnInit {
+
+  scene : THREE.Scene;
+  camera : THREE.PerspectiveCamera;
+
   constructor() {}
 
   ngOnInit() {
+    // Beginning of Implementation Code
+
     // Canvas
     let canvasEl = document.getElementById("artifactCanvas");
 
@@ -26,15 +34,20 @@ export class ModelsComponent implements OnInit {
 
     // Scene
     let scene =	new THREE.Scene();
+    this.scene = scene; // For use in a separate function
 
     // Camera
-    let camera	= new THREE.PerspectiveCamera(75,canvasWidth/canvasHeight,0.1, 1000)
+    let camera	= new THREE.PerspectiveCamera(75,canvasWidth/canvasHeight,0.1, 1000);
+    this.camera = camera; // For use in a separate function
     camera.position.z = 1; // The smaller the value is, the closer to the model
 
     // Renderer
     let renderer = new THREE.WebGLRenderer({canvas: canvasEl});
     renderer.setClearColor("#e5e5e5");	// Background color
     renderer.setSize(canvasWidth,canvasHeight);
+
+    // Controls
+    //let controls = new THREE.OrbitControls( camera, renderer.domElement );
 
     // Responsiveness
     window.addEventListener('resize', () => {
@@ -54,15 +67,32 @@ export class ModelsComponent implements OnInit {
     // Load 3D MODEL
     let loader = new GLTFLoader();
     let obj;
-    loader.load('../assets/3DModels/book/scene.gltf', function(gltf) {
-    obj = gltf.scene;
-    scene.add(gltf.scene);
+    loader.load('../assets/3DModels/book/scene.gltf', async function (gltf) {
+      obj = gltf.scene;
+
+      // Texture
+      const textureLoader = new THREE.TextureLoader();
+      //let texturePath = '../assets/wonderland.jpg';
+      let texturePath = '../assets/pattern-preview.png';
+      let texture = await textureLoader.loadAsync(texturePath);
+      texture.flipY = false;
+
+      // Update model
+      obj.traverse((o) => {
+        if (o.isMesh) {
+          o.material.map = texture;
+          o.material.needsUpdate = true;
+        }
+      });
+
+      //scene.add(gltf.scene);
+      scene.add(obj);
     });
 
     // Light
     let light = new THREE.PointLight(0xFFFFFF,1,500);
     light.position.set(10,0,25);
-    scene.add(light);
+    this.scene.add(light);
 
     // Animation
     let render = function () {
@@ -72,6 +102,7 @@ export class ModelsComponent implements OnInit {
         obj.rotation.x += 0.01;
         obj.rotation.y += 0.01;
       }
+      //controls.update()
       renderer.render(scene, camera);
     }
 
