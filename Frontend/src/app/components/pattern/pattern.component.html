@@ -332,8 +332,8 @@
           </ion-item>
 
           <ion-item *ngIf="this.activeObject">
-            <ion-badge>{{directionSliderValue}}</ion-badge>
-            <ion-range min="0" max="359" color="medium" [(ngModel)]="directionSliderValue" (ionChange)="updateArrModOfSelected()">
+            <ion-badge>{{this.activeObject.ArrayModDirection}}</ion-badge>
+            <ion-range min="0" max="359" color="medium" [(ngModel)]="this.activeObject.ArrayModDirection" (ionChange)="updateArrModOfSelected()">
               <ion-label slot="start">0</ion-label>
               <ion-label slot="end">359</ion-label>
             </ion-range>
@@ -341,12 +341,15 @@
 
 
           <ion-item *ngIf="this.activeObject" style="text-align: center">
-            <ion-button (click)="changeArrayModifierNumber(1, distBetweenArrayModElements)" color="medium">Add</ion-button>
-            <ion-button (click)="changeArrayModifierNumber(-1, distBetweenArrayModElements)" color="medium">Remove</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(1, this.activeObject.ArrayModSpacing)" color="medium">Add</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(-1, this.activeObject.ArrayModSpacing)" color="medium">Remove</ion-button>
             {{this.activeObject.nrOfArrayObjects}}
           </ion-item>
 
-          <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="distBetweenArrayModElements" (ionChange)="updateArrModOfSelected()"></ion-input>
+          <div *ngIf="this.activeObject">
+            <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="this.activeObject.ArrayModSpacing" (ionChange)="updateArrModOfSelected()"></ion-input>
+
+          </div>
 
 
 

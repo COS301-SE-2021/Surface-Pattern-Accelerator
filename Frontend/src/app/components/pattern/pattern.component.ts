@@ -936,6 +936,9 @@ export class PatternComponent implements OnInit {
       this.activeObject.nrOfArrayObjects = 0;
       this.activeObject.arrayModifierElements = []; //initialize array
     }
+
+
+
     //makes so the nr of array modifier elements cant be negative
     if (!(this.activeObject.nrOfArrayObjects == 0 && num < 0))
     {
@@ -966,7 +969,7 @@ export class PatternComponent implements OnInit {
   calculatePositionFromDirection(distance: number, objIndex: number)
   {
     const tempDist = distance * objIndex;
-    const tempSlideVal = this.toRadians( this.directionSliderValue - 180);
+    const tempSlideVal = this.toRadians( this.activeObject.ArrayModDirection - 180);
     const y = tempDist * Math.sin(tempSlideVal)
     const x = tempDist * Math.sin(1.5708 - tempSlideVal)
     return {y, x}; //return coordinates
@@ -978,7 +981,7 @@ export class PatternComponent implements OnInit {
     {
       for (let arrObj = 0; arrObj < this.activeObject.nrOfArrayObjects; arrObj++)
       {
-        const {y, x} = this.calculatePositionFromDirection(this.distBetweenArrayModElements, arrObj + 1)
+        const {y, x} = this.calculatePositionFromDirection(this.activeObject.ArrayModSpacing, arrObj + 1)
         this.arrayModUpdater(arrObj,  y, x);
       }
     }
