@@ -7,7 +7,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
-import { PaymentsComponent } from './components/payments/payments.component';
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -23,6 +22,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ColorComponent } from './components/color/color.component';
 import { MainComponent } from './components/launchpage/main/main.component';
 import { BodyComponent } from './components/launchpage/body/body.component';
+import { PaymentsComponent } from './components/payments/payments.component';
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
