@@ -22,6 +22,8 @@ import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.compon
 import {motif} from "../../Classes/motif.class"
 import Konva from "konva";
 import pixelRatio = Konva.pixelRatio;
+import {Originator} from "../../Classes/MementoDesignPattern/Originator";
+import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 
 
 @Component({
@@ -76,7 +78,6 @@ export class PatternComponent implements OnInit {
   seamlessClones: fabric.Object[] = [];
   motifCount: number = 0;
   scale: number = 3;
-  _state: fabric.Object[][];
   width: number = 600;
   height: number = 600;
   undoLimit: number = 20;
@@ -92,6 +93,10 @@ export class PatternComponent implements OnInit {
 
   directionSliderValue: number = 0;
   distBetweenArrayModElements: number = 200;
+  originator : Originator = new Originator();
+  caretaker : Caretaker = new Caretaker();
+
+
 
 
   pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
@@ -121,8 +126,9 @@ export class PatternComponent implements OnInit {
     this.canvas.setHeight(this.width);
     this.canvas.setWidth(this.height);
     this.canvas.backgroundColor = null;
-    this._state = new Array<Array<fabric.Object>>(this.undoLimit);
-    this._state = [];
+    this.originator = new Originator();
+    this.caretaker = new Caretaker();
+
 
     this.canvas.on("selection:created",(r) => {
       this.getSelectedObject();
@@ -176,7 +182,6 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on("object:moved" ,(r) => {
       this.addState();
-      console.log(this._state);
     })
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
@@ -219,29 +224,30 @@ export class PatternComponent implements OnInit {
 
   addState()
   {
-      let state : fabric.Object[] = [];
-      let motifs = this.getNonSpecialObjects();
-      for( let i = 0 ; i < this.getNonSpecialObjects().length ; i++ ){
-        motifs[i].clone((clone)=>{
-          clone.googleDriveID =  motifs[i].googleDriveID;
-          clone.motifURL =  motifs[i].motifURL;
-          clone.motifName =  motifs[i].motifName;
-          clone.IDOnCanvas = motifs[i].IDOnCanvas;
-          clone.hasReflections = false;
-          state.push(clone);
-        })
-      }
-      this._state.unshift(state);
-      if(this._state.length > 20)
-        this._state.pop();
+    let state : fabric.Object[] = [];
+    let motifs = this.getNonSpecialObjects();
+    for( let i = 0 ; i < this.getNonSpecialObjects().length ; i++ ){
+      motifs[i].clone((clone)=>{
+        clone.googleDriveID =  motifs[i].googleDriveID;
+        clone.motifURL =  motifs[i].motifURL;
+        clone.motifName =  motifs[i].motifName;
+        clone.IDOnCanvas = motifs[i].IDOnCanvas;
+        clone.hasReflections = false;
+        state.push(clone);
+      })
+    }
+    this.originator.setState(state);
+    this.caretaker.addMemento(this.originator.saveStateToMemento());
+    console.log("Saved State " + state);
   }
 
   undo()
   {
-    if(this._state.length == 0) return;
+    if(this.caretaker.notEmpty() == false) return;
     else {
-      const state = [...(this._state.shift())];
+      const state = this.originator.restoreStateFromMemento(this.caretaker.getMemento())
       console.log(state);
+
       this.motifService.motifsOnCanvas = state;
       this.canvas.clear();
       this.canvas._objects = [];
@@ -254,8 +260,9 @@ export class PatternComponent implements OnInit {
 
   emptyState()
   {
-    this._state = [];
+    this.caretaker.emptyStates();
   }
+
 
   collectionCataloguePopover()
   {
