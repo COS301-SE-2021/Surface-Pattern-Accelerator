@@ -55,7 +55,7 @@ export class PaymentsComponent implements OnInit {
 
     paymentHandler.open({
       name: 'Surface Pattern Accelerator',
-      description: '3 widgets',
+      description: 'Yearly subscription',
       amount: amount * 100
     });
   }
