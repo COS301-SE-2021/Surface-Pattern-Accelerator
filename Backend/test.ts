@@ -334,6 +334,25 @@ app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
 
 });
 
+app.post("/api/uploadThumbnail", upload.array("files"), (req, res) => {
+    const files: any = req.files;
+    const gAPI = new GoogleApiFunctions();
+
+    for (const file in files) {
+        if (files.hasOwnProperty(file)) { // complains if its just "file"
+            const filePath = "./uploads/" + files[file].filename;
+            console.log(filePath);
+            if (fs.existsSync(filePath)) {
+                gAPI.uploadImage(req.session.accessToken, files[file].filename).then(() => {
+                    console.log("PNG upload successful");
+                });
+            } else {
+                console.log("Does not exist");
+            }
+        }
+    }
+});
+
 // start the Express server
 app.listen(port, () => {
         // tslint:disable-next-line:no-console

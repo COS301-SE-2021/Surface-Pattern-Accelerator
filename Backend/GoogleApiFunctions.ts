@@ -125,41 +125,6 @@ export class GoogleApiFunctions {
         return oAuth2Client;
     }
 
-    // public getCollections(token: ITokenInterface) {
-    //     const collectionsSkeleton = '{"collectionNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
-    //     const obj = JSON.parse(collectionsSkeleton);
-    //     return new Promise((success, failure) => {
-    //
-    //         const auth = this.createAuthObject(token);
-    //
-    //         const drive = google.drive({version: "v3", auth});
-    //         drive.files.list({
-    //             q: "mimeType = 'application/vnd.google-apps.folder'",
-    //             // q: "mimeType='application/json'",
-    //             spaces: "drive",
-    //             pageSize: 20,
-    //             fields: "nextPageToken, files(id, name)",
-    //         }, (err, driveRes) => {
-    //             if (err) { return console.log("The API returned an error: " + err); }
-    //             const files = driveRes.data.files;
-    //             if (files.length) {
-    //                 files.forEach((file) => {
-    //                     console.log(`${file.name} (${file.id})`);
-    //                     obj.collectionNames.push(file.name);
-    //                 });
-    //                 console.log(obj);
-    //                 success(obj);
-    //
-    //             } else {
-    //                 console.log("No files found.");
-    //                 failure(obj);
-    //             }
-    //         });
-    //     }).then( (data) => {
-    //         console.log(data);
-    //         return data;
-    //     });
-    // }
 
     public listMotifs(token: ITokenInterface) {
         const auth = this.createAuthObject(token);
@@ -251,27 +216,7 @@ export class GoogleApiFunctions {
             if (elem) {
                 const permissionPromise = this.setPermissions(token, motifDetails.motifNames[elem]);
                 permissionPromiseArray.push(permissionPromise);
-                // console.log(motifDetails.motifNames[elem]);
-                // const motifPermissionPromise = new Promise((resolve, reject) => {
-                //     try
-                //     {
-                //         const drive = google.drive({version: 'v3', auth});
-                //         drive.permissions.create({
-                //             fileId: motifDetails.motifNames[elem].motifID,
-                //             requestBody: {
-                //                 role: 'reader',
-                //                 type: 'anyone'
-                //             }
-                //         })
-                //         console.log(motifDetails.motifNames[elem]);
-                //         promiseArr.push(motifPermissionPromise);
-                //         resolve(motifDetails.motifNames[elem]);
-                //     }
-                //     catch (error) {
-                //         console.log(error.message)
-                //         reject({text: "{}"});
-                //     }
-                // })
+
             }
         }
         console.log("Permissions promise array: " + permissionPromiseArray);
@@ -293,18 +238,7 @@ export class GoogleApiFunctions {
                 fileId: motifContainer.motifID,
                 fields: "webContentLink"
             });
-                // .then(permissionSuccess => {
-                //     // console.log(permissionSuccess)
-                //     motifContainer.linkPermission = "good";
-                //     // return {text: "good"}; //the promise returns this when permission setting has been successful
-                //     return motifContainer;
-                // }).catch(permissionFailure => {
-                //     motifContainer.linkPermission = "bad";
-                //     // console.log(permissionFailure)
-                //     // return {text: "bad"}; ////the promise returns this when permission setting has been unsuccessful
-                //     return motifContainer;
-                // })
-            // console.log("the test is: " + test)
+
         } catch (error) {
             console.log(error.message);
         }
@@ -572,6 +506,47 @@ export class GoogleApiFunctions {
             };
             const media = {
                 mimeType: "image/svg+xml",
+                body: fs.createReadStream(filePath)
+            };
+
+            return drive.files.create({
+                // @ts-ignore
+                resource: fileMetadata,
+                media,
+                fields: "id"
+            });
+        }
+
+    }
+
+    public uploadImage(token: ITokenInterface, fileName: string, parentID: string = "") {
+        const auth = this.createAuthObject(token);
+        const drive = google.drive({version: "v3", auth});
+        const filePath = "./uploads/" + fileName;
+
+        if (parentID === "") {
+            const fileMetadata = {
+                name: fileName
+            };
+            const media = {
+                mimeType: "image/png",
+                body: fs.createReadStream(filePath)
+            };
+
+            return drive.files.create({
+                // @ts-ignore
+                resource: fileMetadata,
+                media,
+                fields: "id"
+            });
+        } else {
+            //Place in specific folder
+            const fileMetadata = {
+                name: fileName,
+                parents: [parentID]
+            };
+            const media = {
+                mimeType: "image/png",
                 body: fs.createReadStream(filePath)
             };
 

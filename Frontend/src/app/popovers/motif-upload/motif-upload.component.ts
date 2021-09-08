@@ -78,16 +78,9 @@ export class MotifUploadComponent implements OnInit {
               console.log(response)
               loaderResult.dismiss().then();
 
-              //refresh page?
-              //location.reload()
-
-
             })
         })
       })
-
-
     }
-
   }
 }

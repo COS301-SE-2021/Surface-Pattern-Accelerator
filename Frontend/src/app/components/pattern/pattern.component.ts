@@ -1084,4 +1084,36 @@ export class PatternComponent implements OnInit {
     this.download();
   }
 
+   dataURItoBlob(dataURI) {
+    let byteString = atob(dataURI.split(',')[1]);
+    let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    let ab = new ArrayBuffer(byteString.length);
+    let ia = new Uint8Array(ab);
+
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], {type: mimeString});
+
+
+  }
+
+  uploadThumbnail() {
+
+    try {
+      const formData = new FormData();
+      //TODO: append unique ID to file name so the server knows which files belong to which user
+      formData.append('files', this.dataURItoBlob(this.canvas.toDataURL()), "testName" + ".png")
+      this.http.post('http://localhost:3000/api/uploadMotif', formData, {withCredentials: true})
+        .subscribe(response => {
+          console.log(response)
+        })
+    }
+    catch (err)
+    {
+      console.log(err)
+    }
+
+  }
 }
