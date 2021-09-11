@@ -73,7 +73,7 @@ export class ModelsComponent implements OnInit {
       // Texture
       const textureLoader = new THREE.TextureLoader();
       //let texturePath = '../assets/wonderland.jpg';
-      let texturePath = '../assets/pattern-preview.png';
+      let texturePath = '../assets/launch.jpg';
       let texture = await textureLoader.loadAsync(texturePath);
       texture.flipY = false;
 
