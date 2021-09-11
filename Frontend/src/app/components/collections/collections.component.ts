@@ -34,27 +34,25 @@ export class CollectionsComponent implements OnInit {
       event: ev,
       translucent: true
     }).then(resPop => {
-      resPop.present().then(presentRes => {
-        return presentRes;
-      });
-    })
+      resPop.present().then(presentRes => presentRes);
+    });
   }
 
   getCollections(): void //this func gets called each time this component gets initialized
   {
     this.loadingController.create({
-      message: "Fetching collections..."
+      message: 'Fetching collections...'
     }).then(loaderResult => {
       loaderResult.present().then(r => {
         this.collectionsService.getCollections()                      //this is an asynchronous operation
           .subscribe(collections =>
           {
-            console.log(collections)
-            this.collections = collections
-            loaderResult.dismiss().then()
+            console.log(collections);
+            this.collections = collections;
+            loaderResult.dismiss().then();
           });  //Observable
-      })
-    })
+      });
+    });
 
   }
 
