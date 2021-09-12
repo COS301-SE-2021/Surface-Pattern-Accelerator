@@ -41,6 +41,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
 import { MaterialModule } from './material/material.module';
+import {StyleTransferComponent} from './components/style-transfer/style-transfer.component';
 
 
 
@@ -64,8 +65,8 @@ import { MaterialModule } from './material/material.module';
     MotifUploadComponent,
     MotifCatalogueComponent,
     NewPatternComponent,
-    ColorPaletteComponent
-
+    ColorPaletteComponent,
+    StyleTransferComponent
   ],
 
   imports: [
