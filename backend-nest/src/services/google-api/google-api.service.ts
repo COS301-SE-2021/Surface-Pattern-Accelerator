@@ -5,7 +5,8 @@ import {IFolderInterface} from "../../../BackendInterfaces/folder.interface";
 import {ICollectionsInterface} from "../../../BackendInterfaces/collections.interface";
 import {ICollectionDetailsInterface} from "../../../BackendInterfaces/collectionDetails.interface";
 import {Stream} from "stream";
-import fs from "fs";
+import * as fs from "fs";
+import {createReadStream} from "fs";
 
 
 @Injectable()
@@ -256,15 +257,16 @@ export class GoogleApiService {
     public uploadMotif(token: ITokenInterface, fileName: string, parentID: string = "") {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});
-        const filePath = "./uploads/" + fileName;
+        const filePath = "./files/" + fileName;
 
         if (parentID === "") {
+            console.log("No Parent***************************************************************************************")
             const fileMetadata = {
                 name: fileName
             };
             const media = {
                 mimeType: "image/svg+xml",
-                body: fs.createReadStream(filePath)
+                body: createReadStream(filePath)
             };
 
             return drive.files.create({
@@ -274,13 +276,14 @@ export class GoogleApiService {
                 fields: "id"
             });
         } else {
+            console.log("Has Parent***************************************************************************************")
             const fileMetadata = {
                 name: fileName,
                 parents: [parentID]
             };
             const media = {
                 mimeType: "image/svg+xml",
-                body: fs.createReadStream(filePath)
+                body: createReadStream(filePath)
             };
 
             return drive.files.create({

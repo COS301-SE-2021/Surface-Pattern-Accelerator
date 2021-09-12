@@ -578,14 +578,15 @@ let GoogleApiService = class GoogleApiService {
     uploadMotif(token, fileName, parentID = "") {
         const auth = this.createAuthObject(token);
         const drive = googleapis_1.google.drive({ version: "v3", auth });
-        const filePath = "./uploads/" + fileName;
+        const filePath = "./files/" + fileName;
         if (parentID === "") {
+            console.log("No Parent***************************************************************************************");
             const fileMetadata = {
                 name: fileName
             };
             const media = {
                 mimeType: "image/svg+xml",
-                body: fs_1.default.createReadStream(filePath)
+                body: (0, fs_1.createReadStream)(filePath)
             };
             return drive.files.create({
                 resource: fileMetadata,
@@ -594,13 +595,14 @@ let GoogleApiService = class GoogleApiService {
             });
         }
         else {
+            console.log("Has Parent***************************************************************************************");
             const fileMetadata = {
                 name: fileName,
                 parents: [parentID]
             };
             const media = {
                 mimeType: "image/svg+xml",
-                body: fs_1.default.createReadStream(filePath)
+                body: (0, fs_1.createReadStream)(filePath)
             };
             return drive.files.create({
                 resource: fileMetadata,
@@ -981,6 +983,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UploadMotifController = void 0;
 const common_1 = __webpack_require__(6);
 const google_api_service_1 = __webpack_require__(10);
+const fs = __webpack_require__(13);
 const platform_express_1 = __webpack_require__(20);
 const multer_1 = __webpack_require__(21);
 const editFileName_middleware_1 = __webpack_require__(22);
@@ -991,6 +994,31 @@ let UploadMotifController = class UploadMotifController {
     }
     uploadMotif(request, session, files) {
         console.log(files);
+        return new Promise((success, failure) => {
+            this.googleApiService.getFolderID(session.accessToken, "Motifs")
+                .then((resultMotifsID) => {
+                const motifFolderDetails = resultMotifsID;
+                const uploadPromisesArray = [];
+                for (const file in files) {
+                    if (files.hasOwnProperty(file)) {
+                        const filePath = "./files/" + files[file].filename;
+                        console.log(filePath);
+                        if (fs.existsSync(filePath)) {
+                            const uploadPromise = this.googleApiService.uploadMotif(session.accessToken, files[file].filename, motifFolderDetails.fileID);
+                            uploadPromisesArray.push(uploadPromise);
+                        }
+                        else {
+                            console.log("Does not exist");
+                        }
+                    }
+                }
+                Promise.all(uploadPromisesArray).then(() => {
+                    success({ Status: "200 - success" });
+                }).catch(() => {
+                    failure({ Status: "404 - no file found in request" });
+                });
+            });
+        });
     }
 };
 __decorate([
@@ -1136,7 +1164,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("a4afeb593b47033e1f82")
+/******/ 		__webpack_require__.h = () => ("83dbafcad3f4d188917c")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

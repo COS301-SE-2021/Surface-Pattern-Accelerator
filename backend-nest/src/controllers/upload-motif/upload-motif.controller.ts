@@ -1,6 +1,6 @@
 import {Controller, Post, Req, Session, UploadedFiles, UseInterceptors} from '@nestjs/common';
 import {GoogleApiService} from "../../services/google-api/google-api.service";
-import fs from "fs";
+import * as fs from "fs";
 import {IFolderInterface} from "../../../BackendInterfaces/folder.interface";
 import {FileInterceptor, FilesInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
@@ -26,33 +26,33 @@ export class UploadMotifController {
     {
         console.log(files)
         //const files: any = req.files;
-        // return new Promise((success, failure) => {
-        //     this.googleApiService.getFolderID(session.accessToken, "Motifs")
-        //         .then((resultMotifsID) => {
-        //             const motifFolderDetails: IFolderInterface = resultMotifsID as IFolderInterface;
-        //             const uploadPromisesArray: any[] = [];
-        //             for (const file in files) {
-        //                 if (files.hasOwnProperty(file)) { // complains if its just "file"
-        //
-        //                     const filePath = "./uploads/" + files[file].filename;
-        //                     console.log(filePath);
-        //                     if (fs.existsSync(filePath)) {
-        //                         const uploadPromise = this.googleApiService.uploadMotif(session.accessToken, files[file].filename, motifFolderDetails.fileID);
-        //                         uploadPromisesArray.push(uploadPromise);
-        //                     } else {
-        //                         console.log("Does not exist");
-        //                     }
-        //                 }
-        //
-        //             }
-        //
-        //             Promise.all(uploadPromisesArray).then(() => {
-        //                 success({Status: "200 - success"});
-        //         }).catch(() => {
-        //        fail({Status: "404 - no file found in request"});
-        //     });
-        // });
-        // })
+        return new Promise((success, failure) => {
+            this.googleApiService.getFolderID(session.accessToken, "Motifs")
+                .then((resultMotifsID) => {
+                    const motifFolderDetails: IFolderInterface = resultMotifsID as IFolderInterface;
+                    const uploadPromisesArray: any[] = [];
+                    for (const file in files) {
+                        if (files.hasOwnProperty(file)) { // complains if its just "file"
+
+                            const filePath = "./files/" + files[file].filename;
+                            console.log(filePath);
+                            if (fs.existsSync(filePath)) {
+                                const uploadPromise = this.googleApiService.uploadMotif(session.accessToken, files[file].filename, motifFolderDetails.fileID);
+                                uploadPromisesArray.push(uploadPromise);
+                            } else {
+                                console.log("Does not exist");
+                            }
+                        }
+
+                    }
+
+                    Promise.all(uploadPromisesArray).then(() => {
+                        success({Status: "200 - success"});
+                }).catch(() => {
+               failure({Status: "404 - no file found in request"});
+            });
+        });
+        })
 
 
     }
