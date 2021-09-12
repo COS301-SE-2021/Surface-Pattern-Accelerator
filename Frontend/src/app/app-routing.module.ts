@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'preview', component: PreviewComponent },
   { path: 'color', component: ColorComponent},
   { path: 'newCollection', component: NewCollectionComponent },
-  { path: 'models', component: ModelsComponent}
+  { path: 'models', component: ModelsComponent},
 ];
 
 @NgModule({

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as express from 'express';
+import * as path from 'path';
 // THREE JS
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -21,8 +23,28 @@ export class ModelsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    // Beginning of Implementation Code
 
+    //window.location.href = 'external/MODEL/index.html';
+    /*
+    const expressM  = require('express');
+    const appM  = express();
+    const path  = require('path');
+    const routerM = expressM.Router();
+
+    router.get('/',function(req,res){
+      res.sendFile(path.join(__dirname+'/index.html'));
+      //__dirname : It will resolve to your project folder.
+    });
+
+    //add the router
+    appM.use('/', routerM);
+    appM.listen(process.env.port || 3100);
+
+    console.log('Running at Port 3100');
+     */
+
+
+  /*
     // Canvas
     let canvasEl = document.getElementById("artifactCanvas");
 
@@ -107,6 +129,7 @@ export class ModelsComponent implements OnInit {
     }
 
     render();
+    */
   }
 
 
@@ -117,10 +140,6 @@ export class ModelsComponent implements OnInit {
       tabContent[i].style.display = 'none';
     }
     document.getElementById(tabPage).style.display  = 'block';
-  }
-
-  applyPattern() {
-
   }
 
 

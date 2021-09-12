@@ -14,7 +14,9 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-    "allowJs": true
+    "allowJs": true,
+    "types": [ "node" ],
+    "typeRoots": [ "../node_modules/@types" ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
