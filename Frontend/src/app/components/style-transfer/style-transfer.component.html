@@ -1,3 +1,75 @@
-<p>
-  style-transfer works!
-</p>
+<ion-content style="height: 100%">
+  <ion-grid style="height: 100%">
+    <ion-row style="height: 100%">
+      <ion-col size="9" style="height: 100%">
+        <ion-card style="height: 100%">
+
+          <ion-card-header>
+            <ion-item>
+              <ion-button id="imageUpload" color="medium"> Upload image </ion-button>
+            </ion-item>
+          </ion-card-header>
+
+          <ion-card-content style="height: 100%">
+            <ion-grid style="height: 100%">
+              <ion-row style="height: 100%">
+
+                <ion-col style="height: 100%" ><!--hidden-->
+                  <ion-card style="height: 50%">
+                    <img  alt="Content image">
+                  </ion-card>
+                  <ion-button color="medium" style="display: block; margin: auto">Process</ion-button>
+                </ion-col>
+
+                <ion-col style="height: 100%" hidden > <!--hidden-->
+                  <ion-card style="height: 50%">
+                    Result
+                  </ion-card>
+                  <ion-button color="medium" style="display: block; margin: auto">Download</ion-button>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+      <ion-col size="3" style="height: 100%">
+        <ion-card style="height: 100%">
+
+          <ion-card-header>
+            <ion-item>
+              Styles
+            </ion-item>
+          </ion-card-header>
+
+          <ion-card-content style="height: 100%">
+
+            <ion-grid style="height: 100%">
+
+              <ion-row style="height: 50%">
+                <ion-col size="12" style="height: 100%">
+                  <ion-card style="height: 70%" (click)="loadImage(style1.jpg)">
+                    Claude Monet
+                    <img alt="Claude Monet style 1" src="../../../assets/style-transfer/images/style1.jpg">
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+
+              <ion-row style="height: 50%">
+                <ion-col size="12" style="height: 100%">
+                  <ion-card style="height: 70%" (click)="loadImage(style2.jpg)">
+                    Leonid Afremov
+                    <img alt="Leonif Afremov style 2" src="../../../assets/style-transfer/images/style2.jpg">
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
