@@ -49,7 +49,8 @@ export class PaymentsComponent implements OnInit {
       locale: 'auto',
       token: function (stripeToken: any) {
         console.log(stripeToken)
-        alert('Stripe token generated!');
+        console.log("makePayment")
+        ///alert('Stripe token generated!');
       }
     });
 
@@ -72,6 +73,8 @@ export class PaymentsComponent implements OnInit {
           locale: 'auto',
           token: function (stripeToken: any) {
             console.log(stripeToken)
+            console.log("invokeStripe")
+            ///////send to the database
             alert('Payment has been successfull!');
           }
         });
