@@ -1,43 +1,52 @@
 <ion-content class="main">
-  <ion-card>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="7">
-          <div style="font-size: xx-large; padding-top: 3%"> Collections</div>
-        </ion-col>
-        <ion-col size="5">
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                  <ion-button id="redirect" style="margin-right: 50px; " (click)="navigateTo('newCollection');" color="medium">New Collection <ion-icon name="add-circle"></ion-icon></ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-searchbar></ion-searchbar>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-
-  <ion-card style="height: 85%">
-    <div *ngIf="collections" class="collections-menu">
-      <div *ngFor="let collection of collections.collections">
-        <div class="square" style="border: 1px solid gray">
-          <div class="gear">
-            <ion-button (click)="CollectionOperations($event)">
-              <ion-icon name="settings" ></ion-icon>
-            </ion-button>
+  <ion-grid >
+    <ion-row style="height: 100%">
+      <ion-col size="2">
+        <ion-card>
+          <div class="sidebar">
+            <h2>Simply Patterns</h2>
+            <ul class="sidebarList tab-content-side">
+              <li (click)="setActive('Collections')" class="active">
+                <ion-icon name="folder-open-outline"></ion-icon>
+                Collections
+              </li>
+              <li (click)="uploadFilePopover()" class="tab-links">
+                <ion-icon name="grid-outline"></ion-icon>
+                <span>My Icons</span>
+              </li>
+              <li class="tab-links">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                Help
+              </li>
+              <li class="tab-links">
+                <ion-icon name="log-in-outline"></ion-icon>
+               Sign Out
+              </li>
+<!--              <li class="tab-link"-->
+<!--                      (click)="setActive('Color')">-->
+<!--                Color Extractor-->
+<!--              </li>-->
+<!--              <li class="tab-link"-->
+<!--                      (click)="setActive('Palette')">-->
+<!--                Palette Generator-->
+<!--              </li>-->
+            </ul>
           </div>
-        </div>
-        <div class="label">
-          <a class="collections"
-             routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">
-            {{collection.collectionName}}
-          </a>
-        </div>
-      </div>
-    </div>
-  </ion-card>
+        </ion-card>
+      </ion-col>
+      <ion-col size="10"  >
+<!--        <ng-template host></ng-template>-->
+<!--        <span class="tab-content-side"> id="Collections"><app-collection-layout></app-collection-layout> </span>-->
+<!--        <span class="tab-content-side"> id="Color"><app-collor-pallet></app-collor-pallet> </span>-->
+<!--        <span class="tab-content-side"> id="Palette"><app-color></app-color> </span>-->
+        <span > <app-collection-layout></app-collection-layout> </span>
+<!--        <span *ngIf="activeComponent == 'Color'"> <app-color></app-color> </span>-->
+<!--        <span *ngIf="activeComponent == 'Palette'"> <app-collor-pallet></app-collor-pallet> </span>-->
+
+
+<!--        <div *ngIf="this.activeComponent=='colorExtractor'; else elseBlock"> <app-color></app-color></div>-->
+<!--        <ng-template #elseBlock><app-collection-layout></app-collection-layout></ng-template>-->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
