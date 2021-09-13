@@ -6,6 +6,7 @@ import {editFileName} from "../../Middleware/editFileName.middleware";
 import {imageFileFilter} from "../../Middleware/imageFileFilter.middlware";
 import {IFolderInterface} from "../../../BackendInterfaces/folder.interface";
 import * as fs from "fs";
+import {ICollectionsContent} from "../../../BackendInterfaces/collectionContents.interface";
 
 @Controller('api/savePattern')
 export class SavePatternController {
@@ -26,7 +27,8 @@ export class SavePatternController {
                 @Session() session: Record<string, any>,
                 @UploadedFiles() files,
                 @Body('patternID') patternID: string,
-                @Body('patternContent') patternContent: any)
+                @Body('patternContent') patternContent: any,
+                @Body('collectionID') collectionID: string)
     {
         return new Promise((success, failure) => {
             this.googleApiService.getFolderID(session.accessToken, "SPA-Thumbnails")
@@ -45,12 +47,24 @@ export class SavePatternController {
                                     {
                                         success({Message: "Pattern Saved"})
                                     });
+
+                                    //write to collection to set thumbnail - done after pattern is saved
+                                    let collectionContentPromise = this.googleApiService.getFileByID(session.accessToken, collectionID)
+
                                     this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
                                         .then(getLinkResult => {
-                                            console.log(getLinkResult.data.webContentLink)
+                                            collectionContentPromise
+                                            .then((collectionContent: any) => {
+                                                collectionContent.collectionThumbnail = getLinkResult.data.webContentLink;
+                                                console.log(collectionContent)
+
+                                                this.googleApiService.updateJSONFile(session.accessToken, collectionID, JSON.stringify(collectionContent))
+                                                    .then(res => {
+                                                        console.log("Thumbnail URL added and written back")
+                                                    })
+                                            })
                                         })
                                 })
-
                         } else {
                             console.log("Does not exist");
                         }

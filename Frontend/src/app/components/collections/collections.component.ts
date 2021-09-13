@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ICollectionsInterface } from '../../Interfaces/collections.interface';
+
 import { CollectionsServiceService } from '../../services/collections-service.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
-import {CollectionBasicOperationsComponent} from "../../popovers/collection-basic-operations/collection-basic-operations.component"
+import {CollectionBasicOperationsComponent} from '../../popovers/collection-basic-operations/collection-basic-operations.component';
+import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
 
 @Component({
   selector: 'app-collections',
@@ -13,8 +14,9 @@ import {CollectionBasicOperationsComponent} from "../../popovers/collection-basi
 })
 export class CollectionsComponent implements OnInit {
 
-  collections?: ICollectionsInterface; //the collections that get displayed, marked as optional
+  collections?: ICollectionsContent; //the collections that get displayed, marked as optional
 
+  // eslint-disable-next-line max-len
   constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController)
   {
 
@@ -27,6 +29,7 @@ export class CollectionsComponent implements OnInit {
     this.getCollections();
   }
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   CollectionOperations(ev: any)
   {
     this.popoverController.create({

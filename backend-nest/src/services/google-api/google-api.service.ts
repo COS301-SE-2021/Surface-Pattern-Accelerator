@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import {ITokenInterface} from "../../../BackendInterfaces/token.interface";
-import {google} from "googleapis";
+import {artifactregistry_v1beta2, google} from "googleapis";
 import {IFolderInterface} from "../../../BackendInterfaces/folder.interface";
-import {ICollectionsInterface} from "../../../BackendInterfaces/collections.interface";
-import {ICollectionDetailsInterface} from "../../../BackendInterfaces/collectionDetails.interface";
 import {Stream} from "stream";
 import * as fs from "fs";
 import {createReadStream} from "fs";
+import Schema$File = artifactregistry_v1beta2.Schema$File;
 
 
 @Injectable()
@@ -127,34 +126,42 @@ export class GoogleApiService {
                     // TODO: insert try catch if type is wrong
                     const fDetails: IFolderInterface = folderIDResult as IFolderInterface;
 
-                    console.log("The file ID is: " + fDetails.fileID);
                     const FILE_ID = "'" + fDetails.fileID + "' in parents and trashed=false";
 
                     const drive = google.drive({version: "v3", auth});
                     drive.files.list({ // gets folder content***************
                         q: FILE_ID,
-                        pageSize: 10,
                         fields: "nextPageToken, files(id, name, mimeType)",
                     }, (err, res) => {
                         if (err) {
                             return console.log("The API returned an error: " + err);
                         }
                         const files = res.data.files;
-                        const collectionsJSON: ICollectionsInterface = {collections: [] = []} as unknown as ICollectionsInterface;
+                        //const collectionsJSON: ICollectionsInterface = {collections: [] = []} as unknown as ICollectionsInterface;
                         if (files.length) {
 
                             console.log("Contents in folder:");
+                            let contentPromiseArray: Promise<void | Schema$File>[] = [];
                             files.map((file) => {
-                                console.log(`${file.name} (${file.id}) ${file.mimeType}`);
+                                //console.log(`${file.name} (${file.id}) ${file.mimeType}`);
                                 if (file.mimeType === "application/json") {
-                                    collectionsJSON.collections.push({collectionName: file.name, collectionID: file.id} as ICollectionDetailsInterface);
+                                    contentPromiseArray.push(this.getFileByID(token, file.id))
+                                    //console.log(file)
                                 }
                             });
-                            resolve(collectionsJSON);
+
+                            Promise.all(contentPromiseArray).then(fileContents => {
+
+                                resolve(fileContents);
+                            })
+
+                            //collectionsJSON.collections.push({collectionName: file.name, collectionID: file.id} as ICollectionDetailsInterface);
+
+
 
                         } else {
                             // Folder is empty
-                            resolve(collectionsJSON);
+                            resolve([]);
                             console.log("Collections folder is empty");
                         }
                     });
@@ -230,10 +237,10 @@ export class GoogleApiService {
                 fileId: fileID,
                 media
             }).then((result) => {
-                console.log(result);
+                //console.log(result);
                 return {text: "JSON file updated successfully"};
             }).catch((error) => {
-                console.log(error);
+                //console.log(error);
                 return {text: "Error Updating JSON file"};
             });
         } else { // if file should be renamed
@@ -244,10 +251,10 @@ export class GoogleApiService {
                 resource: body,
                 media
             }).then((result) => {
-                console.log(result);
+                //console.log(result);
                 return {text: "JSON file updated successfully"};
             }).catch((error) => {
-                console.log(error);
+                //console.log(error);
                 return {text: "Error Updating JSON file"};
             });
         }

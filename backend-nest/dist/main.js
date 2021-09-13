@@ -469,31 +469,30 @@ let GoogleApiService = class GoogleApiService {
             this.getFolderID(token, "Collections")
                 .then((folderIDResult) => {
                 const fDetails = folderIDResult;
-                console.log("The file ID is: " + fDetails.fileID);
                 const FILE_ID = "'" + fDetails.fileID + "' in parents and trashed=false";
                 const drive = googleapis_1.google.drive({ version: "v3", auth });
                 drive.files.list({
                     q: FILE_ID,
-                    pageSize: 10,
                     fields: "nextPageToken, files(id, name, mimeType)",
                 }, (err, res) => {
                     if (err) {
                         return console.log("The API returned an error: " + err);
                     }
                     const files = res.data.files;
-                    const collectionsJSON = { collections: [] = [] };
                     if (files.length) {
                         console.log("Contents in folder:");
+                        let contentPromiseArray = [];
                         files.map((file) => {
-                            console.log(`${file.name} (${file.id}) ${file.mimeType}`);
                             if (file.mimeType === "application/json") {
-                                collectionsJSON.collections.push({ collectionName: file.name, collectionID: file.id });
+                                contentPromiseArray.push(this.getFileByID(token, file.id));
                             }
                         });
-                        resolve(collectionsJSON);
+                        Promise.all(contentPromiseArray).then(fileContents => {
+                            resolve(fileContents);
+                        });
                     }
                     else {
-                        resolve(collectionsJSON);
+                        resolve([]);
                         console.log("Collections folder is empty");
                     }
                 });
@@ -555,10 +554,8 @@ let GoogleApiService = class GoogleApiService {
                 fileId: fileID,
                 media
             }).then((result) => {
-                console.log(result);
                 return { text: "JSON file updated successfully" };
             }).catch((error) => {
-                console.log(error);
                 return { text: "Error Updating JSON file" };
             });
         }
@@ -569,10 +566,8 @@ let GoogleApiService = class GoogleApiService {
                 resource: body,
                 media
             }).then((result) => {
-                console.log(result);
                 return { text: "JSON file updated successfully" };
             }).catch((error) => {
-                console.log(error);
                 return { text: "Error Updating JSON file" };
             });
         }
@@ -795,7 +790,7 @@ let GetCollectionsController = class GetCollectionsController {
                     const motifsPromise = this.googleApiService.createFolder(session.accessToken, "Motifs", SPAFolderDetails.id);
                     Promise.all([collectionsPromise, patternsPromise, motifsPromise])
                         .then((promiseResultArray) => {
-                        success({ collections: [] = [] });
+                        success([]);
                     });
                 });
             });
@@ -919,6 +914,7 @@ let NewCollectionController = class NewCollectionController {
                             collectionID: emptyCollectionID.id,
                             motifsFolderID: motifFolderDetails.fileID,
                             patternsFolderID: patternFolderDetails.fileID,
+                            collectionThumbnail: "",
                             childPatterns: [] = [],
                             childMotifs: [],
                             story: "a story here",
@@ -1299,7 +1295,7 @@ let SavePatternController = class SavePatternController {
     constructor(googleApiService) {
         this.googleApiService = googleApiService;
     }
-    savePattern(request, session, files, patternID, patternContent) {
+    savePattern(request, session, files, patternID, patternContent, collectionID) {
         return new Promise((success, failure) => {
             this.googleApiService.getFolderID(session.accessToken, "SPA-Thumbnails")
                 .then((resultThumbnailsFolderID) => {
@@ -1314,9 +1310,18 @@ let SavePatternController = class SavePatternController {
                             this.googleApiService.updateJSONFile(session.accessToken, patternID, patternContent).then((result) => {
                                 success({ Message: "Pattern Saved" });
                             });
+                            let collectionContentPromise = this.googleApiService.getFileByID(session.accessToken, collectionID);
                             this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
                                 .then(getLinkResult => {
-                                console.log(getLinkResult.data.webContentLink);
+                                collectionContentPromise
+                                    .then((collectionContent) => {
+                                    collectionContent.collectionThumbnail = getLinkResult.data.webContentLink;
+                                    console.log(collectionContent);
+                                    this.googleApiService.updateJSONFile(session.accessToken, collectionID, JSON.stringify(collectionContent))
+                                        .then(res => {
+                                        console.log("Thumbnail URL added and written back");
+                                    });
+                                });
                             });
                         });
                     }
@@ -1342,8 +1347,9 @@ __decorate([
     __param(2, (0, common_1.UploadedFiles)()),
     __param(3, (0, common_1.Body)('patternID')),
     __param(4, (0, common_1.Body)('patternContent')),
+    __param(5, (0, common_1.Body)('collectionID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, Object, String, Object]),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, Object, String, Object, String]),
     __metadata("design:returntype", void 0)
 ], SavePatternController.prototype, "savePattern", null);
 SavePatternController = __decorate([
@@ -1422,7 +1428,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("e171bb77909ca513e74d")
+/******/ 		__webpack_require__.h = () => ("552274968f8f4a515c97")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

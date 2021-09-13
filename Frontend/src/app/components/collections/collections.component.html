@@ -23,8 +23,9 @@
 
   <ion-card style="height: 85%">
     <div *ngIf="collections" class="collections-menu">
-      <div *ngFor="let collection of collections.collections">
+      <div *ngFor="let collection of collections">
         <div class="square" style="border: 1px solid gray">
+          <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
           <div class="gear">
             <ion-button (click)="CollectionOperations($event)">
               <ion-icon name="settings" ></ion-icon>

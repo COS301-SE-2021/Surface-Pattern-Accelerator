@@ -132,7 +132,7 @@ export class PatternService {
 
   }
 
-  savePattern(patternCanvas: fabric.Canvas) {
+  savePattern(patternCanvas: fabric.Canvas, collectionID: string) {
 
     //Upload thumbnail part
     // try {
@@ -190,6 +190,7 @@ export class PatternService {
       formData.append('files', this.dataURItoBlob(patternCanvas.toDataURL()), 'testName' + '.png');
       formData.append('patternID', this.patternContents.patternID);
       formData.append('patternContent', JSON.stringify(this.patternContents));
+      formData.append('collectionID', collectionID);
       this.http.post('http://localhost:3000/api/savePattern',
         formData,
         {withCredentials: true})

@@ -41,6 +41,7 @@ export class NewCollectionController {
                                     collectionID: emptyCollectionID.id,
                                     motifsFolderID: motifFolderDetails.fileID,
                                     patternsFolderID: patternFolderDetails.fileID,
+                                    collectionThumbnail: "",
                                     childPatterns: [] = [],
                                     childMotifs: [],
                                     story: "a story here",

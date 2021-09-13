@@ -8,6 +8,7 @@ export interface ICollectionsContent {
   collectionID: string;
   motifsFolderID: string;
   patternsFolderID: string;
+  collectionThumbnail: string;
   childPatterns: [{patternName: string, patternID: string}];
   childMotifs: motifBodyInterface[];
   story: string;

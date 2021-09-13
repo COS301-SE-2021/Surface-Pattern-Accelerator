@@ -1,5 +1,4 @@
 import {Controller, Get, Req, Session} from '@nestjs/common';
-import {ICollectionsInterface} from "../../../BackendInterfaces/collections.interface";
 import {GoogleApiService} from "../../services/google-api/google-api.service";
 
 @Controller('api/getCollections')
@@ -31,7 +30,7 @@ export class GetCollectionsController {
 
                         Promise.all([collectionsPromise, patternsPromise, motifsPromise])
                             .then((promiseResultArray) => {
-                                success({collections: [] = []} as unknown as ICollectionsInterface)
+                                success([])
                             });
 
                     });
