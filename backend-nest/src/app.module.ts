@@ -10,12 +10,14 @@ import { CreateJsonfileController } from './controllers/create-jsonfile/create-j
 import { UpdateFileController } from './controllers/update-file/update-file.controller';
 import { UploadMotifController } from './controllers/upload-motif/upload-motif.controller';
 import {MulterModule} from "@nestjs/platform-express";
+import { GetMotifsController } from './controllers/get-motifs/get-motifs.controller';
+import { SavePatternController } from './controllers/save-pattern/save-pattern.controller';
 
 @Module({
   imports: [MulterModule.register({
   dest: './files',
 })],
-  controllers: [AppController, CreateAccessTokenController, GetCollectionsController, GetFileByIdController, NewCollectionController, CreateJsonfileController, UpdateFileController, UploadMotifController],
+  controllers: [AppController, CreateAccessTokenController, GetCollectionsController, GetFileByIdController, NewCollectionController, CreateJsonfileController, UpdateFileController, UploadMotifController, GetMotifsController, SavePatternController],
   providers: [AppService, GoogleApiService],
 })
 export class AppModule {}

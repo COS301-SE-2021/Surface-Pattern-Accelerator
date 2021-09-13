@@ -254,18 +254,18 @@ export class GoogleApiService {
 
     }
 
-    public uploadMotif(token: ITokenInterface, fileName: string, parentID: string = "") {
+    public uploadImage(token: ITokenInterface, fileName: string, parentID: string = "", mimeType ="image/svg+xml") {
         const auth = this.createAuthObject(token);
         const drive = google.drive({version: "v3", auth});
         const filePath = "./files/" + fileName;
 
         if (parentID === "") {
-            console.log("No Parent***************************************************************************************")
+            //console.log("No Parent***************************************************************************************")
             const fileMetadata = {
                 name: fileName
             };
             const media = {
-                mimeType: "image/svg+xml",
+                mimeType: mimeType,
                 body: createReadStream(filePath)
             };
 
@@ -276,13 +276,13 @@ export class GoogleApiService {
                 fields: "id"
             });
         } else {
-            console.log("Has Parent***************************************************************************************")
+            //console.log("Has Parent***************************************************************************************")
             const fileMetadata = {
                 name: fileName,
                 parents: [parentID]
             };
             const media = {
-                mimeType: "image/svg+xml",
+                mimeType: mimeType,
                 body: createReadStream(filePath)
             };
 
@@ -293,6 +293,149 @@ export class GoogleApiService {
                 fields: "id"
             });
         }
+
+    }
+
+    public listMotifs(token: ITokenInterface) {
+        const auth = this.createAuthObject(token);
+
+        // const motifSkeleton = '{"motifNames": []}'; // create a "skeleton" JSON object into which all the other json object names will be placed in
+        const motifDetails = JSON.parse('{"motifNames": []}');
+
+        return new Promise((resolve, reject) => {
+            const drive = google.drive({version: "v3", auth});
+
+            this.getFolderID(token, "Motifs")
+                .then((motifsFolderResult) => {
+
+                    const motifsFolderDetails: IFolderInterface = motifsFolderResult as IFolderInterface;
+                    const FILE_ID = "'" + motifsFolderDetails.fileID + "' in parents and trashed=false";
+
+                    drive.files.list({
+                        // q: "mimeType='image/svg+xml'",
+                        q: FILE_ID,
+                        // pageSize: 10,
+                        fields: "nextPageToken, files(id, name)",
+                    }, (err, res) => {
+                        if (err) { return console.log("The API returned an error: " + err); }
+                        const files = res.data.files;
+                        if (files.length) {
+
+                            console.log("Files:");
+                            files.map((file) => {
+                                console.log(`${file.name} (${file.id})`);
+                                const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}');
+                                motifContainer.motifName = file.name;
+                                motifContainer.motifID = file.id;
+                                // obj.motifNames.push(file.id);
+                                motifDetails.motifNames.push(motifContainer);
+                            });
+                            console.log(motifDetails);
+                            resolve(motifDetails);
+
+                        } else {
+                            reject({text: "No Motifs Found"});
+                            console.log("No files found.");
+                        }
+                    });
+                })
+                .catch((getMotifsFolderError) => {
+                    reject({text: "something went wrong with fetching motifs"});
+                });
+
+        });
+    }
+
+    public getPublicMotifsInfo(token: ITokenInterface, motifDetails: any) {
+        const permissionPromiseArray: Array<Promise<any>> = [];
+        for (const elem in motifDetails.motifNames) {
+            if (elem) {
+                const permissionPromise = this.setPermissions(token, motifDetails.motifNames[elem]);
+                permissionPromiseArray.push(permissionPromise);
+
+            }
+        }
+        console.log("Permissions promise array: " + permissionPromiseArray);
+        return Promise.all(permissionPromiseArray);
+    }
+
+    public setPermissions(token: ITokenInterface, motifContainer: any) {
+
+        const auth = this.createAuthObject(token);
+
+        // let test;
+        try {
+
+            console.log("the motif ID is: " + motifContainer.motifID);
+            const drive = google.drive({version: "v3", auth});
+            return drive.permissions.create({ // returns promise
+                fileId: motifContainer.motifID,
+                requestBody: {
+                    role: "reader",
+                    type: "anyone"
+                }
+            })
+                .then((permissionSuccess) => {
+                    // console.log(permissionSuccess)
+                    motifContainer.linkPermission = "good";
+                    // return {text: "good"}; //the promise returns this when permission setting has been successful
+                    return motifContainer;
+                }).catch((permissionFailure) => {
+                    motifContainer.linkPermission = "bad";
+                    // console.log(permissionFailure)
+                    // return {text: "bad"}; ////the promise returns this when permission setting has been unsuccessful
+                    return motifContainer;
+                });
+            // console.log("the test is: " + test)
+        } catch (error) {
+            console.log(error.message);
+
+        }
+    }
+
+    public getPublicLink(token: ITokenInterface, itemID: any) {
+
+        const auth = this.createAuthObject(token);
+
+        try {
+            const drive = google.drive({version: "v3", auth});
+            return drive.files.get({
+                fileId: itemID,
+                fields: "webContentLink"
+            });
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    public generatePublicLinksJSON(token: ITokenInterface, motifContainer: any[]) {
+        const linkPromiseArray: Array<Promise<any>> = [];
+        const goodMotifs = JSON.parse('{"motifDetails": []}');
+        for (const elem in motifContainer) {
+            if (elem) {
+                if (motifContainer[elem].linkPermission === "good") {
+                    const publicLink = this.getPublicLink(token, motifContainer[elem].motifID);
+                    linkPromiseArray.push(publicLink);
+                    goodMotifs.motifDetails.push(motifContainer[elem]);
+
+                    console.log(motifContainer[elem]);
+                }
+
+            }
+        }
+        return Promise.all(linkPromiseArray).then((links) => {
+            for (const link in links) {
+                if (link) {
+                    console.log(links[link].data);
+                    goodMotifs.motifDetails[link].motifLink = links[link].data.webContentLink;
+                }
+
+            }
+            return goodMotifs;
+            // console.log(goodMotifs);
+
+        });
 
     }
 

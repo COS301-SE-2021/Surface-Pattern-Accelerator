@@ -37,7 +37,7 @@ export class UploadMotifController {
                             const filePath = "./files/" + files[file].filename;
                             console.log(filePath);
                             if (fs.existsSync(filePath)) {
-                                const uploadPromise = this.googleApiService.uploadMotif(session.accessToken, files[file].filename, motifFolderDetails.fileID);
+                                const uploadPromise = this.googleApiService.uploadImage(session.accessToken, files[file].filename, motifFolderDetails.fileID);
                                 uploadPromisesArray.push(uploadPromise);
                             } else {
                                 console.log("Does not exist");

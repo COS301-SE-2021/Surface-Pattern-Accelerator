@@ -223,14 +223,14 @@
             </ion-item>
 
             <ion-item>
-              <ion-button color="medium" (click)="this.patternService.savePattern()" style="width:100%;">Save Frame</ion-button>
+              <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas)" style="width:100%;">Save Frame</ion-button>
             </ion-item>
             <ion-item>
               <ion-button color="medium" (click)="undo()">Undo</ion-button>
             </ion-item>
-            <ion-item>
-              <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>
-            </ion-item>
+<!--            <ion-item>-->
+<!--              <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>-->
+<!--            </ion-item>-->
 <!--            <ion-item>-->
 <!--              <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>-->
 <!--              <ion-label> Seamless </ion-label>-->

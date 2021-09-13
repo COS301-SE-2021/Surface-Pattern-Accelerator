@@ -165,7 +165,7 @@ module.exports = function (updatedModules, renewedModules) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
-const session = __webpack_require__(24);
+const session = __webpack_require__(26);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({ origin: ["http://localhost:8100"],
@@ -217,6 +217,8 @@ const create_jsonfile_controller_1 = __webpack_require__(17);
 const update_file_controller_1 = __webpack_require__(18);
 const upload_motif_controller_1 = __webpack_require__(19);
 const platform_express_1 = __webpack_require__(20);
+const get_motifs_controller_1 = __webpack_require__(24);
+const save_pattern_controller_1 = __webpack_require__(25);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -224,7 +226,7 @@ AppModule = __decorate([
         imports: [platform_express_1.MulterModule.register({
                 dest: './files',
             })],
-        controllers: [app_controller_1.AppController, create_access_token_controller_1.CreateAccessTokenController, get_collections_controller_1.GetCollectionsController, get_file_by_id_controller_1.GetFileByIdController, new_collection_controller_1.NewCollectionController, create_jsonfile_controller_1.CreateJsonfileController, update_file_controller_1.UpdateFileController, upload_motif_controller_1.UploadMotifController],
+        controllers: [app_controller_1.AppController, create_access_token_controller_1.CreateAccessTokenController, get_collections_controller_1.GetCollectionsController, get_file_by_id_controller_1.GetFileByIdController, new_collection_controller_1.NewCollectionController, create_jsonfile_controller_1.CreateJsonfileController, update_file_controller_1.UpdateFileController, upload_motif_controller_1.UploadMotifController, get_motifs_controller_1.GetMotifsController, save_pattern_controller_1.SavePatternController],
         providers: [app_service_1.AppService, google_api_service_1.GoogleApiService],
     })
 ], AppModule);
@@ -575,17 +577,16 @@ let GoogleApiService = class GoogleApiService {
             });
         }
     }
-    uploadMotif(token, fileName, parentID = "") {
+    uploadImage(token, fileName, parentID = "", mimeType = "image/svg+xml") {
         const auth = this.createAuthObject(token);
         const drive = googleapis_1.google.drive({ version: "v3", auth });
         const filePath = "./files/" + fileName;
         if (parentID === "") {
-            console.log("No Parent***************************************************************************************");
             const fileMetadata = {
                 name: fileName
             };
             const media = {
-                mimeType: "image/svg+xml",
+                mimeType: mimeType,
                 body: (0, fs_1.createReadStream)(filePath)
             };
             return drive.files.create({
@@ -595,13 +596,12 @@ let GoogleApiService = class GoogleApiService {
             });
         }
         else {
-            console.log("Has Parent***************************************************************************************");
             const fileMetadata = {
                 name: fileName,
                 parents: [parentID]
             };
             const media = {
-                mimeType: "image/svg+xml",
+                mimeType: mimeType,
                 body: (0, fs_1.createReadStream)(filePath)
             };
             return drive.files.create({
@@ -610,6 +610,117 @@ let GoogleApiService = class GoogleApiService {
                 fields: "id"
             });
         }
+    }
+    listMotifs(token) {
+        const auth = this.createAuthObject(token);
+        const motifDetails = JSON.parse('{"motifNames": []}');
+        return new Promise((resolve, reject) => {
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            this.getFolderID(token, "Motifs")
+                .then((motifsFolderResult) => {
+                const motifsFolderDetails = motifsFolderResult;
+                const FILE_ID = "'" + motifsFolderDetails.fileID + "' in parents and trashed=false";
+                drive.files.list({
+                    q: FILE_ID,
+                    fields: "nextPageToken, files(id, name)",
+                }, (err, res) => {
+                    if (err) {
+                        return console.log("The API returned an error: " + err);
+                    }
+                    const files = res.data.files;
+                    if (files.length) {
+                        console.log("Files:");
+                        files.map((file) => {
+                            console.log(`${file.name} (${file.id})`);
+                            const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}');
+                            motifContainer.motifName = file.name;
+                            motifContainer.motifID = file.id;
+                            motifDetails.motifNames.push(motifContainer);
+                        });
+                        console.log(motifDetails);
+                        resolve(motifDetails);
+                    }
+                    else {
+                        reject({ text: "No Motifs Found" });
+                        console.log("No files found.");
+                    }
+                });
+            })
+                .catch((getMotifsFolderError) => {
+                reject({ text: "something went wrong with fetching motifs" });
+            });
+        });
+    }
+    getPublicMotifsInfo(token, motifDetails) {
+        const permissionPromiseArray = [];
+        for (const elem in motifDetails.motifNames) {
+            if (elem) {
+                const permissionPromise = this.setPermissions(token, motifDetails.motifNames[elem]);
+                permissionPromiseArray.push(permissionPromise);
+            }
+        }
+        console.log("Permissions promise array: " + permissionPromiseArray);
+        return Promise.all(permissionPromiseArray);
+    }
+    setPermissions(token, motifContainer) {
+        const auth = this.createAuthObject(token);
+        try {
+            console.log("the motif ID is: " + motifContainer.motifID);
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            return drive.permissions.create({
+                fileId: motifContainer.motifID,
+                requestBody: {
+                    role: "reader",
+                    type: "anyone"
+                }
+            })
+                .then((permissionSuccess) => {
+                motifContainer.linkPermission = "good";
+                return motifContainer;
+            }).catch((permissionFailure) => {
+                motifContainer.linkPermission = "bad";
+                return motifContainer;
+            });
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+    getPublicLink(token, itemID) {
+        const auth = this.createAuthObject(token);
+        try {
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            return drive.files.get({
+                fileId: itemID,
+                fields: "webContentLink"
+            });
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+    generatePublicLinksJSON(token, motifContainer) {
+        const linkPromiseArray = [];
+        const goodMotifs = JSON.parse('{"motifDetails": []}');
+        for (const elem in motifContainer) {
+            if (elem) {
+                if (motifContainer[elem].linkPermission === "good") {
+                    const publicLink = this.getPublicLink(token, motifContainer[elem].motifID);
+                    linkPromiseArray.push(publicLink);
+                    goodMotifs.motifDetails.push(motifContainer[elem]);
+                    console.log(motifContainer[elem]);
+                }
+            }
+        }
+        return Promise.all(linkPromiseArray).then((links) => {
+            for (const link in links) {
+                if (link) {
+                    console.log(links[link].data);
+                    goodMotifs.motifDetails[link].motifLink = links[link].data.webContentLink;
+                }
+            }
+            return goodMotifs;
+        });
     }
 };
 GoogleApiService = __decorate([
@@ -1004,7 +1115,7 @@ let UploadMotifController = class UploadMotifController {
                         const filePath = "./files/" + files[file].filename;
                         console.log(filePath);
                         if (fs.existsSync(filePath)) {
-                            const uploadPromise = this.googleApiService.uploadMotif(session.accessToken, files[file].filename, motifFolderDetails.fileID);
+                            const uploadPromise = this.googleApiService.uploadImage(session.accessToken, files[file].filename, motifFolderDetails.fileID);
                             uploadPromisesArray.push(uploadPromise);
                         }
                         else {
@@ -1097,6 +1208,153 @@ exports.imageFileFilter = imageFileFilter;
 
 /***/ }),
 /* 24 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GetMotifsController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let GetMotifsController = class GetMotifsController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    getAllMotifs(session) {
+        return new Promise((success, failure) => {
+            this.googleApiService.listMotifs(session.accessToken)
+                .then((motifsJson) => {
+                console.log(motifsJson);
+                this.googleApiService.getPublicMotifsInfo(session.accessToken, motifsJson)
+                    .then((permissionsRes) => {
+                    this.googleApiService.generatePublicLinksJSON(session.accessToken, permissionsRes)
+                        .then((motifsJSON) => {
+                        console.log(motifsJSON);
+                        success(motifsJSON);
+                    });
+                });
+            })
+                .catch(() => {
+                success({ motifDetails: [] = [] });
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Record !== "undefined" && Record) === "function" ? _a : Object]),
+    __metadata("design:returntype", void 0)
+], GetMotifsController.prototype, "getAllMotifs", null);
+GetMotifsController = __decorate([
+    (0, common_1.Controller)('api/getMotifs'),
+    __metadata("design:paramtypes", [typeof (_b = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _b : Object])
+], GetMotifsController);
+exports.GetMotifsController = GetMotifsController;
+
+
+/***/ }),
+/* 25 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SavePatternController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+const platform_express_1 = __webpack_require__(20);
+const multer_1 = __webpack_require__(21);
+const editFileName_middleware_1 = __webpack_require__(22);
+const imageFileFilter_middlware_1 = __webpack_require__(23);
+const fs = __webpack_require__(13);
+let SavePatternController = class SavePatternController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    savePattern(request, session, files, patternID, patternContent) {
+        return new Promise((success, failure) => {
+            this.googleApiService.getFolderID(session.accessToken, "SPA-Thumbnails")
+                .then((resultThumbnailsFolderID) => {
+                const thumbnailFolderDetails = resultThumbnailsFolderID;
+                if (files[0]) {
+                    const filePath = "./files/" + files[0].filename;
+                    console.log(filePath);
+                    if (fs.existsSync(filePath)) {
+                        this.googleApiService.uploadImage(session.accessToken, files[0].filename, thumbnailFolderDetails.fileID, "image/png")
+                            .then((onUploaded) => {
+                            console.log("Uploaded motif ID: " + onUploaded.data.id);
+                            this.googleApiService.updateJSONFile(session.accessToken, patternID, patternContent).then((result) => {
+                                success({ Message: "Pattern Saved" });
+                            });
+                            this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
+                                .then(getLinkResult => {
+                                console.log(getLinkResult.data.webContentLink);
+                            });
+                        });
+                    }
+                    else {
+                        console.log("Does not exist");
+                    }
+                }
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 1, {
+        storage: (0, multer_1.diskStorage)({
+            destination: './files',
+            filename: editFileName_middleware_1.editFileName,
+        }),
+        fileFilter: imageFileFilter_middlware_1.imageFileFilter,
+    })),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.UploadedFiles)()),
+    __param(3, (0, common_1.Body)('patternID')),
+    __param(4, (0, common_1.Body)('patternContent')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, Object, String, Object]),
+    __metadata("design:returntype", void 0)
+], SavePatternController.prototype, "savePattern", null);
+SavePatternController = __decorate([
+    (0, common_1.Controller)('api/savePattern'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], SavePatternController);
+exports.SavePatternController = SavePatternController;
+
+
+/***/ }),
+/* 26 */
 /***/ ((module) => {
 
 "use strict";
@@ -1164,7 +1422,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("83dbafcad3f4d188917c")
+/******/ 		__webpack_require__.h = () => ("e171bb77909ca513e74d")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
