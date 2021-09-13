@@ -6,16 +6,15 @@ let canvasHeight = 0.75 * window.innerHeight;
 let scene =	new THREE.Scene();
 
 // Camera
-let camera	= new THREE.PerspectiveCamera(75,	canvasWidth/canvasHeight,0.1, 1000);
+let camera	= new THREE.PerspectiveCamera(75,	canvasWidth/canvasHeight, 0.1, 1000);
 camera.position.z = 5; // Setting the camera position
 
 // Canvas
 let canvasEl = document.getElementById("artifactCanvas");
 
 // Renderer
-let renderer = new THREE.WebGLRenderer({canvas: canvasEl});
-renderer.setClearColor("#e5e5e5");	// Background color
-renderer.setSize(canvasWidth,canvasHeight);
+let renderer = new THREE.WebGLRenderer({canvas: canvasEl, alpha: true});
+renderer.setSize(canvasWidth,canvasHeight,false);
 
 // Controls
 let controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -54,3 +53,5 @@ let render = function () {
 }
 
 render();
+
+//https://cdn.wallpapersafari.com/90/49/9G2Pu8.jpg

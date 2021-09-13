@@ -9,3 +9,8 @@ body {
 canvas {
 	display: block;
 }
+
+#artifactCanvas {
+  background: url(../blue-room.jpg) no-repeat center center;
+  background-size: cover;
+}
