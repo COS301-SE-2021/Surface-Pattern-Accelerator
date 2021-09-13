@@ -6,7 +6,7 @@
 
           <ion-card-header>
             <ion-item>
-              <ion-button id="imageUpload" color="medium"> Upload image </ion-button>
+              <input type="file" id="readImg" (change)="upload()">
             </ion-item>
           </ion-card-header>
 
@@ -16,7 +16,7 @@
 
                 <ion-col style="height: 100%" ><!--hidden-->
                   <ion-card style="height: 50%">
-                    <img  alt="Content image">
+                    <img  id="uploadedImage" alt="Content image" [src]="url" style="display: none">
                   </ion-card>
                   <ion-button color="medium" style="display: block; margin: auto">Process</ion-button>
                 </ion-col>
