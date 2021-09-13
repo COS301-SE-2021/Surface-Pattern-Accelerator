@@ -25,6 +25,7 @@ export class ModelsComponent implements OnInit {
   ngOnInit() {
 
     //window.location.href = 'external/MODEL/index.html';
+
     /*
     const expressM  = require('express');
     const appM  = express();
@@ -41,7 +42,6 @@ export class ModelsComponent implements OnInit {
     appM.listen(process.env.port || 3100);
 
     console.log('Running at Port 3100');
-     */
 
 
   /*
