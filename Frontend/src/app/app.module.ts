@@ -40,6 +40,8 @@ import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogu
 import { MaterialModule } from './material/material.module';
 import {GLoginComponent} from './components/g-login/g-login.component'
 import {MotifEditorComponent} from './components/motif-editor/motif-editor.component'
+import {CollectionLayoutComponent} from "./collection-layout/collection-layout.component";
+import {CollorPalletComponent} from "./components/collor-pallet/collor-pallet.component";
 
 
 
@@ -66,8 +68,8 @@ import {MotifEditorComponent} from './components/motif-editor/motif-editor.compo
     NewPatternComponent,
     GLoginComponent,
     MotifEditorComponent,
-
-
+    CollectionLayoutComponent,
+    CollorPalletComponent,
   ],
 
   imports: [
