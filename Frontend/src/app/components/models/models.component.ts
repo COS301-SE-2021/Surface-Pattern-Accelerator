@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as express from 'express';
-import * as path from 'path';
+//import * as express from 'express';
+//import * as path from 'path';
 // THREE JS
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-// Attempts at implementing Orbit Controls
-//import { OrbitControls } from '../../../assets/jsLibraries/OrbitControls';
-//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+//import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 @Component({
   selector: 'app-models',
@@ -17,8 +14,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export class ModelsComponent implements OnInit {
 
-  scene : THREE.Scene;
-  camera : THREE.PerspectiveCamera;
+  //scene : THREE.Scene;
+  //camera : THREE.PerspectiveCamera;
 
   constructor() {}
 
@@ -129,10 +126,10 @@ export class ModelsComponent implements OnInit {
     }
 
     render();
-    */
+   */
   }
 
-
+/*
   openTab($event: MouseEvent, tabPage: string) {
     let i, tabContent;
     tabContent  = document.getElementsByClassName('tab-content');
@@ -142,5 +139,5 @@ export class ModelsComponent implements OnInit {
     document.getElementById(tabPage).style.display  = 'block';
   }
 
-
+   */
 }
