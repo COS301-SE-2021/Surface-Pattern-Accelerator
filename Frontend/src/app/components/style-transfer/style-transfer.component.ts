@@ -7,24 +7,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StyleTransferComponent implements OnInit {
 
+  styleImage: any;
+  contentImage: any;
+  generatedImage: any;
   constructor() { }
 
   ngOnInit() {}
 
+  /*
+  * This function allows the user to upload and display their content image
+  */
   upload(){
     const upload = document.getElementById('readImg') as HTMLInputElement;
     if(upload.files[0]){
       const image = new FileReader();
-
+      this.contentImage = new Image();
       image.readAsDataURL(upload.files[0]);
 
       image.addEventListener('load', (event) => {
-
-        document.getElementById('uploadedImage').setAttribute('src', event.target.result.toString());
-
+        const source: string = event.target.result.toString();
+        this.contentImage.setAttribute('src', source);
+        document.getElementById('uploadedImage').setAttribute('src', source);
+        document.getElementById('contentContainer').style.display = 'block';
         document.getElementById('uploadedImage').style.display = 'block';
       });
     }
+  }
+
+  /*
+  * This function is used for the user to select a
+  * style he/she would like to add to their uploaded image
+  * */
+  selectStyle(style: string, name: string) {
+    this.styleImage = new Image();
+    this.styleImage.setAttribute('src', '../../../assets/style-transfer/images/'+style);
+    document.getElementById('stylesHeader').innerText = name+' selected';
+  }
+
+
+  /*
+  * This fiction checks if the images are set then it will
+  *  send the images to a folder in the backend with the py file
+  *  */
+  processGeneratedImage(){
+    if(this.styleImage && this.contentImage){
+      //process final image
+    }
+    else if(!this.styleImage && this.contentImage){
+      window.alert('Please pick a style');
+    }
+
   }
 
 }
