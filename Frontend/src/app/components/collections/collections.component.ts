@@ -21,22 +21,33 @@ export class CollectionsComponent implements OnInit {
   collections?: ICollectionsInterface; //the collections that get displayed, marked as optional
   activeComponent: string;
   //private componentRef: ComponentRef<any>;
-  constructor( private popoverController: PopoverController)
-  {
+  menuController: MenuController;
 
-  }
-
-
+  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController) { }
 
   ngOnInit(): void
   {
+    this.menuController = new MenuController();
+    this.menuController.enable(true, 'main-content');
+    this.getCollections();
     this.activeComponent = 'Collections';
     this.setActive("Collections");
    //  this.menuController = new MenuController();
    //  this.menuController.enable(true, 'main-content');
   //  this.getCollections();
   }
-
+  CollectionOperations(ev: any)
+  {
+    this.popoverController.create({
+      component: CollectionBasicOperationsComponent,
+      event: ev,
+      translucent: true
+    }).then(resPop => {
+      resPop.present().then(presentRes => {
+        return presentRes;
+      });
+    })
+  }
   setActive(component){
     if(this.activeComponent == component)return;
     this.activeComponent = component;
@@ -64,6 +75,28 @@ export class CollectionsComponent implements OnInit {
 
       });
     })
+  }
+  navigateTo(componentName: string)
+  {
+    this.router.navigate([componentName]);
+  }
+
+  getCollections(): void //this func gets called each time this component gets initialized
+  {
+    this.loadingController.create({
+      message: "Fetching collections..."
+    }).then(loaderResult => {
+      loaderResult.present().then(r => {
+        this.collectionsService.getCollections()                      //this is an asynchronous operation
+          .subscribe(collections =>
+          {
+            console.log(collections)
+            this.collections = collections
+            loaderResult.dismiss().then()
+          });  //Observable
+      })
+    })
+
   }
 
 

@@ -35,17 +35,45 @@
         </ion-card>
       </ion-col>
       <ion-col size="10"  >
-<!--        <ng-template host></ng-template>-->
-<!--        <span class="tab-content-side"> id="Collections"><app-collection-layout></app-collection-layout> </span>-->
-<!--        <span class="tab-content-side"> id="Color"><app-collor-pallet></app-collor-pallet> </span>-->
-<!--        <span class="tab-content-side"> id="Palette"><app-color></app-color> </span>-->
-        <span > <app-collection-layout></app-collection-layout> </span>
-<!--        <span *ngIf="activeComponent == 'Color'"> <app-color></app-color> </span>-->
-<!--        <span *ngIf="activeComponent == 'Palette'"> <app-collor-pallet></app-collor-pallet> </span>-->
+        <ion-card id="componentCard" style="height: 100vh; width: 80%" style="overflow-x: hidden">
+          <div style="font-size: xx-large; padding-top: 3%; margin-bottom: 1cm">
+            <ion-icon name="folder-open-sharp"></ion-icon>
+            My Collections
+          </div>
+          <!--    <ion-searchbar style="float: right"></ion-searchbar>-->
+          <div *ngIf="collections" class="collections-menu">
+            <div *ngFor="let collection of collections.collections">
+              <div class="square" style="border: 1px solid gray">
+                <div class="left">
+                  <div class="gear">
+                    <ion-button (click)="CollectionOperations($event)" fill="clear">
+                      <ion-icon name="ellipsis-horizontal-sharp" style="font-size: 0.6cm; color: #0d0d0d"></ion-icon>
+                    </ion-button>
+                  </div>
+                  <div class="label">
+                    <a class="collections"
+                       routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">
+                      {{collection.collectionName}}
+                    </a>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="patterblock" style="background-color: white">
+                    <p id="patternAmount" style="font-size: 20px;">#</p>
+                    <ion-icon name="copy-sharp" style="font-size: 0.6cm; background-color: white"></ion-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="addBtn" (click)="navigateTo('newCollection');">
+            <ion-icon name="add-circle-sharp" ></ion-icon>
+          </button>
+        </ion-card>
 
 
-<!--        <div *ngIf="this.activeComponent=='colorExtractor'; else elseBlock"> <app-color></app-color></div>-->
-<!--        <ng-template #elseBlock><app-collection-layout></app-collection-layout></ng-template>-->
+
+
       </ion-col>
     </ion-row>
   </ion-grid>
