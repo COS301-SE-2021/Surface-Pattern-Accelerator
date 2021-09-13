@@ -52,6 +52,7 @@ export class StyleTransferComponent implements OnInit {
   processGeneratedImage(){
     if(this.styleImage && this.contentImage){
       //process final image
+      //hide the input image then display the final image
     }
     else if(!this.styleImage && this.contentImage){
       window.alert('Please pick a style');
