@@ -1,12 +1,15 @@
-let canvasWidth = window.innerWidth;
-let canvasHeight = 250;
+// Canvas Attribute Values
+let canvasWidth = 0.99 * window.innerWidth;
+let canvasHeight = 0.75 * window.innerHeight;
 
+// Scene
 let scene =	new THREE.Scene();
 
 // Camera
 let camera	= new THREE.PerspectiveCamera(75,	canvasWidth/canvasHeight,0.1, 1000);
 camera.position.z = 5; // Setting the camera position
 
+// Canvas
 let canvasEl = document.getElementById("artifactCanvas");
 
 // Renderer
@@ -32,14 +35,17 @@ let geometry = new THREE.SphereGeometry(1, 10, 10);
 let texture = new THREE.TextureLoader().load('https://thumbs.dreamstime.com/z/vector-tropical-pattern-palms-hibiscus-amazing-intricate-botanical-black-dark-colors-fashion-print-78719904.jpg');
 let material = new THREE.MeshLambertMaterial({ map: texture }); // {color: 0xFFCC00}
 
+// Mesh
 let mesh = new THREE.Mesh(geometry, material);
 mesh.position.x = 2;
 scene.add(mesh);
 
-let light = new THREE.PointLight(0xFFFFFF,1,500);
+// Light
+const light = new THREE.AmbientLight( 0xFFFFFF ); // soft white light
 light.position.set(10,0,25);
 scene.add(light);
 
+// Animation
 let render = function () {
 	requestAnimationFrame(render);
 	mesh.rotation.x += 0.01;
