@@ -3,7 +3,7 @@ import {LoadingController, MenuController, PopoverController} from "@ionic/angul
 import {CollectionBasicOperationsComponent} from "../popovers/collection-basic-operations/collection-basic-operations.component";
 import {CollectionsServiceService} from "../services/collections-service.service";
 import {Router} from "@angular/router";
-import {ICollectionsInterface} from "../Interfaces/collections.interface";
+// import {ICollectionsInterface} from "../Interfaces/collections.interface";
 
 @Component({
   selector: 'app-collection-layout',
@@ -11,7 +11,7 @@ import {ICollectionsInterface} from "../Interfaces/collections.interface";
   styleUrls: ['./collection-layout.component.scss'],
 })
 export class CollectionLayoutComponent implements OnInit {
-  collections?: ICollectionsInterface; //the collections that get displayed, marked as optional
+  // collections?: ICollectionsInterface; //the collections that get displayed, marked as optional
   menuController: MenuController;
   constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController) { }
 
@@ -45,7 +45,7 @@ export class CollectionLayoutComponent implements OnInit {
           .subscribe(collections =>
           {
             console.log(collections)
-            this.collections = collections
+            //this.collections = collections
             loaderResult.dismiss().then()
           });  //Observable
       })

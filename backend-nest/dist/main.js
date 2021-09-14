@@ -788,7 +788,8 @@ let GetCollectionsController = class GetCollectionsController {
                     const collectionsPromise = this.googleApiService.createFolder(session.accessToken, "Collections", SPAFolderDetails.id);
                     const patternsPromise = this.googleApiService.createFolder(session.accessToken, "Patterns", SPAFolderDetails.id);
                     const motifsPromise = this.googleApiService.createFolder(session.accessToken, "Motifs", SPAFolderDetails.id);
-                    Promise.all([collectionsPromise, patternsPromise, motifsPromise])
+                    const thumbnailsPromise = this.googleApiService.createFolder(session.accessToken, "SPA-Thumbnails", SPAFolderDetails.id);
+                    Promise.all([collectionsPromise, patternsPromise, motifsPromise, thumbnailsPromise])
                         .then((promiseResultArray) => {
                         success([]);
                     });
@@ -1428,7 +1429,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("552274968f8f4a515c97")
+/******/ 		__webpack_require__.h = () => ("4fc44384f2caaa5f8315")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

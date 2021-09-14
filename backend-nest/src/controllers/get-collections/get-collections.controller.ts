@@ -27,8 +27,9 @@ export class GetCollectionsController {
                         const collectionsPromise = this.googleApiService.createFolder(session.accessToken, "Collections", SPAFolderDetails.id);
                         const patternsPromise = this.googleApiService.createFolder(session.accessToken, "Patterns", SPAFolderDetails.id);
                         const motifsPromise = this.googleApiService.createFolder(session.accessToken, "Motifs", SPAFolderDetails.id);
+                        const thumbnailsPromise = this.googleApiService.createFolder(session.accessToken, "SPA-Thumbnails", SPAFolderDetails.id);
 
-                        Promise.all([collectionsPromise, patternsPromise, motifsPromise])
+                        Promise.all([collectionsPromise, patternsPromise, motifsPromise, thumbnailsPromise])
                             .then((promiseResultArray) => {
                                 success([])
                             });
