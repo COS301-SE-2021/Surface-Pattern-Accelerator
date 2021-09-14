@@ -51,8 +51,11 @@ export class StyleTransferComponent implements OnInit {
   *  */
   processGeneratedImage(){
     if(this.styleImage && this.contentImage){
-      //process final image
-      //hide the input image then display the final image
+      // 1. pass the style and content image as parameters in the server request
+      // 2. save the images as style.jpg and content.jpg respectively, in the folder with the python file
+      // 3. call python function (which generates the generated.png in the same directory as the py file)
+      // 4. get the generated image (generated.png) from the folder (backend) and assign it to this.generatedImage (frontend)
+      window.alert('Running.... **add processing for backend**'); //remove this later
     }
     else if(!this.styleImage && this.contentImage){
       window.alert('Please pick a style');
