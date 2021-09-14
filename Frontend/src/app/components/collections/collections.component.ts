@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
-import { ICollectionsInterface } from '../../Interfaces/collections.interface';
+import { Component, OnInit } from '@angular/core';
 import { CollectionsServiceService } from '../../services/collections-service.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
-import {CollectionBasicOperationsComponent} from "../../popovers/collection-basic-operations/collection-basic-operations.component"
+import {CollectionBasicOperationsComponent} from '../../popovers/collection-basic-operations/collection-basic-operations.component';
+import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
+
 import { MenuController } from '@ionic/angular';
 import {CollorPalletComponent} from "../collor-pallet/collor-pallet.component";
 import {ColorComponent} from "../color/color.component";
@@ -18,12 +19,17 @@ import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.com
 })
 export class CollectionsComponent implements OnInit {
 
-  collections?: ICollectionsInterface; //the collections that get displayed, marked as optional
+  collections?: ICollectionsContent; //the collections that get displayed, marked as optional
   activeComponent: string;
-  //private componentRef: ComponentRef<any>;
-  menuController: MenuController;
 
-  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController) { }
+  menuController: MenuController;
+  // eslint-disable-next-line max-len
+  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController)
+  {
+
+  }
+
+
 
   ngOnInit(): void
   {
@@ -36,6 +42,7 @@ export class CollectionsComponent implements OnInit {
    //  this.menuController.enable(true, 'main-content');
   //  this.getCollections();
   }
+
   CollectionOperations(ev: any)
   {
     this.popoverController.create({

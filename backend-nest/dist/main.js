@@ -156,6 +156,1216 @@ module.exports = function (updatedModules, renewedModules) {
 };
 
 
+/***/ }),
+/* 3 */
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core_1 = __webpack_require__(4);
+const app_module_1 = __webpack_require__(5);
+const session = __webpack_require__(26);
+async function bootstrap() {
+    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.enableCors({ origin: ["http://localhost:8100"],
+        credentials: true });
+    app.use(session({
+        secret: 'my-secret',
+        resave: false,
+        saveUninitialized: false,
+    }));
+    await app.listen(3000);
+    if (true) {
+        module.hot.accept();
+        module.hot.dispose(() => app.close());
+    }
+}
+bootstrap();
+
+
+/***/ }),
+/* 4 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/core");
+
+/***/ }),
+/* 5 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppModule = void 0;
+const common_1 = __webpack_require__(6);
+const app_controller_1 = __webpack_require__(7);
+const app_service_1 = __webpack_require__(8);
+const create_access_token_controller_1 = __webpack_require__(9);
+const google_api_service_1 = __webpack_require__(10);
+const get_collections_controller_1 = __webpack_require__(14);
+const get_file_by_id_controller_1 = __webpack_require__(15);
+const new_collection_controller_1 = __webpack_require__(16);
+const create_jsonfile_controller_1 = __webpack_require__(17);
+const update_file_controller_1 = __webpack_require__(18);
+const upload_motif_controller_1 = __webpack_require__(19);
+const platform_express_1 = __webpack_require__(20);
+const get_motifs_controller_1 = __webpack_require__(24);
+const save_pattern_controller_1 = __webpack_require__(25);
+let AppModule = class AppModule {
+};
+AppModule = __decorate([
+    (0, common_1.Module)({
+        imports: [platform_express_1.MulterModule.register({
+                dest: './files',
+            })],
+        controllers: [app_controller_1.AppController, create_access_token_controller_1.CreateAccessTokenController, get_collections_controller_1.GetCollectionsController, get_file_by_id_controller_1.GetFileByIdController, new_collection_controller_1.NewCollectionController, create_jsonfile_controller_1.CreateJsonfileController, update_file_controller_1.UpdateFileController, upload_motif_controller_1.UploadMotifController, get_motifs_controller_1.GetMotifsController, save_pattern_controller_1.SavePatternController],
+        providers: [app_service_1.AppService, google_api_service_1.GoogleApiService],
+    })
+], AppModule);
+exports.AppModule = AppModule;
+
+
+/***/ }),
+/* 6 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/common");
+
+/***/ }),
+/* 7 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppController = void 0;
+const common_1 = __webpack_require__(6);
+const app_service_1 = __webpack_require__(8);
+let AppController = class AppController {
+    constructor(appService) {
+        this.appService = appService;
+    }
+    getHello() {
+        return this.appService.getHello();
+    }
+};
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", String)
+], AppController.prototype, "getHello", null);
+AppController = __decorate([
+    (0, common_1.Controller)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object])
+], AppController);
+exports.AppController = AppController;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppService = void 0;
+const common_1 = __webpack_require__(6);
+let AppService = class AppService {
+    getHello() {
+        return 'Hello World!';
+    }
+};
+AppService = __decorate([
+    (0, common_1.Injectable)()
+], AppService);
+exports.AppService = AppService;
+
+
+/***/ }),
+/* 9 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateAccessTokenController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let CreateAccessTokenController = class CreateAccessTokenController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    createAccessToken(clientResponse, session) {
+        session.accessToken = {
+            access_token: clientResponse.userLoginResponse.Zb.access_token,
+            scope: "https://www.googleapis.com/auth/drive",
+            token_type: clientResponse.userLoginResponse.Zb.token_type,
+            expiry_date: clientResponse.userLoginResponse.Zb.expires_at
+        };
+        return;
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof Record !== "undefined" && Record) === "function" ? _a : Object]),
+    __metadata("design:returntype", void 0)
+], CreateAccessTokenController.prototype, "createAccessToken", null);
+CreateAccessTokenController = __decorate([
+    (0, common_1.Controller)('api/createAccessToken'),
+    __metadata("design:paramtypes", [typeof (_b = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _b : Object])
+], CreateAccessTokenController);
+exports.CreateAccessTokenController = CreateAccessTokenController;
+
+
+/***/ }),
+/* 10 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GoogleApiService = void 0;
+const common_1 = __webpack_require__(6);
+const googleapis_1 = __webpack_require__(11);
+const stream_1 = __webpack_require__(12);
+const fs_1 = __webpack_require__(13);
+let GoogleApiService = class GoogleApiService {
+    constructor() {
+        this.SCOPES = ["https://www.googleapis.com/auth/drive"];
+    }
+    getCredentials() {
+        if (this.appCredentials == undefined) {
+            this.appCredentials = JSON.parse("{\n" +
+                '    "installed":{\n' +
+                '        "client_id":"838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com",\n' +
+                '        "project_id":"spadd-6","auth_uri":"https://accounts.google.com/o/oauth2/auth",\n' +
+                '        "token_uri":"https://oauth2.googleapis.com/token",\n' +
+                '        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",\n' +
+                '        "client_secret":"qykE5ojYUpiRNSl3WFTlCIfR",\n' +
+                '        "redirect_uris":["http://localhost:8100/loginResponse"],\n' +
+                '        "javascript_origins":["http://localhost:3000","http://localhost:8100"]\n' +
+                "    }\n" +
+                "}");
+            return this.appCredentials;
+        }
+        else {
+            return this.appCredentials;
+        }
+    }
+    getScopes() {
+        return this.SCOPES;
+    }
+    createAuthObject(token) {
+        const { client_secret, client_id, redirect_uris } = this.getCredentials().installed;
+        const oAuth2Client = new googleapis_1.google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+        oAuth2Client.setCredentials(token);
+        return oAuth2Client;
+    }
+    getFolderID(token, folderName) {
+        return new Promise((success, failure) => {
+            const auth = this.createAuthObject(token);
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            drive.files.list({
+                q: "mimeType = 'application/vnd.google-apps.folder'" + " and trashed=false",
+                spaces: "drive",
+                fields: "nextPageToken, files(id, name, mimeType)",
+            }).then((filesListResult) => {
+                const files = filesListResult.data.files;
+                if (files.length) {
+                    files.forEach((file) => {
+                        console.log(`${file.name} (${file.id})`);
+                        if (file.name === folderName) {
+                            console.log("SPA folder found");
+                            const folderDetails = { fileName: file.name, fileID: file.id };
+                            success(folderDetails);
+                            return;
+                        }
+                    });
+                    failure({ text: "No Folder \'" + folderName + "\' was found" });
+                }
+                else {
+                    console.log("Zero folders exist on the users drive");
+                    failure({ text: "The users google drive is empty " });
+                }
+            });
+        });
+    }
+    createFolder(token, folderName, parentID = "") {
+        const auth = this.createAuthObject(token);
+        const drive = googleapis_1.google.drive({ version: "v3", auth });
+        if (parentID !== "") {
+            const fileMetadata = {
+                name: folderName,
+                mimeType: "application/vnd.google-apps.folder",
+                parents: [parentID]
+            };
+            return drive.files.create({
+                fields: "id",
+                resource: fileMetadata
+            });
+        }
+        else {
+            const fileMetadata = {
+                name: folderName,
+                mimeType: "application/vnd.google-apps.folder"
+            };
+            return drive.files.create({
+                fields: "id",
+                resource: fileMetadata
+            });
+        }
+    }
+    getCollections(token) {
+        const auth = this.createAuthObject(token);
+        return new Promise((resolve, reject) => {
+            this.getFolderID(token, "Collections")
+                .then((folderIDResult) => {
+                const fDetails = folderIDResult;
+                const FILE_ID = "'" + fDetails.fileID + "' in parents and trashed=false";
+                const drive = googleapis_1.google.drive({ version: "v3", auth });
+                drive.files.list({
+                    q: FILE_ID,
+                    fields: "nextPageToken, files(id, name, mimeType)",
+                }, (err, res) => {
+                    if (err) {
+                        return console.log("The API returned an error: " + err);
+                    }
+                    const files = res.data.files;
+                    if (files.length) {
+                        console.log("Contents in folder:");
+                        let contentPromiseArray = [];
+                        files.map((file) => {
+                            if (file.mimeType === "application/json") {
+                                contentPromiseArray.push(this.getFileByID(token, file.id));
+                            }
+                        });
+                        Promise.all(contentPromiseArray).then(fileContents => {
+                            resolve(fileContents);
+                        });
+                    }
+                    else {
+                        resolve([]);
+                        console.log("Collections folder is empty");
+                    }
+                });
+            }).catch((noFolderWithThatNameError) => {
+                console.log(noFolderWithThatNameError);
+                reject({ text: "something went wrong with fetching folder content - No folder named SPA, one will be created" });
+            });
+        });
+    }
+    getFileByID(token, fileID) {
+        const auth = this.createAuthObject(token);
+        const drive = googleapis_1.google.drive({ version: "v3", auth });
+        return drive.files.get({
+            fileId: fileID,
+            alt: "media"
+        }).then((result) => {
+            console.log(result.data);
+            return result.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+    createNewJSONFile(token, fileName, content, parentID = "") {
+        const auth = this.createAuthObject(token);
+        const drive = googleapis_1.google.drive({ version: "v3", auth });
+        const fileMetadata = {
+            name: fileName + ".json",
+            parents: [parentID]
+        };
+        const media = {
+            mimeType: "application/json",
+            body: JSON.stringify(content)
+        };
+        return drive.files.create({
+            resource: fileMetadata,
+            media,
+            fields: "id"
+        }).then((result) => {
+            console.log(result);
+            return result.data;
+        }).catch((error) => {
+            console.log(error);
+            return { text: "JSON file creation failed" };
+        });
+    }
+    updateJSONFile(token, fileID, content, newName = "") {
+        const auth = this.createAuthObject(token);
+        const drive = googleapis_1.google.drive({ version: "v3", auth });
+        const buf = Buffer.from(content, "binary");
+        const buffer = Uint8Array.from(buf);
+        const bufferStream = new stream_1.Stream.PassThrough();
+        bufferStream.end(buffer);
+        const media = {
+            mimeType: "application/json",
+            body: bufferStream
+        };
+        if (newName === "") {
+            return drive.files.update({
+                fileId: fileID,
+                media
+            }).then((result) => {
+                return { text: "JSON file updated successfully" };
+            }).catch((error) => {
+                return { text: "Error Updating JSON file" };
+            });
+        }
+        else {
+            const body = { name: newName };
+            return drive.files.update({
+                fileId: fileID,
+                resource: body,
+                media
+            }).then((result) => {
+                return { text: "JSON file updated successfully" };
+            }).catch((error) => {
+                return { text: "Error Updating JSON file" };
+            });
+        }
+    }
+    uploadImage(token, fileName, parentID = "", mimeType = "image/svg+xml") {
+        const auth = this.createAuthObject(token);
+        const drive = googleapis_1.google.drive({ version: "v3", auth });
+        const filePath = "./files/" + fileName;
+        if (parentID === "") {
+            const fileMetadata = {
+                name: fileName
+            };
+            const media = {
+                mimeType: mimeType,
+                body: (0, fs_1.createReadStream)(filePath)
+            };
+            return drive.files.create({
+                resource: fileMetadata,
+                media,
+                fields: "id"
+            });
+        }
+        else {
+            const fileMetadata = {
+                name: fileName,
+                parents: [parentID]
+            };
+            const media = {
+                mimeType: mimeType,
+                body: (0, fs_1.createReadStream)(filePath)
+            };
+            return drive.files.create({
+                resource: fileMetadata,
+                media,
+                fields: "id"
+            });
+        }
+    }
+    listMotifs(token) {
+        const auth = this.createAuthObject(token);
+        const motifDetails = JSON.parse('{"motifNames": []}');
+        return new Promise((resolve, reject) => {
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            this.getFolderID(token, "Motifs")
+                .then((motifsFolderResult) => {
+                const motifsFolderDetails = motifsFolderResult;
+                const FILE_ID = "'" + motifsFolderDetails.fileID + "' in parents and trashed=false";
+                drive.files.list({
+                    q: FILE_ID,
+                    fields: "nextPageToken, files(id, name)",
+                }, (err, res) => {
+                    if (err) {
+                        return console.log("The API returned an error: " + err);
+                    }
+                    const files = res.data.files;
+                    if (files.length) {
+                        console.log("Files:");
+                        files.map((file) => {
+                            console.log(`${file.name} (${file.id})`);
+                            const motifContainer = JSON.parse('{"motifName": "","motifID": "", "motifLink": "", "linkPermission": ""}');
+                            motifContainer.motifName = file.name;
+                            motifContainer.motifID = file.id;
+                            motifDetails.motifNames.push(motifContainer);
+                        });
+                        console.log(motifDetails);
+                        resolve(motifDetails);
+                    }
+                    else {
+                        reject({ text: "No Motifs Found" });
+                        console.log("No files found.");
+                    }
+                });
+            })
+                .catch((getMotifsFolderError) => {
+                reject({ text: "something went wrong with fetching motifs" });
+            });
+        });
+    }
+    getPublicMotifsInfo(token, motifDetails) {
+        const permissionPromiseArray = [];
+        for (const elem in motifDetails.motifNames) {
+            if (elem) {
+                const permissionPromise = this.setPermissions(token, motifDetails.motifNames[elem]);
+                permissionPromiseArray.push(permissionPromise);
+            }
+        }
+        console.log("Permissions promise array: " + permissionPromiseArray);
+        return Promise.all(permissionPromiseArray);
+    }
+    setPermissions(token, motifContainer) {
+        const auth = this.createAuthObject(token);
+        try {
+            console.log("the motif ID is: " + motifContainer.motifID);
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            return drive.permissions.create({
+                fileId: motifContainer.motifID,
+                requestBody: {
+                    role: "reader",
+                    type: "anyone"
+                }
+            })
+                .then((permissionSuccess) => {
+                motifContainer.linkPermission = "good";
+                return motifContainer;
+            }).catch((permissionFailure) => {
+                motifContainer.linkPermission = "bad";
+                return motifContainer;
+            });
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+    getPublicLink(token, itemID) {
+        const auth = this.createAuthObject(token);
+        try {
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            return drive.files.get({
+                fileId: itemID,
+                fields: "webContentLink"
+            });
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+    generatePublicLinksJSON(token, motifContainer) {
+        const linkPromiseArray = [];
+        const goodMotifs = JSON.parse('{"motifDetails": []}');
+        for (const elem in motifContainer) {
+            if (elem) {
+                if (motifContainer[elem].linkPermission === "good") {
+                    const publicLink = this.getPublicLink(token, motifContainer[elem].motifID);
+                    linkPromiseArray.push(publicLink);
+                    goodMotifs.motifDetails.push(motifContainer[elem]);
+                    console.log(motifContainer[elem]);
+                }
+            }
+        }
+        return Promise.all(linkPromiseArray).then((links) => {
+            for (const link in links) {
+                if (link) {
+                    console.log(links[link].data);
+                    goodMotifs.motifDetails[link].motifLink = links[link].data.webContentLink;
+                }
+            }
+            return goodMotifs;
+        });
+    }
+};
+GoogleApiService = __decorate([
+    (0, common_1.Injectable)()
+], GoogleApiService);
+exports.GoogleApiService = GoogleApiService;
+
+
+/***/ }),
+/* 11 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("googleapis");
+
+/***/ }),
+/* 12 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("stream");
+
+/***/ }),
+/* 13 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs");
+
+/***/ }),
+/* 14 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GetCollectionsController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let GetCollectionsController = class GetCollectionsController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    getCollectionsList(request, session) {
+        return new Promise((success, failure) => {
+            console.log(session.accessToken);
+            this.googleApiService.getCollections(session.accessToken)
+                .then((retValue) => {
+                success(retValue);
+            }).catch((error) => {
+                console.log("Could not find collections");
+                console.log(error);
+                this.googleApiService.createFolder(session.accessToken, "SPA")
+                    .then((SPAFolderResult) => {
+                    const SPAFolderDetails = SPAFolderResult.data;
+                    console.log(SPAFolderDetails.id);
+                    const collectionsPromise = this.googleApiService.createFolder(session.accessToken, "Collections", SPAFolderDetails.id);
+                    const patternsPromise = this.googleApiService.createFolder(session.accessToken, "Patterns", SPAFolderDetails.id);
+                    const motifsPromise = this.googleApiService.createFolder(session.accessToken, "Motifs", SPAFolderDetails.id);
+                    Promise.all([collectionsPromise, patternsPromise, motifsPromise])
+                        .then((promiseResultArray) => {
+                        success([]);
+                    });
+                });
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], GetCollectionsController.prototype, "getCollectionsList", null);
+GetCollectionsController = __decorate([
+    (0, common_1.Controller)('api/getCollections'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], GetCollectionsController);
+exports.GetCollectionsController = GetCollectionsController;
+
+
+/***/ }),
+/* 15 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GetFileByIdController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let GetFileByIdController = class GetFileByIdController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    getFileContentByID(request, session, fileID) {
+        return new Promise((success, failure) => {
+            this.googleApiService.getFileByID(session.accessToken, fileID)
+                .then((fileContents) => {
+                success(fileContents);
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.Body)('fileID')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, String]),
+    __metadata("design:returntype", void 0)
+], GetFileByIdController.prototype, "getFileContentByID", null);
+GetFileByIdController = __decorate([
+    (0, common_1.Controller)('api/getFileByID'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], GetFileByIdController);
+exports.GetFileByIdController = GetFileByIdController;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NewCollectionController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let NewCollectionController = class NewCollectionController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    createNewCollection(request, session, collectionName) {
+        return new Promise((success, failure) => {
+            this.googleApiService.getFolderID(session.accessToken, "SPA").then((resultSPAid) => {
+                const motifsPromise = this.googleApiService.getFolderID(session.accessToken, "Motifs");
+                const patternsPromise = this.googleApiService.getFolderID(session.accessToken, "Patterns");
+                const collectionsPromise = this.googleApiService.getFolderID(session.accessToken, "Collections");
+                Promise.all([motifsPromise, patternsPromise, collectionsPromise])
+                    .then((folderIDResults) => {
+                    console.log(folderIDResults);
+                    const motifFolderDetails = folderIDResults[0];
+                    const patternFolderDetails = folderIDResults[1];
+                    const collectionsFolderDetails = folderIDResults[2];
+                    const SPAfolderDetails = resultSPAid;
+                    console.log("The collection name is: " + collectionName);
+                    this.googleApiService.createNewJSONFile(session.accessToken, collectionName, "", collectionsFolderDetails.fileID)
+                        .then((result) => {
+                        const emptyCollectionID = result;
+                        console.log(emptyCollectionID.id);
+                        const fileBody = {
+                            collectionName: collectionName,
+                            collectionID: emptyCollectionID.id,
+                            motifsFolderID: motifFolderDetails.fileID,
+                            patternsFolderID: patternFolderDetails.fileID,
+                            collectionThumbnail: "",
+                            childPatterns: [] = [],
+                            childMotifs: [],
+                            story: "a story here",
+                            colorThemes: [] = []
+                        };
+                        this.googleApiService.updateJSONFile(session.accessToken, emptyCollectionID.id, JSON.stringify(fileBody))
+                            .then((updateResult) => {
+                            console.log(updateResult);
+                            success(fileBody);
+                        }).catch((updateError) => {
+                            console.log(updateError);
+                        });
+                    });
+                })
+                    .catch((error) => {
+                    console.log(error + "Could not fetch Motifs and/or Pattern Folder IDs");
+                });
+            }).catch((error) => {
+                console.log(error);
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.Body)('collectionName')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, String]),
+    __metadata("design:returntype", void 0)
+], NewCollectionController.prototype, "createNewCollection", null);
+NewCollectionController = __decorate([
+    (0, common_1.Controller)('api/newCollection'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], NewCollectionController);
+exports.NewCollectionController = NewCollectionController;
+
+
+/***/ }),
+/* 17 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateJsonfileController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let CreateJsonfileController = class CreateJsonfileController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    createNewJSONFile(request, session, patternFolderID) {
+        return new Promise((success, failure) => {
+            this.googleApiService.createNewJSONFile(session.accessToken, "reservation", "", patternFolderID)
+                .then((result) => {
+                console.log(result);
+                success(result);
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.Body)('patternFolderID')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, String]),
+    __metadata("design:returntype", void 0)
+], CreateJsonfileController.prototype, "createNewJSONFile", null);
+CreateJsonfileController = __decorate([
+    (0, common_1.Controller)('api/createNewJSONFile'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], CreateJsonfileController);
+exports.CreateJsonfileController = CreateJsonfileController;
+
+
+/***/ }),
+/* 18 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateFileController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let UpdateFileController = class UpdateFileController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    updateFile(request, session, fileID, content, newName) {
+        return new Promise((success, failure) => {
+            if (newName) {
+                this.googleApiService.updateJSONFile(session.accessToken, fileID, content, newName).then((result) => {
+                    success({ Message: "Rename and Write to File Successful" });
+                });
+            }
+            else {
+                this.googleApiService.updateJSONFile(session.accessToken, fileID, content).then((result) => {
+                    success({ Message: "Write to File Successful" });
+                });
+            }
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.Body)('fileID')),
+    __param(3, (0, common_1.Body)('content')),
+    __param(4, (0, common_1.Body)('newName')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, String, Object, String]),
+    __metadata("design:returntype", void 0)
+], UpdateFileController.prototype, "updateFile", null);
+UpdateFileController = __decorate([
+    (0, common_1.Controller)('api/updateFile'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], UpdateFileController);
+exports.UpdateFileController = UpdateFileController;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadMotifController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+const fs = __webpack_require__(13);
+const platform_express_1 = __webpack_require__(20);
+const multer_1 = __webpack_require__(21);
+const editFileName_middleware_1 = __webpack_require__(22);
+const imageFileFilter_middlware_1 = __webpack_require__(23);
+let UploadMotifController = class UploadMotifController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    uploadMotif(request, session, files) {
+        console.log(files);
+        return new Promise((success, failure) => {
+            this.googleApiService.getFolderID(session.accessToken, "Motifs")
+                .then((resultMotifsID) => {
+                const motifFolderDetails = resultMotifsID;
+                const uploadPromisesArray = [];
+                for (const file in files) {
+                    if (files.hasOwnProperty(file)) {
+                        const filePath = "./files/" + files[file].filename;
+                        console.log(filePath);
+                        if (fs.existsSync(filePath)) {
+                            const uploadPromise = this.googleApiService.uploadImage(session.accessToken, files[file].filename, motifFolderDetails.fileID);
+                            uploadPromisesArray.push(uploadPromise);
+                        }
+                        else {
+                            console.log("Does not exist");
+                        }
+                    }
+                }
+                Promise.all(uploadPromisesArray).then(() => {
+                    success({ Status: "200 - success" });
+                }).catch(() => {
+                    failure({ Status: "404 - no file found in request" });
+                });
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 20, {
+        storage: (0, multer_1.diskStorage)({
+            destination: './files',
+            filename: editFileName_middleware_1.editFileName,
+        }),
+        fileFilter: imageFileFilter_middlware_1.imageFileFilter,
+    })),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.UploadedFiles)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, Object]),
+    __metadata("design:returntype", void 0)
+], UploadMotifController.prototype, "uploadMotif", null);
+UploadMotifController = __decorate([
+    (0, common_1.Controller)('api/uploadMotif'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], UploadMotifController);
+exports.UploadMotifController = UploadMotifController;
+
+
+/***/ }),
+/* 20 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/platform-express");
+
+/***/ }),
+/* 21 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("multer");
+
+/***/ }),
+/* 22 */
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.editFileName = void 0;
+const editFileName = (req, file, callback) => {
+    const name = file.originalname.split('.')[0];
+    const fileExtName = file.originalname;
+    const randomName = Array(4)
+        .fill(null)
+        .map(() => Math.round(Math.random() * 16).toString(16))
+        .join('');
+    callback(null, `${name}-${randomName}${fileExtName}`);
+};
+exports.editFileName = editFileName;
+
+
+/***/ }),
+/* 23 */
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.imageFileFilter = void 0;
+const imageFileFilter = (req, file, callback) => {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
+        return callback(new Error('Only image files are allowed!'), false);
+    }
+    callback(null, true);
+};
+exports.imageFileFilter = imageFileFilter;
+
+
+/***/ }),
+/* 24 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GetMotifsController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+let GetMotifsController = class GetMotifsController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    getAllMotifs(session) {
+        return new Promise((success, failure) => {
+            this.googleApiService.listMotifs(session.accessToken)
+                .then((motifsJson) => {
+                console.log(motifsJson);
+                this.googleApiService.getPublicMotifsInfo(session.accessToken, motifsJson)
+                    .then((permissionsRes) => {
+                    this.googleApiService.generatePublicLinksJSON(session.accessToken, permissionsRes)
+                        .then((motifsJSON) => {
+                        console.log(motifsJSON);
+                        success(motifsJSON);
+                    });
+                });
+            })
+                .catch(() => {
+                success({ motifDetails: [] = [] });
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Record !== "undefined" && Record) === "function" ? _a : Object]),
+    __metadata("design:returntype", void 0)
+], GetMotifsController.prototype, "getAllMotifs", null);
+GetMotifsController = __decorate([
+    (0, common_1.Controller)('api/getMotifs'),
+    __metadata("design:paramtypes", [typeof (_b = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _b : Object])
+], GetMotifsController);
+exports.GetMotifsController = GetMotifsController;
+
+
+/***/ }),
+/* 25 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SavePatternController = void 0;
+const common_1 = __webpack_require__(6);
+const google_api_service_1 = __webpack_require__(10);
+const platform_express_1 = __webpack_require__(20);
+const multer_1 = __webpack_require__(21);
+const editFileName_middleware_1 = __webpack_require__(22);
+const imageFileFilter_middlware_1 = __webpack_require__(23);
+const fs = __webpack_require__(13);
+let SavePatternController = class SavePatternController {
+    constructor(googleApiService) {
+        this.googleApiService = googleApiService;
+    }
+    savePattern(request, session, files, patternID, patternContent, collectionID) {
+        return new Promise((success, failure) => {
+            this.googleApiService.getFolderID(session.accessToken, "SPA-Thumbnails")
+                .then((resultThumbnailsFolderID) => {
+                const thumbnailFolderDetails = resultThumbnailsFolderID;
+                if (files[0]) {
+                    const filePath = "./files/" + files[0].filename;
+                    console.log(filePath);
+                    if (fs.existsSync(filePath)) {
+                        this.googleApiService.uploadImage(session.accessToken, files[0].filename, thumbnailFolderDetails.fileID, "image/png")
+                            .then((onUploaded) => {
+                            console.log("Uploaded motif ID: " + onUploaded.data.id);
+                            this.googleApiService.updateJSONFile(session.accessToken, patternID, patternContent).then((result) => {
+                                success({ Message: "Pattern Saved" });
+                            });
+                            let collectionContentPromise = this.googleApiService.getFileByID(session.accessToken, collectionID);
+                            this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
+                                .then(getLinkResult => {
+                                collectionContentPromise
+                                    .then((collectionContent) => {
+                                    collectionContent.collectionThumbnail = getLinkResult.data.webContentLink;
+                                    console.log(collectionContent);
+                                    this.googleApiService.updateJSONFile(session.accessToken, collectionID, JSON.stringify(collectionContent))
+                                        .then(res => {
+                                        console.log("Thumbnail URL added and written back");
+                                    });
+                                });
+                            });
+                        });
+                    }
+                    else {
+                        console.log("Does not exist");
+                    }
+                }
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 1, {
+        storage: (0, multer_1.diskStorage)({
+            destination: './files',
+            filename: editFileName_middleware_1.editFileName,
+        }),
+        fileFilter: imageFileFilter_middlware_1.imageFileFilter,
+    })),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Session)()),
+    __param(2, (0, common_1.UploadedFiles)()),
+    __param(3, (0, common_1.Body)('patternID')),
+    __param(4, (0, common_1.Body)('patternContent')),
+    __param(5, (0, common_1.Body)('collectionID')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof Request !== "undefined" && Request) === "function" ? _a : Object, typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object, Object, String, Object, String]),
+    __metadata("design:returntype", void 0)
+], SavePatternController.prototype, "savePattern", null);
+SavePatternController = __decorate([
+    (0, common_1.Controller)('api/savePattern'),
+    __metadata("design:paramtypes", [typeof (_c = typeof google_api_service_1.GoogleApiService !== "undefined" && google_api_service_1.GoogleApiService) === "function" ? _c : Object])
+], SavePatternController);
+exports.SavePatternController = SavePatternController;
+
+
+/***/ }),
+/* 26 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("express-session");
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -218,7 +1428,7 @@ module.exports = function (updatedModules, renewedModules) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("7052be524f92cc34e9f6")
+/******/ 		__webpack_require__.h = () => ("552274968f8f4a515c97")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -1082,7 +2292,8 @@ module.exports = function (updatedModules, renewedModules) {
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__(0);
+/******/ 	__webpack_require__(0);
+/******/ 	var __webpack_exports__ = __webpack_require__(3);
 /******/ 	
 /******/ })()
 ;

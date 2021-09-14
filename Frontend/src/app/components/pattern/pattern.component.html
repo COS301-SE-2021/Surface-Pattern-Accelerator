@@ -26,19 +26,28 @@
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
                   <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
-                    <ion-row>
-                      <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-                    </ion-row>
-                    <ion-row>
+                    <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                    <ion-card-header class="noIonCardHeader">
+
                       <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
-                    </ion-row>
-
-
-                     <!-- variable name is not unresolved, ignore -->
+                    </ion-card-header>
                   </div>
                 </ion-card>
               </div>
             </ion-row>
+<!--          <ion-row id=""testing>-->
+<!--            <div *ngIf="motifService.cachedMotifs" style="overflow: hidden; text-align: center;" #parent>-->
+<!--              <ion-card *ngFor="let motif of motifService.cachedMotifs" text-wrap style="margin: 20px" class="motifBlock">-->
+<!--                <button class="buttonUnselected" mat-raised-button (click)="this.motifService.spawnMotifObject(motif, this.canvas);">-->
+<!--                  <img src={{motif.motifURL}} class="image">-->
+<!--                  <ion-card-header>-->
+<!--                    <ion-card-title >{{motif.motifName}}</ion-card-title>-->
+<!--                  </ion-card-header>-->
+<!--                </button>-->
+<!--              </ion-card>-->
+<!--            </div>-->
+<!--          </ion-row>-->
+
 
 
 <!--          <ion-row>-->
@@ -214,14 +223,14 @@
             </ion-item>
 
             <ion-item>
-              <ion-button color="medium" (click)="this.patternService.savePattern()" style="width:100%;">Save Frame</ion-button>
+              <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionID)" style="width:100%;">Save Frame</ion-button>
             </ion-item>
             <ion-item>
               <ion-button color="medium" (click)="undo()">Undo</ion-button>
             </ion-item>
-            <ion-item>
-              <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>
-            </ion-item>
+<!--            <ion-item>-->
+<!--              <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>-->
+<!--            </ion-item>-->
 <!--            <ion-item>-->
 <!--              <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>-->
 <!--              <ion-label> Seamless </ion-label>-->
@@ -332,8 +341,8 @@
           </ion-item>
 
           <ion-item *ngIf="this.activeObject">
-            <ion-badge>{{directionSliderValue}}</ion-badge>
-            <ion-range min="0" max="359" color="medium" [(ngModel)]="directionSliderValue" (ionChange)="updateArrModOfSelected()">
+            <ion-badge>{{this.activeObject.ArrayModDirection}}</ion-badge>
+            <ion-range min="0" max="359" color="medium" [(ngModel)]="this.activeObject.ArrayModDirection" (ionChange)="updateArrModOfSelected()">
               <ion-label slot="start">0</ion-label>
               <ion-label slot="end">359</ion-label>
             </ion-range>
@@ -341,12 +350,21 @@
 
 
           <ion-item *ngIf="this.activeObject" style="text-align: center">
-            <ion-button (click)="changeArrayModifierNumber(1, distBetweenArrayModElements)" color="medium">Add</ion-button>
-            <ion-button (click)="changeArrayModifierNumber(-1, distBetweenArrayModElements)" color="medium">Remove</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(1, this.activeObject.ArrayModSpacing)" color="medium">Add</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(-1, this.activeObject.ArrayModSpacing)" color="medium">Remove</ion-button>
             {{this.activeObject.nrOfArrayObjects}}
           </ion-item>
 
-          <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="distBetweenArrayModElements" (ionChange)="updateArrModOfSelected()"></ion-input>
+          <div *ngIf="this.activeObject">
+            <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="this.activeObject.ArrayModSpacing" (ionChange)="updateArrModOfSelected()"></ion-input>
+
+          </div>
+
+          <div>
+            <ion-button (click)="uploadThumbnail()">
+              Generate Thumbnail
+            </ion-button>
+          </div>
 
 
 

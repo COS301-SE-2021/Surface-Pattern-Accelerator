@@ -41,7 +41,10 @@
     {
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {}
+      "rules": {
+        "max-len": 0,
+        "prefer-for-of": 0
+      }
     }
   ]
 }

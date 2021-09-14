@@ -3,27 +3,27 @@ import { MotifServiceService } from '../../services/motif-service.service';
 
 import { Group } from 'konva/lib/Group';
 import { Shape, ShapeConfig } from 'konva/lib/Shape';
-import {motifsInterface} from "../../Interfaces/motifsInterface";
-import { PatternService } from "../../services/pattern.service";
-import {MotifCatalogueComponent} from "../../popovers/motif-catalogue/motif-catalogue.component"
-import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component"
-import {IPatternContentsInterface} from "../../Interfaces/patternContents.interface"
-import {HttpClient} from "@angular/common/http";
-import {fabric} from "fabric";
+import {motifsInterface} from '../../Interfaces/motifsInterface';
+import { PatternService } from '../../services/pattern.service';
+import {MotifCatalogueComponent} from '../../popovers/motif-catalogue/motif-catalogue.component';
+import {MotifUploadComponent} from '../../popovers/motif-upload/motif-upload.component';
+import {IPatternContentsInterface} from '../../Interfaces/patternContents.interface';
+import {HttpClient} from '@angular/common/http';
+import {fabric} from 'fabric';
 
 
 
 import { ActivatedRoute } from '@angular/router';
-import {IMotifStateInterface} from "../../Interfaces/motifDetails.interface"
-import {PopoverController} from "@ionic/angular";
-import {ICollectionsContent} from "../../Interfaces/collectionContents.interface";
-import {NewPatternComponent} from "../../popovers/new-pattern/new-pattern.component"
+import {IMotifStateInterface} from '../../Interfaces/motifDetails.interface';
+import {PopoverController} from '@ionic/angular';
+import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
+import {NewPatternComponent} from '../../popovers/new-pattern/new-pattern.component';
 
-import {motif} from "../../Classes/motif.class"
 import Konva from "konva";
 import pixelRatio = Konva.pixelRatio;
 import {Originator} from "../../Classes/MementoDesignPattern/Originator";
 import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
+import {motif} from '../../Classes/motif.class';
 
 
 @Component({
@@ -34,45 +34,46 @@ import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 export class PatternComponent implements OnInit {
 
   ///search
-  items = [{ name: "archie" }, { name: "jake" }, { name: "richard" }];
+  items = [{ name: 'archie' }, { name: 'jake' }, { name: 'richard' }];
   values = [];
-  searchableMotifs=[]
+  searchableMotifs=[];
 
-  canvasWidth: number = 600;
-  canvasHeight: number = 600;
+  canvasWidth = 600;
+  canvasHeight = 600;
 
 
-  @ViewChild("parent") private parentRef: ElementRef<HTMLElement>;
+  @ViewChild('parent') private parentRef: ElementRef<HTMLElement>;
   activeObject: fabric.Object;
 
   onKey(event: any) {
     const query = event.target.value.toLowerCase();
     const p = document.querySelector('p.testing');
-    console.log(query)
-    console.table(this.searchableMotifs)
-    var doc = document.getElementById("testing");
-    var arrs =Array.from(this.parentRef.nativeElement.children as HTMLCollectionOf<HTMLElement>)
-    console.log(arrs.length)
+    console.log(query);
+    console.table(this.searchableMotifs);
+    const doc = document.getElementById('testing');
+    const arrs =Array.from(this.parentRef.nativeElement.children as HTMLCollectionOf<HTMLElement>);
+    console.log(arrs.length);
     requestAnimationFrame(() => {
         arrs.forEach(async item => {
         const shouldShow =await item.textContent.toLowerCase().indexOf(query) > -1;
         item.style.display = shouldShow ? 'block' : 'none';
-      })
+      });
     });
   }
 
   /////////////////////
   private serverAPIURL = 'http://localhost:3000/api';
-  selected!:(Group | Shape);
+  selected!: (Group | Shape);
   selectedPattern: any;
   //motifs?: motifsInterface;
+
 
   canvas?: fabric.Canvas;
   canvasPre?: fabric.Canvas;
   path?: fabric.Path;
   img?: fabric.Image;
   motifSaveStates: IMotifStateInterface[] = [];
-  motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
+  motifsOnCanvas: {objects: {objectRef: fabric.Object; objectName: string; objectID: string; motifURL: string}[]} = {objects: []};
   motifObjects: motif[] = [];
   canvasMotifs: fabric.Object[] = [];
   seamlessClones: fabric.Object[] = [];
@@ -99,11 +100,12 @@ export class PatternComponent implements OnInit {
 
 
 
-  pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+  pcan = (<HTMLInputElement>document.getElementById('imgPreview'));//canvas preview
 
   //saving patterns in pattern Contents interface
-  patternContents: IPatternContentsInterface = {patternName: "", patternID: "", motifs: []} as IPatternContentsInterface;
+  patternContents: IPatternContentsInterface = {patternName: '', patternID: '', motifs: []} as IPatternContentsInterface;
 
+  collectionID: string;
 
 
   constructor(public motifService: MotifServiceService,
@@ -117,9 +119,10 @@ export class PatternComponent implements OnInit {
 
     //gets the requested Collections ID in the path
     this.route.params.subscribe(params => {
-      this.patternService.getCurrentCollectionJSON(params['collectionID']);
+      this.collectionID = params.collectionID;
+      this.patternService.getCurrentCollectionJSON(this.collectionID);
       //this.getMotifs();
-    })
+    });
 
 
     this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true });
@@ -130,57 +133,57 @@ export class PatternComponent implements OnInit {
     this.caretaker = new Caretaker();
 
 
-    this.canvas.on("selection:created",(r) => {
+    this.canvas.on('selection:created',(r) => {
       this.getSelectedObject();
-    })
+    });
 
-    this.canvas.on("selection:updated",(r) => {
+    this.canvas.on('selection:updated',(r) => {
       this.getSelectedObject();
-    })
+    });
 
-    this.canvas.on("object:moving" ,(r) => {
+    this.canvas.on('object:moving' ,(r) => {
       if (this.activeObject.shouldDisplaySeamlessMod)
       {
-        this.updateReflectionsOf(this.activeObject)
+        this.updateReflectionsOf(this.activeObject);
 
-        console.log("Moving Reflections")
+        console.log('Moving Reflections');
       }
       this.updateArrModOfSelected();
-    })
+    });
 
-    this.canvas.on("object:rotating" ,(r) => {
+    this.canvas.on('object:rotating' ,(r) => {
       if (this.activeObject.shouldDisplaySeamlessMod)
       {
-        this.updateReflectionsOf(this.activeObject)
+        this.updateReflectionsOf(this.activeObject);
 
-        console.log("Moving Reflections")
-      }
-      this.updateArrModOfSelected()
-    })
-
-    this.canvas.on("object:scaling" ,(r) => {
-      if (this.activeObject.shouldDisplaySeamlessMod)
-      {
-        this.updateReflectionsOf(this.activeObject)
-
-        console.log("Moving Reflections")
+        console.log('Moving Reflections');
       }
       this.updateArrModOfSelected();
-    })
+    });
 
-    this.canvas.on("object:rotated" ,(r) => {
+    this.canvas.on('object:scaling' ,(r) => {
+      if (this.activeObject.shouldDisplaySeamlessMod)
+      {
+        this.updateReflectionsOf(this.activeObject);
+
+        console.log('Moving Reflections');
+      }
+      this.updateArrModOfSelected();
+    });
+
+    this.canvas.on('object:rotated' ,(r) => {
       this.addState();
-    })
+    });
 
-    this.canvas.on("object:scaled" ,(r) => {
+    this.canvas.on('object:scaled' ,(r) => {
       this.addState();
-    })
+    });
 
-    this.canvas.on("object:removed" ,(r) => {
+    this.canvas.on('object:removed' ,(r) => {
       this.addState();
-    })
+    });
 
-    this.canvas.on("object:moved" ,(r) => {
+    this.canvas.on('object:moved' ,(r) => {
       this.addState();
     })
 
@@ -304,24 +307,24 @@ export class PatternComponent implements OnInit {
 
 
 
-  @ViewChild('menu') menu!:ElementRef;
+  @ViewChild('menu') menu!: ElementRef;
   contextMenu(e){
     e.preventDefault();
     console.log(e);
     if( this.canvas.getActiveObjects().length == 1 )
     {
-      this.menu.nativeElement.style.display = "block";
+      this.menu.nativeElement.style.display = 'block';
       if(e.pageY > 600)
-        this.menu.nativeElement.style.top = "600px";
+        {this.menu.nativeElement.style.top = '600px';}
       else
-        this.menu.nativeElement.style.top = e.pageY + "px";
-      this.menu.nativeElement.style.left = e.pageX + "px"
+        {this.menu.nativeElement.style.top = e.pageY + 'px';}
+      this.menu.nativeElement.style.left = e.pageX + 'px';
     }
 
   }
 
   dissapearContext(){
-    this.menu.nativeElement.style.display = "none";
+    this.menu.nativeElement.style.display = 'none';
   }
   stopPropagation(e){
     e.stopPropagation(e);
@@ -331,15 +334,15 @@ export class PatternComponent implements OnInit {
   spawnMotifObjectsFromSaveState()
   {
     this.motifsOnCanvas = {objects: []}; //clears motifs on canvas
-    for (let motState in this.patternContents.motifs) //the json file of the pattern contents gotten from the server
+    for (const motState in this.patternContents.motifs) //the json file of the pattern contents gotten from the server
     {
-      let motStateTemp = this.patternContents.motifs[motState] //temp value, store as its potentially accessed a lot - for performance
-      for (let cachedMot in this.motifService.cachedMotifs) //array of cached motifs, "the library" to select from
+      const motStateTemp = this.patternContents.motifs[motState]; //temp value, store as its potentially accessed a lot - for performance
+      for (const cachedMot in this.motifService.cachedMotifs) //array of cached motifs, "the library" to select from
       {
-        let cachedMotTemp = this.motifService.cachedMotifs[cachedMot] //store reference to cached motif, less cluttered
+        const cachedMotTemp = this.motifService.cachedMotifs[cachedMot]; //store reference to cached motif, less cluttered
         if (motStateTemp.motifID === cachedMotTemp.id) //if if in cached motifs match motif ID in pattern JSON then spawn than motif
         {
-          let objectToSpawn = cachedMotTemp.obj;
+          const objectToSpawn = cachedMotTemp.obj;
 
           objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
             clone
@@ -352,13 +355,13 @@ export class PatternComponent implements OnInit {
                 scaleX: motStateTemp.scale.scaleX,
                 scaleY: motStateTemp.scale.scaleY,
               })
-              .setCoords()
+              .setCoords();
             this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
 
             //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
             this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
             //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
-          })
+          });
         }
       }
     }
@@ -383,21 +386,21 @@ export class PatternComponent implements OnInit {
         popoverReference.onDidDismiss().then((newPatternName) => {
           console.log(newPatternName);
 
-          if (newPatternName.data !== undefined && newPatternName.data !== "")
+          if (newPatternName.data !== undefined && newPatternName.data !== '')
           {
-            const name: any = newPatternName.data
-            this.newPattern(name)
+            const name: any = newPatternName.data;
+            this.newPattern(name);
           }
-        })
+        });
 
       });
-    })
+    });
   }
 
 
 
   openTab($event: MouseEvent, tabPage: string) {
-    let i, tabContent, tabLinks;
+    let i; let tabContent; let tabLinks;
     tabContent  = document.getElementsByClassName('tab-content');
     for (i = 0; i < tabContent.length; i++) {
       tabContent[i].style.display = 'none';
@@ -409,7 +412,7 @@ export class PatternComponent implements OnInit {
   }
 
   openTabSide($event: MouseEvent, tabPage: string) {
-    let i, tabContent, tabLinks;
+    let i; let tabContent; let tabLinks;
     tabContent  = document.getElementsByClassName('tab-content-side');
     for (i = 0; i < tabContent.length; i++) {
       tabContent[i].style.display = 'none';
@@ -430,7 +433,7 @@ export class PatternComponent implements OnInit {
     this.refresh();
 
 
-    let i, tabContent, tabLinks;
+    let i; let tabContent; let tabLinks;
     tabContent  = document.getElementsByClassName('tab-content-main');
     for (i = 0; i < tabContent.length; i++) {
       tabContent[i].style.display = 'none';
@@ -444,7 +447,7 @@ export class PatternComponent implements OnInit {
 
   moveUp(objectID: number) {
     this.addState();
-    let currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.getNonSpecialObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
     {
@@ -458,13 +461,13 @@ export class PatternComponent implements OnInit {
 
           //this.canvas._objects = currentObjects;
           //this.canvas.renderAll(); //renders everything when done
-          this.renderAllWithSpecial(currentObjects)
+          this.renderAllWithSpecial(currentObjects);
           this.motifService.motifsOnCanvas = currentObjects;
           return;
         }
         else
         {
-          console.log("Is upper");
+          console.log('Is upper');
         }
       }
     }
@@ -472,7 +475,7 @@ export class PatternComponent implements OnInit {
 
   moveDown(objectID: number) {
     this.addState();
-    let currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.getNonSpecialObjects();
 
     for (let index = 0; index < currentObjects.length; index ++)
     {
@@ -484,20 +487,20 @@ export class PatternComponent implements OnInit {
           currentObjects[index - 1] = currentObjects[index];
           currentObjects[index] = temp;
 
-          this.renderAllWithSpecial(currentObjects)
+          this.renderAllWithSpecial(currentObjects);
           this.motifService.motifsOnCanvas = currentObjects;
           return;
         }
         else
         {
-          console.log("Is Lower");
+          console.log('Is Lower');
         }
       }
     }
   }
 
   getMotifIndex(objectID: number){
-    let currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.getNonSpecialObjects();
     for (let index = 0; index < currentObjects.length; index++) {
       if (currentObjects[index].IDOnCanvas === objectID) {
         return index;
@@ -506,15 +509,15 @@ export class PatternComponent implements OnInit {
   }
 
   makeSelected(objectID: number) {
-    let currentObjects = this.getNonSpecialObjects();
-    let index = this.getMotifIndex(objectID);
+    const currentObjects = this.getNonSpecialObjects();
+    const index = this.getMotifIndex(objectID);
     this.canvas.setActiveObject(currentObjects[index]);
     this.canvas.renderAll();
   }
 
   delete(objectID: number) {
-    let currentObjects = this.getNonSpecialObjects();
-    let index = this.getMotifIndex(objectID);
+    const currentObjects = this.getNonSpecialObjects();
+    const index = this.getMotifIndex(objectID);
     this.canvas.remove(currentObjects[index]);
     this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
     this.renderAllWithSpecial(this.canvas._objects);
@@ -522,7 +525,7 @@ export class PatternComponent implements OnInit {
   }
 
   deleteRightClick(){
-    let selection = this.canvas.getActiveObject();
+    const selection = this.canvas.getActiveObject();
     if(selection == undefined) {return;}
     else
     {
@@ -543,17 +546,17 @@ export class PatternComponent implements OnInit {
     this.canvas.renderAll();
   }
   moveUpRightClick(){
-    let object = this.canvas.getActiveObject();
+    const object = this.canvas.getActiveObject();
     this.moveUp(object.IDOnCanvas);
   }
 
   moveDownRightClick(){
-    let object = this.canvas.getActiveObject();
+    const object = this.canvas.getActiveObject();
     this.moveDown(object.IDOnCanvas);
   }
 
   cloneRightClick(){
-    let selection = this.canvas.getActiveObject();
+    const selection = this.canvas.getActiveObject();
     if(selection == undefined) {return;}
     else
     {
@@ -567,16 +570,16 @@ export class PatternComponent implements OnInit {
         this.canvas.add(clone);
         this.motifService.motifsOnCanvas.push(clone);
         this.dissapearContext();
-      })
+      });
     }
   }
 
   recenter(objectID: number) {
-    let currentObjects = this.getNonSpecialObjects();
-    let index = this.getMotifIndex(objectID);
+    const currentObjects = this.getNonSpecialObjects();
+    const index = this.getMotifIndex(objectID);
     currentObjects[index].center();
     this.makeSelected(index);
-    this.canvas.fire("object:moving");
+    this.canvas.fire('object:moving');
   }
 
   listCanvasObjects() {
@@ -588,8 +591,8 @@ export class PatternComponent implements OnInit {
 
     //TODO: do this only when in color editor mode/ polygon mode
     this.activeObject = this.canvas.getActiveObject();
-    console.log(this.canvas.getActiveObject().IDOnCanvas)
-    console.log(this.canvas.getActiveObject().googleDriveID)
+    console.log(this.canvas.getActiveObject().IDOnCanvas);
+    console.log(this.canvas.getActiveObject().googleDriveID);
 
 
     // console.log(this.canvas.getObjects())
@@ -623,8 +626,8 @@ export class PatternComponent implements OnInit {
   }
 
   refresh(){
-    console.log("refresh fired");
-    this.pcan = (<HTMLInputElement>document.getElementById("imgPreview"));//canvas preview
+    console.log('refresh fired');
+    this.pcan = (<HTMLInputElement>document.getElementById('imgPreview'));//canvas preview
     this.pcan.height = this.height / this.scale;
     this.pcan.width = this.width / this.scale;
     this.pcan.src = this.canvas.toDataURL();
@@ -640,7 +643,7 @@ export class PatternComponent implements OnInit {
 
 
   setDownload(shouldDisplay: boolean = false){
-    console.log("downloading image...");
+    console.log('downloading image...');
 
     this.canvasPre = new fabric.Canvas('previewFrame', {preserveObjectStacking: false});//set to 2nd Frame
     this.canvasPre.setHeight(this.width * this.pixel);
@@ -652,7 +655,7 @@ export class PatternComponent implements OnInit {
     {
       for (let j = 0; j < this.scale; j++)//columns, X
       {
-        let frame = new fabric.Image('imgPreview',{
+        const frame = new fabric.Image('imgPreview',{
           left: j * (this.canvasPre.width / this.scale),
           top: i * (this.canvasPre.width / this.scale),
           scaleY: this.pixel / this.scale,
@@ -669,12 +672,12 @@ export class PatternComponent implements OnInit {
     if (shouldDisplay)
     {
       setTimeout(()=>{
-        this.setPreview()
-      }, 50)
+        this.setPreview();
+      }, 50);
     }
 
 
-    let can = this.canvasPre;
+    const can = this.canvasPre;
 
 
 
@@ -684,7 +687,7 @@ export class PatternComponent implements OnInit {
 
 
   setPreview(shouldDisplay: boolean = false){
-    console.log("set preview fired");
+    console.log('set preview fired');
 
     this.canvasPre = new fabric.Canvas('previewFrame', {preserveObjectStacking: false});//set to 2nd Frame
     this.canvasPre.setHeight(this.height);//3000 pixels
@@ -694,7 +697,7 @@ export class PatternComponent implements OnInit {
     {
       for (let j = 0; j < this.scale; j++)//columns, X
       {
-        let frame = new fabric.Image('imgPreview',{
+        const frame = new fabric.Image('imgPreview',{
           left: j * (this.canvasPre.width / this.scale),
           top: i * (this.canvasPre.height / this.scale),
           scaleY: 1 / this.scale,
@@ -708,11 +711,12 @@ export class PatternComponent implements OnInit {
 
 
     }
+    //ATTENTION: DO NOT TOUCH THE BELOW
     if (shouldDisplay)
     {
       setTimeout(()=>{
-        this.setPreview()
-      }, 50)
+        this.setPreview();
+      }, 50);
     }
 
     // const context = this.canvasPre.getContext();//get context of 3000x3000 canvas
@@ -728,7 +732,7 @@ export class PatternComponent implements OnInit {
 
 
      //let can = this.canvasPre;
-     console.log("Preview Generated");
+     console.log('Preview Generated');
   }
 
 
@@ -758,7 +762,7 @@ export class PatternComponent implements OnInit {
   toggleBackground(e){
     if(e.detail.checked)
     {
-      console.log("background enabled");
+      console.log('background enabled');
       this.background = true;
       this.canvas.backgroundColor = this.color;
       (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
@@ -798,14 +802,14 @@ export class PatternComponent implements OnInit {
     //TODO: initialize hasReflections to fix error in console when changing from undefined to true/false when check box is ticked
     if (event.detail.checked === true)
     {
-      this.addReflectionsToObject(this.activeObject)
+      this.addReflectionsToObject(this.activeObject);
     }
     else
     {
       this.activeObject.reflections = [];
     }
 
-    this.renderAllWithSpecial(this.getNonSpecialObjects())
+    this.renderAllWithSpecial(this.getNonSpecialObjects());
 
   }
 
@@ -821,17 +825,17 @@ export class PatternComponent implements OnInit {
       this.reflectionCreator(objectToAddTo, +this.canvasWidth, +this.canvasHeight),
       this.reflectionCreator(objectToAddTo, +this.canvasWidth, 0),
       this.reflectionCreator(objectToAddTo, +this.canvasWidth, -this.canvasHeight)
-    ]
+    ];
   }
   scaleCanvas3(){
     this.scale = 3;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
-    btn.color = "dark";
+    btn.color = 'dark';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
-    btn1.color = "medium";
+    btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
-    btn2.color = "medium";
+    btn2.color = 'medium';
 
     this.refresh();
   }
@@ -840,11 +844,11 @@ export class PatternComponent implements OnInit {
     this.scale = 6;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
-    btn.color = "medium";
+    btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
-    btn1.color = "dark";
+    btn1.color = 'dark';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
-    btn2.color = "medium";
+    btn2.color = 'medium';
 
     this.refresh();
   }
@@ -853,11 +857,11 @@ export class PatternComponent implements OnInit {
     this.scale = 9;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
-    btn.color = "medium";
+    btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
-    btn1.color = "medium";
+    btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
-    btn2.color = "dark";
+    btn2.color = 'dark';
 
     this.refresh();
   }
@@ -867,20 +871,20 @@ export class PatternComponent implements OnInit {
   {
     let tempReflection: fabric.Object;
     parent.clone((reflection) => {
-      reflection.set("top", parent.top + topOffset);
-      reflection.set("left", parent.left + leftOffset);
-      reflection.set("selectable", false);
-      reflection.set("evented", false);
-      reflection.set("opacity", this.opacity);
+      reflection.set('top', parent.top + topOffset);
+      reflection.set('left', parent.left + leftOffset);
+      reflection.set('selectable', false);
+      reflection.set('evented', false);
+      reflection.set('opacity', this.opacity);
       tempReflection = reflection;
-    })
+    });
     return tempReflection;
   }
 
   getNonSpecialObjects()
   {
-    let tempAllObjects = this.canvas.getObjects();
-    let nonSpecialObjects: fabric.Object[] = [];
+    const tempAllObjects = this.canvas.getObjects();
+    const nonSpecialObjects: fabric.Object[] = [];
     for (let i = 0; i < tempAllObjects.length; i++)
     {
       if (tempAllObjects[i].IDOnCanvas > -1)
@@ -897,8 +901,8 @@ export class PatternComponent implements OnInit {
 
   renderAllWithSpecial(objects: fabric.Object[])
   {
-    let userObjects: fabric.Object[] = []; //all objects the user spawned in, not including reflections or arrayMod objects
-    for (let obj in objects) //check to make sure no special objects are in this array
+    const userObjects: fabric.Object[] = []; //all objects the user spawned in, not including reflections or arrayMod objects
+    for (const obj in objects) //check to make sure no special objects are in this array
     {
       if (objects[obj].IDOnCanvas != undefined)
       {
@@ -906,8 +910,8 @@ export class PatternComponent implements OnInit {
       }
     }
 
-    let objectsToRender: fabric.Object[] = [];
-    for (let userObj in userObjects)
+    const objectsToRender: fabric.Object[] = [];
+    for (const userObj in userObjects)
     {
       if (userObjects[userObj].IDOnCanvas > -1)
       {
@@ -923,7 +927,7 @@ export class PatternComponent implements OnInit {
 
     if (shouldDisplaySeamless && obj.reflections != undefined)
     {
-      console.log("Pushed")
+      console.log('Pushed');
       //console.log(...obj.reflections)
       futureRenderObjects.push(...obj.reflections); //spread operator, pushes the reflection array to the objectsToRender array
     }
@@ -936,7 +940,7 @@ export class PatternComponent implements OnInit {
     for (let i = 0; i < obj.arrayModifierElements.length ; i++)
     {
       //console.log(obj.arrayModifierElements[i].reflections)
-      this.decideRenderOrder(obj.arrayModifierElements[i], futureRenderObjects, shouldDisplaySeamless)
+      this.decideRenderOrder(obj.arrayModifierElements[i], futureRenderObjects, shouldDisplaySeamless);
     }
 
 
@@ -945,25 +949,25 @@ export class PatternComponent implements OnInit {
   updateReflectionsOf(obj: fabric.Object) {
     if (obj.reflections != undefined && obj.reflections.length > 0)
     {
-      this.reflectionUpdater(obj,0, -this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
-      this.reflectionUpdater(obj,1, -this.canvasWidth, 0, this.updateReflectionsOf)
-      this.reflectionUpdater(obj,2, -this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
-      this.reflectionUpdater(obj,3, 0, +this.canvasHeight, this.updateReflectionsOf)
-      this.reflectionUpdater(obj,4, 0, -this.canvasHeight, this.updateReflectionsOf)
-      this.reflectionUpdater(obj,5, +this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf)
-      this.reflectionUpdater(obj,6, +this.canvasWidth, 0, this.updateReflectionsOf)
-      this.reflectionUpdater(obj,7, +this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf)
+      this.reflectionUpdater(obj,0, -this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,1, -this.canvasWidth, 0, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,2, -this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,3, 0, +this.canvasHeight, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,4, 0, -this.canvasHeight, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,5, +this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,6, +this.canvasWidth, 0, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,7, +this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf);
     }
 
   }
 
   reflectionUpdater(parentObj: fabric.Object, reflectionIndex: number, topOffset: number, leftOffset: number, callback)
   {
-    let ref = parentObj.reflections[reflectionIndex];
-    ref.set("top",  parentObj.top + topOffset);
-    ref.set("left",  parentObj.left + leftOffset);
-    ref.set("scaleX",  parentObj.scaleX);
-    ref.set("scaleY",  parentObj.scaleY);
+    const ref = parentObj.reflections[reflectionIndex];
+    ref.set('top',  parentObj.top + topOffset);
+    ref.set('left',  parentObj.left + leftOffset);
+    ref.set('scaleX',  parentObj.scaleX);
+    ref.set('scaleY',  parentObj.scaleY);
     ref.rotate( parentObj.angle);
     ref.set('flipX', parentObj.flipX);
     ref.set('flipY', parentObj.flipY);
@@ -971,11 +975,11 @@ export class PatternComponent implements OnInit {
 
   arrayModUpdater(arrayModIndex: number, topOffset: number, leftOffset: number)
   {
-    let ref = this.activeObject.arrayModifierElements[arrayModIndex];
-    ref.set("top",  this.activeObject.top + topOffset);
-    ref.set("left",  this.activeObject.left + leftOffset);
-    ref.set("scaleX",  this.activeObject.scaleX);
-    ref.set("scaleY",  this.activeObject.scaleY);
+    const ref = this.activeObject.arrayModifierElements[arrayModIndex];
+    ref.set('top',  this.activeObject.top + topOffset);
+    ref.set('left',  this.activeObject.left + leftOffset);
+    ref.set('scaleX',  this.activeObject.scaleX);
+    ref.set('scaleY',  this.activeObject.scaleY);
     ref.rotate( this.activeObject.angle);
     ref.set('flipX', this.activeObject.flipX);
     ref.set('flipY', this.activeObject.flipY);
@@ -983,7 +987,7 @@ export class PatternComponent implements OnInit {
     if (ref.reflections)
     {
       this.updateReflectionsOf(ref);
-      console.log("Has reflections")
+      console.log('Has reflections');
     }
 
   }
@@ -1004,10 +1008,10 @@ export class PatternComponent implements OnInit {
       {
         //if number is positive, add new clone
         const {y, x} = this.calculatePositionFromDirection(distance, this.activeObject.nrOfArrayObjects);
-        let tempObject = this.reflectionCreator(this.activeObject, y, x); //create the array modifier object with offset
-        this.addReflectionsToObject(tempObject) //add reflections to array modifier object
+        const tempObject = this.reflectionCreator(this.activeObject, y, x); //create the array modifier object with offset
+        this.addReflectionsToObject(tempObject); //add reflections to array modifier object
         this.activeObject.arrayModifierElements.push(tempObject);
-        console.log("Pushed new arr mod obj")
+        console.log('Pushed new arr mod obj');
       }
       else
       {
@@ -1018,7 +1022,7 @@ export class PatternComponent implements OnInit {
     }
   }
 
-  toRadians (angle) {
+  toRadians(angle) {
     return angle * (Math.PI / 180);
   }
 
@@ -1026,9 +1030,9 @@ export class PatternComponent implements OnInit {
   calculatePositionFromDirection(distance: number, objIndex: number)
   {
     const tempDist = distance * objIndex;
-    const tempSlideVal = this.toRadians( this.directionSliderValue - 180);
-    const y = tempDist * Math.sin(tempSlideVal)
-    const x = tempDist * Math.sin(1.5708 - tempSlideVal)
+    const tempSlideVal = this.toRadians( this.activeObject.ArrayModDirection - 180);
+    const y = tempDist * Math.sin(tempSlideVal);
+    const x = tempDist * Math.sin(1.5708 - tempSlideVal);
     return {y, x}; //return coordinates
   }
 
@@ -1038,17 +1042,17 @@ export class PatternComponent implements OnInit {
     {
       for (let arrObj = 0; arrObj < this.activeObject.nrOfArrayObjects; arrObj++)
       {
-        const {y, x} = this.calculatePositionFromDirection(this.distBetweenArrayModElements, arrObj + 1)
+        const {y, x} = this.calculatePositionFromDirection(this.activeObject.ArrayModSpacing, arrObj + 1);
         this.arrayModUpdater(arrObj,  y, x);
       }
     }
     //this.renderAllWithSpecial(this.getNonSpecialObjects());
-    this.canvas.renderAll()
-    console.log(this.directionSliderValue)
+    this.canvas.renderAll();
+    console.log(this.directionSliderValue);
   }
 
   download(){
-    console.log("downloading");
+    console.log('downloading');
     //this.refresh();
     this.setDownload();
 
@@ -1091,40 +1095,40 @@ export class PatternComponent implements OnInit {
 
 
   export1(){
-    console.log("EXPORT LOW RESOLUTION");
+    console.log('EXPORT LOW RESOLUTION');
     this.pixel = 1;
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
-    btn.color = "dark";
+    btn.color = 'dark';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
-    btn1.color = "medium";
+    btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
-    btn2.color = "medium";
+    btn2.color = 'medium';
 
     //this.download();
   }
 
   export2(){
-    console.log("EXPORT MEDIUM RESOLUTION");
+    console.log('EXPORT MEDIUM RESOLUTION');
     this.pixel = 2;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
-    btn.color = "medium";
+    btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
-    btn1.color = "dark";
+    btn1.color = 'dark';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
-    btn2.color = "medium";
+    btn2.color = 'medium';
     //this.download();
   }
   export5(){
-    console.log("EXPORT HIGH RESOLUTION");
+    console.log('EXPORT HIGH RESOLUTION');
     this.pixel = 5;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
-    btn.color = "medium";
+    btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
-    btn1.color = "medium";
+    btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
-    btn2.color = "dark";
+    btn2.color = 'dark';
     //this.download();
   }
 
@@ -1141,4 +1145,36 @@ export class PatternComponent implements OnInit {
     this.download();
   }
 
+   dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], {type: mimeString});
+
+
+  }
+
+  uploadThumbnail() {
+
+    try {
+      const formData = new FormData();
+      //TODO: append unique ID to file name so the server knows which files belong to which user
+      formData.append('files', this.dataURItoBlob(this.canvas.toDataURL()), 'testName' + '.png');
+      this.http.post('http://localhost:3000/api/uploadMotif', formData, {withCredentials: true})
+        .subscribe(response => {
+          console.log(response);
+        });
+    }
+    catch (err)
+    {
+      console.log(err);
+    }
+
+  }
 }

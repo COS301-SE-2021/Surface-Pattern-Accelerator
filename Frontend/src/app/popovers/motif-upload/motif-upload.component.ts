@@ -16,6 +16,7 @@ import {motif} from "../../Classes/motif.class";
 })
 export class MotifUploadComponent implements OnInit {
   files: any = [];
+  fileNames: string[] = [];
   constructor(private uploadService: UploadService, private fb: FormBuilder, private httpClient: HttpClient, public loadingController: LoadingController) { }
 
   ngOnInit()
@@ -46,6 +47,11 @@ export class MotifUploadComponent implements OnInit {
 
     this.files = event.target.files;
     console.log(this.files);
+    this.fileNames = []
+    for (let file = 0; file < this.files.length; file++)
+    {
+      this.fileNames.push(this.files[file].name.split('.').shift())
+    }
   }
 
   uploadFiles() {
@@ -59,7 +65,8 @@ export class MotifUploadComponent implements OnInit {
       for (let i = 0; i < this.files.length; i++)
       {
         console.log(this.files[i]);
-        formData.append('files', this.files[i])
+        //TODO: append unique ID to file name so the server knows which files belong to which user
+        formData.append('files', this.files[i], this.fileNames[i] + ".svg")
       }
 
       this.loadingController.create({
@@ -71,18 +78,9 @@ export class MotifUploadComponent implements OnInit {
               console.log(response)
               loaderResult.dismiss().then();
 
-              //refresh page?
-              //location.reload()
-
-
             })
         })
       })
-
-
     }
-
-
-
   }
 }

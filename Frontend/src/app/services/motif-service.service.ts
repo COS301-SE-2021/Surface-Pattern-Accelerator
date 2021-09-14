@@ -88,7 +88,7 @@ export class MotifServiceService {
   }
 
 
-  spawnMotifObject(motifObject: motif, canvas: fabric.Canvas)
+  spawnMotifObject(motifObject: motif, canvas: fabric.Canvas, isSeamless: Boolean = false, arrayModElements: number = 0, arrayModSpacing: number = 200, arrayModDirection: number = 0)
   {
     if (motifObject) //check if object exists
     {
@@ -106,10 +106,18 @@ export class MotifServiceService {
         clone.motifURL = motifObject.motifURL;
         clone.motifName = motifObject.motifName;
 
+        //give array mod spacing a default value if it has not been initialized
+        clone.ArrayModSpacing = arrayModSpacing;
+        clone.ArrayModDirection = arrayModDirection;
+        clone.shouldDisplaySeamlessMod = isSeamless;
+
+        //TODO: should display array modifier
+        //clone.shouldDisplayArrayMod
+
+
         this.motifsOnCanvas.push(clone); //used for layers
         canvas.add(clone).renderAll(); //the clone is spawned on the canvas
-        //this.motifsOnCanvas.objects.push({objectRef: clone, objectName: motifObject.motifName, objectID: motifObject.id, motifURL: motifObject.motifURL}); //TODO: create interface
-        //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
+
       })
     }
   }
