@@ -5,8 +5,8 @@
         <ion-card style="height: 100%">
 
           <ion-card-header>
+            Upload an image
             <ion-item>
-              <label for="readImg">Upload an image</label>
               <input type="file" id="readImg" (change)="upload()" accept="image/jpeg, image/png">
             </ion-item>
           </ion-card-header>
@@ -17,16 +17,16 @@
 
                 <ion-col style="height: 100%; display: none" id="contentContainer">
                   <ion-card>
-                    <img  id="uploadedImage" alt="Content image" style="display: none; max-height: 512px;" src="">
+                    <img  id="uploadedImage" alt="Content image" style="max-height: 512px;" src="">
                   </ion-card>
                   <ion-button color="medium" style="display: block; margin: auto" (click)="processGeneratedImage()">Process</ion-button>
                 </ion-col>
 
-                <ion-col style="height: 100%" hidden > <!--hidden-->
+                <ion-col style="height: 100%; display: none" id="resultContainer">
                   <ion-card style="height: 50%">
-                    Result
+                    <img id="generatedImg" alt="generated image" style="max-height: 512px;" src="">
                   </ion-card>
-                  <ion-button color="medium" style="display: block; margin: auto">Download</ion-button>
+                  <ion-button color="medium" style="display: block; margin: auto" (click)="downloadImage()">Download</ion-button>
                 </ion-col>
 
               </ion-row>

@@ -55,12 +55,22 @@ export class StyleTransferComponent implements OnInit {
       // 2. save the images as style.jpg and content.jpg respectively, in the folder with the python file
       // 3. call python function (which generates the generated.png in the same directory as the py file)
       // 4. get the generated image (generated.png) from the folder (backend) and assign it to this.generatedImage (frontend)
+
+      // When the image is saved in this.generatedImage execute the block of code bellow
+      // this.generatedImage = ....
+      // document.getElementById('contentContainer').style.display = 'none';
+      // document.getElementById('resultContainer').style.display = 'block';
+      // document.getElementById('generatedImg').setAttribute('src', this.styleImage.src);
       window.alert('Running.... **add processing for backend**'); //remove this later
     }
     else if(!this.styleImage && this.contentImage){
       window.alert('Please pick a style');
     }
 
+  }
+
+  downloadImage(){
+    //TODO: add the code to download generated image
   }
 
 }
