@@ -6,7 +6,8 @@
 
           <ion-card-header>
             <ion-item>
-              <input type="file" id="readImg" (change)="upload()">
+              <label for="readImg">Upload an image</label>
+              <input type="file" id="readImg" (change)="upload()" accept="image/jpeg, image/png">
             </ion-item>
           </ion-card-header>
 
