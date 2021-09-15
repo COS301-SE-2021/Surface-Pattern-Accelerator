@@ -3,6 +3,7 @@ let scene;
 let renderer;
 let material;
 let loader;
+let obj;
 
 function main() {
 // Canvas Attribute Values
@@ -40,7 +41,9 @@ function main() {
 
 // Texture
   let texture = new THREE.TextureLoader().load('https://image.freepik.com/free-vector/topical-palm-leaves-seamless-pattern-fabric-texture-vector-illustration_1182-1327.jpg');
-
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set( 4, 4 );
 
   /*
   // Mesh
@@ -53,9 +56,9 @@ function main() {
   // Object Loader
   loader = new THREE.OBJLoader();
   loader.load(
-    '../ObjectModels/chair.obj',
+    '../ObjectModels/cat.obj',
     function ( object ) {
-      scene.add( object );
+      obj = object;
 
       object.traverse( function ( child ) {
         if ( child.isMesh ) {
@@ -63,6 +66,7 @@ function main() {
         }
       } );
 
+      scene.add( object );
     },
     // called when loading is in progresses
     function ( xhr ) {
@@ -87,7 +91,7 @@ function main() {
   let render = function () {
     requestAnimationFrame(render);
     //mesh.rotation.x += 0.01;
-    //object.rotation.x += 0.01;
+    obj.rotation.y += 0.01;
     controls.update();
     renderer.render(scene, camera);
   }
