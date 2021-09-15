@@ -2,6 +2,7 @@
 let scene;
 let renderer;
 let material;
+let loader;
 
 function main() {
 // Canvas Attribute Values
@@ -34,16 +35,47 @@ function main() {
 
 // Defining a native 3D object
 // Shape and Form of object
-  let geometry = new THREE.SphereGeometry(1, 10, 10);
+  //let geometry = new THREE.SphereGeometry(1, 10, 10);
+  const geometry = new THREE.BoxGeometry( 2, 2, 2);
 
 // Texture
-  let texture = new THREE.TextureLoader().load('https://thumbs.dreamstime.com/z/vector-tropical-pattern-palms-hibiscus-amazing-intricate-botanical-black-dark-colors-fashion-print-78719904.jpg');
-  material = new THREE.MeshLambertMaterial({map: texture}); // {color: 0xFFCC00}
+  let texture = new THREE.TextureLoader().load('https://image.freepik.com/free-vector/topical-palm-leaves-seamless-pattern-fabric-texture-vector-illustration_1182-1327.jpg');
+
 
 // Mesh
+  material = new THREE.MeshLambertMaterial({map: texture}); // {color: 0xFFCC00}
   let mesh = new THREE.Mesh(geometry, material);
   mesh.position.x = 2;
   scene.add(mesh);
+
+  /*
+  // Object Loader
+  loader = new THREE.OBJLoader();
+  loader.load(
+    'clothrob.obj',
+    function ( object ) {
+      scene.add( object );
+
+      object.traverse( function ( child ) {
+        if ( child.isMesh ) {
+          child.material.map = texture; // assign your diffuse texture here
+        }
+      } );
+
+    },
+    // called when loading is in progresses
+    function ( xhr ) {
+      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    },
+    // called when loading has errors
+    function ( error ) {
+      console.log( 'An error happened' );
+      console.log( error);
+    }
+  );
+  */
+
+
 
 // Light
   const light = new THREE.AmbientLight(0xFFFFFF); // soft white light
@@ -54,6 +86,7 @@ function main() {
   let render = function () {
     requestAnimationFrame(render);
     mesh.rotation.x += 0.01;
+    //object.rotation.x += 0.01;
     controls.update();
     renderer.render(scene, camera);
   }

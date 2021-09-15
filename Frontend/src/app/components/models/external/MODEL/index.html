@@ -12,13 +12,20 @@
 		<canvas id="artifactCanvas" width="200" height="200" style="border:1px solid">
 		</canvas>
 	</div>
+
   <div>
     <button class="button button2" onclick="loadImage()">Import Image</button>
     <input type="file" id="upload-file" accept="image/*" style="opacity: 0;">
   </div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
-	<script src="JS/controls.js"></script>
-	<script src="JS/main.js"></script>
+  <!--
+  type="module"
+
+<script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+  <script src="JS/controls.js"></script>
+	<script  src="JS/main.js"></script>
+
 </body>
 </html>
