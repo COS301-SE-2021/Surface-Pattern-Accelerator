@@ -4,15 +4,13 @@
 body {
 	margin: 0;
 	height: 100vh;
-}
-
-canvas {
-	display: block;
-}
-
-#artifactCanvas {
-  background: url(../white-room.jpg) no-repeat center center;
+  background: url(../room.jpg) no-repeat center center;
   background-size: cover;
+}
+
+#sidebar {
+  background: rgba(107, 107, 107, 0.2);
+  float: top;
 }
 
 .button {
@@ -22,7 +20,7 @@ canvas {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;

@@ -4,40 +4,27 @@ let renderer;
 let material;
 let loader;
 let obj;
+let camera;
 
 function main() {
-// Canvas Attribute Values
-  let canvasWidth = 0.99 * window.innerWidth;
-  let canvasHeight = 0.85 * window.innerHeight;
 
 // Scene
   scene = new THREE.Scene();
 
 // Camera
-  let camera = new THREE.PerspectiveCamera(75, canvasWidth / canvasHeight, 0.1, 1000);
-  camera.position.z = 5; // Setting the camera position
-
-// Canvas
-  let canvasEl = document.getElementById("artifactCanvas");
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  // larger the number the further away it is
+  camera.position.z = 100; // Setting the camera position
 
 // Renderer
-  renderer = new THREE.WebGLRenderer({canvas: canvasEl, alpha: true});
-  renderer.setSize(canvasWidth, canvasHeight, false);
+  //renderer = new THREE.WebGLRenderer({canvas: canvasEl, alpha: true});
+  //renderer.setSize(canvasWidth, canvasHeight, false);
+  renderer = new THREE.WebGLRenderer({alpha: true});
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  document.body.appendChild( renderer.domElement );
 
 // Controls
   let controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-// Make the created canvas responsive
-  window.addEventListener('resize', () => {
-    renderer.setSize(canvasWidth, canvasHeight);
-    camera.aspect = canvasWidth / canvasHeight;
-    camera.updateProjectionMatrix();
-  })
-
-// Defining a native 3D object
-// Shape and Form of object
-  //let geometry = new THREE.SphereGeometry(1, 10, 10);
-  const geometry = new THREE.BoxGeometry( 2, 2, 2);
 
 // Texture
   let texture = new THREE.TextureLoader().load('https://image.freepik.com/free-vector/topical-palm-leaves-seamless-pattern-fabric-texture-vector-illustration_1182-1327.jpg');
@@ -45,18 +32,10 @@ function main() {
   texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set( 4, 4 );
 
-  /*
-  // Mesh
-  material = new THREE.MeshLambertMaterial({map: texture}); // {color: 0xFFCC00}
-  let mesh = new THREE.Mesh(geometry, material);
-  mesh.position.x = 2;
-  scene.add(mesh);
-  */
-
   // Object Loader
   loader = new THREE.OBJLoader();
   loader.load(
-    '../ObjectModels/cat.obj',
+    '../ObjectModels/t+shirts.obj',
     function ( object ) {
       obj = object;
 
@@ -79,9 +58,6 @@ function main() {
     }
   );
 
-
-
-
 // Light
   const light = new THREE.AmbientLight(0xFFFFFF); // soft white light
   light.position.set(10, 0, 25);
@@ -90,13 +66,19 @@ function main() {
 // Animation
   let render = function () {
     requestAnimationFrame(render);
-    //mesh.rotation.x += 0.01;
     obj.rotation.y += 0.01;
     controls.update();
     renderer.render(scene, camera);
   }
   render();
 }
+
+// Make the created canvas responsive
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+})
 
 function loadImage() {
   const imageInput = document.getElementById('upload-file');
@@ -110,7 +92,15 @@ function loadImage() {
       try {
         // Loads the uploaded file to the html src attribute
         let image = URL.createObjectURL(file);
-        material.map = new THREE.TextureLoader().load(image);
+
+        let newTexture = new THREE.TextureLoader().load(image);
+        obj.traverse( function ( child ) {
+          if ( child.isMesh ) {
+            child.material.map = newTexture; // assign your diffuse texture here
+          }
+        } );
+
+        scene.add( object );
       } catch (err) {
         // For debugging purposes
         console.log(err.message);
