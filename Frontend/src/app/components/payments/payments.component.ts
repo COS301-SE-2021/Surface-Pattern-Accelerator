@@ -49,6 +49,8 @@ export class PaymentsComponent implements OnInit {
       locale: 'auto',
       token: function (stripeToken: any) {
         console.log(stripeToken)
+
+        //////////make API call to send details
         console.log("makePayment")
         ///alert('Stripe token generated!');
       }

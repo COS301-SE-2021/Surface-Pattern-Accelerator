@@ -15,11 +15,19 @@ import {IFolderInterface} from "./Interfaces/folder.interface";
 
 import {rejects} from "assert";
 import multer from "multer" ;
+//////// payment db
+// const mysql = require("mysql");
+// import mysql from "mysql" ;
 import {ICollectionsInterface} from "./Interfaces/collections.interface";
-
+// const connection = mysql.createConnection({
+//     host     : "aws-cos221.c5zbzrr9w4bb.us-east-2.rds.amazonaws.com",
+//     user     : "admin",
+//     password : "cos221_prac3_pw",
+//     database : "payment"
+// });
 // stripe payment
 /// declare function require(name:string);
-//import stripe = require("stripe")("sk_test_51JWIR0GnSZPbZIbcuxh2UOQBVHpVRQeFf4KagJ18wjYP9Rz0L2qs72idNwWjLNBi02563n0E2YqQysHxa7xzuUoa00yE0zX9Ml");
+// import stripe = require("stripe")("sk_test_51JWIR0GnSZPbZIbcuxh2UOQBVHpVRQeFf4KagJ18wjYP9Rz0L2qs72idNwWjLNBi02563n0E2YqQysHxa7xzuUoa00yE0zX9Ml");
 
 /// const YOUR_DOMAIN = "http://localhost:8100";
 // tslint:disable-next-line:interface-name
@@ -354,3 +362,27 @@ app.listen(port, () => {
         // tslint:disable-next-line:no-console
         console.log(`server started at http://localhost:${port}`);
     });
+
+// app.get("/addPayment", function(request, response) {
+//     const firstname = request.body.firstname;
+//     const surname = request.body.surname;
+//     const idNumber = request.body.idnumber;
+//     const password = request.body.password;
+//
+//     if (firstname && password) {
+//         connection.query("SELECT * FROM voter WHERE id = ? AND firstname = ? AND surname = ? AND password = ?", [idNumber, firstname, surname, password], function(error: any, results: string | any[], fields: any) {
+//             if (results.length > 0) {
+//                 // request.session.loggedin = true;
+//                 // request.session.userID = idNumber;
+//                 // response.redirect('/voterMain');
+//                 response.send("successful");
+//             } else {
+//                 response.send("Incorrect firstname and/or Password!");
+//             }
+//             response.end();
+//         });
+//     } else {
+//         response.send("Please enter firstname and Password!");
+//         response.end();
+//     }
+// });

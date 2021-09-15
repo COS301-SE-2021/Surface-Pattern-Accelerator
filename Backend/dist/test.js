@@ -257,9 +257,54 @@ app.post("/api/uploadMotif", upload.array("files"), (req, res) => {
         });
     });
 });
+/////////////////////////////////////////////////////////////// PAYMENT
+// app.post("/api/create-checkout-session", async (req, res) => {
+//     const YOUR_DOMAIN = "http://localhost:8100";
+//     const session = await stripe.checkout.sessions.create({
+//                 line_items: [
+//                     {
+//                         // TODO: replace this with the `price` of the product you want to sell
+//                         price: "price_1JWJO7GnSZPbZIbccDcaukYW",
+//                         quantity: 1,
+//                     },
+//                 ],
+//                 payment_method_types: [
+//                     "card",
+//                     "alipay"
+//                 ],
+//                 mode: "payment",
+//                 success_url: `${YOUR_DOMAIN}/success.html`,
+//                 cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+//             });
+//
+//     res.redirect(303, session.url);
+//         });
 // start the Express server
 app.listen(port, () => {
     // tslint:disable-next-line:no-console
     console.log(`server started at http://localhost:${port}`);
 });
+// app.get("/addPayment", function(request, response) {
+//     const firstname = request.body.firstname;
+//     const surname = request.body.surname;
+//     const idNumber = request.body.idnumber;
+//     const password = request.body.password;
+//
+//     if (firstname && password) {
+//         connection.query("SELECT * FROM voter WHERE id = ? AND firstname = ? AND surname = ? AND password = ?", [idNumber, firstname, surname, password], function(error: any, results: string | any[], fields: any) {
+//             if (results.length > 0) {
+//                 // request.session.loggedin = true;
+//                 // request.session.userID = idNumber;
+//                 // response.redirect('/voterMain');
+//                 response.send("successful");
+//             } else {
+//                 response.send("Incorrect firstname and/or Password!");
+//             }
+//             response.end();
+//         });
+//     } else {
+//         response.send("Please enter firstname and Password!");
+//         response.end();
+//     }
+// });
 //# sourceMappingURL=test.js.map
