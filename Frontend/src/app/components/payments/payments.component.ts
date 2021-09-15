@@ -12,66 +12,48 @@ import {HttpClient} from "@angular/common/http";
 export class PaymentsComponent implements OnInit {
 stripe:any
   paymentHandler:any = null;
-  private serverAPIURL = 'http://localhost:5000/auth';
+  private serverAPIURL = 'http://localhost:5000/pay';
   constructor(private loginService: LoginService, private collectionsService: CollectionsServiceService,private http: HttpClient) {
 
   }
   ngOnInit() {
     this.invokeStripe();
-   ///// this.callService();
-  //   //stripe payment
-  //   const stripe = require('stripe')('sk_test_51JWIR0GnSZPbZIbcuxh2UOQBVHpVRQeFf4KagJ18wjYP9Rz0L2qs72idNwWjLNBi02563n0E2YqQysHxa7xzuUoa00yE0zX9Ml');
-  //   const express = require('express');
-  //   const app = express();
-  //   app.use(express.static('public'));
-  //
-  //   const YOUR_DOMAIN = 'http://localhost:8100';
-  //
-  //   app.post('/create-checkout-session', async (req, res) => {
-  //     const session = await stripe.checkout.sessions.create({
-  //       line_items: [
-  //         {
-  //           // TODO: replace this with the `price` of the product you want to sell
-  //           price: 'price_1JWJO7GnSZPbZIbccDcaukYW',
-  //           quantity: 1,
-  //         },
-  //       ],
-  //       payment_method_types: [
-  //         'card',
-  //         'alipay'
-  //       ],
-  //       mode: 'payment',
-  //       success_url: `${YOUR_DOMAIN}/success.html`,
-  //       cancel_url: `${YOUR_DOMAIN}/cancel.html`,
-  //     });
-  //
-  //     res.redirect(303, session.url)
-  //   });
-  }
 
-  callService(amount) {
+  }
+///{ data: amount},{withCredentials: true}
+  async callService(amount) {
     console.log("making call")
-    this.http.post(this.serverAPIURL , { data: this.stripe , },{withCredentials: true
-    }).subscribe((resp: any) => {
+    await this.http.post(this.serverAPIURL,{})
+      .subscribe( (resp: any) => {
+      console.log("dfdsfjdshfs")
       console.log(resp)
-    })
+    },(errorResp => {
+     console.log(errorResp)
+      console.log("failed");
+    }))
   }
 
   makePayment(amount) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51JWIZsHgVOPspuvRuKmrbhqQPeDeAwXgEhDYztocJWUJEYGI5b5Ciy2w5S7sXTgJ5qb1bLV0nOiTzYee6tscNPyS00hb8s0dAg',
       locale: 'auto',
-      token: function (stripeToken: any) {
+      ////email:'bernakebirungi@gmail.com',  ---ADD USER EMAIL FROM THE SESSION
+      token: (stripeToken: any) => {
         this.stripe=stripeToken
         console.log(this.stripe)
+
+         this.http.post(this.serverAPIURL,{data:stripeToken})
+          .subscribe( (resp: any) => {
+            console.log("dfdsfjdshfs")
+            console.log(resp)
+          },(errorResp => {
+            console.log(errorResp)
+            console.log("failed");
+          }))
        /// this.callService();
        /* this.collectionsService.getCollections().subscribe(collections => {
           console.log(collections)
         })*/
-
-
-
-
 
         //////////make API call to send details**********
         ///this.callService(stripeToken);
@@ -112,14 +94,6 @@ stripe:any
       window.document.body.appendChild(script);
     }
   }
-
-  /*callService(details){
-
-  }*/
-
-
-
-
 
 
 }
