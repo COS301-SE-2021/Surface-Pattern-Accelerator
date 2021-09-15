@@ -59,7 +59,7 @@ export class StyleTransferComponent implements OnInit {
       // 4. get the generated image (generated.png) from the folder (backend) and assign it to this.generatedImage (frontend)
 
       // When the image is saved in this.generatedImage execute the block of code bellow
-      // this.generatedImage = -----------;
+      // this.generatedImage = ----- add response image here;
       // document.getElementById('contentContainer').style.display = 'none';
       // document.getElementById('resultContainer').style.display = 'block';
       // document.getElementById('generatedImg').setAttribute('src', this.styleImage.src);
