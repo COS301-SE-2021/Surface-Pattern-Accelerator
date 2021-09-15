@@ -42,17 +42,18 @@ function main() {
   let texture = new THREE.TextureLoader().load('https://image.freepik.com/free-vector/topical-palm-leaves-seamless-pattern-fabric-texture-vector-illustration_1182-1327.jpg');
 
 
-// Mesh
+  /*
+  // Mesh
   material = new THREE.MeshLambertMaterial({map: texture}); // {color: 0xFFCC00}
   let mesh = new THREE.Mesh(geometry, material);
   mesh.position.x = 2;
   scene.add(mesh);
+  */
 
-  /*
   // Object Loader
   loader = new THREE.OBJLoader();
   loader.load(
-    'clothrob.obj',
+    '../ObjectModels/chair.obj',
     function ( object ) {
       scene.add( object );
 
@@ -73,7 +74,7 @@ function main() {
       console.log( error);
     }
   );
-  */
+
 
 
 
@@ -85,7 +86,7 @@ function main() {
 // Animation
   let render = function () {
     requestAnimationFrame(render);
-    mesh.rotation.x += 0.01;
+    //mesh.rotation.x += 0.01;
     //object.rotation.x += 0.01;
     controls.update();
     renderer.render(scene, camera);
