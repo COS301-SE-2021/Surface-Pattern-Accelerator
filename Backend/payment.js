@@ -43,7 +43,7 @@ app.get('/', function(req, res) {
 
 
 
-app.get('/auth', function(request, response) {
+app.post('/auth', function(request, response) {
     connection.query('SELECT * FROM payment', function(error, results, fields) {
         if (results.length > 0) {
             response.send(results);
