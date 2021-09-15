@@ -20,16 +20,16 @@ export class StyleTransferComponent implements OnInit {
   upload(){
     const upload = document.getElementById('readImg') as HTMLInputElement;
     if(upload.files[0]){
-      const image = new FileReader();
+      const reader = new FileReader();
       this.contentImage = new Image();
-      image.readAsDataURL(upload.files[0]);
 
-      image.addEventListener('load', (event) => {
-        const source: string = event.target.result.toString();
-        this.contentImage.setAttribute('src', source);
+      reader.readAsDataURL(upload.files[0]);
+
+      reader.addEventListener('load', (event) => {
+        this.contentImage.src = event.target.result as string;
 
         //display the image
-        document.getElementById('uploadedImage').setAttribute('src', source);
+        document.getElementById('uploadedImage').setAttribute('src', this.contentImage.src);
         document.getElementById('contentContainer').style.display = 'block';
         document.getElementById('uploadedImage').style.display = 'block';
       });
