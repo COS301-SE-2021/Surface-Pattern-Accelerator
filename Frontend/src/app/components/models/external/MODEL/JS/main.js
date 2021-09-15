@@ -17,8 +17,6 @@ function main() {
   camera.position.z = 100; // Setting the camera position
 
 // Renderer
-  //renderer = new THREE.WebGLRenderer({canvas: canvasEl, alpha: true});
-  //renderer.setSize(canvasWidth, canvasHeight, false);
   renderer = new THREE.WebGLRenderer({alpha: true});
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.body.appendChild( renderer.domElement );
@@ -107,6 +105,8 @@ function loadImage() {
       }
     }
   });
+}
 
+function loadObject(model) {
 
 }
