@@ -27,6 +27,8 @@ export class StyleTransferComponent implements OnInit {
       image.addEventListener('load', (event) => {
         const source: string = event.target.result.toString();
         this.contentImage.setAttribute('src', source);
+
+        //display the image
         document.getElementById('uploadedImage').setAttribute('src', source);
         document.getElementById('contentContainer').style.display = 'block';
         document.getElementById('uploadedImage').style.display = 'block';
@@ -46,7 +48,7 @@ export class StyleTransferComponent implements OnInit {
 
 
   /*
-  * This fiction checks if the images are set then it will
+  * This function checks if the images are set then it will
   *  send the images to a folder in the backend with the py file
   *  */
   processGeneratedImage(){
@@ -57,20 +59,15 @@ export class StyleTransferComponent implements OnInit {
       // 4. get the generated image (generated.png) from the folder (backend) and assign it to this.generatedImage (frontend)
 
       // When the image is saved in this.generatedImage execute the block of code bellow
-      // this.generatedImage = ....
+      // this.generatedImage = -----------;
       // document.getElementById('contentContainer').style.display = 'none';
       // document.getElementById('resultContainer').style.display = 'block';
       // document.getElementById('generatedImg').setAttribute('src', this.styleImage.src);
-      window.alert('Running.... **add processing for backend**'); //remove this later
+      // window.alert('Running.... **add processing for backend**'); //remove this later
     }
     else if(!this.styleImage && this.contentImage){
       window.alert('Please pick a style');
     }
-
-  }
-
-  downloadImage(){
-    //TODO: add the code to download generated image
   }
 
 }
