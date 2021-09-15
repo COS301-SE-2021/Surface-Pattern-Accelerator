@@ -5,8 +5,10 @@ let material;
 let loader;
 let obj;
 let camera;
+let urlValue;
+let texture;
 
-function main() {
+function main(stringModel) {
 
 // Scene
   scene = new THREE.Scene();
@@ -25,15 +27,22 @@ function main() {
   let controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 // Texture
-  let texture = new THREE.TextureLoader().load('https://image.freepik.com/free-vector/topical-palm-leaves-seamless-pattern-fabric-texture-vector-illustration_1182-1327.jpg');
+  texture = new THREE.TextureLoader().load('https://image.freepik.com/free-vector/topical-palm-leaves-seamless-pattern-fabric-texture-vector-illustration_1182-1327.jpg');
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set( 4, 4 );
 
   // Object Loader
+  if (stringModel === 'shirt') {
+    urlValue = '../ObjectModels/t+shirts.obj';
+  }
+  else if (stringModel === 'cat') {
+    urlValue = '../ObjectModels/cat.obj';
+  }
+
   loader = new THREE.OBJLoader();
   loader.load(
-    '../ObjectModels/t+shirts.obj',
+    urlValue,
     function ( object ) {
       obj = object;
 
@@ -64,7 +73,9 @@ function main() {
 // Animation
   let render = function () {
     requestAnimationFrame(render);
-    obj.rotation.y += 0.01;
+    if (obj != null) {
+      obj.rotation.y += 0.01;
+    }
     controls.update();
     renderer.render(scene, camera);
   }
@@ -107,6 +118,40 @@ function loadImage() {
   });
 }
 
-function loadObject(model) {
+function loadObject(stringM) {
+  let stringV;
+  if (stringM === 'cat') {
+    scene.remove(obj);
+    stringV = '../ObjectModels/cat.obj';
+    camera.position.z = 3; // Setting the camera position
+  } else if (stringM === 'shirt')
+  {
+    scene.remove(obj);
+    stringV = '../ObjectModels/t+shirts.obj';
+    camera.position.z = 100; // Setting the camera position
+  }
 
+  loader.load(
+    stringV,
+    function ( object ) {
+      obj = object;
+
+      object.traverse( function ( child ) {
+        if ( child.isMesh ) {
+          child.material.map = texture; // assign your diffuse texture here
+        }
+      } );
+
+      scene.add( object );
+    },
+    // called when loading is in progresses
+    function ( xhr ) {
+      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    },
+    // called when loading has errors
+    function ( error ) {
+      console.log( 'An error happened' );
+      console.log( error);
+    }
+  );
 }
