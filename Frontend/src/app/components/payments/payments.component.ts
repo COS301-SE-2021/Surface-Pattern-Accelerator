@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CollectionsServiceService } from '../../services/collections-service.service';
+import { LoginService } from '../../services/login.service';
+import {HttpClient} from "@angular/common/http";
+
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
   styleUrls: ['./payments.component.scss'],
 })
 export class PaymentsComponent implements OnInit {
-
+stripe:any
   paymentHandler:any = null;
+  private serverAPIURL = 'http://localhost:5000/auth';
+  constructor(private loginService: LoginService, private collectionsService: CollectionsServiceService,private http: HttpClient) {
 
-  constructor() { }
-
+  }
   ngOnInit() {
     this.invokeStripe();
+   ///// this.callService();
   //   //stripe payment
   //   const stripe = require('stripe')('sk_test_51JWIR0GnSZPbZIbcuxh2UOQBVHpVRQeFf4KagJ18wjYP9Rz0L2qs72idNwWjLNBi02563n0E2YqQysHxa7xzuUoa00yE0zX9Ml');
   //   const express = require('express');
@@ -43,14 +49,34 @@ export class PaymentsComponent implements OnInit {
   //   });
   }
 
+  callService(amount) {
+    console.log("making call")
+    this.http.post(this.serverAPIURL , { data: this.stripe , },{withCredentials: true
+    }).subscribe((resp: any) => {
+      console.log(resp)
+    })
+  }
+
   makePayment(amount) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51JWIZsHgVOPspuvRuKmrbhqQPeDeAwXgEhDYztocJWUJEYGI5b5Ciy2w5S7sXTgJ5qb1bLV0nOiTzYee6tscNPyS00hb8s0dAg',
       locale: 'auto',
       token: function (stripeToken: any) {
-        console.log(stripeToken)
+        this.stripe=stripeToken
+        console.log(this.stripe)
+       /// this.callService();
+       /* this.collectionsService.getCollections().subscribe(collections => {
+          console.log(collections)
+        })*/
 
-        //////////make API call to send details
+
+
+
+
+        //////////make API call to send details**********
+        ///this.callService(stripeToken);
+
+
         console.log("makePayment")
         ///alert('Stripe token generated!');
       }
@@ -77,6 +103,7 @@ export class PaymentsComponent implements OnInit {
             console.log(stripeToken)
             console.log("invokeStripe")
             ///////send to the database
+           /// this.callService();
             alert('Payment has been successfull!');
           }
         });
@@ -86,6 +113,15 @@ export class PaymentsComponent implements OnInit {
     }
   }
 
+  /*callService(details){
+
+  }*/
+
+
+
+
 
 
 }
+
+
