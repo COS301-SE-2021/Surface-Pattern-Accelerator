@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PaymentService } from "../../services/payment/payment.service";
 
 @Controller('payment')
@@ -29,7 +29,23 @@ export class PaymentController {
             }
         )
 
-        
-
         }
+
+
+    @Get()
+    getPaymentDetails(@Body('email') email: string){
+        let connection = this.paymentService.getDbConnection();
+        return new Promise((success, failure)=>{
+            connection.query('SELECT * FROM payment.payments where email = ? ;', [email], function(error, details, fields)
+            {
+                if (details.length > 0){
+                    success({ status:"success ok", paymentDetails: details })
+                }
+                else{
+                    failure({ status:"failed", error: error })
+                }
+            })
+        })
+    }
+
 }
