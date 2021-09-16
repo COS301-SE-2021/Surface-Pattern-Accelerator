@@ -11,7 +11,7 @@ import { NewCollectionComponent } from './components/collection-creator/new-coll
 import { HttpClientModule } from '@angular/common/http';
 
 /////search
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from "ng2-search-filter";
 //popovers
 import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component';
 import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component';
@@ -89,7 +89,7 @@ import {CollectionLayoutComponent} from './collection-layout/collection-layout.c
     MatCheckboxModule,
     MatButtonModule,
     SocialLoginModule,
-    Ng2SearchPipeModule,
+    //Ng2SearchPipeModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
