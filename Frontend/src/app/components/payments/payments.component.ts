@@ -58,7 +58,6 @@ stripe:any
         //////////make API call to send details**********
         ///this.callService(stripeToken);
 
-
         console.log("makePayment")
         ///alert('Stripe token generated!');
       }
@@ -94,7 +93,6 @@ stripe:any
       window.document.body.appendChild(script);
     }
   }
-
 
 }
 
