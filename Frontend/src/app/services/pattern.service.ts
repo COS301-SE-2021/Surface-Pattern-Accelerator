@@ -185,18 +185,28 @@ export class PatternService {
     // });
 
     try {
-      const formData = new FormData();
-      //TODO: append unique ID to file name so the server knows which files belong to which user
-      formData.append('files', this.dataURItoBlob(patternCanvas.toDataURL()), 'testName' + '.png');
-      formData.append('patternID', this.patternContents.patternID);
-      formData.append('patternContent', JSON.stringify(this.patternContents));
-      formData.append('collectionID', collectionID);
-      this.http.post('http://localhost:3000/api/savePattern',
-        formData,
-        {withCredentials: true})
-        .subscribe(response => {
-          console.log(response);
-        });
+      this.loadingController.create({
+        message: "Saving Your Pattern..."
+      }).then(loaderResult => {
+        loaderResult.present().then(r => {
+          const formData = new FormData();
+          //TODO: append unique ID to file name so the server knows which files belong to which user
+          formData.append('files', this.dataURItoBlob(patternCanvas.toDataURL()), 'testName' + '.png');
+          formData.append('patternID', this.patternContents.patternID);
+          formData.append('patternContent', JSON.stringify(this.patternContents));
+          formData.append('collectionID', collectionID);
+          this.http.post('http://localhost:3000/api/savePattern',
+            formData,
+            {withCredentials: true})
+            .subscribe(response => {
+              console.log(response);
+              loaderResult.dismiss().then();
+            });
+        })
+      })
+
+
+
     }
     catch (err)
     {
