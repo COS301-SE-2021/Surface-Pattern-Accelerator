@@ -16,7 +16,9 @@ function main(stringModel) {
 // Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   // larger the number the further away it is
-  camera.position.z = 100; // Setting the camera position
+  camera.position.z = 80; // Setting the camera position
+  camera.position.y = 0;
+  camera.position.x = 110;
 
 // Renderer
   renderer = new THREE.WebGLRenderer({alpha: true});
@@ -124,11 +126,15 @@ function loadObject(stringM) {
     scene.remove(obj);
     stringV = '../ObjectModels/cat.obj';
     camera.position.z = 3; // Setting the camera position
+    camera.position.y = 0;
+    camera.position.x = 0;
   } else if (stringM === 'shirt')
   {
     scene.remove(obj);
     stringV = '../ObjectModels/t+shirts.obj';
-    camera.position.z = 100; // Setting the camera position
+    camera.position.z = 80; // Setting the camera position
+    camera.position.y = 0;
+    camera.position.x = 110;
   }
 
   loader.load(
