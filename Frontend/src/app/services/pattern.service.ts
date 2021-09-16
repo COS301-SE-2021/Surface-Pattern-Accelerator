@@ -210,24 +210,36 @@ export class PatternService {
     console.log('on pattern change');
     canvas.clear();
 
+    this.loadingController.create({
+      message: "Switching Patterns..."
+    }).then(loaderResult => {
+      loaderResult.present().then(r => {
+
+
+        this.http.post(this.serverAPIURL + '/getFileByID',
+          { fileID: selectedPatternID },
+          {withCredentials: true
+          }).subscribe(fileContent => {
+          if (fileContent)
+          {
+            this.patternContents = fileContent as IPatternContentsInterface;
+            console.log(this.patternContents);
+            this.motifService.spawnMotifObjectsFromSaveState(this.patternContents, canvas);
+          }
+          loaderResult.dismiss().then()
+
+        });
+
+      })
+    })
+
     // for (let motOnCanvas in this.motifService.motifsOnCanvas.objects)
     // {
     //   canvas.remove(this.motifService.motifsOnCanvas.objects[motOnCanvas].objectRef)
     // }
 
 
-    this.http.post(this.serverAPIURL + '/getFileByID',
-      { fileID: selectedPatternID },
-      {withCredentials: true
-      }).subscribe(fileContent => {
-        if (fileContent)
-        {
-          this.patternContents = fileContent as IPatternContentsInterface;
-          console.log(this.patternContents);
-          this.motifService.spawnMotifObjectsFromSaveState(this.patternContents, canvas);
-        }
 
-    });
   }
 
 
