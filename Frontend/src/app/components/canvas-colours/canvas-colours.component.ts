@@ -7,20 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CanvasColoursComponent implements OnInit {
 
-  colourList = [];
+  colourList: any;
   constructor() {}
 
   ngOnInit() {
     document.getElementById('canvasExtractor').onclick = ()=>{
-      this.canvasColour();
+      if(this != null){
+        this.canvasColour();
+
+      }
     };
   }
 
   canvasColour(){
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const canvas = <HTMLCanvasElement> document.getElementById('canvasExtractor');
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
+    this.colourList = [];
+    const canvas = document.getElementById('canvasExtractor') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     const imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
     const data = imageData.data;
     let i; let n; let ret=1;
@@ -30,7 +32,7 @@ export class CanvasColoursComponent implements OnInit {
       const r  = data[i];
       const g  = data[i + 1];
       const b  = data[i + 2];
-      const hex = this.rgbToHex('rgb('+r+','+g+','+b+')');
+      const hex = this.rgbToHexFunction('rgb('+r+','+g+','+b+')');
 
       if (!(hex in this.colourList)){
         this.colourList[hex] = 1;
@@ -61,8 +63,10 @@ export class CanvasColoursComponent implements OnInit {
           const item = document.querySelector('#it'+ count) as HTMLElement;
           const hex = document.querySelector('#hex'+ count) as HTMLElement;
           console.log(keys[i]);
-          item.style.backgroundColor = keys[i];
-          hex.innerHTML = keys[i];
+
+            item.style.backgroundColor = keys[i];
+            hex.style.backgroundColor = '#ffffff';
+            hex.innerHTML = keys[i];
 
           prev = keys[i].charAt(1);
           count++;
@@ -73,13 +77,15 @@ export class CanvasColoursComponent implements OnInit {
     return ret;
   }
 
-  rgbToHex(str: string){
-    const rgb = str.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  rgbToHexFunction(input: string){
+    const rgbVal = input.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
+    //
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    function hex(x) {
+    function hexCode(x) {
       return ('0' + parseInt(x, 10).toString(16)).slice(-2);
     }
-    return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    return '#' + hexCode(rgbVal[1]) + hexCode(rgbVal[2]) + hexCode(rgbVal[3]);
   }
 
   // Import SVG & Image files and display them on the canvas
@@ -124,11 +130,17 @@ export class CanvasColoursComponent implements OnInit {
         // On image load add to canvas
         img.onload = () => {
           // Sets a limit to the size of image displayed
-          if (img.width > 300) {
-            img.width  = 300;
-            if (img.height > 200) {
-              img.height  = 200;
-            }
+          if (img.width > 512) {
+            const ratio = 512/img.width;
+            img.width  = 512;
+            const h = img.height;
+            img.height = h * ratio;
+          }
+          if (img.height > 512) {
+            const ratio = 512/img.height;
+            img.height  = 512;
+            const h = img.width;
+            img.width = h * ratio;
           }
           canvas.width = img.width;
           canvas.height = img.height;
@@ -138,16 +150,13 @@ export class CanvasColoursComponent implements OnInit {
       },
       false
     );
+    document.getElementById('reload').style.visibility = 'visible';
     return ret;
   }
 
   reloadPage(){
     const canvas = document.getElementById('canvasExtractor') as HTMLCanvasElement;
     const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-    const img = new Image();
-    img.onload = () =>{
-      context.drawImage(img,0,0);
-    };
     context.clearRect(0,0, canvas.width, canvas.height);
 
     for(let x=0; x<20; x++){

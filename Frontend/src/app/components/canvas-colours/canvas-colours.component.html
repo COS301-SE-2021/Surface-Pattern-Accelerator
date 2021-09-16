@@ -1,14 +1,18 @@
-<ion-content>
+<ion-content style="height: 100%">
   <ion-card>
-    <div style="font-size: xx-large; padding-top: 3%">Upload an image</div> <br>
-    <canvas id="canvasExtractor" style="border: 1px dashed #ffffff" width="500"></canvas> <br>
-    <br>
-    <ion-button color="medium" (click)="import()">Import</ion-button>
-    <ion-button color="medium" id="reload" (click)="reloadPage()"> clear </ion-button>
-    <!--
-      Input file accepts only image files
-    -->
-    <input type="file" id="cc-upload-file" accept="image/*"/>
+    <ion-card-header>
+      Upload an image
+    </ion-card-header>
+    <ion-card-content >
+      <canvas id="canvasExtractor" style="border: 1px dashed #818181" height="350" width="512"></canvas> <br>
+      <br>
+      <ion-button color="medium" id="reload" (click)="reloadPage()" hidden> clear </ion-button>
+      <ion-button color="medium" (click)="import()" >Import</ion-button>
+      <!--
+        Input file accepts only image files
+      -->
+      <input type="file" id="cc-upload-file" accept="image/*"/>
+    </ion-card-content>
   </ion-card>
   <ion-card>
     <ion-card-header> Tap on pattern to extract colours </ion-card-header>
