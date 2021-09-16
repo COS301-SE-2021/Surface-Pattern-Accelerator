@@ -15,7 +15,7 @@ import {fabric} from 'fabric';
 
 import { ActivatedRoute } from '@angular/router';
 import {IMotifStateInterface} from '../../Interfaces/motifDetails.interface';
-import {PopoverController} from '@ionic/angular';
+import {LoadingController, PopoverController} from '@ionic/angular';
 import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
 import {NewPatternComponent} from '../../popovers/new-pattern/new-pattern.component';
 
@@ -88,7 +88,6 @@ export class PatternComponent implements OnInit {
   colorOrginal: string = "white";
   background: boolean = false;
   ptn: boolean = false;
-
   downWidth: number = null;
   downHeight: number = null;
 
@@ -112,7 +111,8 @@ export class PatternComponent implements OnInit {
               private route: ActivatedRoute,
               public patternService: PatternService,
               private popoverController: PopoverController,
-              private http: HttpClient) {}
+              private http: HttpClient,
+              private loadingController: LoadingController) {}
 
 
   ngOnInit(){
@@ -121,6 +121,7 @@ export class PatternComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.collectionID = params.collectionID;
       this.patternService.getCurrentCollectionJSON(this.collectionID);
+      this.motifLoad();
       //this.getMotifs();
     });
 
@@ -1091,6 +1092,19 @@ export class PatternComponent implements OnInit {
     //delete this.link;
 
     this.refresh();//REFRESH AFTER DOWNLOAD
+  }
+
+  motifLoad() {
+    this.loadingController.create({
+      message: "Loading Your Motifs..."
+    }).then(loaderResult => {
+      loaderResult.present().then(r => {
+        this.motifService.getAllMotifs()
+          .subscribe(() => {
+            loaderResult.dismiss().then()
+          });
+      })
+    })
   }
 
 
