@@ -42,10 +42,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
 import { MaterialModule } from './material/material.module';
 import {StyleTransferComponent} from './components/style-transfer/style-transfer.component';
-import {GLoginComponent} from './components/g-login/g-login.component'
-import {MotifEditorComponent} from './components/motif-editor/motif-editor.component'
-import {CollectionLayoutComponent} from "./collection-layout/collection-layout.component";
-import {CollorPalletComponent} from "./components/collor-pallet/collor-pallet.component";
+import {GLoginComponent} from './components/g-login/g-login.component';
+import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
+import {CollectionLayoutComponent} from './collection-layout/collection-layout.component';
 
 
 
@@ -71,12 +70,11 @@ import {CollorPalletComponent} from "./components/collor-pallet/collor-pallet.co
     MotifCatalogueComponent,
     NewPatternComponent,
     ColorPaletteComponent,
-    StyleTransferComponent
+    StyleTransferComponent,
     NewPatternComponent,
     GLoginComponent,
     MotifEditorComponent,
     CollectionLayoutComponent,
-    CollorPalletComponent,
   ],
 
   imports: [

@@ -7,8 +7,6 @@ import {CollectionBasicOperationsComponent} from '../../popovers/collection-basi
 import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
 
 import { MenuController } from '@ionic/angular';
-import {CollorPalletComponent} from "../collor-pallet/collor-pallet.component";
-import {ColorComponent} from "../color/color.component";
 import {CollectionLayoutComponent} from "../../collection-layout/collection-layout.component";
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component";
 
