@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-collor-pallet',
-  templateUrl: './collor-pallet.component.html',
-  styleUrls: ['./collor-pallet.component.scss'],
+  selector: 'app-color-palette',
+  templateUrl: './color-palette.component.html',
+  styleUrls: ['./color-palette.component.scss'],
 })
-export class CollorPalletComponent implements OnInit {
+export class ColorPaletteComponent implements OnInit {
 
   constructor() { }
 
@@ -72,6 +72,4 @@ export class CollorPalletComponent implements OnInit {
     }
 
   }
-
-
 }
