@@ -165,7 +165,7 @@ module.exports = function (updatedModules, renewedModules) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
-const session = __webpack_require__(26);
+const session = __webpack_require__(28);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({ origin: ["http://localhost:8100"],
@@ -219,6 +219,8 @@ const upload_motif_controller_1 = __webpack_require__(19);
 const platform_express_1 = __webpack_require__(20);
 const get_motifs_controller_1 = __webpack_require__(24);
 const save_pattern_controller_1 = __webpack_require__(25);
+const payment_controller_1 = __webpack_require__(26);
+const payment_service_1 = __webpack_require__(27);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -226,8 +228,8 @@ AppModule = __decorate([
         imports: [platform_express_1.MulterModule.register({
                 dest: './files',
             })],
-        controllers: [app_controller_1.AppController, create_access_token_controller_1.CreateAccessTokenController, get_collections_controller_1.GetCollectionsController, get_file_by_id_controller_1.GetFileByIdController, new_collection_controller_1.NewCollectionController, create_jsonfile_controller_1.CreateJsonfileController, update_file_controller_1.UpdateFileController, upload_motif_controller_1.UploadMotifController, get_motifs_controller_1.GetMotifsController, save_pattern_controller_1.SavePatternController],
-        providers: [app_service_1.AppService, google_api_service_1.GoogleApiService],
+        controllers: [app_controller_1.AppController, create_access_token_controller_1.CreateAccessTokenController, get_collections_controller_1.GetCollectionsController, get_file_by_id_controller_1.GetFileByIdController, new_collection_controller_1.NewCollectionController, create_jsonfile_controller_1.CreateJsonfileController, update_file_controller_1.UpdateFileController, upload_motif_controller_1.UploadMotifController, get_motifs_controller_1.GetMotifsController, save_pattern_controller_1.SavePatternController, payment_controller_1.PaymentController],
+        providers: [app_service_1.AppService, google_api_service_1.GoogleApiService, payment_service_1.PaymentService],
     })
 ], AppModule);
 exports.AppModule = AppModule;
@@ -1362,6 +1364,117 @@ exports.SavePatternController = SavePatternController;
 
 /***/ }),
 /* 26 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PaymentController = void 0;
+const common_1 = __webpack_require__(6);
+const payment_service_1 = __webpack_require__(27);
+let PaymentController = class PaymentController {
+    constructor(paymentService) {
+        this.paymentService = paymentService;
+    }
+    pay(id, created, client_ip, card_id, email) {
+        let connection = this.paymentService.getDbConnection();
+        return new Promise((success, failure) => {
+            connection.query('INSERT INTO payment.payments (id, created, client_ip, card_id, email) VALUES (?, ?, ?, ?, ?);', [id, created, client_ip, card_id, email], (error, results, fields) => {
+                if (error) {
+                    failure({ status: 'failed', error: error });
+                }
+                else {
+                    success({ status: 'success ok', data: results });
+                }
+            });
+        });
+    }
+    getPaymentDetails(email) {
+        let connection = this.paymentService.getDbConnection();
+        return new Promise((success, failure) => {
+            connection.query('SELECT * FROM payment.payments where email = ? ;', [email], function (error, details, fields) {
+                if (details.length > 0) {
+                    success({ status: "success ok", paymentDetails: details });
+                }
+                else {
+                    failure({ status: "failed", error: error });
+                }
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)('id')),
+    __param(1, (0, common_1.Body)('created')),
+    __param(2, (0, common_1.Body)('client_ip')),
+    __param(3, (0, common_1.Body)('card.id')),
+    __param(4, (0, common_1.Body)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String, String, String]),
+    __metadata("design:returntype", void 0)
+], PaymentController.prototype, "pay", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Body)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PaymentController.prototype, "getPaymentDetails", null);
+PaymentController = __decorate([
+    (0, common_1.Controller)('payment'),
+    __metadata("design:paramtypes", [typeof (_a = typeof payment_service_1.PaymentService !== "undefined" && payment_service_1.PaymentService) === "function" ? _a : Object])
+], PaymentController);
+exports.PaymentController = PaymentController;
+
+
+/***/ }),
+/* 27 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PaymentService = void 0;
+const common_1 = __webpack_require__(6);
+const mysql = __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mysql'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+let PaymentService = class PaymentService {
+    getDbConnection() {
+        return mysql.createConnection({
+            host: 'aws-cos221.c5zbzrr9w4bb.us-east-2.rds.amazonaws.com',
+            user: 'admin',
+            password: 'cos221_prac3_pw',
+            database: 'elections'
+        });
+    }
+};
+PaymentService = __decorate([
+    (0, common_1.Injectable)()
+], PaymentService);
+exports.PaymentService = PaymentService;
+
+
+/***/ }),
+/* 28 */
 /***/ ((module) => {
 
 "use strict";
@@ -1429,7 +1542,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("c31d18c4f15a895f799a")
+/******/ 		__webpack_require__.h = () => ("02ea60a850aebfd0a31a")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
