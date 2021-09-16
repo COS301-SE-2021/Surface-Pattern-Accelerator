@@ -1,4 +1,3 @@
-
 // comment here
 var mysql = require('mysql');
 var express = require('express');
@@ -14,13 +13,12 @@ var connection = mysql.createConnection({
     database : 'elections'
 });
 
-//this is my comment
+
 var cors = require("cors");
 var app = express();
 
 app.options('*', cors())
 // set the view engine to ejs
-
 
 app.set('view engine', 'ejs');
 
