@@ -64,8 +64,8 @@ stripe:any
     });
 
     paymentHandler.open({
-      name: 'Surface Pattern Accelerator',
-      description: 'Yearly subscription',
+      name: 'Simply patterns',
+      description: 'Once-off payment',
       amount: amount * 100
     });
   }

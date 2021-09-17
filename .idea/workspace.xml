@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="912887ce-475d-4e02-82d5-5412252a7529" name="Default Changelist" comment="">
+    <list default="true" id="912887ce-475d-4e02-82d5-5412252a7529" name="Default Changelist" comment="Small css changes to payment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/dist/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/dist/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/dist/test.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/dist/test.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +61,14 @@
       <workItem from="1630941681963" duration="5157000" />
       <workItem from="1631013603448" duration="1139000" />
     </task>
+    <task id="LOCAL-00001" summary="Small css changes to payment">
+      <created>1631867691331</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631867691331</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -75,5 +85,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Small css changes to payment" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small css changes to payment" />
   </component>
 </project>
