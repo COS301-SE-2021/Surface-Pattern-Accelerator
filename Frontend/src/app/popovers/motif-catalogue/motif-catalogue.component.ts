@@ -30,6 +30,11 @@ export class MotifCatalogueComponent implements OnInit {
       })
   }
 
+  closePopover(){
+    this.popoverController.dismiss();
+  }
+
+
   motifSelect(motifData: any){
     console.log("adding motif demo")
 
