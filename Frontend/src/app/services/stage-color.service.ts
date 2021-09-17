@@ -12,7 +12,11 @@ export class StageColorService {
 
   constructor() { }
 
-  sendStage(st: any){
+  sendStage(st: string){
     this.stageSource.next(st);
+  }
+
+  getStage(){
+    return this.stage$;
   }
 }

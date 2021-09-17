@@ -24,6 +24,7 @@ import pixelRatio = Konva.pixelRatio;
 import {Originator} from "../../Classes/MementoDesignPattern/Originator";
 import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 import {motif} from '../../Classes/motif.class';
+import {StageColorService} from '../../services/stage-color.service';
 
 
 @Component({
@@ -112,7 +113,8 @@ export class PatternComponent implements OnInit {
               public patternService: PatternService,
               private popoverController: PopoverController,
               private http: HttpClient,
-              private loadingController: LoadingController) {}
+              private loadingController: LoadingController,
+              private stageColorService: StageColorService) {}
 
 
   ngOnInit(){
@@ -220,11 +222,17 @@ export class PatternComponent implements OnInit {
         opacity: 0.3
       });
 
-
-
-
-
+    document.getElementById('patternFrame').addEventListener('change', () => {
+      this.sendPattern();
+    });
   }
+
+  sendPattern(){
+    console.log('in send pattern');
+    const canv =document.getElementById('patternFrame') as HTMLCanvasElement;
+    this.stageColorService.sendStage(canv.toDataURL()); // service to send image to color component
+    console.log(this.stageColorService.stage$);
+  };
 
   addState()
   {
