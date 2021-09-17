@@ -21,7 +21,7 @@ body{
   background-size: 300% 300%;
   animation: anima 20s ease-in-out infinite;
   position: absolute;
-  top: 0%;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -92,7 +92,6 @@ form{
     border-radius: 3px;
     padding: 10px 15px;
     margin: 0 auto 10px auto;
-    display: block;
     text-align: center;
     font-size: 18px;
 
@@ -123,21 +122,12 @@ form{
     border-radius: 3px;
     padding: 10px 15px;
     margin: 0 auto 10px auto;
-    display: block;
     text-align: center;
     font-size: 18px;
 
     color: white;
-    appearance: none;
-    outline: 0;
-    background-color: white;
-    border: 0;
-    padding: 10px 15px;
     //color: @prim;
-    border-radius: 3px;
-    width: 400px;
     cursor: pointer;
-    font-size: 18px;
     //height: 200px;
     transition-duration: 0.25s;
 

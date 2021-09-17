@@ -13,20 +13,37 @@ export class ColorPaletteComponent implements OnInit {
     this.colorGen();
   }
 
-  colorGen(){
+  getRandomIntInclusion(min, max) {
+    const randomBuffer = new Uint32Array(1);
+    window.crypto.getRandomValues(randomBuffer);
+    let randomNumber = randomBuffer[0] / (0xffffffff + 1);
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(randomNumber * (max - min + 1)) + min;
+  }
+
+  colorGen() {
 
     const code = document.querySelectorAll('.code');
     const color = document.querySelectorAll('.color');
     const letters = '0123456789abcdef';
     const hashtag = ['#','#','#','#','#','#'];
 
-    for (let i=0;i<6;i++){
+    for (let i=0;i<6;i++) {
+      /*
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
+       */
+      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
+      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
+      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
+      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 100)%16)];
+      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
+      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
     }
 
     for (let i=0;i<code.length;i++){

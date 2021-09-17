@@ -5,8 +5,9 @@
   z-index: 10000;
 }
 .area{
+  //background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  background: linear-gradient(to left, #8f94fb, #4e54c8);
   background: #4e54c8;
-  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
   width: 100%;
   height:100vh;
 
@@ -152,7 +153,7 @@
   margin-left: auto;
   margin-right: 80px;
   font-size: 115%;
-  font-family: 'Comic Sans MS';
+  font-family: 'Comic Sans MS', sans-serif;
 }
 
 .rightContent{
@@ -209,7 +210,7 @@
 }
 
 .words >h4{
-  font-family: 'Comic Sans MS';
+  font-family: 'Comic Sans MS', sans-serif;
   font-size: 30px;
   padding: 0 80px;
   color: white;
@@ -273,7 +274,7 @@
   position: absolute;
   background-color: #707070;
   min-width: 300px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   z-index: 1;
 }
 

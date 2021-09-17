@@ -24,6 +24,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ColorComponent } from './components/color/color.component';
 import { MainComponent } from './components/launchpage/main/main.component';
 import { BodyComponent } from './components/launchpage/body/body.component';
+import { PaymentsComponent } from './components/payments/payments.component';
 
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -64,7 +65,9 @@ import { MaterialModule } from './material/material.module';
     MotifUploadComponent,
     MotifCatalogueComponent,
     NewPatternComponent,
-    ColorPaletteComponent
+    ColorPaletteComponent,
+    NewPatternComponent,
+    PaymentsComponent
 
   ],
 
