@@ -2,13 +2,27 @@
   color: black;
 }
 
+.parent{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 30px;
+}
 .dropbtn {
   background-color: #011638;
   color: #53ff45;
   padding: 25px 30px;
   font-size: 16px;
   border: none;
-  align-content: center;
+}
+
+.button{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
 }
 
 .wordss{
@@ -20,26 +34,26 @@
 .words{
   margin: auto;
   width: 60%;
-  border: 5px solid #FFFF00;
+  border: 5px solid #011638;
   padding: 10px;
 }
 
 .words >h1{
   font-weight: bold;
   font-size: 40px;
-  padding: 0 80px;
+  padding: 20px 80px;
 }
 
 .words >h2{
   color: #011638;
   font-size: 30px;
-  padding: 15px 0;
+  padding: 20px 0;
 }
 
 .words >h4{
   font-family: 'Comic Sans MS', sans-serif;
   font-size: 30px;
-  padding: 0 80px;
+  padding: 20px 80px;
   color: #011638;
   //padding: 9px 0;
 }

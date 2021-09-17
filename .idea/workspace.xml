@@ -6,7 +6,7 @@
       <change beforePath="$PROJECT_DIR$/Backend/dist/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/dist/test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/dist/test.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/dist/test.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +68,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631867691331</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Small css changes to payment">
+      <created>1631868637539</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1631868637539</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
