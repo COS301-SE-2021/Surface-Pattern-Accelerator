@@ -1,3 +1,50 @@
 #checkout-button{
   color: black;
 }
+
+.dropbtn {
+  background-color: #011638;
+  color: #53ff45;
+  padding: 25px 30px;
+  font-size: 16px;
+  border: none;
+  align-content: center;
+}
+
+.wordss{
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 20px;
+  padding: 0 80px;
+}
+
+.words{
+  margin: auto;
+  width: 60%;
+  border: 5px solid #FFFF00;
+  padding: 10px;
+}
+
+.words >h1{
+  font-weight: bold;
+  font-size: 40px;
+  padding: 0 80px;
+}
+
+.words >h2{
+  color: #011638;
+  font-size: 30px;
+  padding: 15px 0;
+}
+
+.words >h4{
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 30px;
+  padding: 0 80px;
+  color: #011638;
+  //padding: 9px 0;
+}
+
+.words >h3{
+  padding: 15px 50px;
+  //font-size: 16px;
+}
