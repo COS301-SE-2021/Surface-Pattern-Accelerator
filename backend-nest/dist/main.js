@@ -165,7 +165,8 @@ module.exports = function (updatedModules, renewedModules) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
-const session = __webpack_require__(26);
+const path_1 = __webpack_require__(27);
+const session = __webpack_require__(30);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({ origin: ["http://localhost:8100"],
@@ -175,6 +176,7 @@ async function bootstrap() {
         resave: false,
         saveUninitialized: false,
     }));
+    app.useStaticAssets(((0, path_1.join)(__dirname, '../../MODEL')));
     await app.listen(3000);
     if (true) {
         module.hot.accept();
@@ -219,14 +221,30 @@ const upload_motif_controller_1 = __webpack_require__(19);
 const platform_express_1 = __webpack_require__(20);
 const get_motifs_controller_1 = __webpack_require__(24);
 const save_pattern_controller_1 = __webpack_require__(25);
+const _3d_viewer_controller_1 = __webpack_require__(26);
+const serve_static_1 = __webpack_require__(29);
+const path_1 = __webpack_require__(27);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [platform_express_1.MulterModule.register({
                 dest: './files',
+            }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'MODEL'),
             })],
-        controllers: [app_controller_1.AppController, create_access_token_controller_1.CreateAccessTokenController, get_collections_controller_1.GetCollectionsController, get_file_by_id_controller_1.GetFileByIdController, new_collection_controller_1.NewCollectionController, create_jsonfile_controller_1.CreateJsonfileController, update_file_controller_1.UpdateFileController, upload_motif_controller_1.UploadMotifController, get_motifs_controller_1.GetMotifsController, save_pattern_controller_1.SavePatternController],
+        controllers: [app_controller_1.AppController,
+            create_access_token_controller_1.CreateAccessTokenController,
+            get_collections_controller_1.GetCollectionsController,
+            get_file_by_id_controller_1.GetFileByIdController,
+            new_collection_controller_1.NewCollectionController,
+            create_jsonfile_controller_1.CreateJsonfileController,
+            update_file_controller_1.UpdateFileController,
+            upload_motif_controller_1.UploadMotifController,
+            get_motifs_controller_1.GetMotifsController,
+            save_pattern_controller_1.SavePatternController,
+            _3d_viewer_controller_1.ThreeDViewerController],
         providers: [app_service_1.AppService, google_api_service_1.GoogleApiService],
     })
 ], AppModule);
@@ -1362,6 +1380,71 @@ exports.SavePatternController = SavePatternController;
 
 /***/ }),
 /* 26 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ThreeDViewerController = void 0;
+const common_1 = __webpack_require__(6);
+const path_1 = __webpack_require__(27);
+const express_1 = __webpack_require__(28);
+let ThreeDViewerController = class ThreeDViewerController {
+    displayThreeD(response, request) {
+        console.log((0, path_1.join)(process.cwd(), '../backend-nest/MODEL/index.html'));
+        response.sendFile((0, path_1.join)(process.cwd(), '../backend-nest/MODEL/index.html'));
+    }
+};
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _a : Object, typeof (_b = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], ThreeDViewerController.prototype, "displayThreeD", null);
+ThreeDViewerController = __decorate([
+    (0, common_1.Controller)('threeDViewer')
+], ThreeDViewerController);
+exports.ThreeDViewerController = ThreeDViewerController;
+
+
+/***/ }),
+/* 27 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("path");
+
+/***/ }),
+/* 28 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("express");
+
+/***/ }),
+/* 29 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/serve-static");
+
+/***/ }),
+/* 30 */
 /***/ ((module) => {
 
 "use strict";
@@ -1429,7 +1512,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("c31d18c4f15a895f799a")
+/******/ 		__webpack_require__.h = () => ("45b81459c4462892dce9")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
