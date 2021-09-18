@@ -74,14 +74,14 @@ export class MotifUploadComponent implements OnInit {
       }
 
       this.loadingController.create({
-        message: "Uploading files..."
+        message: "Uploading Files To Your Google Drive...",
       }).then(loaderResult => {
         loaderResult.present().then(() => {
           this.httpClient.post('http://localhost:3000/api/uploadMotif', formData, {withCredentials: true})
             .subscribe(response => {
               console.log(response)
               loaderResult.dismiss().then();
-
+              this.closePopover();
             })
         })
       })

@@ -103,7 +103,7 @@ export class MotifCatalogueComponent implements OnInit {
     console.log(this.patternService.currentCollection)
     this.patternService.updateCurrentCollection();
     this.motifService.getMotifs(this.patternService.currentCollection.childMotifs).then()
-
+    this.closePopover();
 
   }
 }
