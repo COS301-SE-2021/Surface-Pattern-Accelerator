@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7327676f-e59d-48d1-ab4a-9d54283881b0" name="Default Changelist" comment="Extra folder creation on drive on first startup">
-      <change afterPath="$PROJECT_DIR$/backend-nest/src/controllers/3d-viewer/index.html" afterDir="false" />
+    <list default="true" id="7327676f-e59d-48d1-ab4a-9d54283881b0" name="Default Changelist" comment="added payment component to this branch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/MODEL/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/MODEL/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend-nest/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/dist/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\Frontend\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\Berna\Documents\GitHub\Surface-Pattern-Accelerator\Frontend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -93,5 +92,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added payment component to this branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="added payment component to this branch" />
   </component>
 </project>

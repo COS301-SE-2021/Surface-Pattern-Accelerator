@@ -166,7 +166,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
 const path_1 = __webpack_require__(27);
-const session = __webpack_require__(30);
+const session = __webpack_require__(33);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({ origin: ["http://localhost:8100"],
@@ -221,11 +221,11 @@ const upload_motif_controller_1 = __webpack_require__(19);
 const platform_express_1 = __webpack_require__(20);
 const get_motifs_controller_1 = __webpack_require__(24);
 const save_pattern_controller_1 = __webpack_require__(25);
-const payment_controller_1 = __webpack_require__(26);
-const payment_service_1 = __webpack_require__(27);
 const _3d_viewer_controller_1 = __webpack_require__(26);
 const serve_static_1 = __webpack_require__(29);
 const path_1 = __webpack_require__(27);
+const payment_controller_1 = __webpack_require__(30);
+const payment_service_1 = __webpack_require__(31);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -246,9 +246,9 @@ AppModule = __decorate([
             upload_motif_controller_1.UploadMotifController,
             get_motifs_controller_1.GetMotifsController,
             save_pattern_controller_1.SavePatternController,
-            _3d_viewer_controller_1.ThreeDViewerController, 
+            _3d_viewer_controller_1.ThreeDViewerController,
             payment_controller_1.PaymentController],
-        providers: [app_service_1.AppService, google_api_service_1.GoogleApiService],
+        providers: [app_service_1.AppService, google_api_service_1.GoogleApiService, payment_service_1.PaymentService],
     })
 ], AppModule);
 exports.AppModule = AppModule;
@@ -1468,7 +1468,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PaymentController = void 0;
 const common_1 = __webpack_require__(6);
-const payment_service_1 = __webpack_require__(27);
+const payment_service_1 = __webpack_require__(31);
 let PaymentController = class PaymentController {
     constructor(paymentService) {
         this.paymentService = paymentService;
@@ -1526,7 +1526,7 @@ exports.PaymentController = PaymentController;
 
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -1540,7 +1540,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PaymentService = void 0;
 const common_1 = __webpack_require__(6);
-const mysql = __webpack_require__(28);
+const mysql = __webpack_require__(32);
 let PaymentService = class PaymentService {
     getDbConnection() {
         return mysql.createConnection({
@@ -1558,14 +1558,14 @@ exports.PaymentService = PaymentService;
 
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("mysql");
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ ((module) => {
 
 "use strict";
@@ -1633,7 +1633,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("4fc44384f2caaa5f8315")
+/******/ 		__webpack_require__.h = () => ("958f0b8aae716df20198")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

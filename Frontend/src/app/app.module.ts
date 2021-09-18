@@ -45,9 +45,7 @@ import {StyleTransferComponent} from './components/style-transfer/style-transfer
 import {GLoginComponent} from './components/g-login/g-login.component';
 import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
 import {CollectionLayoutComponent} from './collection-layout/collection-layout.component';
-
-
-
+import {PaymentComponent} from "./components/payment/payment.component";
 
 
 @NgModule({
@@ -75,6 +73,7 @@ import {CollectionLayoutComponent} from './collection-layout/collection-layout.c
     GLoginComponent,
     MotifEditorComponent,
     CollectionLayoutComponent,
+    PaymentComponent
   ],
 
   imports: [

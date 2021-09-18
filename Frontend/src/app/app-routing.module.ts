@@ -16,7 +16,7 @@ import {StyleTransferComponent} from './components/style-transfer/style-transfer
 //import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import {GLoginComponent} from './components/g-login/g-login.component';
 import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
-
+import {PaymentComponent} from "./components/payment/payment.component";
 
 const routes: Routes = [
 
@@ -36,7 +36,8 @@ const routes: Routes = [
   { path: 'style-transfer', component: StyleTransferComponent },
   { path: 'newCollection', component: NewCollectionComponent },
   { path: 'glogin', component: GLoginComponent},
-  { path: 'motifEditor', component: MotifEditorComponent} //TODO: potentially add route same as pattern component
+  { path: 'motifEditor', component: MotifEditorComponent}, //TODO: potentially add route same as pattern component
+  { path: 'payment', component: PaymentComponent}
 ];
 
 @NgModule({
