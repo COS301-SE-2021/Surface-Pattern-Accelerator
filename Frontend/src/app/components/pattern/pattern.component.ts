@@ -15,7 +15,7 @@ import {fabric} from 'fabric';
 
 import { ActivatedRoute } from '@angular/router';
 import {IMotifStateInterface} from '../../Interfaces/motifDetails.interface';
-import {LoadingController, PopoverController} from '@ionic/angular';
+import {AlertController, LoadingController, PopoverController} from '@ionic/angular';
 import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
 import {NewPatternComponent} from '../../popovers/new-pattern/new-pattern.component';
 
@@ -25,6 +25,7 @@ import {Originator} from "../../Classes/MementoDesignPattern/Originator";
 import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 import {motif} from '../../Classes/motif.class';
 import {StageColorService} from '../../services/stage-color.service';
+import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.component";
 
 
 @Component({
@@ -114,7 +115,8 @@ export class PatternComponent implements OnInit {
               private popoverController: PopoverController,
               private http: HttpClient,
               private loadingController: LoadingController,
-              private stageColorService: StageColorService) {}
+              private stageColorService: StageColorService,
+              ) {}
 
 
   ngOnInit(){
@@ -1199,4 +1201,55 @@ export class PatternComponent implements OnInit {
     }
 
   }
+
+  open3DViewer(ev: any) {
+
+    try {
+      const formData = new FormData();
+      //TODO: append unique ID to file name so the server knows which files belong to which user
+      formData.append('files', this.dataURItoBlob(this.canvas.toDataURL()), 'canvasPicture' + '.png');
+      this.http.post('http://localhost:3000/threeDViewer', formData, {withCredentials: true})
+        .subscribe((response: any) => {
+
+          let popoverReference:  HTMLIonPopoverElement;
+
+          console.log(this.canvas.toDataURL())
+          this.threeDLinkPopover(ev,response.fileName)
+            .then(resPop => {
+              resPop.present().then(() => {
+                resPop.onDidDismiss().then(() => {
+                  window.open("http://localhost:3000/threeDViewer", '_blank').focus();
+                })
+                }
+
+              )
+            });
+
+          console.log(response);
+        });
+
+
+
+
+
+    }
+    catch (err)
+    {
+      console.log(err);
+    }
+  }
+
+
+  threeDLinkPopover(ev: any, imageName: string) {
+    return this.popoverController.create({
+      component: ThreeDLinkComponent,
+      translucent: true,
+      cssClass: 'smallScreen',
+      componentProps: {
+        imageName: imageName
+      }
+    })
+  }
+
+
 }

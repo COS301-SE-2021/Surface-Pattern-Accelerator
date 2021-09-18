@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7327676f-e59d-48d1-ab4a-9d54283881b0" name="Default Changelist" comment="Extra folder creation on drive on first startup">
-      <change afterPath="$PROJECT_DIR$/backend-nest/src/controllers/3d-viewer/index.html" afterDir="false" />
+    <list default="true" id="7327676f-e59d-48d1-ab4a-9d54283881b0" name="Default Changelist" comment="3D viewer integrated into server">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/pattern/pattern.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/pattern/pattern.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/pattern/pattern.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/pattern/pattern.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/MODEL/JS/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/MODEL/JS/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend-nest/MODEL/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/MODEL/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend-nest/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/dist/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend-nest/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/3d-viewer/3d-viewer.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/3d-viewer/3d-viewer.controller.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +44,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/backend-nest/MODEL/JS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\Frontend\node_modules\typescript\lib" />
@@ -55,13 +60,15 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -76,7 +83,16 @@
       <option name="presentableId" value="Default" />
       <updated>1629815603220</updated>
       <workItem from="1629815612409" duration="8345000" />
+      <workItem from="1631948952743" duration="19628000" />
     </task>
+    <task id="LOCAL-00001" summary="3D viewer integrated into server">
+      <created>1631900759153</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631900759153</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,5 +109,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="3D viewer integrated into server" />
+    <option name="LAST_COMMIT_MESSAGE" value="3D viewer integrated into server" />
   </component>
 </project>

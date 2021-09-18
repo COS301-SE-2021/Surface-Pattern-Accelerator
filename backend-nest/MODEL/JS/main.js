@@ -10,79 +10,111 @@ let texture;
 
 function main(stringModel) {
 
-// Scene
+  // Scene
   scene = new THREE.Scene();
 
-// Camera
+  // Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   // larger the number the further away it is
   camera.position.z = 80; // Setting the camera position
   camera.position.y = 0;
   camera.position.x = 110;
 
-// Renderer
+  // Renderer
   renderer = new THREE.WebGLRenderer({alpha: true});
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.body.appendChild( renderer.domElement );
 
-// Controls
+  // Controls
   let controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-// Texture
-  texture = new THREE.TextureLoader().load('https://image.freepik.com/free-vector/topical-palm-leaves-seamless-pattern-fabric-texture-vector-illustration_1182-1327.jpg');
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set( 4, 4 );
-
-  // Object Loader
-  if (stringModel === 'shirt') {
-    urlValue = '../ObjectModels/t+shirts.obj';
-  }
-  else if (stringModel === 'cat') {
-    urlValue = '../ObjectModels/cat.obj';
-  }
-
-  loader = new THREE.OBJLoader();
-  loader.load(
-    urlValue,
-    function ( object ) {
-      obj = object;
-
-      object.traverse( function ( child ) {
-        if ( child.isMesh ) {
-          child.material.map = texture; // assign your diffuse texture here
-        }
-      } );
-
-      scene.add( object );
-    },
-    // called when loading is in progresses
-    function ( xhr ) {
-      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-    },
-    // called when loading has errors
-    function ( error ) {
-      console.log( 'An error happened' );
-      console.log( error);
-    }
-  );
-
-// Light
+  // Light
   const light = new THREE.AmbientLight(0xFFFFFF); // soft white light
   light.position.set(10, 0, 25);
   scene.add(light);
 
-// Animation
-  let render = function () {
-    requestAnimationFrame(render);
-    if (obj != null) {
-      obj.rotation.y += 0.01;
+
+  //Get file name the user wants to render
+  let fileName = prompt("Please enter your file name");
+  let responseObj;
+  new Promise((success, failure) => {
+
+    let xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.open('GET', 'http://localhost:3000/threeDViewer/' + fileName);
+    xhr.send()
+    xhr.onreadystatechange = () => {
+      console.log("fetched")
+      responseObj = xhr.response;
+      //console.log(responseObj)
+      success(responseObj)
     }
-    controls.update();
-    renderer.render(scene, camera);
-  }
-  render();
+  }).then(dataURI => {
+    // Texture
+
+    setTimeout(() => {
+      console.log(responseObj)
+      texture = new THREE.TextureLoader().load(responseObj)
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set( 4, 4 );
+
+      // Object Loader
+      if (stringModel === 'shirt') {
+        urlValue = '../ObjectModels/t+shirts.obj';
+      }
+      else if (stringModel === 'cat') {
+        urlValue = '../ObjectModels/cat.obj';
+      }
+
+      loader = new THREE.OBJLoader();
+      loader.load(
+          urlValue,
+          function ( object ) {
+            obj = object;
+
+            object.traverse( function ( child ) {
+              if ( child.isMesh ) {
+                child.material.map = texture; // assign your diffuse texture here
+              }
+            } );
+
+            scene.add( object );
+          },
+          // called when loading is in progresses
+          function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+          },
+          // called when loading has errors
+          function ( error ) {
+            console.log( 'An error occurred' );
+            console.log( error);
+          }
+      );
+
+
+
+// Animation
+      let render = function () {
+        requestAnimationFrame(render);
+        if (obj != null) {
+          obj.rotation.y += 0.01;
+        }
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      render();
+    },2000)
+
+
+
+  })
+
+
+
+
 }
+
 
 // Make the created canvas responsive
 window.addEventListener('resize', () => {

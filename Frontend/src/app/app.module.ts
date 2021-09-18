@@ -45,6 +45,7 @@ import {StyleTransferComponent} from './components/style-transfer/style-transfer
 import {GLoginComponent} from './components/g-login/g-login.component';
 import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
 import {CollectionLayoutComponent} from './collection-layout/collection-layout.component';
+import {ThreeDLinkComponent} from "./popovers/three-d-link/three-d-link.component";
 
 
 
@@ -71,10 +72,10 @@ import {CollectionLayoutComponent} from './collection-layout/collection-layout.c
     NewPatternComponent,
     ColorPaletteComponent,
     StyleTransferComponent,
-    NewPatternComponent,
     GLoginComponent,
     MotifEditorComponent,
     CollectionLayoutComponent,
+    ThreeDLinkComponent
   ],
 
   imports: [
@@ -103,7 +104,7 @@ import {CollectionLayoutComponent} from './collection-layout/collection-layout.c
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              // replace this with your google client id
+              //TODO replace this with your google client id
               '838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com'
             )
           }
