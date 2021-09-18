@@ -38,7 +38,8 @@ import { PaymentService } from './services/payment/payment.service';
     GetMotifsController,
     SavePatternController,
     ThreeDViewerController,
-    SaveImageController],
+    SaveImageController,
+    PaymentController],
   providers: [AppService, GoogleApiService, PaymentService],
 })
 export class AppModule {}

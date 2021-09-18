@@ -12,7 +12,7 @@ import {HttpClient} from "@angular/common/http";
 export class PaymentComponent implements OnInit {
   stripe:any
   paymentHandler:any = null;
-  private serverAPIURL = 'http://localhost:5000/pay';
+  private serverAPIURL = 'http://localhost:3000/api/payment/pay';
   constructor(private loginService: LoginService, private collectionsService: CollectionsServiceService,private http: HttpClient) {
 
   }
@@ -42,7 +42,13 @@ export class PaymentComponent implements OnInit {
         this.stripe=stripeToken
         console.log(this.stripe)
 
-        this.http.post(this.serverAPIURL,{data:stripeToken})
+        this.http.post(this.serverAPIURL,{
+          id:stripeToken.id,
+          created:stripeToken.created,
+         client_ip:stripeToken.client_ip,
+          card_id:stripeToken.card.id,
+          email:stripeToken.email
+        })
           .subscribe( (resp: any) => {
             console.log("dfdsfjdshfs")
             console.log(resp)

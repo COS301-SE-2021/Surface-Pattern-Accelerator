@@ -1,18 +1,18 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post,Query } from '@nestjs/common';
 import { PaymentService } from "../../services/payment/payment.service";
 
-@Controller('payment')
+@Controller('api/payment')
 export class PaymentController {
 
     constructor(private paymentService: PaymentService) {}
 
-    @Post()
+    @Post('pay')
     pay(@Body('id') id: string,
         @Body('created') created: string,
         @Body('client_ip') client_ip: string,
-        @Body('card.id') card_id: string,
+        @Body('card_id') card_id: string,
         @Body('email') email: string) {
-
+       console.log(id,created,client_ip,card_id,email)
         let connection = this.paymentService.getDbConnection();
 
         return new Promise((success, failure) => {
@@ -29,12 +29,13 @@ export class PaymentController {
             }
         )
 
-        }
+        }//////
 
 
-    @Get()
-    getPaymentDetails(@Body('email') email: string){
+    @Get('getPaymentDetails')
+    getPaymentDetails(@Query('email') email: string){
         let connection = this.paymentService.getDbConnection();
+        console.log("here -> ", email)
         return new Promise((success, failure)=>{
             connection.query('SELECT * FROM payment.payments where email = ? ;', [email], function(error, details, fields)
             {
