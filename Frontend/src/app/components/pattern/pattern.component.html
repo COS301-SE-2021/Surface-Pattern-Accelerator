@@ -9,10 +9,11 @@
         <ion-card-content>
           <ion-list>
             <ion-item>
-              <ion-button color="medium" (click)="uploadFilePopover()">Import new Motif</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)="uploadFilePopover()">Import new Motif</ion-button>
             </ion-item>
+            <br>
             <ion-item>
-              <ion-button color="medium" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
             </ion-item>
           </ion-list>
 
@@ -32,30 +33,11 @@
                 </ion-card>
               </div>
             </ion-row>
-<!--          <ion-row id=""testing>-->
-<!--            <div *ngIf="motifService.cachedMotifs" style="overflow: hidden; text-align: center;" #parent>-->
-<!--              <ion-card *ngFor="let motif of motifService.cachedMotifs" text-wrap style="margin: 20px" class="motifBlock">-->
-<!--                <button class="buttonUnselected" mat-raised-button (click)="this.motifService.spawnMotifObject(motif, this.canvas);">-->
-<!--                  <img src={{motif.motifURL}} class="image">-->
-<!--                  <ion-card-header>-->
-<!--                    <ion-card-title >{{motif.motifName}}</ion-card-title>-->
-<!--                  </ion-card-header>-->
-<!--                </button>-->
-<!--              </ion-card>-->
-<!--            </div>-->
-<!--          </ion-row>-->
-
-
-
-<!--          <ion-row>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="spawnMotif()">Spawn Motif</ion-button>-->
-<!--          </ion-row>-->
         </ion-card-content>
       </ion-card>
     </ion-col>
 
     <ion-col size="7">
-
 
         <ion-row size="1">
           <ion-card style="width: 100%">
@@ -213,29 +195,18 @@
               <ion-label>Show Gridlines</ion-label>
               <ion-checkbox (ionChange)="toggleGrid($event)" checked="false"></ion-checkbox>
             </ion-item>
-
+            <br>
             <ion-item>
               <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionID)" style="width:100%;">Save Frame</ion-button>
             </ion-item>
+            <br>
             <ion-item>
-              <ion-button color="medium" (click)="undo()">Undo</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)="undo()">Undo</ion-button>
             </ion-item>
-<!--            <ion-item>-->
-<!--              <ion-button color="medium" (click)="this.patternService.savePattern()">Save Pattern</ion-button>-->
-<!--            </ion-item>-->
-<!--            <ion-item>-->
-<!--              <ion-checkbox id="seamlessCheck" (ionChange)="toggleSeamless($event)" slot="end"></ion-checkbox>-->
-<!--              <ion-label> Seamless </ion-label>-->
-<!--            </ion-item>-->
             <br>
 
           </div>
 
-<!--          <ion-list>-->
-<!--            <ion-list-header>-->
-<!--              <ion-title style="text-align:center">Layers</ion-title>-->
-<!--            </ion-list-header>-->
-<!--          </ion-list>-->
 
           <div class="layerNumbers">
             <div class="layerBorder">
@@ -308,12 +279,6 @@
               <ion-button id = "col" color="medium" style="width:100%;" (click)='changeColor()'>Change Background Color</ion-button>
             </ion-item>
           </form>
-
-          <!--          <ion-item>-->
-          <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>-->
-          <!--          </ion-item>-->
-
-
 
 
           <ion-item>
