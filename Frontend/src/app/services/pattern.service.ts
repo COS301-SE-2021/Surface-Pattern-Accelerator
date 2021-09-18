@@ -34,6 +34,7 @@ export class PatternService {
 
   getCurrentCollectionJSON(fileID: string)
   {
+    
     return new Promise((accept, reject) => {
       console.log('getCollectionJSON fired! fileID is: ' + fileID);
 

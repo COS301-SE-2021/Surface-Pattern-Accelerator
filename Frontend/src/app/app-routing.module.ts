@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'color-palette', component: ColorPaletteComponent},
-  { path: 'pattern/:collectionID/:collectionName', component: PatternComponent},
+  { path: 'pattern', component: PatternComponent},
   { path: 'workarea', component: WorkareaComponent },
   { path: 'loginResponse', component: LoginResponseComponent },
   { path: 'canvasColours', component: CanvasColoursComponent },
