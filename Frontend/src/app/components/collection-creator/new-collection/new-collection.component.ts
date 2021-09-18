@@ -41,7 +41,8 @@ export class NewCollectionComponent implements OnInit {
             console.log("Temp Collection storage is:");
             console.log(tempCollectionDetailsStorage);
             loaderResult.dismiss().then(dismissResult => {
-              this.router.navigate(['pattern/' + tempCollectionDetailsStorage.collectionID + "/" + tempCollectionDetailsStorage.collectionName]).then();
+              this.collectionsService.currentCollectionID = tempCollectionDetailsStorage.collectionID;
+              this.router.navigate(['pattern']).then();
             });
 
 

@@ -26,6 +26,7 @@ import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 import {motif} from '../../Classes/motif.class';
 import {StageColorService} from '../../services/stage-color.service';
 import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.component";
+import {CollectionsServiceService} from "../../services/collections-service.service";
 
 
 
@@ -107,7 +108,6 @@ export class PatternComponent implements OnInit {
   //saving patterns in pattern Contents interface
   patternContents: IPatternContentsInterface = {patternName: '', patternID: '', motifs: []} as IPatternContentsInterface;
 
-  collectionID: string;
 
 
   constructor(public motifService: MotifServiceService,
@@ -117,6 +117,7 @@ export class PatternComponent implements OnInit {
               private http: HttpClient,
               private loadingController: LoadingController,
               private stageColorService: StageColorService,
+              private collectionService: CollectionsServiceService
               ) {}
 
 
@@ -130,14 +131,13 @@ export class PatternComponent implements OnInit {
     this.caretaker = new Caretaker();
 
     //gets the requested Collections ID in the path
-    this.route.params.subscribe(params => {
-      this.collectionID = params.collectionID;
+
 
       this.loadingController.create({
         message: "Initializing..."
       }).then(loaderResult => {
         loaderResult.present().then(r => {
-          this.patternService.getCurrentCollectionJSON(this.collectionID)
+          this.patternService.getCurrentCollectionJSON(this.collectionService.currentCollectionID)
             .then((collectionContent: ICollectionsContent) => {
               loaderResult.dismiss().then();
               //TODO pick last edited pattern by date if one exists
@@ -156,7 +156,7 @@ export class PatternComponent implements OnInit {
 
       //this.motifLoad();
       //this.getMotifs();
-    });
+
 
 
 

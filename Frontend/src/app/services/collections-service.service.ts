@@ -10,7 +10,7 @@ import {ICollectionsContent} from '../Interfaces/collectionContents.interface';
 })
 export class CollectionsServiceService {
 
-
+  public currentCollectionID: string;
 
   private serverURL = 'http://localhost:3000';
   //private serverURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000';
