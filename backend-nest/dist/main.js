@@ -165,7 +165,7 @@ module.exports = function (updatedModules, renewedModules) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
-const session = __webpack_require__(28);
+const session = __webpack_require__(29);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({ origin: ["http://localhost:8100"],
@@ -1456,7 +1456,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PaymentService = void 0;
 const common_1 = __webpack_require__(6);
-const mysql = __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module 'mysql'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+const mysql = __webpack_require__(28);
 let PaymentService = class PaymentService {
     getDbConnection() {
         return mysql.createConnection({
@@ -1475,6 +1475,13 @@ exports.PaymentService = PaymentService;
 
 /***/ }),
 /* 28 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("mysql");
+
+/***/ }),
+/* 29 */
 /***/ ((module) => {
 
 "use strict";
@@ -1542,7 +1549,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("02ea60a850aebfd0a31a")
+/******/ 		__webpack_require__.h = () => ("96f6a1a057ce48767cd0")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
