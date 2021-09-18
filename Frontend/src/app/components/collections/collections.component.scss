@@ -108,6 +108,10 @@ ion-card{
   height: 100%;
   background-color: white;
 }
+.motifImg{
+  height: 100%;
+}
+
 #patternAmount{
   background-color: white;
   text-align: center;
@@ -150,6 +154,7 @@ ion-card{
   padding: 0.3cm 0;
   width: 80%;
   bottom: 0;
+  background-color: #F7F7F9;
   //margin-bottom: 20px;
 }
 
@@ -167,6 +172,7 @@ ion-card{
   // font-size: 1.5rem;
   background-color: white;
   position: absolute;
+  height: 0.6cm;
   top: 1%;
   right: 21%;
 }
