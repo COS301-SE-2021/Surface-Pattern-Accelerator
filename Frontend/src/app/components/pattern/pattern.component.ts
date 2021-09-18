@@ -685,6 +685,13 @@ export class PatternComponent implements OnInit {
     }
   }
 
+  recenterClick(){
+    const object = this.canvas.getActiveObject();
+    this.recenter(object.IDOnCanvas);
+    this.dissapearContext();
+  }
+
+
   recenter(objectID: number) {
     const currentObjects = this.getNonSpecialObjects();
     const index = this.getMotifIndex(objectID);
