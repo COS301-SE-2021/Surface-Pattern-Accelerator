@@ -12,14 +12,33 @@ import { UploadMotifController } from './controllers/upload-motif/upload-motif.c
 import {MulterModule} from "@nestjs/platform-express";
 import { GetMotifsController } from './controllers/get-motifs/get-motifs.controller';
 import { SavePatternController } from './controllers/save-pattern/save-pattern.controller';
+import { ThreeDViewerController } from './controllers/3d-viewer/3d-viewer.controller';
+
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { PaymentController } from './controllers/payment/payment.controller';
 import { PaymentService } from './services/payment/payment.service';
 
 @Module({
   imports: [MulterModule.register({
   dest: './files',
-})],
-  controllers: [AppController, CreateAccessTokenController, GetCollectionsController, GetFileByIdController, NewCollectionController, CreateJsonfileController, UpdateFileController, UploadMotifController, GetMotifsController, SavePatternController, PaymentController],
+}),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'MODEL'),
+    })],
+  controllers: [AppController,
+    CreateAccessTokenController,
+    GetCollectionsController,
+    GetFileByIdController,
+    NewCollectionController,
+    CreateJsonfileController,
+    UpdateFileController,
+    UploadMotifController,
+    GetMotifsController,
+    SavePatternController,
+    ThreeDViewerController,
+    PaymentController],
   providers: [AppService, GoogleApiService, PaymentService],
 })
+
 export class AppModule {}

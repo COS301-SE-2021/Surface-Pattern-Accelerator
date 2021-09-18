@@ -27,10 +27,7 @@
 
                   <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
                     <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-                    <ion-card-header class="noIonCardHeader">
-
                       <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
-                    </ion-card-header>
                   </div>
                 </ion-card>
               </div>
@@ -430,6 +427,10 @@
           <ion-item>
             <ion-button id="patternDown" color="medium" style="width:100%;" (click)="pattern()">Pattern</ion-button>
             <ion-button id="frameDown" color="medium" style="width:100%;" (click)="frame()">Frame</ion-button>
+          </ion-item>
+
+          <ion-item>
+            <ion-button color="medium" (click)='sendPattern()'>Extract pattern colors</ion-button>
           </ion-item>
 
         </ion-card-content>

@@ -1,19 +1,19 @@
-import {ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CollorPalletComponent } from './collor-pallet.component';
+import { ColorPaletteComponent } from './color-palette.component';
 
-describe('CollorPalletComponent tests', () => {
-  let component: CollorPalletComponent;
-  let fixture: ComponentFixture<CollorPalletComponent>;
+describe('ColorPaletteComponent', () => {
+  let component: ColorPaletteComponent;
+  let fixture: ComponentFixture<ColorPaletteComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollorPalletComponent ],
+      declarations: [ ColorPaletteComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CollorPalletComponent);
+    fixture = TestBed.createComponent(ColorPaletteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -47,7 +47,7 @@ describe('CollorPalletComponent tests', () => {
     const btnElement = fixture.debugElement.nativeElement.querySelector('#lock2');
     btnElement.click();
 
-      expect(component.lockColour).toHaveBeenCalled();
+    expect(component.lockColour).toHaveBeenCalled();
   });
 
   it('Test 4: Testing if the lock3 button calls the lock colour method', () => {

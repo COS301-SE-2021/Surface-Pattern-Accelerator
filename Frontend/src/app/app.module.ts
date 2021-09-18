@@ -10,9 +10,11 @@ import { CollectionCreatorComponent } from './components/collection-creator/coll
 import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
 import { HttpClientModule } from '@angular/common/http';
 
+/////search
+//import { Ng2SearchPipeModule } from "ng2-search-filter";
 //popovers
-import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component'
-import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component'
+import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component';
+import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component';
 
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
@@ -29,6 +31,7 @@ import { PreviewComponent } from './components/preview/preview.component';
 import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from 'angularx-social-login';
 import { CanvasColoursComponent } from './components/canvas-colours/canvas-colours.component';
+import { ColorPaletteComponent} from './components/color-palette/color-palette.component';
 
 
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -38,10 +41,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
 import { MaterialModule } from './material/material.module';
-import {GLoginComponent} from './components/g-login/g-login.component'
-import {MotifEditorComponent} from './components/motif-editor/motif-editor.component'
-import {CollectionLayoutComponent} from "./collection-layout/collection-layout.component";
-import {CollorPalletComponent} from "./components/collor-pallet/collor-pallet.component";
+import {StyleTransferComponent} from './components/style-transfer/style-transfer.component';
+import {GLoginComponent} from './components/g-login/g-login.component';
+import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
+import {CollectionLayoutComponent} from './collection-layout/collection-layout.component';
 
 
 
@@ -66,10 +69,12 @@ import {CollorPalletComponent} from "./components/collor-pallet/collor-pallet.co
     MotifUploadComponent,
     MotifCatalogueComponent,
     NewPatternComponent,
+    ColorPaletteComponent,
+    StyleTransferComponent,
+    NewPatternComponent,
     GLoginComponent,
     MotifEditorComponent,
     CollectionLayoutComponent,
-    CollorPalletComponent,
   ],
 
   imports: [
@@ -84,8 +89,7 @@ import {CollorPalletComponent} from "./components/collor-pallet/collor-pallet.co
     MatCheckboxModule,
     MatButtonModule,
     SocialLoginModule,
-
-
+    //Ng2SearchPipeModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),

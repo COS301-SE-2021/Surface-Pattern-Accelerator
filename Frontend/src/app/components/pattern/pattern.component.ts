@@ -24,6 +24,7 @@ import pixelRatio = Konva.pixelRatio;
 import {Originator} from "../../Classes/MementoDesignPattern/Originator";
 import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 import {motif} from '../../Classes/motif.class';
+import {StageColorService} from '../../services/stage-color.service';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class PatternComponent implements OnInit {
     const arrs =Array.from(this.parentRef.nativeElement.children as HTMLCollectionOf<HTMLElement>);
     console.log(arrs.length);
     requestAnimationFrame(() => {
-        arrs.forEach(async item => {
+      arrs.forEach(async item => {
         const shouldShow =await item.textContent.toLowerCase().indexOf(query) > -1;
         item.style.display = shouldShow ? 'block' : 'none';
       });
@@ -95,7 +96,7 @@ export class PatternComponent implements OnInit {
   distBetweenArrayModElements: number = 200;
   originator : Originator = new Originator();
   caretaker : Caretaker = new Caretaker();
-
+  undoClicked: boolean = false;
 
 
 
@@ -112,7 +113,8 @@ export class PatternComponent implements OnInit {
               public patternService: PatternService,
               private popoverController: PopoverController,
               private http: HttpClient,
-              private loadingController: LoadingController) {}
+              private loadingController: LoadingController,
+              private stageColorService: StageColorService) {}
 
 
   ngOnInit(){
@@ -174,18 +176,69 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on('object:rotated' ,(r) => {
       this.addState();
+      this.undoClicked = false;
     });
 
     this.canvas.on('object:scaled' ,(r) => {
       this.addState();
+      this.undoClicked = false;
     });
 
     this.canvas.on('object:removed' ,(r) => {
       this.addState();
+      this.undoClicked = false;
     });
 
+
+
+    // this.canvas.on('object:moving' ,(r) => {
+    //
+    //
+    //   // if(this.caretaker.notEmpty() == false){
+    //   //   console.log('added');
+    //   //   this.addState();
+    //   //   this.undoClicked = false;
+    //   // }
+    // })
+
+    this.canvas.on('object:moving' ,(r) => {
+      let tempstate;
+      if(this.undoClicked == true){
+        tempstate = this.getState();
+        // this.caretaker.emptyStates();
+        this.canvas.fire('object:moved');
+        this.addStateGivenState(tempstate);
+      }
+
+    })
+
+
+
+    // this.canvas.on('object:moved' ,(r) => {
+    //   let tempstate;
+    //   if(this.undoClicked == true){
+    //     tempstate = this.getState();
+    //     this.caretaker.emptyStates();
+    //     this.addStateGivenState(tempstate);
+    //   }
+    //   else{
+    //     this.addState();
+    //   }
+    //   //this.addStateGivenState(tempstate);
+    //   this.undoClicked = false;
+    // })
+
     this.canvas.on('object:moved' ,(r) => {
-      this.addState();
+      let tempstate;
+      if(this.undoClicked == true){
+        tempstate = this.getState();
+        this.addStateGivenState(tempstate);
+      }
+      else{
+        this.addState();
+      }
+      //this.addStateGivenState(tempstate);
+      this.undoClicked = false;
     })
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
@@ -200,29 +253,58 @@ export class PatternComponent implements OnInit {
 
     let journey = "";
     let padding = 30;
-  //X LINES
+    //X LINES
     for(let i = 1; i < (padding);i++)
     {
       journey = journey + "M 0 " + (i * (this.canvas.height / padding)) + "L "+ (this.canvas.width) + " " + (i * (this.canvas.width / padding)) + " ";
     }
-  //Y LINES
+    //Y LINES
     for(let j = 1; j < (padding);j++)
     {
       journey = journey + "M " + (j * (this.canvas.width / padding)) + " 0 L " + (j * (this.canvas.width / padding)) + " " + (this.canvas.height) + " ";
     }
 
     this.path = new fabric.Path(journey, {
-        stroke: "black",
-        strokeWidth: 2,
-        selectable: false,
-        evented: false,
-        name: "grid",
-        opacity: 0.3
-      });
+      stroke: "black",
+      strokeWidth: 2,
+      selectable: false,
+      evented: false,
+      name: "grid",
+      opacity: 0.3
+    });
 
+    document.getElementById('patternFrame').addEventListener('change', () => {
+      this.sendPattern();
+    });
+  }
 
+  sendPattern(){
+    console.log('in send pattern');
+    const canv =document.getElementById('patternFrame') as HTMLCanvasElement;
+    this.stageColorService.sendStage(canv.toDataURL()); // service to send image to color component
+    console.log(this.stageColorService.stage$);
+  };
 
+  getState(){
+    let state : fabric.Object[] = [];
+    let motifs = this.getNonSpecialObjects();
+    for( let i = 0 ; i < this.getNonSpecialObjects().length ; i++ ){
+      motifs[i].clone((clone)=>{
+        clone.googleDriveID =  motifs[i].googleDriveID;
+        clone.motifURL =  motifs[i].motifURL;
+        clone.motifName =  motifs[i].motifName;
+        clone.IDOnCanvas = motifs[i].IDOnCanvas;
+        clone.hasReflections = false;
+        state.push(clone);
+      })
+    }
+    return state;
+  }
 
+  addStateGivenState(aState)
+  {
+    this.originator.setState(aState);
+    this.caretaker.addMemento(this.originator.saveStateToMemento());
 
   }
 
@@ -247,6 +329,7 @@ export class PatternComponent implements OnInit {
 
   undo()
   {
+    this.undoClicked = true;
     if(this.caretaker.notEmpty() == false) return;
     else {
       const state = this.originator.restoreStateFromMemento(this.caretaker.getMemento())
@@ -258,7 +341,8 @@ export class PatternComponent implements OnInit {
       for(let i = 0 ; i < state.length ; i++){
         this.canvas.add(state[i]);
       }
-      this.renderAllWithSpecial(state);
+      //this.renderAllWithSpecial(state);
+      this.canvas.renderAll();
     }
   }
 
@@ -316,9 +400,9 @@ export class PatternComponent implements OnInit {
     {
       this.menu.nativeElement.style.display = 'block';
       if(e.pageY > 600)
-        {this.menu.nativeElement.style.top = '600px';}
+      {this.menu.nativeElement.style.top = '600px';}
       else
-        {this.menu.nativeElement.style.top = e.pageY + 'px';}
+      {this.menu.nativeElement.style.top = e.pageY + 'px';}
       this.menu.nativeElement.style.left = e.pageX + 'px';
     }
 
@@ -732,8 +816,8 @@ export class PatternComponent implements OnInit {
 
 
 
-     //let can = this.canvasPre;
-     console.log('Preview Generated');
+    //let can = this.canvasPre;
+    console.log('Preview Generated');
   }
 
 
@@ -1159,7 +1243,7 @@ export class PatternComponent implements OnInit {
     this.download();
   }
 
-   dataURItoBlob(dataURI) {
+  dataURItoBlob(dataURI) {
     const byteString = atob(dataURI.split(',')[1]);
     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
     const ab = new ArrayBuffer(byteString.length);

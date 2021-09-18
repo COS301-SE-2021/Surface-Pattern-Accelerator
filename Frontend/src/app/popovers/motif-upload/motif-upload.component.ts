@@ -3,7 +3,7 @@ import {UploadService} from "../../services/upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
-import { LoadingController } from '@ionic/angular';
+import {LoadingController, PopoverController} from '@ionic/angular';
 import {motif} from "../../Classes/motif.class";
 
 
@@ -17,7 +17,7 @@ import {motif} from "../../Classes/motif.class";
 export class MotifUploadComponent implements OnInit {
   files: any = [];
   fileNames: string[] = [];
-  constructor(private uploadService: UploadService, private fb: FormBuilder, private httpClient: HttpClient, public loadingController: LoadingController) { }
+  constructor( private popoverController: PopoverController,private uploadService: UploadService, private fb: FormBuilder, private httpClient: HttpClient, public loadingController: LoadingController) { }
 
   ngOnInit()
   {
@@ -38,6 +38,10 @@ export class MotifUploadComponent implements OnInit {
         (<HTMLImageElement>motifs[i]).src = <string>oFREvent.target.result;
       };
     }
+  }
+
+  closePopover(){
+    this.popoverController.dismiss();
   }
 
 
@@ -70,14 +74,14 @@ export class MotifUploadComponent implements OnInit {
       }
 
       this.loadingController.create({
-        message: "Uploading files..."
+        message: "Uploading Files To Your Google Drive...",
       }).then(loaderResult => {
         loaderResult.present().then(() => {
           this.httpClient.post('http://localhost:3000/api/uploadMotif', formData, {withCredentials: true})
             .subscribe(response => {
               console.log(response)
               loaderResult.dismiss().then();
-
+              this.closePopover();
             })
         })
       })
