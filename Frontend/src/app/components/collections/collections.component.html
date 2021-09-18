@@ -44,6 +44,7 @@
           <div *ngIf="collections" class="collections-menu">
             <div *ngFor="let collection of collections">
               <div class="square" style="border: 1px solid gray">
+
                 <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
                 <div class="left">
                   <div class="gear">
@@ -52,10 +53,13 @@
                     </ion-button>
                   </div>
                   <div class="label">
-                    <a class="collections"
-                       routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">
+<!--                    <a class="collections"-->
+<!--                       routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">-->
+
+                    <ion-button (click)="loadCollection(collection.collectionID)">
                       {{collection.collectionName}}
-                    </a>
+                    </ion-button>
+<!--                    </a>-->
                   </div>
                 </div>
                 <div class="right">

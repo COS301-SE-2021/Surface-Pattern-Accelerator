@@ -105,4 +105,9 @@ export class CollectionsComponent implements OnInit {
   }
 
 
+  loadCollection(collectionID: any) {
+    console.log(collectionID)
+    this.collectionsService.currentCollectionID = collectionID;
+    this.router.navigate(['pattern']).then()
+  }
 }

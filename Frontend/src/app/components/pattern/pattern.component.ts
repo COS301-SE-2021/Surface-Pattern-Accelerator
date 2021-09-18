@@ -26,6 +26,8 @@ import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 import {motif} from '../../Classes/motif.class';
 import {StageColorService} from '../../services/stage-color.service';
 import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.component";
+import {CollectionsServiceService} from "../../services/collections-service.service";
+
 
 
 @Component({
@@ -106,7 +108,6 @@ export class PatternComponent implements OnInit {
   //saving patterns in pattern Contents interface
   patternContents: IPatternContentsInterface = {patternName: '', patternID: '', motifs: []} as IPatternContentsInterface;
 
-  collectionID: string;
 
 
   constructor(public motifService: MotifServiceService,
@@ -116,19 +117,11 @@ export class PatternComponent implements OnInit {
               private http: HttpClient,
               private loadingController: LoadingController,
               private stageColorService: StageColorService,
+              public collectionService: CollectionsServiceService
               ) {}
 
 
   ngOnInit(){
-
-    //gets the requested Collections ID in the path
-    this.route.params.subscribe(params => {
-      this.collectionID = params.collectionID;
-      this.patternService.getCurrentCollectionJSON(this.collectionID);
-      this.motifLoad();
-      //this.getMotifs();
-    });
-
 
     this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true });
     this.canvas.setHeight(this.width);
@@ -136,6 +129,37 @@ export class PatternComponent implements OnInit {
     this.canvas.backgroundColor = null;
     this.originator = new Originator();
     this.caretaker = new Caretaker();
+
+    //gets the requested Collections ID in the path
+
+
+      this.loadingController.create({
+        message: "Initializing..."
+      }).then(loaderResult => {
+        loaderResult.present().then(r => {
+          this.patternService.getCurrentCollectionJSON(this.collectionService.currentCollectionID)
+            .then((collectionContent: ICollectionsContent) => {
+              loaderResult.dismiss().then();
+              //TODO pick last edited pattern by date if one exists
+              if (collectionContent.childPatterns[0])
+              {
+                this.patternService.getAndLoadSavedPattern(collectionContent.childPatterns[0].patternID, this.canvas)
+              }
+
+            })
+
+            })
+        })
+
+
+
+
+      //this.motifLoad();
+      //this.getMotifs();
+
+
+
+
 
 
     this.canvas.on('selection:created',(r) => {
@@ -1181,16 +1205,20 @@ export class PatternComponent implements OnInit {
   }
 
   motifLoad() {
-    this.loadingController.create({
-      message: "Loading Your Motifs..."
-    }).then(loaderResult => {
-      loaderResult.present().then(r => {
-        this.motifService.getAllMotifs()
-          .subscribe(() => {
-            loaderResult.dismiss().then()
-          });
+    return new Promise((success, failure) => {
+      this.loadingController.create({
+        message: "Loading Your Motifs..."
+      }).then(loaderResult => {
+        loaderResult.present().then(r => {
+          this.motifService.getAllMotifs()
+            .subscribe(() => {
+              loaderResult.dismiss().then()
+              success("success")
+            });
+        })
       })
     })
+
   }
 
 
