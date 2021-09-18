@@ -9,13 +9,14 @@ import { NewCollectionController } from './controllers/new-collection/new-collec
 import { CreateJsonfileController } from './controllers/create-jsonfile/create-jsonfile.controller';
 import { UpdateFileController } from './controllers/update-file/update-file.controller';
 import { UploadMotifController } from './controllers/upload-motif/upload-motif.controller';
-import {MulterModule} from "@nestjs/platform-express";
+import { MulterModule} from "@nestjs/platform-express";
 import { GetMotifsController } from './controllers/get-motifs/get-motifs.controller';
 import { SavePatternController } from './controllers/save-pattern/save-pattern.controller';
 import { ThreeDViewerController } from './controllers/3d-viewer/3d-viewer.controller';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { SaveImageController } from './controllers/save-image/save-image.controller';
 import { PaymentController } from './controllers/payment/payment.controller';
 import { PaymentService } from './services/payment/payment.service';
 
@@ -37,8 +38,7 @@ import { PaymentService } from './services/payment/payment.service';
     GetMotifsController,
     SavePatternController,
     ThreeDViewerController,
-    PaymentController],
+    SaveImageController],
   providers: [AppService, GoogleApiService, PaymentService],
 })
-
 export class AppModule {}
