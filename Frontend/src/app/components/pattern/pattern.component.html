@@ -27,10 +27,7 @@
 
                   <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
                     <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-                    <ion-card-header class="noIonCardHeader">
-
                       <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
-                    </ion-card-header>
                   </div>
                 </ion-card>
               </div>

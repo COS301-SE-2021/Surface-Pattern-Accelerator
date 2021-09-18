@@ -166,7 +166,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
 const path_1 = __webpack_require__(27);
-const session = __webpack_require__(31);
+const session = __webpack_require__(30);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({ origin: ["http://localhost:8100"],
@@ -224,7 +224,6 @@ const save_pattern_controller_1 = __webpack_require__(25);
 const _3d_viewer_controller_1 = __webpack_require__(26);
 const serve_static_1 = __webpack_require__(29);
 const path_1 = __webpack_require__(27);
-const save_image_controller_1 = __webpack_require__(30);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -246,6 +245,7 @@ AppModule = __decorate([
             get_motifs_controller_1.GetMotifsController,
             save_pattern_controller_1.SavePatternController,
             _3d_viewer_controller_1.ThreeDViewerController,
+            payment_controller_1.PaymentController,
             save_image_controller_1.SaveImageController],
         providers: [app_service_1.AppService, google_api_service_1.GoogleApiService],
     })
@@ -1398,68 +1398,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ThreeDViewerController = void 0;
 const common_1 = __webpack_require__(6);
 const path_1 = __webpack_require__(27);
 const express_1 = __webpack_require__(28);
-const platform_express_1 = __webpack_require__(20);
-const multer_1 = __webpack_require__(21);
-const editFileName_middleware_1 = __webpack_require__(22);
-const imageFileFilter_middlware_1 = __webpack_require__(23);
-const fs = __webpack_require__(13);
 let ThreeDViewerController = class ThreeDViewerController {
-    uploadImage(id, response, request) {
-        let imageAsBase64 = fs.readFileSync((0, path_1.join)(process.cwd(), '../backend-nest/3dFrames/' + id), 'base64');
-        console.log(imageAsBase64);
-        response.send('data:image/png;base64,' + imageAsBase64);
-    }
     displayThreeD(response, request) {
         console.log((0, path_1.join)(process.cwd(), '../backend-nest/MODEL/index.html'));
         response.sendFile((0, path_1.join)(process.cwd(), '../backend-nest/MODEL/index.html'));
     }
-    saveImage(request, response, session, files) {
-        console.log("the id");
-        console.log("save fired");
-        console.log(files);
-        response.send({ fileName: files[0].filename });
-    }
 };
-__decorate([
-    (0, common_1.Get)(":id"),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Res)()),
-    __param(2, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, typeof (_a = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _a : Object, typeof (_b = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _b : Object]),
-    __metadata("design:returntype", void 0)
-], ThreeDViewerController.prototype, "uploadImage", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _c : Object, typeof (_d = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _d : Object]),
+    __metadata("design:paramtypes", [typeof (_a = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _a : Object, typeof (_b = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
 ], ThreeDViewerController.prototype, "displayThreeD", null);
-__decorate([
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 20, {
-        storage: (0, multer_1.diskStorage)({
-            destination: './3dFrames',
-            filename: editFileName_middleware_1.editFileName,
-        }),
-        fileFilter: imageFileFilter_middlware_1.imageFileFilter,
-    })),
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Res)()),
-    __param(2, (0, common_1.Session)()),
-    __param(3, (0, common_1.UploadedFiles)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _e : Object, typeof (_f = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _f : Object, typeof (_g = typeof Record !== "undefined" && Record) === "function" ? _g : Object, Object]),
-    __metadata("design:returntype", void 0)
-], ThreeDViewerController.prototype, "saveImage", null);
 ThreeDViewerController = __decorate([
     (0, common_1.Controller)('threeDViewer')
 ], ThreeDViewerController);
@@ -1499,19 +1457,114 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.SaveImageController = void 0;
-const common_1 = __webpack_require__(6);
-let SaveImageController = class SaveImageController {
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-SaveImageController = __decorate([
-    (0, common_1.Controller)('save-image')
-], SaveImageController);
-exports.SaveImageController = SaveImageController;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PaymentController = void 0;
+const common_1 = __webpack_require__(6);
+const payment_service_1 = __webpack_require__(27);
+let PaymentController = class PaymentController {
+    constructor(paymentService) {
+        this.paymentService = paymentService;
+    }
+    pay(id, created, client_ip, card_id, email) {
+        let connection = this.paymentService.getDbConnection();
+        return new Promise((success, failure) => {
+            connection.query('INSERT INTO payment.payments (id, created, client_ip, card_id, email) VALUES (?, ?, ?, ?, ?);', [id, created, client_ip, card_id, email], (error, results, fields) => {
+                if (error) {
+                    failure({ status: 'failed', error: error });
+                }
+                else {
+                    success({ status: 'success ok', data: results });
+                }
+            });
+        });
+    }
+    getPaymentDetails(email) {
+        let connection = this.paymentService.getDbConnection();
+        return new Promise((success, failure) => {
+            connection.query('SELECT * FROM payment.payments where email = ? ;', [email], function (error, details, fields) {
+                if (details.length > 0) {
+                    success({ status: "success ok", paymentDetails: details });
+                }
+                else {
+                    failure({ status: "failed", error: error });
+                }
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)('id')),
+    __param(1, (0, common_1.Body)('created')),
+    __param(2, (0, common_1.Body)('client_ip')),
+    __param(3, (0, common_1.Body)('card.id')),
+    __param(4, (0, common_1.Body)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String, String, String]),
+    __metadata("design:returntype", void 0)
+], PaymentController.prototype, "pay", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Body)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PaymentController.prototype, "getPaymentDetails", null);
+PaymentController = __decorate([
+    (0, common_1.Controller)('payment'),
+    __metadata("design:paramtypes", [typeof (_a = typeof payment_service_1.PaymentService !== "undefined" && payment_service_1.PaymentService) === "function" ? _a : Object])
+], PaymentController);
+exports.PaymentController = PaymentController;
 
 
 /***/ }),
-/* 31 */
+/* 27 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PaymentService = void 0;
+const common_1 = __webpack_require__(6);
+const mysql = __webpack_require__(28);
+let PaymentService = class PaymentService {
+    getDbConnection() {
+        return mysql.createConnection({
+            host: 'aws-cos221.c5zbzrr9w4bb.us-east-2.rds.amazonaws.com',
+            user: 'admin',
+            password: 'cos221_prac3_pw',
+            database: 'elections'
+        });
+    }
+};
+PaymentService = __decorate([
+    (0, common_1.Injectable)()
+], PaymentService);
+exports.PaymentService = PaymentService;
+
+
+/***/ }),
+/* 28 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("mysql");
+
+/***/ }),
+/* 29 */
 /***/ ((module) => {
 
 "use strict";
@@ -1579,7 +1632,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("bf2f1dbcbc929395de57")
+/******/ 		__webpack_require__.h = () => ("4fc44384f2caaa5f8315")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -30,6 +30,11 @@ export class MotifCatalogueComponent implements OnInit {
       })
   }
 
+  closePopover(){
+    this.popoverController.dismiss();
+  }
+
+
   motifSelect(motifData: any){
     console.log("adding motif demo")
 
@@ -98,7 +103,7 @@ export class MotifCatalogueComponent implements OnInit {
     console.log(this.patternService.currentCollection)
     this.patternService.updateCurrentCollection();
     this.motifService.getMotifs(this.patternService.currentCollection.childMotifs).then()
-
+    this.closePopover();
 
   }
 }

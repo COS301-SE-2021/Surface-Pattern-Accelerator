@@ -44,7 +44,7 @@
           <div *ngIf="collections" class="collections-menu">
             <div *ngFor="let collection of collections">
               <div class="square" style="border: 1px solid gray">
-                <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
+<!--                <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">-->
                 <div class="left">
                   <div class="gear">
                     <ion-button (click)="CollectionOperations($event)" fill="clear">
@@ -60,7 +60,7 @@
                 </div>
                 <div class="right">
                   <div class="patterblock" style="background-color: white">
-                    <p id="patternAmount" style="font-size: 20px;">#</p>
+                    <p id="patternAmount" style="font-size: 20px;">{{collection.childPatterns.length}}</p>
                     <ion-icon name="copy-sharp" style="font-size: 0.6cm; background-color: white"></ion-icon>
                   </div>
                 </div>
