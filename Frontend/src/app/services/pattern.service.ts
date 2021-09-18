@@ -220,7 +220,7 @@ export class PatternService {
     console.log(this.patternContents);
   }
 
-  onPatternChange(selectedPatternID: any, canvas: fabric.Canvas) {
+  getAndLoadSavedPattern(selectedPatternID: any, canvas: fabric.Canvas) {
     console.log('on pattern change');
     canvas.clear();
 

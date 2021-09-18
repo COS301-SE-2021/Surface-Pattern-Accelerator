@@ -25,7 +25,7 @@ export class MotifEditorComponent implements OnInit {
 
   ngOnInit() {
     this.canvas = new fabric.Canvas('patternFrame_MotifEditor', { preserveObjectStacking: true })
-    this.patternService.onPatternChange(this.patternService.selectedPatternID, this.canvas);
+    this.patternService.getAndLoadSavedPattern(this.patternService.selectedPatternID, this.canvas);
   }
 
 

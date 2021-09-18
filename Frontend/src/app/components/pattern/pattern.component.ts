@@ -143,7 +143,7 @@ export class PatternComponent implements OnInit {
               //TODO pick last edited pattern by date if one exists
               if (collectionContent.childPatterns[0])
               {
-                this.patternService.onPatternChange(collectionContent.childPatterns[0].patternID, this.canvas)
+                this.patternService.getAndLoadSavedPattern(collectionContent.childPatterns[0].patternID, this.canvas)
               }
 
             })
