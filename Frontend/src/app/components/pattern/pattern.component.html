@@ -307,10 +307,11 @@
 
 
           <ion-item *ngIf="this.activeObject" style="text-align: center">
-            <ion-button (click)="changeArrayModifierNumber(1, this.activeObject.ArrayModSpacing)" color="medium">Add</ion-button>
-            <ion-button (click)="changeArrayModifierNumber(-1, this.activeObject.ArrayModSpacing)" color="medium">Remove</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(1, this.activeObject.ArrayModSpacing)" color="medium" style="width:100%;" >Add</ion-button>
+            <ion-button (click)="changeArrayModifierNumber(-1, this.activeObject.ArrayModSpacing)" color="medium" style="width:100%;" >Remove</ion-button>
             {{this.activeObject.nrOfArrayObjects}}
           </ion-item>
+          <br>
 
           <div *ngIf="this.activeObject">
             <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="this.activeObject.ArrayModSpacing" (ionChange)="updateArrModOfSelected()"></ion-input>
