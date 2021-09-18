@@ -34,21 +34,25 @@ export class PatternService {
 
   getCurrentCollectionJSON(fileID: string)
   {
-    console.log('getCollectionJSON fired! fileID is: ' + fileID);
+    return new Promise((accept, reject) => {
+      console.log('getCollectionJSON fired! fileID is: ' + fileID);
 
-    this.http.post(this.serverAPIURL + '/getFileByID',
-      { fileID },
-      {withCredentials: true
-      }).subscribe(fileContent => {
+      this.http.post(this.serverAPIURL + '/getFileByID',
+        { fileID },
+        {withCredentials: true
+        }).subscribe(fileContent => {
         console.log(fileContent);
         this.currentCollection = fileContent as ICollectionsContent;
         console.log(this.currentCollection);
         this.motifService.getMotifs(this.currentCollection.childMotifs)
           .then(() => {
             console.log('All motifs loaded');
+            accept(fileContent as ICollectionsContent);
           });
-        return fileContent;
-    });
+
+      });
+    })
+
   }
 
   newPattern(patternName: string)
@@ -216,12 +220,12 @@ export class PatternService {
     console.log(this.patternContents);
   }
 
-  onPatternChange(selectedPatternID: any, canvas: fabric.Canvas) {
+  getAndLoadSavedPattern(selectedPatternID: any, canvas: fabric.Canvas) {
     console.log('on pattern change');
     canvas.clear();
 
     this.loadingController.create({
-      message: "Switching Patterns..."
+      message: "Loading Pattern..."
     }).then(loaderResult => {
       loaderResult.present().then(r => {
 
