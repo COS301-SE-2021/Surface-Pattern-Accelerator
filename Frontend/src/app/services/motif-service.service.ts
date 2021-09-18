@@ -78,6 +78,7 @@ export class MotifServiceService {
   //   })
   // }
 
+  //gets all motifs for motif library
   getAllMotifs()
   {
 
