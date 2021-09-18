@@ -220,7 +220,7 @@
             </ion-item>
 
             <ion-item>
-              <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionID)" style="width:100%;">Save Frame</ion-button>
+              <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionService.currentCollectionID)" style="width:100%;">Save Frame</ion-button>
             </ion-item>
             <ion-item>
               <ion-button color="medium" (click)="undo()">Undo</ion-button>

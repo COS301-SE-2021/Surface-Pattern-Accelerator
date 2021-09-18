@@ -117,7 +117,7 @@ export class PatternComponent implements OnInit {
               private http: HttpClient,
               private loadingController: LoadingController,
               private stageColorService: StageColorService,
-              private collectionService: CollectionsServiceService
+              public collectionService: CollectionsServiceService
               ) {}
 
 
