@@ -1,27 +1,41 @@
 #checkout-button{
   color: black;
 }
+.left{
+  float: left;
+  width: 45%;
+  margin-left: 20px;
+  background: #6772E5;
+  padding: 20px;
+  //border-radius: 20px;
+  border: 2px solid white;
+}
+.right{
+  position: absolute;
+ right: 0;
+  width: 45%;
+}
 
 .parent{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 3px solid #011638;
-  width: 60%;
   position: relative;
-  left: 20em;
-  margin-top: 5em;
-  padding-top: 2em;
-  padding-bottom: 2em;
+  padding-top: 10%;
+  background-image: linear-gradient(45deg, white 50%,  #6772E5 50% );
+  border: 3px solid #011638;
+  width: 100%;
+  height: 100%;
 }
 .dropbtn {
-  background-color: #011638;
-  color: #53ff45;
+  background: #343866;
+  color: white;
   padding: 12px 20px;
   font-size: 16px;
   border: none;
+}
+h2{
+  font-size: 25px;
+}
+p{
+  font-size: 16px;
 }
 
 .button{
@@ -32,40 +46,26 @@
   padding: 20px 0;
 }
 
-.wordss{
-  font-family: 'Comic Sans MS', sans-serif;
-  font-size: 20px;
-  padding: 0 80px;
+.words{
+  font-family: 'Arial', sans-serif;
+  color: white;
+  text-align: center;
+  //font-size: 30px;
+  //padding: 0 80px;
+}
+#wave{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .words{
+  //text-align: center;
   //margin: auto;
   width: auto;
   //border: 5px solid #011638;
   //padding: 10px;
+
 }
 
-.words >h1{
-  font-weight: bold;
-  font-size: 40px;
-  //padding: 10px 50px;
-}
-
-.words >h2{
-  color: #011638;
-  font-size: 30px;
-  padding: 10px 0;
-}
-
-.words >h4{
-  font-family: 'Comic Sans MS', sans-serif;
-  font-size: 30px;
-  padding: 10px 40px;
-  color: #011638;
-  //padding: 9px 0;
-}
-
-.words >h3{
-  padding: 7px 25px;
-  //font-size: 16px;
-}
