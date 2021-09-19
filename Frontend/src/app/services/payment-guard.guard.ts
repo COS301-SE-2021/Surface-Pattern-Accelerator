@@ -12,30 +12,30 @@ export class PaymentGuardGuard implements CanActivate {
   private serverURL = 'http://localhost:3000';
   constructor(public router: Router, private gLoginService: GLoginService, private http: HttpClient) {}
   canActivate(){
+
     if(this.gLoginService.getUserDetails() && this.gLoginService.getUserDetails().isSignedIn())
     {
 
-    this.http.post(this.serverURL + '/api/payment' ,
-      { email: this.gLoginService.getUserDetails().getBasicProfile().getEmail()},
-      {withCredentials: true})
-      .subscribe(data=>{
-        console.log(data);
-      })
-
-
+        this.http.post(this.serverURL + '/api/payment' ,
+          { email: this.gLoginService.getUserDetails().getBasicProfile().getEmail()},
+          {withCredentials: true})
+          .subscribe((data:any)=>{
+            if(data.status == 'success ok'){
+              console.log(data);
+              return true;
+            }
+            else{
+              this.router.navigate(['payment']);
+              return false;
+            }
+          })
     }
+    else{
+        alert("Please sign in with Google to access these features");
+        this.router.navigate(['/']);
+      }
 
-
-
-
-
-    // if(this.hasPayed == false)
-    // {
-    //   this.router.navigate(['payment'])
-    //   alert("Please make a payment before you can access the functionality");
-    // }
-    // return this.hasPayed;
-    return true;
+    return false;
   }
 
 }
