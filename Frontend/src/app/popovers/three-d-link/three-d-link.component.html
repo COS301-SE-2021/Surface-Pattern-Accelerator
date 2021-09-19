@@ -1,8 +1,22 @@
-<ion-content>
-  <h1>Copy Image Name</h1>
-  <h1>{{imageName}}</h1>
 
-  <ion-button>Cancel</ion-button>
-  <ion-button>Copy Name</ion-button>
-  <ion-button (click)="goTo3DView()">View in 3D</ion-button>
-</ion-content>
+<br>
+<div id="menu">
+
+  <div style="text-align: center;">
+    <h1>Copy Image Name</h1>
+    <br>
+    <h1>{{imageName}}</h1>
+  </div>
+
+  <div style="text-align: center;">
+    <ion-button color="medium" (click)="closePopover()" >Cancel</ion-button>
+    <ion-button color="medium" >Copy Name</ion-button>
+    <ion-button color="medium" (click)="goTo3DView()">View in 3D</ion-button>
+  </div>
+
+
+</div>
+
+
+
+
