@@ -17,7 +17,7 @@ import { ThreeDViewerController } from './controllers/3d-viewer/3d-viewer.contro
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { SaveImageController } from './controllers/save-image/save-image.controller';
-import { PaymentController } from './controllers/payment/payment.controller';
+import { GetPaymentDetailsController } from './controllers/getPaymentDetails/getPaymentDetails.controller';
 import { PaymentService } from './services/payment/payment.service';
 
 @Module({
@@ -39,7 +39,7 @@ import { PaymentService } from './services/payment/payment.service';
     SavePatternController,
     ThreeDViewerController,
     SaveImageController,
-    PaymentController],
+    GetPaymentDetailsController],
   providers: [AppService, GoogleApiService, PaymentService],
 })
 export class AppModule {}

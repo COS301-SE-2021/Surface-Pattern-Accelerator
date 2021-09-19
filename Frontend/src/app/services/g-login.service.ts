@@ -35,6 +35,7 @@ export class GLoginService {
         this.subject.next(user);
         // this.userEmail = user.getBasicProfile().getEmail();
         this.userDetails = user;
+        console.log(user.getId())
         this.loadingController.create({
           message: "Connecting to server..."
         }).then(loaderResult => {
