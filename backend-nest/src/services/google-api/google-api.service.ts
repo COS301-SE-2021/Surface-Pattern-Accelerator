@@ -373,7 +373,15 @@ export class GoogleApiService {
         // let test;
         try {
 
-            return this.applyPermission(token, motifContainer.motifID)
+            console.log("the motif ID is: " + motifContainer.motifID);
+            const drive = google.drive({version: "v3", auth});
+            return drive.permissions.create({ // returns promise
+                fileId: motifContainer.motifID,
+                requestBody: {
+                    role: "reader",
+                    type: "anyone"
+                }
+            })
                 .then((permissionSuccess) => {
                     // console.log(permissionSuccess)
                     motifContainer.linkPermission = "good";
@@ -390,19 +398,6 @@ export class GoogleApiService {
             console.log(error.message);
 
         }
-    }
-
-    applyPermission(token: ITokenInterface, itemID: string)
-    {
-        const auth = this.createAuthObject(token);
-        const drive = google.drive({version: "v3", auth});
-        return drive.permissions.create({ // returns promise
-            fileId: itemID,
-            requestBody: {
-                role: "reader",
-                type: "anyone"
-            }
-        })
     }
 
     public getPublicLink(token: ITokenInterface, itemID: any) {

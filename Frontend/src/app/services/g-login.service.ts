@@ -13,6 +13,8 @@ export class GLoginService {
   private subject = new ReplaySubject<gapi.auth2.GoogleUser>(1);
   private userDetails: gapi.auth2.GoogleUser;
 
+  public hasPaid: Boolean = false;
+
   constructor(private router: Router, private http: HttpClient, public loadingController: LoadingController) {
     gapi.load('auth2', () => {
       console.log("Gapi created");
@@ -42,11 +44,37 @@ export class GLoginService {
           loaderResult.present().then(r => {
             this.createAccessTokenOnServer(user) //create access token on server and store in session. Used to fetch data from g drive
               .subscribe(response => {
-                console.log(response);
-                this.router.navigate(['collections']) //navigate to collections when access token is set
-                  .then(() => {
-                  loaderResult.dismiss(); //dismiss loading animation when successfully navigated to collections
-                });
+
+                this.http.post(this.serverAPIURL + '/getPaymentDetails',
+                  {
+                    userID: user.getId()
+                  },
+                  {
+                    withCredentials: true
+                  }).subscribe((result: any) => {
+                    console.log(result.status)
+                  if (result.status)
+                  {
+                    console.log("is success")
+                    this.router.navigate(['collections']) //navigate to collections when access token is set
+                      .then(() => {
+                        loaderResult.dismiss(); //dismiss loading animation when successfully navigated to collections
+                      });
+                  }
+                  else
+                  {
+                    console.log("is failure")
+                    this.router.navigate(['payment']) //navigate to collections when access token is set
+                      .then(() => {
+                        loaderResult.dismiss(); //dismiss loading animation when successfully navigated to collections
+                      });
+                  }
+
+                  //console.log(response);
+
+                })
+
+
               });
           })
         })

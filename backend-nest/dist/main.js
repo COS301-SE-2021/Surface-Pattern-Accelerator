@@ -166,7 +166,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
 const path_1 = __webpack_require__(27);
-const session = __webpack_require__(34);
+const session = __webpack_require__(35);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({ origin: ["http://localhost:8100"],
@@ -225,8 +225,9 @@ const _3d_viewer_controller_1 = __webpack_require__(26);
 const serve_static_1 = __webpack_require__(29);
 const path_1 = __webpack_require__(27);
 const save_image_controller_1 = __webpack_require__(30);
-const payment_controller_1 = __webpack_require__(31);
+const getPaymentDetails_controller_1 = __webpack_require__(31);
 const payment_service_1 = __webpack_require__(32);
+const make_payment_controller_1 = __webpack_require__(34);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -249,7 +250,8 @@ AppModule = __decorate([
             save_pattern_controller_1.SavePatternController,
             _3d_viewer_controller_1.ThreeDViewerController,
             save_image_controller_1.SaveImageController,
-            payment_controller_1.PaymentController],
+            getPaymentDetails_controller_1.GetPaymentDetailsController,
+            make_payment_controller_1.MakePaymentController],
         providers: [app_service_1.AppService, google_api_service_1.GoogleApiService, payment_service_1.PaymentService],
     })
 ], AppModule);
@@ -683,7 +685,15 @@ let GoogleApiService = class GoogleApiService {
     setPermissions(token, motifContainer) {
         const auth = this.createAuthObject(token);
         try {
-            return this.applyPermission(token, motifContainer.motifID)
+            console.log("the motif ID is: " + motifContainer.motifID);
+            const drive = googleapis_1.google.drive({ version: "v3", auth });
+            return drive.permissions.create({
+                fileId: motifContainer.motifID,
+                requestBody: {
+                    role: "reader",
+                    type: "anyone"
+                }
+            })
                 .then((permissionSuccess) => {
                 motifContainer.linkPermission = "good";
                 return motifContainer;
@@ -695,17 +705,6 @@ let GoogleApiService = class GoogleApiService {
         catch (error) {
             console.log(error.message);
         }
-    }
-    applyPermission(token, itemID) {
-        const auth = this.createAuthObject(token);
-        const drive = googleapis_1.google.drive({ version: "v3", auth });
-        return drive.permissions.create({
-            fileId: itemID,
-            requestBody: {
-                role: "reader",
-                type: "anyone"
-            }
-        });
     }
     getPublicLink(token, itemID) {
         const auth = this.createAuthObject(token);
@@ -1338,18 +1337,15 @@ let SavePatternController = class SavePatternController {
                                 success({ Message: "Pattern Saved" });
                             });
                             let collectionContentPromise = this.googleApiService.getFileByID(session.accessToken, collectionID);
-                            this.googleApiService.applyPermission(session.accessToken, onUploaded.data.id)
-                                .then(() => {
-                                this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
-                                    .then(getLinkResult => {
-                                    collectionContentPromise
-                                        .then((collectionContent) => {
-                                        collectionContent.collectionThumbnail = getLinkResult.data.webContentLink;
-                                        console.log(collectionContent);
-                                        this.googleApiService.updateJSONFile(session.accessToken, collectionID, JSON.stringify(collectionContent))
-                                            .then(res => {
-                                            console.log("Thumbnail URL added and written back");
-                                        });
+                            this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
+                                .then(getLinkResult => {
+                                collectionContentPromise
+                                    .then((collectionContent) => {
+                                    collectionContent.collectionThumbnail = getLinkResult.data.webContentLink;
+                                    console.log(collectionContent);
+                                    this.googleApiService.updateJSONFile(session.accessToken, collectionID, JSON.stringify(collectionContent))
+                                        .then(res => {
+                                        console.log("Thumbnail URL added and written back");
                                     });
                                 });
                             });
@@ -1539,65 +1535,40 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.PaymentController = void 0;
+exports.GetPaymentDetailsController = void 0;
 const common_1 = __webpack_require__(6);
 const payment_service_1 = __webpack_require__(32);
-let PaymentController = class PaymentController {
+let GetPaymentDetailsController = class GetPaymentDetailsController {
     constructor(paymentService) {
         this.paymentService = paymentService;
     }
-    pay(id, created, client_ip, card_id, email) {
-        console.log(id, created, client_ip, card_id, email);
+    getPaymentDetails(userID) {
         let connection = this.paymentService.getDbConnection();
+        console.log("userID is: ", userID);
         return new Promise((success, failure) => {
-            connection.query('INSERT INTO payment.payments (id, created, client_ip, card_id, email) VALUES (?, ?, ?, ?, ?);', [id, created, client_ip, card_id, email], (error, results, fields) => {
-                if (error) {
-                    failure({ status: 'failed', error: error });
-                }
-                else {
-                    success({ status: 'success ok', data: results });
-                }
-            });
-        });
-    }
-    getPaymentDetails(email) {
-        let connection = this.paymentService.getDbConnection();
-        console.log("here -> ", email);
-        return new Promise((success, failure) => {
-            connection.query('SELECT * FROM payment.payments where email = ? ;', [email], function (error, details, fields) {
+            connection.query('SELECT * FROM payment.userPayments where userID = ? ;', [userID], function (error, details, fields) {
                 if (details.length > 0) {
-                    success({ status: "success ok", paymentDetails: details });
+                    success({ status: true, paymentDetails: details });
                 }
                 else {
-                    failure({ status: "failed", error: error });
+                    success({ status: false, paymentDetails: "" });
                 }
             });
         });
     }
 };
 __decorate([
-    (0, common_1.Post)('pay'),
-    __param(0, (0, common_1.Body)('id')),
-    __param(1, (0, common_1.Body)('created')),
-    __param(2, (0, common_1.Body)('client_ip')),
-    __param(3, (0, common_1.Body)('card_id')),
-    __param(4, (0, common_1.Body)('email')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, String]),
-    __metadata("design:returntype", void 0)
-], PaymentController.prototype, "pay", null);
-__decorate([
-    (0, common_1.Get)('getPaymentDetails'),
-    __param(0, (0, common_1.Query)('email')),
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)('userID')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], PaymentController.prototype, "getPaymentDetails", null);
-PaymentController = __decorate([
-    (0, common_1.Controller)('api/payment'),
+], GetPaymentDetailsController.prototype, "getPaymentDetails", null);
+GetPaymentDetailsController = __decorate([
+    (0, common_1.Controller)('api/getPaymentDetails'),
     __metadata("design:paramtypes", [typeof (_a = typeof payment_service_1.PaymentService !== "undefined" && payment_service_1.PaymentService) === "function" ? _a : Object])
-], PaymentController);
-exports.PaymentController = PaymentController;
+], GetPaymentDetailsController);
+exports.GetPaymentDetailsController = GetPaymentDetailsController;
 
 
 /***/ }),
@@ -1641,6 +1612,67 @@ module.exports = require("mysql");
 
 /***/ }),
 /* 34 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MakePaymentController = void 0;
+const common_1 = __webpack_require__(6);
+const payment_service_1 = __webpack_require__(32);
+let MakePaymentController = class MakePaymentController {
+    constructor(paymentService) {
+        this.paymentService = paymentService;
+    }
+    pay(userID, cardID, stripeID, userEmail, dateLastPayed, freeTrial) {
+        console.log(userID, cardID, stripeID, userEmail, dateLastPayed, freeTrial);
+        let connection = this.paymentService.getDbConnection();
+        return new Promise((success, failure) => {
+            connection.query('INSERT INTO payment.userPayments (userID, cardID, stripeID, userEmail, dateLastPayed, freeTrial) VALUES (?, ?, ?, ?, ?, ?);', [userID, cardID, stripeID, userEmail, dateLastPayed, freeTrial], (error, results, fields) => {
+                if (error) {
+                    success({ status: 'failed', data: "" });
+                }
+                else {
+                    success({ status: 'success ok', data: results });
+                }
+            });
+        });
+    }
+};
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)('userID')),
+    __param(1, (0, common_1.Body)('cardID')),
+    __param(2, (0, common_1.Body)('stripeID')),
+    __param(3, (0, common_1.Body)('userEmail')),
+    __param(4, (0, common_1.Body)('dateLastPayed')),
+    __param(5, (0, common_1.Body)('freeTrial')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String, String, String, String]),
+    __metadata("design:returntype", void 0)
+], MakePaymentController.prototype, "pay", null);
+MakePaymentController = __decorate([
+    (0, common_1.Controller)('api/makePayment'),
+    __metadata("design:paramtypes", [typeof (_a = typeof payment_service_1.PaymentService !== "undefined" && payment_service_1.PaymentService) === "function" ? _a : Object])
+], MakePaymentController);
+exports.MakePaymentController = MakePaymentController;
+
+
+/***/ }),
+/* 35 */
 /***/ ((module) => {
 
 "use strict";
@@ -1708,7 +1740,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("df6a159a4829a16969c6")
+/******/ 		__webpack_require__.h = () => ("89a1c4788ca8f21c2d0e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
