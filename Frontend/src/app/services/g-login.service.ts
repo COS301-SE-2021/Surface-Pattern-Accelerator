@@ -56,6 +56,7 @@ export class GLoginService {
                   if (result.status)
                   {
                     console.log("is success")
+                    this.hasPaid = true;
                     this.router.navigate(['collections']) //navigate to collections when access token is set
                       .then(() => {
                         loaderResult.dismiss(); //dismiss loading animation when successfully navigated to collections
