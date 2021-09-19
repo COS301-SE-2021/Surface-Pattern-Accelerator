@@ -18,4 +18,8 @@ export class ThreeDLinkComponent implements OnInit {
   goTo3DView() {
     this.popoverController.dismiss()
   }
+
+  closePopover(){
+    this.popoverController.dismiss();
+  }
 }
