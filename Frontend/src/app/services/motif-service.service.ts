@@ -156,7 +156,27 @@ export class MotifServiceService {
             clone.IDOnCanvas = this.motifIndexIncValue++;
             clone.motifURL = motStateTemp.motifURL;
             clone.motifName = motStateTemp.motifName;
-            canvas.add(clone).renderAll(); //the clone is spawned on the canvas
+            clone.shouldDisplaySeamlessMod = motStateTemp.shouldDisplaySeamless;
+            clone.nrOfArrayObjects = motStateTemp.nrOfArrayObjects;
+            clone.ArrayModDirection = motStateTemp.ArrayModDirection;
+            clone.ArrayModSpacing = motStateTemp.ArrayModSpacing;
+            clone.arrayModifierElements = [];
+
+            if (clone.shouldDisplaySeamlessMod)
+            {
+              this.addReflectionsToObject(clone,canvas)
+            }
+
+            for (let arrElem = 0; arrElem < clone.nrOfArrayObjects; arrElem++)
+            {
+              this.changeArrayModifierNumber(clone,1,clone.ArrayModSpacing,canvas, false)
+            }
+            this.updateArrModOfSelected(clone, canvas);
+
+
+
+
+            canvas.add(clone) //the clone is put on the canvas
 
 
             //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
@@ -166,7 +186,8 @@ export class MotifServiceService {
         }
       }
     }
-    this.motifsOnCanvas = canvas.getObjects();
+    this.motifsOnCanvas = this.getNonSpecialObjects(canvas);
+    this.renderAllWithSpecial(this.motifsOnCanvas, canvas)
   }
 
   //deletes all data stored in this service to have it clean for the next collection
@@ -175,6 +196,211 @@ export class MotifServiceService {
     //this.motifs = {motifDetails: []} as motifsInterface;
     this.cachedMotifs = [];
     //this.motifsOnCanvas = {objects: []};
+  }
+
+  addReflectionsToObject(objectToAddTo: fabric.Object, canvas: fabric.Canvas)
+  {
+    //adds reflections to the specified object
+    objectToAddTo.reflections = [
+      this.reflectionCreator(objectToAddTo, -canvas.width, +canvas.height),
+      this.reflectionCreator(objectToAddTo, -canvas.width, 0),
+      this.reflectionCreator(objectToAddTo, -canvas.width, -canvas.height),
+      this.reflectionCreator(objectToAddTo, 0, +canvas.height),
+      this.reflectionCreator(objectToAddTo, 0, -canvas.height),
+      this.reflectionCreator(objectToAddTo, +canvas.width, +canvas.height),
+      this.reflectionCreator(objectToAddTo, +canvas.width, 0),
+      this.reflectionCreator(objectToAddTo, +canvas.width, -canvas.height)
+    ];
+  }
+
+  reflectionCreator(parent: fabric.Object, topOffset: number, leftOffset: number)
+  {
+    let tempReflection: fabric.Object;
+    parent.clone((reflection) => {
+      reflection.set('top', parent.top + topOffset);
+      reflection.set('left', parent.left + leftOffset);
+      reflection.set('selectable', false);
+      reflection.set('evented', false);
+      reflection.set('opacity', 1); //Opacity 1 is solid
+      tempReflection = reflection;
+    });
+    return tempReflection;
+  }
+
+  changeArrayModifierNumber(parent: fabric.Object, num: number, distance: number, canvas: fabric.Canvas, updateNum: boolean = true) {
+    //if the value is undefined, define it then add num to it
+    if (!parent.nrOfArrayObjects)
+    {
+      parent.nrOfArrayObjects = 0;
+      parent.arrayModifierElements = []; //initialize array
+    }
+
+
+    //makes so the nr of array modifier elements cant be negative
+    if (!(parent.nrOfArrayObjects == 0 && num < 0))
+    {
+      if (updateNum)
+      {
+        parent.nrOfArrayObjects += num;
+      }
+
+
+      if (num > 0)
+      {
+        //if number is positive, add new clone
+        const {y, x} = this.calculatePositionFromDirection(parent, distance, parent.nrOfArrayObjects);
+        const tempObject = this.reflectionCreator(parent, y, x); //create the array modifier object with offset
+        this.addReflectionsToObject(tempObject, canvas); //add reflections to array modifier object
+        parent.arrayModifierElements.push(tempObject);
+        console.log('Pushed new arr mod obj');
+      }
+      else
+      {
+        //if negative, pop object
+        parent.arrayModifierElements.pop();
+      }
+      if (updateNum)
+      {
+        this.renderAllWithSpecial(this.getNonSpecialObjects(canvas), canvas);
+      }
+    }
+  }
+
+  //object index is the nth object in the parent objects array-modifier array
+  calculatePositionFromDirection(parent: fabric.Object, distance: number, objIndex: number)
+  {
+    const tempDist = distance * objIndex;
+    const tempSlideVal = this.toRadians( parent.ArrayModDirection - 180);
+    const y = tempDist * Math.sin(tempSlideVal);
+    const x = tempDist * Math.sin(1.5708 - tempSlideVal);
+    return {y, x}; //return coordinates
+  }
+
+  toRadians(angle) {
+    return angle * (Math.PI / 180);
+  }
+
+  updateArrModOfSelected(parent: fabric.Object, canvas: fabric.Canvas) {
+
+    //console.log("update array mod")
+    if (parent.nrOfArrayObjects)
+    {
+      for (let arrObj = 0; arrObj < parent.nrOfArrayObjects; arrObj++)
+      {
+        const {y, x} = this.calculatePositionFromDirection(parent, parent.ArrayModSpacing, arrObj + 1);
+        this.arrayModUpdater(parent, arrObj,  y, x, canvas);
+      }
+    }
+    //this.renderAllWithSpecial(this.getNonSpecialObjects());
+    canvas.renderAll();
+
+  }
+
+  arrayModUpdater(parent: fabric.Object, arrayModIndex: number, topOffset: number, leftOffset: number, canvas: fabric.Canvas)
+  {
+    const ref = parent.arrayModifierElements[arrayModIndex];
+    ref.set('top',  parent.top + topOffset);
+    ref.set('left',  parent.left + leftOffset);
+    ref.set('scaleX',  parent.scaleX);
+    ref.set('scaleY',  parent.scaleY);
+    ref.rotate( parent.angle);
+    ref.set('flipX', parent.flipX);
+    ref.set('flipY', parent.flipY);
+
+    if (ref.reflections)
+    {
+      this.updateReflectionsOf(ref, canvas);
+      console.log('Has reflections');
+    }
+
+  }
+
+  updateReflectionsOf(obj: fabric.Object, canvas: fabric.Canvas) {
+    if (obj.reflections != undefined && obj.reflections.length > 0)
+    {
+      this.reflectionUpdater(obj,0, -canvas.width, +canvas.height, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,1, -canvas.width, 0, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,2, -canvas.width, -canvas.height, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,3, 0, +canvas.height, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,4, 0, -canvas.height, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,5, +canvas.width, +canvas.height, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,6, +canvas.width, 0, this.updateReflectionsOf);
+      this.reflectionUpdater(obj,7, +canvas.width, -canvas.height, this.updateReflectionsOf);
+    }
+
+  }
+
+  reflectionUpdater(parentObj: fabric.Object, reflectionIndex: number, topOffset: number, leftOffset: number, callback)
+  {
+    const ref = parentObj.reflections[reflectionIndex];
+    ref.set('top',  parentObj.top + topOffset);
+    ref.set('left',  parentObj.left + leftOffset);
+    ref.set('scaleX',  parentObj.scaleX);
+    ref.set('scaleY',  parentObj.scaleY);
+    ref.rotate( parentObj.angle);
+    ref.set('flipX', parentObj.flipX);
+    ref.set('flipY', parentObj.flipY);
+  }
+
+  renderAllWithSpecial(objects: fabric.Object[], canvas: fabric.Canvas)
+  {
+    const userObjects: fabric.Object[] = []; //all objects the user spawned in, not including reflections or arrayMod objects
+    for (const obj in objects) //check to make sure no special objects are in this array
+    {
+      if (objects[obj].IDOnCanvas != undefined)
+      {
+        userObjects.push(objects[obj]);
+      }
+    }
+
+    const objectsToRender: fabric.Object[] = [];
+    for (const userObj in userObjects)
+    {
+      if (userObjects[userObj].IDOnCanvas > -1)
+      {
+        this.decideRenderOrder(userObjects[userObj], objectsToRender, userObjects[userObj].shouldDisplaySeamlessMod);
+      }
+    }
+    canvas._objects = objectsToRender;
+    canvas.renderAll();
+  }
+
+  decideRenderOrder(obj: fabric.Object, futureRenderObjects: fabric.Object[], shouldDisplaySeamless: Boolean)
+  {
+
+    if (shouldDisplaySeamless && obj.reflections != undefined)
+    {
+      // console.log('Pushed');
+      //console.log(...obj.reflections)
+      futureRenderObjects.push(...obj.reflections); //spread operator, pushes the reflection array to the objectsToRender array
+    }
+    futureRenderObjects.push(obj);
+
+    if (obj.arrayModifierElements == undefined)
+    {
+      obj.arrayModifierElements = [];
+    }
+    for (let i = 0; i < obj.arrayModifierElements.length ; i++)
+    {
+      //console.log(obj.arrayModifierElements[i].reflections)
+      this.decideRenderOrder(obj.arrayModifierElements[i], futureRenderObjects, shouldDisplaySeamless);
+    }
+
+
+  }
+
+  getNonSpecialObjects(canvas: fabric.Canvas)
+  {
+    const tempAllObjects = canvas.getObjects();
+    const nonSpecialObjects: fabric.Object[] = [];
+    for (let i = 0; i < tempAllObjects.length; i++)
+    {
+      if (tempAllObjects[i].IDOnCanvas > -1)
+      {
+        nonSpecialObjects.push(tempAllObjects[i]);
+      }
+    }
+    return nonSpecialObjects;
   }
 
 

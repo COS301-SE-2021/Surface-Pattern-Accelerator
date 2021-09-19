@@ -34,7 +34,7 @@ export class PatternService {
 
   getCurrentCollectionJSON(fileID: string)
   {
-    
+
     return new Promise((accept, reject) => {
       console.log('getCollectionJSON fired! fileID is: ' + fileID);
 
@@ -173,7 +173,13 @@ export class PatternService {
         layer: 0, //Temp
         motifID: tempMotifsOnCanvas[mot].googleDriveID,
         motifName: tempMotifsOnCanvas[mot].motifName,
-        motifURL: tempMotifsOnCanvas[mot].motifURL
+        motifURL: tempMotifsOnCanvas[mot].motifURL,
+        shouldDisplaySeamless: tempMotifsOnCanvas[mot].shouldDisplaySeamlessMod,
+        nrOfArrayObjects: tempMotifsOnCanvas[mot].nrOfArrayObjects,
+        ArrayModDirection: tempMotifsOnCanvas[mot].ArrayModDirection,
+        ArrayModSpacing: tempMotifsOnCanvas[mot].ArrayModSpacing
+
+
 
       });
     }
@@ -240,6 +246,7 @@ export class PatternService {
             this.patternContents = fileContent as IPatternContentsInterface;
             console.log(this.patternContents);
             this.motifService.spawnMotifObjectsFromSaveState(this.patternContents, canvas);
+
           }
           loaderResult.dismiss().then()
 

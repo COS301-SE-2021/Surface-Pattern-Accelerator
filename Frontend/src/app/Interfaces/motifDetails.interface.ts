@@ -10,5 +10,15 @@ export interface IMotifStateInterface {
     motifID: string;
     motifName: string;
     motifURL: string;
+
+    //modifiers
+      //Seamless mod
+    shouldDisplaySeamless: Boolean;
+
+      //Array mod
+    nrOfArrayObjects: number;
+    ArrayModDirection: number;
+    ArrayModSpacing: number;
+
   }
 

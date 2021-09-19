@@ -126,6 +126,7 @@ export class PatternComponent implements OnInit {
     this.canvas = new fabric.Canvas('patternFrame', { preserveObjectStacking: true });
     this.canvas.setHeight(this.width);
     this.canvas.setWidth(this.height);
+    this.canvas.selection = false; //disables group selection
     this.canvas.backgroundColor = null;
     this.originator = new Originator();
     this.caretaker = new Caretaker();
@@ -144,6 +145,8 @@ export class PatternComponent implements OnInit {
               if (collectionContent.childPatterns[0])
               {
                 this.patternService.getAndLoadSavedPattern(collectionContent.childPatterns[0].patternID, this.canvas)
+                //this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
+                //this.renderAllWithSpecial(this.motifService.motifsOnCanvas);
               }
 
             })
@@ -173,31 +176,31 @@ export class PatternComponent implements OnInit {
     this.canvas.on('object:moving' ,(r) => {
       if (this.activeObject.shouldDisplaySeamlessMod)
       {
-        this.updateReflectionsOf(this.activeObject);
+        this.motifService.updateReflectionsOf(this.activeObject, this.canvas);
 
         console.log('Moving Reflections');
       }
-      this.updateArrModOfSelected();
+      this.motifService.updateArrModOfSelected(this.activeObject, this.canvas);
     });
 
     this.canvas.on('object:rotating' ,(r) => {
       if (this.activeObject.shouldDisplaySeamlessMod)
       {
-        this.updateReflectionsOf(this.activeObject);
+        this.motifService.updateReflectionsOf(this.activeObject, this.canvas);
 
         console.log('Moving Reflections');
       }
-      this.updateArrModOfSelected();
+      this.motifService.updateArrModOfSelected(this.activeObject, this.canvas);
     });
 
     this.canvas.on('object:scaling' ,(r) => {
       if (this.activeObject.shouldDisplaySeamlessMod)
       {
-        this.updateReflectionsOf(this.activeObject);
+        this.motifService.updateReflectionsOf(this.activeObject, this.canvas);
 
         console.log('Moving Reflections');
       }
-      this.updateArrModOfSelected();
+      this.motifService.updateArrModOfSelected(this.activeObject, this.canvas);
     });
 
     this.canvas.on('object:rotated' ,(r) => {
@@ -313,8 +316,8 @@ export class PatternComponent implements OnInit {
 
   getState(){
     let state : fabric.Object[] = [];
-    let motifs = this.getNonSpecialObjects();
-    for( let i = 0 ; i < this.getNonSpecialObjects().length ; i++ ){
+    let motifs = this.motifService.getNonSpecialObjects(this.canvas);
+    for( let i = 0 ; i < motifs.length ; i++ ){
       motifs[i].clone((clone)=>{
         clone.googleDriveID =  motifs[i].googleDriveID;
         clone.motifURL =  motifs[i].motifURL;
@@ -337,8 +340,8 @@ export class PatternComponent implements OnInit {
   addState()
   {
     let state : fabric.Object[] = [];
-    let motifs = this.getNonSpecialObjects();
-    for( let i = 0 ; i < this.getNonSpecialObjects().length ; i++ ){
+    let motifs = this.motifService.getNonSpecialObjects(this.canvas);
+    for( let i = 0 ; i < motifs.length ; i++ ){
       motifs[i].clone((clone)=>{
         clone.googleDriveID =  motifs[i].googleDriveID;
         clone.motifURL =  motifs[i].motifURL;
@@ -441,42 +444,7 @@ export class PatternComponent implements OnInit {
     e.stopPropagation(e);
   }
 
-  //This functions spawns the motifs on the canvas, its called from the HTML
-  spawnMotifObjectsFromSaveState()
-  {
-    this.motifsOnCanvas = {objects: []}; //clears motifs on canvas
-    for (const motState in this.patternContents.motifs) //the json file of the pattern contents gotten from the server
-    {
-      const motStateTemp = this.patternContents.motifs[motState]; //temp value, store as its potentially accessed a lot - for performance
-      for (const cachedMot in this.motifService.cachedMotifs) //array of cached motifs, "the library" to select from
-      {
-        const cachedMotTemp = this.motifService.cachedMotifs[cachedMot]; //store reference to cached motif, less cluttered
-        if (motStateTemp.motifID === cachedMotTemp.id) //if if in cached motifs match motif ID in pattern JSON then spawn than motif
-        {
-          const objectToSpawn = cachedMotTemp.obj;
 
-          objectToSpawn.clone( (clone: fabric.Object) => { //objectToSpawn is the cached svg in memory. Make clones of this object and then
-            clone
-              .set({
-                left: motStateTemp.left,
-                top: motStateTemp.top,
-                angle: motStateTemp.rotation,
-                //height: motStateTemp.height* motStateTemp.scale.scaleY,
-                //width: motStateTemp.width* motStateTemp.scale.scaleX
-                scaleX: motStateTemp.scale.scaleX,
-                scaleY: motStateTemp.scale.scaleY,
-              })
-              .setCoords();
-            this.canvas.add(clone).renderAll(); //the clone is spawned on the canvas
-
-            //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
-            this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
-            //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
-          });
-        }
-      }
-    }
-  }
 
   newPattern(patternName: string)
   {
@@ -558,7 +526,7 @@ export class PatternComponent implements OnInit {
 
   moveUp(objectID: number) {
     this.addState();
-    const currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.motifService.getNonSpecialObjects(this.canvas);
 
     for (let index = 0; index < currentObjects.length; index ++)
     {
@@ -572,7 +540,7 @@ export class PatternComponent implements OnInit {
 
           //this.canvas._objects = currentObjects;
           //this.canvas.renderAll(); //renders everything when done
-          this.renderAllWithSpecial(currentObjects);
+          this.motifService.renderAllWithSpecial(currentObjects, this.canvas);
           this.motifService.motifsOnCanvas = currentObjects;
           return;
         }
@@ -586,7 +554,7 @@ export class PatternComponent implements OnInit {
 
   moveDown(objectID: number) {
     this.addState();
-    const currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.motifService.getNonSpecialObjects(this.canvas);
 
     for (let index = 0; index < currentObjects.length; index ++)
     {
@@ -598,7 +566,7 @@ export class PatternComponent implements OnInit {
           currentObjects[index - 1] = currentObjects[index];
           currentObjects[index] = temp;
 
-          this.renderAllWithSpecial(currentObjects);
+          this.motifService.renderAllWithSpecial(currentObjects, this.canvas);
           this.motifService.motifsOnCanvas = currentObjects;
           return;
         }
@@ -611,7 +579,7 @@ export class PatternComponent implements OnInit {
   }
 
   getMotifIndex(objectID: number){
-    const currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.motifService.getNonSpecialObjects(this.canvas);
     for (let index = 0; index < currentObjects.length; index++) {
       if (currentObjects[index].IDOnCanvas === objectID) {
         return index;
@@ -620,18 +588,18 @@ export class PatternComponent implements OnInit {
   }
 
   makeSelected(objectID: number) {
-    const currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.motifService.getNonSpecialObjects(this.canvas);
     const index = this.getMotifIndex(objectID);
     this.canvas.setActiveObject(currentObjects[index]);
     this.canvas.renderAll();
   }
 
   delete(objectID: number) {
-    const currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.motifService.getNonSpecialObjects(this.canvas);
     const index = this.getMotifIndex(objectID);
     this.canvas.remove(currentObjects[index]);
-    this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
-    this.renderAllWithSpecial(this.canvas._objects);
+    this.motifService.motifsOnCanvas = this.motifService.getNonSpecialObjects(this.canvas);
+    this.motifService.renderAllWithSpecial(this.canvas._objects, this.canvas);
 
   }
 
@@ -641,8 +609,8 @@ export class PatternComponent implements OnInit {
     else
     {
       this.canvas.remove(selection);
-      this.motifService.motifsOnCanvas = this.getNonSpecialObjects();
-      this.renderAllWithSpecial(this.canvas._objects);
+      this.motifService.motifsOnCanvas = this.motifService.getNonSpecialObjects(this.canvas);
+      this.motifService.renderAllWithSpecial(this.canvas._objects, this.canvas);
       this.dissapearContext();
     }
   }
@@ -693,7 +661,7 @@ export class PatternComponent implements OnInit {
 
 
   recenter(objectID: number) {
-    const currentObjects = this.getNonSpecialObjects();
+    const currentObjects = this.motifService.getNonSpecialObjects(this.canvas);
     const index = this.getMotifIndex(objectID);
     currentObjects[index].center();
     this.makeSelected(index);
@@ -710,37 +678,6 @@ export class PatternComponent implements OnInit {
     //TODO: do this only when in color editor mode/ polygon mode
     this.activeObject = this.canvas.getActiveObject();
     console.log(this.canvas.getActiveObject().IDOnCanvas);
-    console.log(this.canvas.getActiveObject().googleDriveID);
-
-
-    // console.log(this.canvas.getObjects())
-    // for (let obj in this.canvas.getObjects())
-    // {
-    //
-    //   this.motifService.motifsOnCanvas.objects[obj].objectRef = this.canvas.getObjects()[obj];
-    //   let shape = this.canvas.getObjects()[obj];
-    //   // shape.set('fill', 'red');
-    //   // shape.set('stroke', 'blue');
-    //   // this.canvas.renderAll();
-    //   // console.log(this.canvas.getObjects()[obj].fill);
-    // }
-
-
-
-
-    // let selectedObject = this.canvas.getActiveObject();
-    // if (selectedObject)
-    // {
-    //   for (let obj in this.motifService.motifsOnCanvas)
-    //   {
-    //     if (selectedObject.ownMatrixCache.key === this.motifService.motifsOnCanvas[obj].ownMatrixCache.key)
-    //     {
-    //       console.log("equal: " + obj);
-    //     }
-    //   }
-    //   console.log("End")
-    // }
-
   }
 
   refresh(){
@@ -751,13 +688,6 @@ export class PatternComponent implements OnInit {
     this.pcan.src = this.canvas.toDataURL();
     this.setPreview(true);
   }
-
-
-  toggleExport()
-  {
-
-  }
-
 
 
   setDownload(shouldDisplay: boolean = false){
@@ -920,31 +850,22 @@ export class PatternComponent implements OnInit {
     //TODO: initialize hasReflections to fix error in console when changing from undefined to true/false when check box is ticked
     if (event.detail.checked === true)
     {
-      this.addReflectionsToObject(this.activeObject);
+      this.motifService.addReflectionsToObject(this.activeObject, this.canvas);
+      this.activeObject.shouldDisplaySeamlessMod = true;
     }
     else
     {
       this.activeObject.reflections = [];
+      this.activeObject.shouldDisplaySeamlessMod = false;
     }
 
-    this.renderAllWithSpecial(this.getNonSpecialObjects());
+    this.motifService.renderAllWithSpecial(this.motifService.getNonSpecialObjects(this.canvas), this.canvas);
+
 
   }
 
-  addReflectionsToObject(objectToAddTo: fabric.Object)
-  {
-    //adds reflections to the specified object
-    objectToAddTo.reflections = [
-      this.reflectionCreator(objectToAddTo, -this.canvasWidth, +this.canvasHeight),
-      this.reflectionCreator(objectToAddTo, -this.canvasWidth, 0),
-      this.reflectionCreator(objectToAddTo, -this.canvasWidth, -this.canvasHeight),
-      this.reflectionCreator(objectToAddTo, 0, +this.canvasHeight),
-      this.reflectionCreator(objectToAddTo, 0, -this.canvasHeight),
-      this.reflectionCreator(objectToAddTo, +this.canvasWidth, +this.canvasHeight),
-      this.reflectionCreator(objectToAddTo, +this.canvasWidth, 0),
-      this.reflectionCreator(objectToAddTo, +this.canvasWidth, -this.canvasHeight)
-    ];
-  }
+
+
   scaleCanvas3(){
     this.scale = 3;
 
@@ -985,189 +906,30 @@ export class PatternComponent implements OnInit {
   }
 
 
-  reflectionCreator(parent: fabric.Object, topOffset: number, leftOffset: number)
-  {
-    let tempReflection: fabric.Object;
-    parent.clone((reflection) => {
-      reflection.set('top', parent.top + topOffset);
-      reflection.set('left', parent.left + leftOffset);
-      reflection.set('selectable', false);
-      reflection.set('evented', false);
-      reflection.set('opacity', this.opacity);
-      tempReflection = reflection;
-    });
-    return tempReflection;
-  }
 
-  getNonSpecialObjects()
-  {
-    const tempAllObjects = this.canvas.getObjects();
-    const nonSpecialObjects: fabric.Object[] = [];
-    for (let i = 0; i < tempAllObjects.length; i++)
-    {
-      if (tempAllObjects[i].IDOnCanvas > -1)
-      {
-        nonSpecialObjects.push(tempAllObjects[i]);
-      }
-    }
-    return nonSpecialObjects;
-  }
+
+
 
   //takes objects array as parameter to render
   //The reflections are added to the array and then displayed
 
 
-  renderAllWithSpecial(objects: fabric.Object[])
-  {
-    const userObjects: fabric.Object[] = []; //all objects the user spawned in, not including reflections or arrayMod objects
-    for (const obj in objects) //check to make sure no special objects are in this array
-    {
-      if (objects[obj].IDOnCanvas != undefined)
-      {
-        userObjects.push(objects[obj]);
-      }
-    }
-
-    const objectsToRender: fabric.Object[] = [];
-    for (const userObj in userObjects)
-    {
-      if (userObjects[userObj].IDOnCanvas > -1)
-      {
-        this.decideRenderOrder(userObjects[userObj], objectsToRender, userObjects[userObj].shouldDisplaySeamlessMod);
-      }
-    }
-    this.canvas._objects = objectsToRender;
-    this.canvas.renderAll();
-  }
-
-  decideRenderOrder(obj: fabric.Object, futureRenderObjects: fabric.Object[], shouldDisplaySeamless: Boolean)
-  {
-
-    if (shouldDisplaySeamless && obj.reflections != undefined)
-    {
-      console.log('Pushed');
-      //console.log(...obj.reflections)
-      futureRenderObjects.push(...obj.reflections); //spread operator, pushes the reflection array to the objectsToRender array
-    }
-    futureRenderObjects.push(obj);
-
-    if (obj.arrayModifierElements == undefined)
-    {
-      obj.arrayModifierElements = [];
-    }
-    for (let i = 0; i < obj.arrayModifierElements.length ; i++)
-    {
-      //console.log(obj.arrayModifierElements[i].reflections)
-      this.decideRenderOrder(obj.arrayModifierElements[i], futureRenderObjects, shouldDisplaySeamless);
-    }
 
 
-  }
-
-  updateReflectionsOf(obj: fabric.Object) {
-    if (obj.reflections != undefined && obj.reflections.length > 0)
-    {
-      this.reflectionUpdater(obj,0, -this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf);
-      this.reflectionUpdater(obj,1, -this.canvasWidth, 0, this.updateReflectionsOf);
-      this.reflectionUpdater(obj,2, -this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf);
-      this.reflectionUpdater(obj,3, 0, +this.canvasHeight, this.updateReflectionsOf);
-      this.reflectionUpdater(obj,4, 0, -this.canvasHeight, this.updateReflectionsOf);
-      this.reflectionUpdater(obj,5, +this.canvasWidth, +this.canvasHeight, this.updateReflectionsOf);
-      this.reflectionUpdater(obj,6, +this.canvasWidth, 0, this.updateReflectionsOf);
-      this.reflectionUpdater(obj,7, +this.canvasWidth, -this.canvasHeight, this.updateReflectionsOf);
-    }
-
-  }
-
-  reflectionUpdater(parentObj: fabric.Object, reflectionIndex: number, topOffset: number, leftOffset: number, callback)
-  {
-    const ref = parentObj.reflections[reflectionIndex];
-    ref.set('top',  parentObj.top + topOffset);
-    ref.set('left',  parentObj.left + leftOffset);
-    ref.set('scaleX',  parentObj.scaleX);
-    ref.set('scaleY',  parentObj.scaleY);
-    ref.rotate( parentObj.angle);
-    ref.set('flipX', parentObj.flipX);
-    ref.set('flipY', parentObj.flipY);
-  }
-
-  arrayModUpdater(arrayModIndex: number, topOffset: number, leftOffset: number)
-  {
-    const ref = this.activeObject.arrayModifierElements[arrayModIndex];
-    ref.set('top',  this.activeObject.top + topOffset);
-    ref.set('left',  this.activeObject.left + leftOffset);
-    ref.set('scaleX',  this.activeObject.scaleX);
-    ref.set('scaleY',  this.activeObject.scaleY);
-    ref.rotate( this.activeObject.angle);
-    ref.set('flipX', this.activeObject.flipX);
-    ref.set('flipY', this.activeObject.flipY);
-
-    if (ref.reflections)
-    {
-      this.updateReflectionsOf(ref);
-      console.log('Has reflections');
-    }
-
-  }
 
 
-  changeArrayModifierNumber(num: number, distance: number) {
-    //if the value is undefined, define it then add num to it
-    if (!this.activeObject.nrOfArrayObjects)
-    {
-      this.activeObject.nrOfArrayObjects = 0;
-      this.activeObject.arrayModifierElements = []; //initialize array
-    }
-    //makes so the nr of array modifier elements cant be negative
-    if (!(this.activeObject.nrOfArrayObjects == 0 && num < 0))
-    {
-      this.activeObject.nrOfArrayObjects += num;
-      if (num > 0)
-      {
-        //if number is positive, add new clone
-        const {y, x} = this.calculatePositionFromDirection(distance, this.activeObject.nrOfArrayObjects);
-        const tempObject = this.reflectionCreator(this.activeObject, y, x); //create the array modifier object with offset
-        this.addReflectionsToObject(tempObject); //add reflections to array modifier object
-        this.activeObject.arrayModifierElements.push(tempObject);
-        console.log('Pushed new arr mod obj');
-      }
-      else
-      {
-        //if negative, pop object
-        this.activeObject.arrayModifierElements.pop();
-      }
-      this.renderAllWithSpecial(this.getNonSpecialObjects());
-    }
-  }
 
-  toRadians(angle) {
-    return angle * (Math.PI / 180);
-  }
 
-  //object index is the nth object in the parent objects array-modifier array
-  calculatePositionFromDirection(distance: number, objIndex: number)
-  {
-    const tempDist = distance * objIndex;
-    const tempSlideVal = this.toRadians( this.activeObject.ArrayModDirection - 180);
-    const y = tempDist * Math.sin(tempSlideVal);
-    const x = tempDist * Math.sin(1.5708 - tempSlideVal);
-    return {y, x}; //return coordinates
-  }
 
-  updateArrModOfSelected() {
 
-    if (this.activeObject.nrOfArrayObjects)
-    {
-      for (let arrObj = 0; arrObj < this.activeObject.nrOfArrayObjects; arrObj++)
-      {
-        const {y, x} = this.calculatePositionFromDirection(this.activeObject.ArrayModSpacing, arrObj + 1);
-        this.arrayModUpdater(arrObj,  y, x);
-      }
-    }
-    //this.renderAllWithSpecial(this.getNonSpecialObjects());
-    this.canvas.renderAll();
-    console.log(this.directionSliderValue);
-  }
+
+
+
+
+
+
+
+
 
   download(){
     console.log('downloading');
