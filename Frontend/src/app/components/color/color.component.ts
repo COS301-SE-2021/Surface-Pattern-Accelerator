@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StageColorService} from '../../services/stage-color.service';
 
 @Component({
   selector: 'app-color',
@@ -10,14 +11,26 @@ export class ColorComponent implements OnInit {
   colourList = [];
   svgName: any;
   patternName: any;
+  img: any;
+  public imgSrc: string;
 
-  constructor() { }
+  constructor(private stageColorService: StageColorService) { }
 
   ngOnInit() {
     this.colorGenerator();
-    this.draw();
-    document.getElementById('canvas').onclick = ()=>{
-      this.canvasColour();
+
+    this.stageColorService.stage$
+        .subscribe(
+          image => {
+            console.log('image subscription'+ image);
+              this.imgSrc = image;
+            });
+
+    document.getElementById('onlyImage').onload =() => {
+      this.draw();
+      document.getElementById('onlyImage').onclick = ()=>{
+        this.canvasColour();
+      };
     };
   }
 
@@ -239,16 +252,19 @@ export class ColorComponent implements OnInit {
     }
   }
   draw(){ //TODO: remove when merged with other canvas
+    console.log('draw executing');
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const canvas = <HTMLCanvasElement> document.getElementById('canvas');
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
 
     const img = new Image();
-    img.src='../assets/shapes.svg';
+    img.src = this.imgSrc;
     img.onload = () =>{
       ctx.drawImage(img,0,0);
+      console.log('image drawn');
     };
+    console.log('draw called');
   }
 
   canvasColour(){

@@ -14,7 +14,8 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-    "allowJs": true
+    "allowJs": true,
+    "types": ["gapi","gapi.auth2", "gapi.client.drive"],
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

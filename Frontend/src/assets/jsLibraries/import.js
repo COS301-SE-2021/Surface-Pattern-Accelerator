@@ -1,4 +1,4 @@
-//refernce https://codepen.io/bradtraversy/pen/qoJZBy
+/*//refernce https://codepen.io/bradtraversy/pen/qoJZBy
 
 document.addEventListener("click", e => {
 //window.onLoad=function() {
@@ -165,7 +165,7 @@ document.addEventListener("click", e => {
     }
 
 //}
-});
+});*/
 
 
 

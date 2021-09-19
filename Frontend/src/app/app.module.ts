@@ -11,7 +11,7 @@ import { NewCollectionComponent } from './components/collection-creator/new-coll
 import { HttpClientModule } from '@angular/common/http';
 
 /////search
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from "ng2-search-filter";
 //popovers
 import {MotifUploadComponent} from './popovers/motif-upload/motif-upload.component';
 import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component';
@@ -41,6 +41,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
 import { MaterialModule } from './material/material.module';
+import {StyleTransferComponent} from './components/style-transfer/style-transfer.component';
+import {GLoginComponent} from './components/g-login/g-login.component';
+import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
+import {CollectionLayoutComponent} from './collection-layout/collection-layout.component';
+import {PaymentComponent} from "./components/payment/payment.component";
+import {ThreeDLinkComponent} from "./popovers/three-d-link/three-d-link.component";
+
 
 
 
@@ -64,8 +71,13 @@ import { MaterialModule } from './material/material.module';
     MotifUploadComponent,
     MotifCatalogueComponent,
     NewPatternComponent,
-    ColorPaletteComponent
-
+    ColorPaletteComponent,
+    StyleTransferComponent,
+    GLoginComponent,
+    MotifEditorComponent,
+    CollectionLayoutComponent,
+    PaymentComponent,
+    ThreeDLinkComponent
   ],
 
   imports: [
@@ -80,7 +92,7 @@ import { MaterialModule } from './material/material.module';
     MatCheckboxModule,
     MatButtonModule,
     SocialLoginModule,
-    Ng2SearchPipeModule,
+    //Ng2SearchPipeModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),
@@ -94,7 +106,7 @@ import { MaterialModule } from './material/material.module';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              // replace this with your google client id
+              //TODO replace this with your google client id
               '838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com'
             )
           }

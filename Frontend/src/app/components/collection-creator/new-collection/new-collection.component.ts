@@ -3,6 +3,8 @@ import { CollectionsServiceService } from '../../../services/collections-service
 import {ICollectionsContent} from "../../../Interfaces/collectionContents.interface"
 import {Router} from "@angular/router";
 import { LoadingController } from '@ionic/angular';
+import {MotifServiceService} from "../../../services/motif-service.service";
+import {PatternService} from "../../../services/pattern.service";
 
 @Component({
   selector: 'app-new-collection',
@@ -12,11 +14,17 @@ import { LoadingController } from '@ionic/angular';
 export class NewCollectionComponent implements OnInit {
 
   colorCodeHex: string;
-  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController) { }
+  constructor(private collectionsService: CollectionsServiceService,
+              public motifService: MotifServiceService,
+              public patternService: PatternService,
+              private router: Router,
+              public loadingController: LoadingController) { }
 
   ngOnInit()
   {
       console.log('new collection component created');
+      this.motifService.purgeContent();
+      this.patternService.purgeContent();
   }
 
   newCollection(value: string) {
@@ -33,7 +41,8 @@ export class NewCollectionComponent implements OnInit {
             console.log("Temp Collection storage is:");
             console.log(tempCollectionDetailsStorage);
             loaderResult.dismiss().then(dismissResult => {
-              this.router.navigate(['pattern/' + tempCollectionDetailsStorage.collectionID + "/" + tempCollectionDetailsStorage.collectionName]).then();
+              this.collectionsService.currentCollectionID = tempCollectionDetailsStorage.collectionID;
+              this.router.navigate(['pattern']).then();
             });
 
 

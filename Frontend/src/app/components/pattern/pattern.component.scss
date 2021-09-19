@@ -30,13 +30,49 @@ ion-content{
 }
 .layerMotif{
   height: 2cm;
-
 }
 
 ion-grid{
   height: 100%;
   width: 100%;
 }
+
+
+//IDS
+
+#preview {
+  position: relative;
+  top: 2px;
+  right: 2px;
+  width: 600px;
+  height: 600px;
+  border: 1px solid grey;
+  background-color: lightgray;
+  display:none;
+  margin: 5px;
+}
+
+#patternFrame{
+  background-color: white;
+}
+
+
+#can{
+  border: solid black 3px;
+  width: 600px;
+  height: 600px;
+  margin: 15px;
+  background-color: white;
+}
+#container{
+  background-color: white;
+  border: solid black 3px;
+  text-align : center;
+}
+
+
+//CLASSES
+
 .customContext{
   position: fixed;
   background: #111;
@@ -51,7 +87,7 @@ ion-grid{
 .customContext ul li{
   list-style-type: none;
   padding: 10px 14px;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid white;
   color: gray;
   width: 100%;
   cursor: pointer;
@@ -59,12 +95,8 @@ ion-grid{
 }
 .customContext ul li:hover{
   background: #111111;
-  color: red;
+  color: dodgerblue;
 }
-
-//ion-row{
-//  height: 100%;
-//}
 
 .maxHeight{
   height: 100%;
@@ -86,6 +118,10 @@ ion-card-header{
   height: 50px;
 }
 
+.noIonCardHeader{
+border-bottom: 0px;
+}
+
 ion-item {
   height: 40px;
 }
@@ -93,23 +129,34 @@ ion-item {
 
 .motifBtn
 {
+  width: 100%;
   height: 100%;
+  background-color: white;
+  padding: 5px;
 }
 
 .motifImg
 {
-  width: 100%;
+  height: 80%;
   vertical-align:middle;
 }
+.motifNames{
+  width: 100%;
+  //display: block;
+  height: 20%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 .MotifImage{
-  width: 43%;
+  width: 45%;
   height: 4cm;
   //background-color: black;
   text-align: center;
   //padding :50px;
   margin-top: 5px;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
   border: solid black 1px;
   display: flex;
   align-items: center;
@@ -133,18 +180,6 @@ $dot-space: 15px;
   width: 100%;
 }
 
-#can{
-  border: solid black 3px;
-  width: 600px;
-  height: 600px;
-  margin: 15px;
-  background-color: white;
-}
-#container{
-  background-color: white;
-  border: solid black 3px;
-  text-align : center;
-}
 
 .workArea{
   //margin-left: 280px;
@@ -168,17 +203,17 @@ $dot-space: 15px;
   margin: 15px;
 }
 
-#preview {
-  position: relative;
-  top: 2px;
-  right: 2px;
-  width: 600px;
-  height: 600px;
-  border: 1px solid grey;
-  background-color: lightgray;
-  display:none;
-  margin: 5px;
+.frame {
+  width: 608px;//included borders
+  height: 608px;//included borders
+  margin: 0px auto;
+  border: 4px solid grey;
 }
+
+.inv{
+  display: none;
+}
+
 
 .layerNumbers{
   border: solid grey 1px;
@@ -193,4 +228,10 @@ $dot-space: 15px;
   .button-text {
     display: none;
   }
+}
+
+
+
+.motifBtn{
+  cursor: pointer;
 }

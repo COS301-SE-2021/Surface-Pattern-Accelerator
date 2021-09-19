@@ -1,9 +1,7 @@
 
-
-
 <ion-grid>
   <ion-row class="maxHeight">
-    <ion-col size="2.5">
+    <ion-col size="3">
       <ion-card id="leftSidebar">
         <ion-card-header>
           <ion-card-title>Motif Library</ion-card-title>
@@ -11,10 +9,11 @@
         <ion-card-content>
           <ion-list>
             <ion-item>
-              <ion-button color="medium" (click)="uploadFilePopover()">Import new Motif</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)="uploadFilePopover()">Import new Motif</ion-button>
             </ion-item>
+            <br>
             <ion-item>
-              <ion-button color="medium" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
             </ion-item>
           </ion-list>
 
@@ -23,47 +22,36 @@
             <p class="testing">{{values}}</p>
           </ion-toolbar>
 
+            <ion-row id=""testing >
+              <div *ngIf="motifService.cachedMotifs" #parent>
+                <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
-            <ion-row>
-              <div *ngIf="motifs">
-                <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifs.motifDetails">
-
-                  <button style="overflow:hidden;" class="motifBtn"   (click)='spawnMotifWithURL(motif.motifLink);'>
-                    <ion-row>
-                      <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-                    </ion-row>
-                    <ion-row>
-                      <ion-text> {{motif.motifName}} </ion-text>
-                    </ion-row>
-
-
-                     <!-- variable name is not unresolved, ignore -->
-                  </button>
+                  <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
+                    <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                    <br>
+                      <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
+                  </div>
                 </ion-card>
               </div>
             </ion-row>
-
-
-<!--          <ion-row>-->
-<!--            <ion-button color="dark" style="width:100%;" (click)="spawnMotif()">Spawn Motif</ion-button>-->
-<!--          </ion-row>-->
         </ion-card-content>
       </ion-card>
     </ion-col>
 
-    <ion-col size="7">
-
+    <ion-col size="6">
 
         <ion-row size="1">
           <ion-card style="width: 100%">
             <ion-card-content style="width: 100%">
               <ion-row>
                 <ion-col size="10">
-                <ion-item class="patternSelect" *ngIf="patternService.currentCollection" style="height: 45px">
-                  <ion-select interface="popover" [(ngModel)]="selectedPattern" (ionChange)="onPatternChange(selectedPattern)" >
-                    <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
-                  </ion-select>
-                </ion-item>
+                  <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">
+
+                    <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
+                      <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+                    </ion-select>
+
+                  </ion-item>
                 </ion-col>
 
                 <ion-col>
@@ -82,103 +70,165 @@
 
 
         </ion-row>
-        <ion-card>
-          <ion-card-content>
 
-              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>
-            <div #menu class="customContext" (click)="stopPropagation($event)">
-              <ul>
-                <li (click)="newFlipX()">FlipX</li>
-                <li (click)="newFlipY()">FlipY</li>
-                <li (click)="newDelete()">Delete</li>
-                <li (click)="newToTop()">Top</li>
-                <li (click)="newToBottom()">Bottom</li>
-                <li (click)="clone()">Clone</li>
-              </ul>
-            </div>
 
-              <div class="view" id="preview" style="margin: auto;"></div>
-            <br>
-              <div id="can" style="margin: auto;"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>
-              <div id="down"></div>
+          <ion-col size="12" class="tab-content-main" id="WorkArea">
 
-            <ion-row class="row">
-<!--              <div class="workArea" id="container"></div>-->
-<!--              <div class="view" id="preview"></div>-->
-<!--              <div id="can"><canvas width="600px" height="600px" style="border: solid black 1px"></canvas></div>-->
-<!--              <div id="down"></div>-->
 
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
+            <ion-card>
+
+
+              <ion-card-header>
+                <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                            (click)="openTabMain($event,'WorkArea')" id="WorkArea1">
+                  <ion-label class="button-text">WorkArea</ion-label>
+                  <ion-icon name="image-outline"></ion-icon>
+                </ion-button>
+
+                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                            (click)="openTabMain($event,'Preview')">
+                  <ion-label class="button-text">Preview</ion-label>
+                  <ion-icon name="apps-outline" ></ion-icon>
+                </ion-button>
+              </ion-card-header>
+
+              <ion-card-content style="overflow-y:scroll;">
+
+                <br>
+<!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
+                <div class="frame" (contextmenu)="contextMenu($event)" (click)="dissapearContext();">
+                  <canvas id="patternFrame" width="600px" height="600px"></canvas>
+                </div>
+                <div #menu class="customContext" (click)="stopPropagation($event)">
+                  <ul>
+                    <li (click)="cloneRightClick()" >Clone</li>
+                    <li (click)="deleteRightClick()">Delete</li>
+                    <li (click)="moveUpRightClick()" >Move Up</li>
+                    <li (click)="moveDownRightClick()" >Move Down</li>
+                    <li (click)="flipXRightClick()">FlipX</li>
+                    <li (click)="flipYRightClick()">FlipY</li>
+                    <li (click)="recenterClick()">Recenter</li>
+                  </ul>
+                </div>
+
+                <br>
+
+               </ion-card-content>
+            </ion-card>
+
+          </ion-col>
+
+
+
+          <ion-col size="12" class="tab-content-main" id="Preview">
+            <ion-card>
+              <ion-card-header>
+                <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                            (click)="openTabMain($event,'WorkArea')">
+                  <ion-label class="button-text">WorkArea</ion-label>
+                  <ion-icon name="image-outline"></ion-icon>
+                </ion-button>
+
+                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                            (click)="openTabMain($event,'Preview')" id="Preview1">
+                  <ion-label class="button-text">Preview</ion-label>
+                  <ion-icon name="apps-outline" ></ion-icon>
+                </ion-button>
+              </ion-card-header>
+
+              <ion-card-content style="overflow: hidden">
+
+                <div class="frame inv">
+                  <img id='imgPreview'/>
+                </div>
+
+                <br>
+                <div class="frame">
+                  <canvas id="previewFrame" width="600px" height="600px"></canvas>
+                </div>
+                <br>
+
+                <div class="frame inv">
+                  <img style="object-fit:cover; vertical-align: bottom;" id='imgPattern'/>
+                </div>
+
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
 
 
     </ion-col>
 
     <!-- 'Modifiers' Side Menu Tab Component -->
-    <ion-col size="2.5" class="tab-content" id="Modifiers">
+    <ion-col size="3" class="tab-content-side" id="Modifiers">
       <ion-card>
-          <ion-card-header>
+
+        <div style="text-align: center">
+
             <ion-button color="dark" size="medium" fill="clear" class="tab-links"
-                        (click)="openTab($event,'Modifiers')" id="Modifiers1">
-              <ion-label class="button-text">Modifiers</ion-label>
+                        (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
+              <ion-label class="button-text">Layers</ion-label>
               <ion-icon name="invert-mode-outline"></ion-icon>
             </ion-button>
 
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links" (click)="openTab($event,'Changes')">
-              <ion-label class="button-text">Changes</ion-label>
+            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                        (click)="openTabSide($event,'Changes')">
+              <ion-label class="button-text">Modifiers</ion-label>
               <ion-icon name="eyedrop-outline" ></ion-icon>
             </ion-button>
-          </ion-card-header>
+
+            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                        (click)="openTabSide($event,'Exports')">
+              <ion-label class="button-text">Exports</ion-label>
+              <ion-icon name="archive-outline"></ion-icon>
+            </ion-button>
+
+        </div>
+
+
+
         <ion-card-content>
           <div>
+
+            <ion-list>
+              <ion-list-header>
+                <ion-title style="text-align:center;">Layers</ion-title>
+              </ion-list-header>
+            </ion-list>
+
+
             <ion-item>
               <ion-label>Show Gridlines</ion-label>
-              <mat-checkbox (change)="addGrid($event)"></mat-checkbox>
+              <ion-checkbox (ionChange)="toggleGrid($event)" checked="false"></ion-checkbox>
             </ion-item>
+            <br>
             <ion-item>
-              <ion-label>Enable Background</ion-label>
-              <mat-checkbox (change)="addBack($event)"></mat-checkbox>
+              <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionService.currentCollectionID)" style="width:100%;">Save Frame</ion-button>
             </ion-item>
+            <br>
             <ion-item>
-              <ion-button color="medium" (click)="backButton()">Undo</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)="undo()">Undo</ion-button>
             </ion-item>
-            <ion-item>
-              <ion-button color="medium" (click)="savePattern()">Save Pattern</ion-button>
-            </ion-item>
+            <br>
+
           </div>
 
-          <ion-list>
-            <ion-list-header>
-              <ion-title style="text-align:center">Modifiers</ion-title>
-            </ion-list-header>
-            <ion-item>
-              <ion-label>New Layer</ion-label>
-            </ion-item>
-          </ion-list>
 
           <div class="layerNumbers">
             <div class="layerBorder">
               <ion-label>Layer</ion-label>
 
-              <div *ngIf="motifs" >
-                <div *ngFor="let motif of this.canvasMotifs; let i = index" [attr.data-index]="i" class="temp">
-                  <div class="MotifImage2">
+              <div *ngIf="this.motifService.motifsOnCanvas" >
+                <div *ngFor="let motif of this.motifService.motifsOnCanvas.slice().reverse(); index as i;" [attr.data-index]="i" class="temp">
+                  <div class="MotifImage2" (click)="makeSelected(motif.IDOnCanvas)">
                     <div class="layerBlock" style="background-color: #949494; padding: 10px">
-                      <img [src]= "sliceURL(motif.attrs.image.currentSrc)" alt="motif-image" class="layerMotif">
+                      <img src= "{{motif.motifURL}}" alt="motif-image" class="layerMotif" >
                     </div>
-                  <!-- does resolve, ignore warning -->
-                    <!--                    <h5> {{motif.attrs.image.currentSrc}} </h5> &lt;!&ndash; variable name is not unresolved, ignore &ndash;&gt;-->
-<!--                    <img src= {{motif.attrs.image.currentSrc}} alt="motif-image">-->
-                    <!--       <button (click)="moveUp(motif)">MoveUp</button>
-                           <button (click)="moveDown(motif)">MoveDown</button>
-                           -->
+                      <ion-button color="medium" (click)="moveUp(motif.IDOnCanvas)">MoveUp</ion-button>
+                      <ion-button color="medium" (click)="moveDown(motif.IDOnCanvas)">MoveDown</ion-button>
+                      <ion-button color="medium" (click)="delete(motif.IDOnCanvas)">Delete</ion-button>
+                    <ion-button color="medium" (click)="recenter(motif.IDOnCanvas)">Recenter</ion-button>
                     <br>
-                    <ion-button size="small" color="light" (click)="moveToTop(motif)">Top</ion-button>
-                    <ion-button size="small" color="light" (click)="moveToBottom(motif)">Bottom</ion-button>
-                    <ion-button size="small" color="light" (click)="delete(motif, i)">Delete</ion-button>
-                    <ion-button size="small" color="light" (click)="flipX(motif)">FlipX</ion-button>
-                    <ion-button size="small" color="light" (click)="flipY(motif)">FlipY</ion-button>
                   </div >
                 </div>
               </div>
@@ -189,54 +239,60 @@
     </ion-col>
 
     <!-- 'Changes' Side Menu Tab Component -->
-    <ion-col size="2.5" class="tab-content" id="Changes">
+    <ion-col size="3" class="tab-content-side" id="Changes">
       <ion-card>
-        <ion-card-header>
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link" (click)="openTab($event,'Modifiers')">
-            <ion-label class="button-text">Modifiers</ion-label>
+
+
+        <div style="text-align: center">
+
+          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
+                      (click)="openTabSide($event,'Modifiers')">
+            <ion-label class="button-text">Layers</ion-label>
             <ion-icon name="invert-mode-outline"></ion-icon>
           </ion-button>
 
           <ion-button color="dark" size="medium" fill="clear" class="tab-links"
-                      (click)="openTab($event,'Changes')" id="Changes1">
-            <ion-label class="button-text">Changes</ion-label>
+                      (click)="openTabSide($event,'Changes')" id="Changes1">
+            <ion-label class="button-text">Modifiers</ion-label>
             <ion-icon name="eyedrop-outline" ></ion-icon>
           </ion-button>
-        </ion-card-header>
+
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Exports')">
+            <ion-label class="button-text">Exports</ion-label>
+            <ion-icon name="archive-outline"></ion-icon>
+          </ion-button>
+
+        </div>
+
+
+
         <ion-card-content>
           <ion-list>
             <ion-list-header>
-              <ion-title style="text-align:center;">Changes</ion-title>
+              <ion-title style="text-align:center;">Modifiers</ion-title>
             </ion-list-header>
           </ion-list>
-          <ion-item>
-            <ion-button id="pre" color="dark" style="width:100%;" (click)="generate()">Refresh Preview</ion-button>
-          </ion-item>
-          <!--          <ion-item>-->
-          <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="download()">Export</ion-button>-->
-          <!--          </ion-item>-->
 
           <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Select Export Dimension options: </ion-label>
+            <ion-button id="pre" color="medium" style="width:100%;" (click)="refresh()" >Refresh Preview</ion-button>
           </ion-item>
 
           <ion-item>
-            <ion-button color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="export5()">3000x3000</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="export10()">6000x6000</ion-button>
+            <ion-label>Enable Background</ion-label>
+            <ion-checkbox (ionChange)="toggleBackground($event)" checked="true"></ion-checkbox>
           </ion-item>
-
-
 
           <form>
             <ion-item>
               <ion-label style="margin: auto; text-align:center;">Select a color: </ion-label>
-              <input type="color" id="fav_color" name="fav_color" value="#7E7C7C">
+              <input type="color" id="fav_color" name="fav_color" value="#FFFFFF">
             </ion-item>
             <ion-item>
-              <ion-button id = "col" color="dark" style="width:100%;" (click)='changeColor()'>Change Color</ion-button>
+              <ion-button id = "col" color="medium" style="width:100%;" (click)='changeColor()'>Change Background Color</ion-button>
             </ion-item>
           </form>
+
 
           <ion-item>
             <ion-label style="margin: auto; text-align:center;">Select the amount of frames to be in pattern: </ion-label>
@@ -244,25 +300,122 @@
 
 
           <ion-item>
-            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
-            <ion-button color="dark" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
+           <ion-button id="s3" color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
+           <ion-button id="s6" color="medium" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
+           <ion-button id="s9" color="medium" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
+          </ion-item>
+
+          <ion-item *ngIf="this.activeObject">
+            <ion-checkbox id="seamlessModifier" (ionChange)="setSeamlessModifier($event)" slot="end" [(ngModel)]="this.activeObject.shouldDisplaySeamlessMod"></ion-checkbox>
+            <ion-label> Set Seamless </ion-label>
+          </ion-item>
+
+          <ion-item *ngIf="this.activeObject">
+            <ion-badge>{{this.activeObject.ArrayModDirection}}</ion-badge>
+            <ion-range min="0" max="359" color="medium" [(ngModel)]="this.activeObject.ArrayModDirection" (ionChange)="this.motifService.updateArrModOfSelected(this.activeObject, this.canvas)">
+              <ion-label slot="start">0</ion-label>
+              <ion-label slot="end">359</ion-label>
+            </ion-range>
           </ion-item>
 
 
-          <!--          <ion-item>-->
-          <!--            <ion-label style="margin: auto; text-align:center;">Select Frame Shape: </ion-label>-->
-          <!--          </ion-item>-->
+          <ion-item *ngIf="this.activeObject" style="text-align: center">
+            <ion-button (click)="this.motifService.changeArrayModifierNumber(this.activeObject,1, this.activeObject.ArrayModSpacing, this.canvas)" color="medium" style="width:100%;" >Add</ion-button>
+            <ion-button (click)="this.motifService.changeArrayModifierNumber(this.activeObject,-1, this.activeObject.ArrayModSpacing,this.canvas)" color="medium" style="width:100%;" >Remove</ion-button>
+            {{this.activeObject.nrOfArrayObjects}}
+          </ion-item>
+          <br>
 
-          <!--          <ion-item>-->
-          <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="rect()">Rectangle Frame</ion-button>-->
-          <!--            <ion-button id="save" color="dark" style="width:100%;" (click)="square()">Square Frame</ion-button>-->
-          <!--          </ion-item>-->
+          <div *ngIf="this.activeObject">
+            <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="this.activeObject.ArrayModSpacing" (ionChange)="this.motifService.updateArrModOfSelected(this.activeObject, this.canvas)"></ion-input>
+
+          </div>
+
+<!--          <div>-->
+<!--            <ion-button (click)="uploadThumbnail()">-->
+<!--              Generate Thumbnail-->
+<!--            </ion-button>-->
+<!--          </div>-->
 
           <br>
         </ion-card-content>
       </ion-card>
     </ion-col>
+
+    <ion-col size="3" class="tab-content-side" id="Exports">
+      <ion-card>
+
+        <div style="text-align: center">
+
+          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
+                      (click)="openTabSide($event,'Modifiers')">
+            <ion-label class="button-text">Layers</ion-label>
+            <ion-icon name="invert-mode-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Changes')">
+            <ion-label class="button-text">Modifiers</ion-label>
+            <ion-icon name="eyedrop-outline" ></ion-icon>
+          </ion-button>
+
+          <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Exports')" id="Exports1">
+            <ion-label class="button-text">Exports</ion-label>
+            <ion-icon name="archive-outline"></ion-icon>
+          </ion-button>
+
+        </div>
+
+
+        <ion-card-content>
+
+          <ion-list>
+            <ion-list-header>
+              <ion-title style="text-align:center;">Exports</ion-title>
+            </ion-list-header>
+          </ion-list>
+
+          <ion-item>
+            <ion-label style="margin: auto; text-align:center;">Select Export Dimension options: </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-button id="e1" color="medium" style="width:100%;" (click)="export1()">600x600</ion-button>
+            <ion-button id="e2" color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>
+            <ion-button id="e5" color="medium" style="width:100%;" (click)="export5()">3000x3000</ion-button>
+          </ion-item>
+
+          <ion-item>
+            <ion-label style="margin: auto; text-align:center;">Select what to export: </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-button id="patternDown" color="medium" style="width:100%;" (click)="pattern()">Pattern</ion-button>
+            <ion-button id="frameDown" color="medium" style="width:100%;" (click)="frame()">Frame</ion-button>
+          </ion-item>
+
+          <ion-item>
+            <ion-label style="margin: auto; text-align:center;">Other Export Options: </ion-label>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-button color="medium" style="width:100%;" (click)='sendPattern()'>Extract pattern colors</ion-button>
+          </ion-item>
+
+          <ion-item>
+            <ion-button color="medium" style="width:100%;" (click)="open3DViewer($event)" >
+              3D Viewer
+            </ion-button>
+          </ion-item>
+
+        </ion-card-content>
+
+      </ion-card>
+
+    </ion-col>
+
   </ion-row>
 </ion-grid>
 

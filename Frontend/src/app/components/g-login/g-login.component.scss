@@ -1,0 +1,151 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+
+//@prim: #53e3a6;
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+body{
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  font-weight: 300;
+}
+
+.wrapper{
+  background: #50a3a2;
+  background: linear-gradient(30deg, black , blue, green );
+  background-size: 300% 300%;
+  animation: anima 20s ease-in-out infinite;
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  //margin-top: 200px;
+  overflow: hidden;
+
+  &.form-success{
+    .container{
+      h1{
+        transform: translateY(85px);
+      }
+    }
+  }
+}
+@keyframes anima {
+  0%{
+    background-position: 0% 100%;
+  }
+  50%{
+    background-position: 100% 0%;
+  }
+  100%{
+    background-position: 0% 100%;
+  }
+}
+
+.container{
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 80px 0;
+  height: 400px;
+  text-align: center;
+
+  h1{
+    //background: #50a3a2;
+    padding-top: 30%;
+    font-size: 40px;
+    transition-duration: 1s;
+    //transition-timing-function: ease-in-put;
+    font-weight: 200;
+    color: white;
+
+  }
+  h2{
+    //background: #50a3a2;
+    font-size: 30px;
+    transition-duration: 1s;
+    //transition-timing-function: ease-in-put;
+    font-weight: 200;
+    color: white;
+
+  }
+}
+
+form{
+  padding: 20px 0;
+  position: relative;
+  z-index: 2;
+
+  input{
+    display: block;
+    appearance: none;
+    outline: 0;
+    border: 1px solid black;
+    background-color: white;
+    width: 400px;
+
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+
+    color: white;
+
+    transition-duration: 0.25s;
+    font-weight: 300;
+
+    &:hover{
+      background-color: white;
+    }
+
+    &:focus{
+      background-color: white;
+      width: 300px;
+      //color: @prim;
+    }
+  }
+
+  button{
+    display: block;
+    appearance: none;
+    outline: 0;
+    border: 1px solid black;
+    background-color: white;
+    width: 400px;
+
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+
+    color: white;
+    appearance: none;
+    outline: 0;
+    background-color: white;
+    border: 0;
+    padding: 10px 15px;
+    //color: @prim;
+    border-radius: 3px;
+    width: 400px;
+    cursor: pointer;
+    font-size: 18px;
+    //height: 200px;
+    transition-duration: 0.25s;
+
+    &:hover{
+      background-color: rgb(245, 247, 249);
+    }
+  }
+}
+
+
+

@@ -1,21 +1,27 @@
 
-<h1 style="text-align:center; padding-top: 10px">Motif Catalogue</h1>
-<div class="collections-menu">
+  <br>
+  <div id="menu">
 
-  <div *ngIf="motifs">
-    <div class="squareContainer" *ngFor="let motif of motifs.motifDetails" class="MotifImage">
-      <button style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)="motifSelect(motif)">
-        <img src= {{motif.motifLink}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-        <h5  class="motifText"> {{motif.motifName}} </h5> <!-- variable name is not unresolved, ignore -->
-      </button>
+    <h1 style="text-align:center; padding-top: 10px">Motif Catalogue</h1>
+    <div class="collections-menu">
+
+      <div *ngIf="motifs" style="overflow: hidden; text-align: center;">
+        <ion-card *ngFor="let motif of motifs.motifDetails" text-wrap style="margin: 20px">
+          <button class="buttonUnselected" mat-raised-button (click)="motifSelect(motif)" [class]="selectedState(motif.motifID)">
+            <img src={{motif.motifLink}} class="image">
+            <ion-card-header>
+              <ion-card-title style="color: black">{{motif.motifName}}</ion-card-title>
+            </ion-card-header>
+          </button>
+        </ion-card>
+
+      </div>
+
+    </div>
+
+    <div style="text-align: center;">
+      <ion-button color="medium" (click)="addMotifsToCollection()">Append Motifs</ion-button>
+      <ion-button  color="medium" (click)="closePopover()"> Cancel </ion-button>
     </div>
 
   </div>
-</div>
-
-<div style="text-align: right;">
-  <ion-button >Append Motifs</ion-button>
-</div>
-
-
-

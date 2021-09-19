@@ -1,44 +1,79 @@
-.collections-menu {
-  /* padding: 0; */
-  /* margin: auto; */
-  /* max-width: 1000px; */
-
-  /* flexbox */
-  display: flex;
-  /*flex-direction: row;*/
-  flex-wrap: wrap;
-  //justify-content: space-around;
-  //align-content: space-between;
-  /* align-content: flex-start; */
-  /* align-items: flex-start; */
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+  width: 1px;
 }
 
-.square
-{
-  height: 200px;
-  width: 200px;
-  background: white;
-  margin-left: 10px;
-  position: relative;
-}
-.label
-{
-  text-align: center;
-  width: 200px;
-  color: white;
-  margin-bottom: 20px;
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 5px;
 }
 
-a
-{
-  text-decoration: none;
-  color: #2dd36f;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 5px;
 }
 
-.gear
-{
-  font-size: 1.5rem;
-  position: absolute;
-  top: 1%;
-  right: 1%;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+
+ion-card{
+
+  display: inline-block;
+  flex-direction: column;
+  width: 20% !important;
+  height: 5cm;
+  margin: 5mm !important;
+
+}
+
+ion-card-title{
+  margin: 0;
+  display: block;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  //width: 50%;
+  height: 4cm;
+  padding: 10px;
+  align-self: center
+}
+
+.buttonUnselected{
+  border: 10px white !important;
+  height: 100%;
+  overflow:hidden;
+  width: 100%;
+  //background: #00D2FF
+}
+
+.buttonSelected{
+  border: 10px solid grey !important;
+  height: 100%;
+  overflow:hidden;
+  width: 100%;
+  padding: 10px;
+  //background: #00D2FF
+}
+
+#menu{
+  width: 80%;
+  margin: auto;
+  background-color: #1a1a1a;//REMOVE THIS IF YOU WANT ANIMATIONS FOR CATALOGUE
+  padding: 5%;
+  overflow: hidden;
 }

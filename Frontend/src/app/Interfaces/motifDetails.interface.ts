@@ -1,9 +1,24 @@
-export interface IMotifDetailsInterface {
-    xCoord: number;
-    yCoord: number;
-    scaleX: number;
-    scaleY: number;
+
+export interface IMotifStateInterface {
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+    scale: any;
     rotation: number;
-    url: string;
+    layer: number;
+    motifID: string;
+    motifName: string;
+    motifURL: string;
+
+    //modifiers
+      //Seamless mod
+    shouldDisplaySeamless: Boolean;
+
+      //Array mod
+    nrOfArrayObjects: number;
+    ArrayModDirection: number;
+    ArrayModSpacing: number;
+
   }
 
