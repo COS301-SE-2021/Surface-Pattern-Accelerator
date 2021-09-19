@@ -1,0 +1,71 @@
+#checkout-button{
+  color: black;
+}
+
+.parent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 3px solid #011638;
+  width: 60%;
+  position: relative;
+  left: 20em;
+  margin-top: 5em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+.dropbtn {
+  background-color: #011638;
+  color: #53ff45;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+}
+
+.button{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.wordss{
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 20px;
+  padding: 0 80px;
+}
+
+.words{
+  //margin: auto;
+  width: auto;
+  //border: 5px solid #011638;
+  //padding: 10px;
+}
+
+.words >h1{
+  font-weight: bold;
+  font-size: 40px;
+  //padding: 10px 50px;
+}
+
+.words >h2{
+  color: #011638;
+  font-size: 30px;
+  padding: 10px 0;
+}
+
+.words >h4{
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 30px;
+  padding: 10px 40px;
+  color: #011638;
+  //padding: 9px 0;
+}
+
+.words >h3{
+  padding: 7px 25px;
+  //font-size: 16px;
+}

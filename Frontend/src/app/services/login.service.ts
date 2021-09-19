@@ -54,5 +54,26 @@ export class LoginService {
     });
   }
 
+  ////////delete later  ------ --- payment
+  makePayment()
+  {
+    console.log("calling the payment service")
+    return "kamau"
+
+   /*return  this.http.post<any>('http://localhost:5000/auth', { paymentData: incomingData }).subscribe({
+      next: data => {
+        ////this.postId = data.id;
+        console.log('received data -> !',data)
+      },
+      error: error => {
+        ////this.errorMessage = error.message;
+        console.error('There was an error!', error);
+      }
+    })*/
+
+
+
+  }
+
 
 }

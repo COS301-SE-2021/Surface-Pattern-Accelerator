@@ -26,4 +26,17 @@ export class UploadService {
 
   }
 
+  ////////////////////////delete
+  payment()
+  {
+    const req = new HttpRequest('POST', this.baseURL + '/api/create-checkout-session',
+      {
+        reportProgress: true,
+        responseType: "json"
+      });
+
+    return this.http.request(req);
+
+  }
+
 }
