@@ -158,13 +158,17 @@ ion-card{
   //margin-bottom: 20px;
 }
 
-.label a
+.label button
 {
   text-decoration: none;
+  background-color: #F7F7F9;
   color: black;
   font-size: 0.5cm;
   font-weight: 500;
   //color: #2dd36f;
+}
+#labelText{
+  background-color: #F7F7F9;
 }
 
 .gear

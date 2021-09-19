@@ -45,8 +45,9 @@
             <div *ngFor="let collection of collections">
               <div class="square" style="border: 1px solid gray">
 
-                <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
+
                 <div class="left">
+                  <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
                   <div class="gear">
                     <ion-button (click)="CollectionOperations($event)" fill="clear">
                       <ion-icon name="ellipsis-horizontal-sharp" style="font-size: 0.6cm; color: #0d0d0d"></ion-icon>
@@ -56,9 +57,9 @@
 <!--                    <a class="collections"-->
 <!--                       routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">-->
 
-                    <ion-button (click)="loadCollection(collection.collectionID)">
+                    <button (click)="loadCollection(collection.collectionID)" id="labelText">
                       {{collection.collectionName}}
-                    </ion-button>
+                    </button>
 <!--                    </a>-->
                   </div>
                 </div>
