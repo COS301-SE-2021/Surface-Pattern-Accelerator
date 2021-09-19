@@ -11,6 +11,7 @@ export class GLoginService {
   private serverAPIURL = 'http://localhost:3000/api';
   private auth2: gapi.auth2.GoogleAuth;
   private subject = new ReplaySubject<gapi.auth2.GoogleUser>(1);
+  private userDetails: gapi.auth2.GoogleUser;
 
   constructor(private router: Router, private http: HttpClient, public loadingController: LoadingController) {
     gapi.load('auth2', () => {
@@ -19,6 +20,9 @@ export class GLoginService {
         client_id: '838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com' //TODO: replace with environment variables
       })
     })
+  }
+  getUserDetails(){
+    return this.userDetails;
   }
 
   async signIn()
@@ -29,6 +33,8 @@ export class GLoginService {
     })
       .then( user => {
         this.subject.next(user);
+        // this.userEmail = user.getBasicProfile().getEmail();
+        this.userDetails = user;
         this.loadingController.create({
           message: "Connecting to server..."
         }).then(loaderResult => {
