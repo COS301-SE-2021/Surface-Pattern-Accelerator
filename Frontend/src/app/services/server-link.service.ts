@@ -9,6 +9,6 @@ export class ServerLinkService {
 
   getServerLink()
   {
-    return "http://localhost:3001"
+    return "http://localhost:3000"
   }
 }

@@ -236,7 +236,7 @@ AppModule = __decorate([
                 dest: './files',
             }),
             serve_static_1.ServeStaticModule.forRoot({
-                rootPath: (0, path_1.join)(__dirname, '..', 'www3'),
+                rootPath: (0, path_1.join)(__dirname, '..', 'www5'),
             })],
         controllers: [app_controller_1.AppController,
             create_access_token_controller_1.CreateAccessTokenController,
@@ -1746,7 +1746,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("594590ccdca88d8bb2b8")
+/******/ 		__webpack_require__.h = () => ("c96f3048e80444ae5414")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

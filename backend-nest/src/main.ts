@@ -30,7 +30,7 @@ async function bootstrap() {
 
     app.useStaticAssets((join(__dirname, '../../MODEL')))
 
-    await app.listen(3001);
+    await app.listen(3000);
 
     if (module.hot) {
         module.hot.accept();
