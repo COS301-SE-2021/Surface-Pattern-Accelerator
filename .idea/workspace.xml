@@ -1,12 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="912887ce-475d-4e02-82d5-5412252a7529" name="Default Changelist" comment="Small css changes to payment">
+    <list default="true" id="0e93bce9-1394-4c1a-9a16-dbe2578a7c23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/dist/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/dist/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/dist/test.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/dist/test.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payments/payments.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/g-login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/services/g-login.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/payment-guard.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/services/payment-guard.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/nest-cli.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.controller.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/test/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/test/jest-e2e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/tsconfig.build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/component/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.controller.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.controller.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.module.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.module.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.service.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.service.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/main.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/main.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.controller.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.controller.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.module.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.module.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.service.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.service.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/controllers/login/login.controller.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/controllers/login/login.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/controllers/login/login.controller.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/main.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/main.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/get-collections/get-collections.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/get-collections/get-collections.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/get-file-by-id/get-file-by-id.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/get-file-by-id/get-file-by-id.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/getPaymentDetails/getPaymentDetails.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/getPaymentDetails/getPaymentDetails.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/save-pattern/save-pattern.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/save-pattern/save-pattern.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/services/google-api/google-api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/services/google-api/google-api.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/src/services/google-api/style-transfer/styleTransfer.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,68 +66,62 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="1xG6WwA72UGX36zFipy7Pvihqla" />
+  <component name="ProjectId" id="1yMk8UlM5sia7TLKr1HXqvn84He" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend-nest/src/controllers" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\backend-nest\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\backend-nest\src\controllers" />
+      <recent name="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\backend-nest\src\services" />
+      <recent name="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\backend-nest\BackendInterfaces" />
+      <recent name="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\backend-nest" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="41f9e82d-ffb7-4364-911f-bd20bbe3d70d" name="Default Changelist" comment="" />
-      <created>1629969121163</created>
+      <changelist id="0e93bce9-1394-4c1a-9a16-dbe2578a7c23" name="Default Changelist" comment="" />
+      <created>1632068684400</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1629969121163</updated>
-      <workItem from="1629969129399" duration="7548000" />
-      <workItem from="1629977844798" duration="181000" />
-      <workItem from="1629988094156" duration="1695000" />
-      <workItem from="1630066809536" duration="693000" />
-      <workItem from="1630305824452" duration="3075000" />
-      <workItem from="1630333110174" duration="398000" />
-      <workItem from="1630335080741" duration="5057000" />
-      <workItem from="1630418864224" duration="653000" />
-      <workItem from="1630425287474" duration="694000" />
-      <workItem from="1630597070770" duration="3303000" />
-      <workItem from="1630739101287" duration="561000" />
-      <workItem from="1630827017097" duration="7252000" />
-      <workItem from="1630922102651" duration="1579000" />
-      <workItem from="1630941681963" duration="5157000" />
-      <workItem from="1631013603448" duration="1139000" />
+      <updated>1632068684400</updated>
+      <workItem from="1632068685937" duration="173000" />
+      <workItem from="1632068952362" duration="6104000" />
     </task>
-    <task id="LOCAL-00001" summary="Small css changes to payment">
-      <created>1631867691331</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1631867691331</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Small css changes to payment">
-      <created>1631868637539</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1631868637539</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,9 +138,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Small css changes to payment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small css changes to payment" />
   </component>
 </project>

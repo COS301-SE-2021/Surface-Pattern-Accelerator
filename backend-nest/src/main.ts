@@ -15,26 +15,26 @@ declare module "express-session" {
 declare const module: any;
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+    const app = await NestFactory.create<NestExpressApplication>(AppModule);
     app.enableCors({origin:
             ["http://localhost:8100"],
         credentials: true})
 
-  app.use(
-      session({
-        secret: 'my-secret',
-        resave: false,
-        saveUninitialized: false,
-      }),
-  );
+    app.use(
+        session({
+            secret: 'my-secret',
+            resave: false,
+            saveUninitialized: false,
+        }),
+    );
 
     app.useStaticAssets((join(__dirname, '../../MODEL')))
 
-  await app.listen(3000);
+    await app.listen(3000);
 
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
+    if (module.hot) {
+        module.hot.accept();
+        module.hot.dispose(() => app.close());
+    }
 }
 bootstrap();

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CollectionsServiceService } from '../../services/collections-service.service';
-import { LoginService } from '../../services/login.service';
 import {HttpClient} from "@angular/common/http";
+import {GLoginService} from "../../services/g-login.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-payment',
@@ -12,8 +13,11 @@ import {HttpClient} from "@angular/common/http";
 export class PaymentComponent implements OnInit {
   stripe:any
   paymentHandler:any = null;
-  private serverAPIURL = 'http://localhost:3000/api/payment/pay';
-  constructor(private loginService: LoginService, private collectionsService: CollectionsServiceService,private http: HttpClient) {
+  private serverAPIURL = 'http://localhost:3000/api/';
+  constructor(private gLoginService: GLoginService,
+              private collectionsService: CollectionsServiceService,
+              private http: HttpClient,
+              public router: Router) {
 
   }
   ngOnInit() {
@@ -42,30 +46,24 @@ export class PaymentComponent implements OnInit {
         this.stripe=stripeToken
         console.log(this.stripe)
 
-        this.http.post(this.serverAPIURL,{
-          id:stripeToken.id,
-          created:stripeToken.created,
-         client_ip:stripeToken.client_ip,
-          card_id:stripeToken.card.id,
-          email:stripeToken.email
+        this.http.post(this.serverAPIURL + 'makePayment',{
+          userID:       this.gLoginService.getUserDetails().getId(),
+          card_id:      0,
+          stripeID:     stripeToken.created,
+          userEmail:    this.gLoginService.getUserDetails().getBasicProfile().getEmail(),
+          dateLastPayed:"0000-00-00",
+          freeTrial:    0
         })
           .subscribe( (resp: any) => {
-            console.log("dfdsfjdshfs")
+            console.log("payment success")
+            this.gLoginService.hasPaid = true;
             console.log(resp)
+            this.router.navigate(['collections']);
           },(errorResp => {
             console.log(errorResp)
             console.log("failed");
           }))
-        /// this.callService();
-        /* this.collectionsService.getCollections().subscribe(collections => {
-           console.log(collections)
-         })*/
 
-        //////////make API call to send details**********
-        ///this.callService(stripeToken);
-
-        console.log("makePayment")
-        ///alert('Stripe token generated!');
       }
     });
 

@@ -13,33 +13,38 @@ export class PaymentGuardGuard implements CanActivate {
   constructor(public router: Router, private gLoginService: GLoginService, private http: HttpClient) {}
   canActivate(){
 
-    // if(this.gLoginService.getUserDetails() && this.gLoginService.getUserDetails().isSignedIn())
-    // {
-    //
-    //     this.http.post(this.serverURL + '/api/payment' ,
-    //       { email: this.gLoginService.getUserDetails().getBasicProfile().getEmail()},
-    //       {withCredentials: true})
-    //       .subscribe((data:any)=>{
-    //         if(data.status == 'success ok'){
-    //           console.log(data);
-    //           this.hasPayed = true;
-    //           //return true;
-    //         }
-    //         else{
-    //           this.router.navigate(['payment']);
-    //           this.hasPayed = false;
-    //           //return false;
-    //         }
-    //       })
-    // }
-    // else{
-    //     alert("Please sign in with Google to access these features");
-    //     this.router.navigate(['/']);
-    //   this.hasPayed = false;
-    //   }
-    //
-    // return this.hasPayed;
-    return true;
+    if(this.gLoginService.getUserDetails() && this.gLoginService.getUserDetails().isSignedIn())
+    {
+
+        // this.http.post(this.serverURL + '/api/payment' ,
+        //   { email: this.gLoginService.getUserDetails().getBasicProfile().getEmail()},
+        //   {withCredentials: true})
+        //   .subscribe((data:any)=>{
+        //     if(data.status == 'success ok'){
+        //       console.log(data);
+        //       return true;
+        //     }
+        //     else{
+        //       this.router.navigate(['payment']);
+        //       return false;
+        //     }
+        //   })
+      if (this.gLoginService.hasPaid == false)
+      {
+        alert("Please make a payment to access these features");
+        this.router.navigate(['payment']);
+      }
+      else
+      {
+        return true;
+      }
+    }
+    else{
+        alert("Please sign in with Google to access these features");
+        this.router.navigate(['/']);
+      }
+
+    return false;
   }
 
 }

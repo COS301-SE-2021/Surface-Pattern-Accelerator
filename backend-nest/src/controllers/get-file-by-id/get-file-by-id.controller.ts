@@ -14,7 +14,7 @@ export class GetFileByIdController {
             this.googleApiService.getFileByID(session.accessToken, fileID)
                 .then((fileContents) => {
                     success(fileContents);
-            })
+                })
 
         })
 
