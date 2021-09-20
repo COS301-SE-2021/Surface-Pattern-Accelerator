@@ -3,19 +3,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from "rxjs";
 import { Router } from '@angular/router'
 import {GoogleLoginProvider, SocialAuthService, SocialUser} from "angularx-social-login";
+import {ServerLinkService} from "./server-link.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private serverAPIURL = 'http://localhost:3000';
+ // private serverAPIURL = 'http://localhost:3000';
   //private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000';
 
   loggedIn: Subject<boolean>; //read up on subject observable
   user: SocialUser | null;
 
-  constructor(private http: HttpClient, private router: Router, private authService: SocialAuthService) {
+  constructor(private http: HttpClient, private router: Router, private authService: SocialAuthService, private serverLink: ServerLinkService) {
     this.loggedIn = new Subject();
     this.user = null;
     this.authService.authState.subscribe((user: SocialUser) => {
@@ -29,7 +30,7 @@ export class LoginService {
   {
     console.log(email);
     console.log(password);
-    this.http.post(this.serverAPIURL + '/api/login',
+    this.http.post(this.serverLink.getServerLink() + '/api/login',
       { email: email, password: password},
       {withCredentials: true
       }).subscribe((resp: any) => {
@@ -45,7 +46,7 @@ export class LoginService {
   loginWithGoogle()
   {
     console.log("Google sign in fired!");
-    const googleLoginURL = this.serverAPIURL + '/api/googleLogin';
+    const googleLoginURL = this.serverLink.getServerLink() + '/api/googleLogin';
 
     this.http.get<any>(googleLoginURL, {withCredentials: true}) //with credentials sends cookie
       .subscribe((resp: any) => {

@@ -3,19 +3,20 @@ import {Observable, ReplaySubject} from "rxjs";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {LoadingController} from "@ionic/angular";
+import {ServerLinkService} from "./server-link.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GLoginService {
-  private serverAPIURL = 'http://localhost:3000/api';
+//  private serverAPIURL = 'http://localhost:3000/api';
   private auth2: gapi.auth2.GoogleAuth;
   private subject = new ReplaySubject<gapi.auth2.GoogleUser>(1);
   private userDetails: gapi.auth2.GoogleUser;
 
   public hasPaid: Boolean = false;
 
-  constructor(private router: Router, private http: HttpClient, public loadingController: LoadingController) {
+  constructor(private router: Router, private http: HttpClient, public loadingController: LoadingController, private serverLink: ServerLinkService) {
     gapi.load('auth2', () => {
       console.log("Gapi created");
       this.auth2 = gapi.auth2.init({
@@ -45,7 +46,7 @@ export class GLoginService {
             this.createAccessTokenOnServer(user) //create access token on server and store in session. Used to fetch data from g drive
               .subscribe(response => {
 
-                this.http.post(this.serverAPIURL + '/getPaymentDetails',
+                this.http.post(this.serverLink.getServerLink() + '/api/getPaymentDetails',
                   {
                     userID: user.getId()
                   },
@@ -102,7 +103,7 @@ export class GLoginService {
   {
     console.log("createAccessToken fired");
     console.log(user.Zb.access_token);
-    return this.http.post(this.serverAPIURL + '/createAccessToken',
+    return this.http.post(this.serverLink.getServerLink() + '/api/createAccessToken',
       { userLoginResponse: user },
       {withCredentials: true
       })

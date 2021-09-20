@@ -7,6 +7,7 @@ import {LoadingController} from '@ionic/angular';
 import {IMotifStateInterface} from '../Interfaces/motifDetails.interface';
 import {MotifServiceService} from './motif-service.service';
 import {fabric} from 'fabric';
+import {ServerLinkService} from "./server-link.service";
 
 
 
@@ -14,7 +15,7 @@ import {fabric} from 'fabric';
   providedIn: 'root'
 })
 export class PatternService {
-  serverAPIURL = 'http://localhost:3000/api';
+  //serverAPIURL = 'http://localhost:3000/api';
 
   selectedPatternID?: string; //for default pattern selection in pattern dropdowns
   motifSaveStates: IMotifStateInterface[] = [];
@@ -27,7 +28,8 @@ export class PatternService {
 
   constructor(private http: HttpClient,
               public loadingController: LoadingController,
-              public motifService: MotifServiceService
+              public motifService: MotifServiceService,
+              private serverLink: ServerLinkService
               ) { }
 
 
@@ -38,7 +40,7 @@ export class PatternService {
     return new Promise((accept, reject) => {
       console.log('getCollectionJSON fired! fileID is: ' + fileID);
 
-      this.http.post(this.serverAPIURL + '/getFileByID',
+      this.http.post(this.serverLink.getServerLink() + '/api/getFileByID',
         { fileID },
         {withCredentials: true
         }).subscribe(fileContent => {
@@ -68,7 +70,7 @@ export class PatternService {
 
             const tempCurrentCollection: ICollectionsContent = this.currentCollection;
 
-            this.http.post(this.serverAPIURL + '/createNewJSONFile',
+            this.http.post(this.serverLink.getServerLink() + '/api/createNewJSONFile',
               { patternFolderID: this.currentCollection.patternsFolderID },
               {withCredentials: true
               }).subscribe(res => {
@@ -86,7 +88,7 @@ export class PatternService {
 
 
                   const tempPattern: IPatternContentsInterface = this.patternContents = {patternName, patternID: newPatternDriveDetails.id,  motifs: []} as unknown as IPatternContentsInterface; //
-                  this.http.post(this.serverAPIURL + '/updateFile', //send contents to reservation file
+                  this.http.post(this.serverLink.getServerLink() + '/api/updateFile', //send contents to reservation file
 
 
                     { fileID: this.currentCollection.childPatterns[i].patternID, content: JSON.stringify(tempPattern), newName: patternName },
@@ -94,7 +96,7 @@ export class PatternService {
                     }).subscribe(patternUpdateResult => {
                     console.log(patternUpdateResult); //prints
 
-                    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+                    this.http.post(this.serverLink.getServerLink() + '/api/updateFile', //updates Collection File
                       { fileID: this.currentCollection.collectionID, content: JSON.stringify(this.currentCollection) },
                       {withCredentials: true
                       }).subscribe(collectionUpdateResult => {
@@ -114,7 +116,7 @@ export class PatternService {
 
   updateCurrentCollection()
   {
-    this.http.post(this.serverAPIURL + '/updateFile', //updates Collection File
+    this.http.post(this.serverLink.getServerLink() + '/api/updateFile', //updates Collection File
       { fileID: this.currentCollection.collectionID, content: JSON.stringify(this.currentCollection) },
       {withCredentials: true
       }).subscribe(collectionUpdateResult => {
@@ -237,7 +239,7 @@ export class PatternService {
       loaderResult.present().then(r => {
 
 
-        this.http.post(this.serverAPIURL + '/getFileByID',
+        this.http.post(this.serverLink.getServerLink() + '/api/getFileByID',
           { fileID: selectedPatternID },
           {withCredentials: true
           }).subscribe(fileContent => {
