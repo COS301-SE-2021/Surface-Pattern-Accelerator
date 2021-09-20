@@ -17,7 +17,7 @@ declare const module: any;
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     app.enableCors({origin:
-            ["http://localhost:8100"],
+            ["ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000"],
         credentials: true})
 
     app.use(

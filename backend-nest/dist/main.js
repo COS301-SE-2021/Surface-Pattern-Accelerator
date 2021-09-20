@@ -169,7 +169,7 @@ const path_1 = __webpack_require__(27);
 const session = __webpack_require__(35);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors({ origin: ["http://localhost:8100"],
+    app.enableCors({ origin: ["ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000"],
         credentials: true });
     app.use(session({
         secret: 'my-secret',
@@ -236,7 +236,7 @@ AppModule = __decorate([
                 dest: './files',
             }),
             serve_static_1.ServeStaticModule.forRoot({
-                rootPath: (0, path_1.join)(__dirname, '..', 'www5'),
+                rootPath: (0, path_1.join)(__dirname, '..', 'www6'),
             })],
         controllers: [app_controller_1.AppController,
             create_access_token_controller_1.CreateAccessTokenController,
@@ -416,7 +416,7 @@ let GoogleApiService = class GoogleApiService {
                 '        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",\n' +
                 '        "client_secret":"qykE5ojYUpiRNSl3WFTlCIfR",\n' +
                 '        "redirect_uris":["http://localhost:8100/loginResponse"],\n' +
-                '        "javascript_origins":["http://localhost:3000","http://localhost:8100"]\n' +
+                '        "javascript_origins":["ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000", http://localhost:3000","http://localhost:8100"]\n' +
                 "    }\n" +
                 "}");
             return this.appCredentials;
@@ -1746,7 +1746,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("c96f3048e80444ae5414")
+/******/ 		__webpack_require__.h = () => ("8b6b59be5e5ad2506b91")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

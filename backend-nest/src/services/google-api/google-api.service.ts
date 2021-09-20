@@ -26,7 +26,7 @@ export class GoogleApiService {
                 '        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",\n' +
                 '        "client_secret":"qykE5ojYUpiRNSl3WFTlCIfR",\n' +
                 '        "redirect_uris":["http://localhost:8100/loginResponse"],\n' +
-                '        "javascript_origins":["http://localhost:3000","http://localhost:8100"]\n' +
+                '        "javascript_origins":["ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000", http://localhost:3000","http://localhost:8100"]\n' +
                 "    }\n" +
                 "}");
             return this.appCredentials;
