@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionCreatorComponent } from './components/collection-creator/collection-creator.component';
 import { PatternComponent } from './components/pattern/pattern.component';
-import { WorkareaComponent} from './components/workarea/workarea.component';
+
 import { ColorPaletteComponent} from './components/color-palette/color-palette.component';
 import { CanvasColoursComponent } from './components/canvas-colours/canvas-colours.component';
 import {PreviewComponent} from './components/preview/preview.component';
@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'color-palette', component: ColorPaletteComponent,canActivate: [PaymentGuardGuard]},
   { path: 'pattern', component: PatternComponent},
-  { path: 'workarea', component: WorkareaComponent },
+
   { path: 'loginResponse', component: LoginResponseComponent },
   { path: 'canvasColours', component: CanvasColoursComponent,canActivate: [PaymentGuardGuard] },
   { path: 'preview', component: PreviewComponent },

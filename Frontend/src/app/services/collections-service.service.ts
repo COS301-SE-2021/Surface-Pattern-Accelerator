@@ -18,11 +18,11 @@ export class CollectionsServiceService {
   constructor(private http: HttpClient) { }
 
 
-  getCollections(): Observable<ICollectionsContent>
+  getCollections(): Observable<ICollectionsContent[]>
   {
     console.log('get collections fired!');
     const getCollectionsURL = this.serverURL + '/api/getCollections';
-    return this.http.get<ICollectionsContent>(getCollectionsURL, {withCredentials: true}); //GET request
+    return this.http.get<ICollectionsContent[]>(getCollectionsURL, {withCredentials: true}); //GET request
   }
 
   /** POST: add a new collection to the server */

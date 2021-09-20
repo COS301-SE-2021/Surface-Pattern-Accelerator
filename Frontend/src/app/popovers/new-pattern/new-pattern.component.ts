@@ -12,7 +12,7 @@ export class NewPatternComponent implements OnInit {
 
   ngOnInit() {}
 
-  saveNewPattern(patternName: string)
+  saveNewPattern(patternName: any)
   {
     console.log(patternName)
     this.popoverController.dismiss(patternName).then();

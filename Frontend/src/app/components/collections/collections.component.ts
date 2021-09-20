@@ -3,11 +3,11 @@ import { CollectionsServiceService } from '../../services/collections-service.se
 import {Router} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
-import {CollectionBasicOperationsComponent} from '../../popovers/collection-basic-operations/collection-basic-operations.component';
+
 import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
 
 import { MenuController } from '@ionic/angular';
-import {CollectionLayoutComponent} from "../../collection-layout/collection-layout.component";
+
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component";
 
 @Component({
@@ -17,7 +17,7 @@ import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.com
 })
 export class CollectionsComponent implements OnInit {
 
-  collections?: ICollectionsContent; //the collections that get displayed, marked as optional
+  collections?: ICollectionsContent[] = []; //the collections that get displayed, marked as optional
   activeComponent: string;
 
   menuController: MenuController;
@@ -43,15 +43,15 @@ export class CollectionsComponent implements OnInit {
 
   CollectionOperations(ev: any)
   {
-    this.popoverController.create({
-      component: CollectionBasicOperationsComponent,
-      event: ev,
-      translucent: true
-    }).then(resPop => {
-      resPop.present().then(presentRes => {
-        return presentRes;
-      });
-    })
+    // this.popoverController.create({
+    //   component: CollectionBasicOperationsComponent,
+    //   event: ev,
+    //   translucent: true
+    // }).then(resPop => {
+    //   resPop.present().then(presentRes => {
+    //     return presentRes;
+    //   });
+    // })
   }
   setActive(component){
     if(this.activeComponent == component)return;
