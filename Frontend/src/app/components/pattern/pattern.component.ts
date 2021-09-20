@@ -27,6 +27,7 @@ import {motif} from '../../Classes/motif.class';
 import {StageColorService} from '../../services/stage-color.service';
 import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.component";
 import {CollectionsServiceService} from "../../services/collections-service.service";
+import {ServerLinkService} from "../../services/server-link.service";
 
 
 
@@ -66,7 +67,6 @@ export class PatternComponent implements OnInit {
   }
 
   /////////////////////
-  private serverAPIURL = 'http://localhost:3000/api';
   selected!: (Group | Shape);
   selectedPattern: any;
   //motifs?: motifsInterface;
@@ -117,7 +117,8 @@ export class PatternComponent implements OnInit {
               private http: HttpClient,
               private loadingController: LoadingController,
               private stageColorService: StageColorService,
-              public collectionService: CollectionsServiceService
+              public collectionService: CollectionsServiceService,
+              private serverLink: ServerLinkService
               ) {}
 
 
@@ -1063,7 +1064,7 @@ export class PatternComponent implements OnInit {
       const formData = new FormData();
       //TODO: append unique ID to file name so the server knows which files belong to which user
       formData.append('files', this.dataURItoBlob(this.canvas.toDataURL()), 'testName' + '.png');
-      this.http.post('http://localhost:3000/api/uploadMotif', formData, {withCredentials: true})
+      this.http.post(this.serverLink.getServerLink() + '/api/uploadMotif', formData, {withCredentials: true})
         .subscribe(response => {
           console.log(response);
         });
@@ -1081,7 +1082,7 @@ export class PatternComponent implements OnInit {
       const formData = new FormData();
       //TODO: append unique ID to file name so the server knows which files belong to which user
       formData.append('files', this.dataURItoBlob(this.canvas.toDataURL()), 'canvasPicture' + '.png');
-      this.http.post('http://localhost:3000/threeDViewer', formData, {withCredentials: true})
+      this.http.post(this.serverLink.getServerLink() + '/threeDViewer', formData, {withCredentials: true})
         .subscribe((response: any) => {
 
           let popoverReference:  HTMLIonPopoverElement;
@@ -1091,7 +1092,7 @@ export class PatternComponent implements OnInit {
             .then(resPop => {
               resPop.present().then(() => {
                 resPop.onDidDismiss().then(() => {
-                  window.open("http://localhost:3000/threeDViewer", '_blank').focus();
+                  window.open(this.serverLink.getServerLink() + '/threeDViewer', '_blank').focus();
                 })
                 }
 

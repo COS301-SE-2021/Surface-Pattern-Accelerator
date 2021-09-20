@@ -4,6 +4,7 @@ import { CollectionsServiceService } from '../../services/collections-service.se
 import {HttpClient} from "@angular/common/http";
 import {GLoginService} from "../../services/g-login.service";
 import {Router} from "@angular/router";
+import {ServerLinkService} from "../../services/server-link.service";
 
 @Component({
   selector: 'app-payment',
@@ -13,11 +14,12 @@ import {Router} from "@angular/router";
 export class PaymentComponent implements OnInit {
   stripe:any
   paymentHandler:any = null;
-  private serverAPIURL = 'http://localhost:3000/api/';
+  //private serverAPIURL = 'http://localhost:3000/api/';
   constructor(private gLoginService: GLoginService,
               private collectionsService: CollectionsServiceService,
               private http: HttpClient,
-              public router: Router) {
+              public router: Router,
+              private serverLink: ServerLinkService) {
 
   }
   ngOnInit() {
@@ -25,17 +27,17 @@ export class PaymentComponent implements OnInit {
 
   }
 ///{ data: amount},{withCredentials: true}
-  async callService(amount) {
-    console.log("making call")
-    await this.http.post(this.serverAPIURL,{})
-      .subscribe( (resp: any) => {
-        console.log("dfdsfjdshfs")
-        console.log(resp)
-      },(errorResp => {
-        console.log(errorResp)
-        console.log("failed");
-      }))
-  }
+//   async callService(amount) {
+//     console.log("making call")
+//     await this.http.post(this.serverAPIURL,{})
+//       .subscribe( (resp: any) => {
+//         console.log("dfdsfjdshfs")
+//         console.log(resp)
+//       },(errorResp => {
+//         console.log(errorResp)
+//         console.log("failed");
+//       }))
+//   }
 
   makePayment(amount) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
@@ -46,7 +48,7 @@ export class PaymentComponent implements OnInit {
         this.stripe=stripeToken
         console.log(this.stripe)
 
-        this.http.post(this.serverAPIURL + 'makePayment',{
+        this.http.post(this.serverLink.getServerLink() + '/api/makePayment',{
           userID:       this.gLoginService.getUserDetails().getId(),
           card_id:      0,
           stripeID:     stripeToken.created,

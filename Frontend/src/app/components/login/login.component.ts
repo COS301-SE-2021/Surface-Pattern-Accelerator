@@ -9,7 +9,6 @@ import {HttpClient} from "@angular/common/http";
 })
 
 export class LoginComponent implements OnInit {
-  private serverAPIURL = 'http://localhost:3000/api';
   user: any;
 
   constructor(private gLoginService: GLoginService, private ref: ChangeDetectorRef) {

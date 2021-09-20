@@ -8,7 +8,6 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./g-login.component.scss'],
 })
 export class GLoginComponent implements OnInit {
-  private serverAPIURL = 'http://localhost:3000/api';
   user: any;
 
   constructor(private gLoginService: GLoginService, private ref: ChangeDetectorRef, private http: HttpClient) {

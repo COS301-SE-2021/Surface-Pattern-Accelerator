@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import { LoadingController } from '@ionic/angular';
+import {ServerLinkService} from "../../services/server-link.service";
 
 @Component({
   selector: 'app-login-response',
@@ -12,10 +13,14 @@ export class LoginResponseComponent implements OnInit {
 
   accessCode: string;
 
-  private serverAPIURL = 'http://localhost:3000/api';
+
   //private serverAPIURL = 'http://ec2-3-128-186-246.us-east-2.compute.amazonaws.com:3000/api';
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, public loadingController: LoadingController) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private http: HttpClient,
+              public loadingController: LoadingController,
+              private serverLink: ServerLinkService) {
     this.route.queryParams.subscribe(params => {
       this.accessCode = params['code'];
     });
@@ -47,7 +52,7 @@ export class LoginResponseComponent implements OnInit {
   {
     console.log("set auth code on server fired");
 
-    return this.http.post(this.serverAPIURL + '/consumeAccessCode',
+    return this.http.post(this.serverLink.getServerLink() + '/api/consumeAccessCode',
       { accessCode: accessCode, },
       {withCredentials: true
       });
