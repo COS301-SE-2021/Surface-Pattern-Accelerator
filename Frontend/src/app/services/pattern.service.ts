@@ -208,7 +208,7 @@ export class PatternService {
           formData.append('patternID', this.patternContents.patternID);
           formData.append('patternContent', JSON.stringify(this.patternContents));
           formData.append('collectionID', collectionID);
-          this.http.post('http://localhost:3000/api/savePattern',
+          this.http.post(this.serverLink.getServerLink() + '/api/savePattern',
             formData,
             {withCredentials: true})
             .subscribe(response => {
