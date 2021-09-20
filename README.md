@@ -17,11 +17,14 @@ Our vision is to develop a specialized software package capable of creating patt
 ## Technical Installation Manual
 * :floppy_disk: [Technical Installation Guide](https://www.overleaf.com/read/dnvytdqmtcsg)
 
+## Testing policy
+* :open_file_folder: [Testing policy](https://docs.google.com/document/d/1TF5pPD1M0NFL45D0B6Yg3EivnswMIRCQ1nKlwwUCfno/edit?usp=sharing)
+
 ## Project demos
 * :tv: [Demo1 Video](https://drive.google.com/file/d/1K6xgb0ALsqWLqd_uVz9dR12Jfqt4rZtr/view?usp=sharing)
 * :tv: [Demo2 Video](https://drive.google.com/file/d/1W2DbQNyetu3e4RoP44jCjEsJ-D0feFzm/view?usp=sharing)
 * :tv: [Demo3 Video](https://drive.google.com/file/d/14UDLwcOd5l1oe-uhqfTtQh_iFpjIaaES/view?usp=sharing)
-* :tv: [Demo4 Video](https://drive.google.com/open?id=)
+* :tv: [Demo4 Video](https://drive.google.com/file/d/1pUJjnOhk6v1RwLZ8od-V5DsRJa5wR2-u/view?usp=sharing)
 
 ## Documentation
 * :open_book: [Software Requirements Specification (3 versions)](https://www.overleaf.com/read/mkwjqmjkhzry)
