@@ -9,20 +9,21 @@ import {fabric} from 'fabric'
 import {IPatternContentsInterface} from "../Interfaces/patternContents.interface";
 import {PatternService} from "./pattern.service";
 import {IMotifStateInterface} from "../Interfaces/motifDetails.interface";
+import {ServerLinkService} from "./server-link.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MotifServiceService {
 
-  private serverURL = 'http://localhost:3000';
+ // private serverURL = 'http://localhost:3000';
   motifIndexIncValue: number = 0;
   //motifs?: motifsInterface;
   cachedMotifs: motif[] = []; //created at startup, clones are made of motif objects in this array and then added to canvas
   //motifsOnCanvas: {objects: {objectRef: fabric.Object, objectName: string, objectID: string, motifURL: string}[]} = {objects: []};
   motifsOnCanvas: fabric.Object[] = [];
 
-  constructor(private http: HttpClient, private gLoginService: GLoginService) { }
+  constructor(private http: HttpClient, private gLoginService: GLoginService, private serverLink: ServerLinkService) { }
 
   getMotifs(collectionMotifs: motifBodyInterface[])//: Observable< motifsInterface>
   {
@@ -83,7 +84,7 @@ export class MotifServiceService {
   {
 
       console.log("get all motifs fired!");
-      const getCollectionsURL = this.serverURL + '/api/getMotifs';
+      const getCollectionsURL = this.serverLink.getServerLink() + '/api/getMotifs';
       return this.http.get<motifsInterface>(getCollectionsURL, {withCredentials: true})
 
   }
