@@ -26,7 +26,7 @@ import { MakePaymentController } from './controllers/make-payment/make-payment.c
   dest: './files',
 }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'www8'),
+      rootPath: join(__dirname, './', 'frontend'),
 
     })],
   controllers: [AppController,

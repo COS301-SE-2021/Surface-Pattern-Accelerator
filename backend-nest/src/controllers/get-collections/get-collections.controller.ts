@@ -7,7 +7,7 @@ export class GetCollectionsController {
     constructor(private googleApiService: GoogleApiService) {}
 
     @Get()
-    getCollectionsList(@Req() request: Request, @Session() session: Record<string, any>)
+    getCollectionsList(@Session() session: Record<string, any>)
     {
         return new Promise((success, failure) => {
             console.log(session.accessToken);

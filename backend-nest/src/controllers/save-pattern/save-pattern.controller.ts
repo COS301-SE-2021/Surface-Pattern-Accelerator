@@ -23,8 +23,7 @@ export class SavePatternController {
             fileFilter: imageFileFilter,
         }),
     )
-    savePattern(@Req() request: Request,
-                @Session() session: Record<string, any>,
+    savePattern(@Session() session: Record<string, any>,
                 @UploadedFiles() files,
                 @Body('patternID') patternID: string,
                 @Body('patternContent') patternContent: any,

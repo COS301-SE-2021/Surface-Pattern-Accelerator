@@ -22,7 +22,7 @@ export class UploadMotifController {
             fileFilter: imageFileFilter,
         }),
     )
-    uploadMotif(@Req() request: Request, @Session() session: Record<string, any>, @UploadedFiles() files)
+    uploadMotif( @Session() session: Record<string, any>, @UploadedFiles() files)
     {
         console.log(files)
         //const files: any = req.files;

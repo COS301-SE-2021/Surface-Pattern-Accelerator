@@ -7,7 +7,7 @@ export class UpdateFileController {
     constructor(private googleApiService: GoogleApiService) {}
 
     @Post()
-    updateFile(@Req() request: Request, @Session() session: Record<string, any>,
+    updateFile(@Session() session: Record<string, any>,
                @Body('fileID') fileID: string,
                @Body('content') content: any,
                @Body('newName') newName: string)

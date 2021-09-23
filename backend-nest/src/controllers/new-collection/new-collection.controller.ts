@@ -10,7 +10,7 @@ export class NewCollectionController {
 
 
     @Post()
-    createNewCollection(@Req() request: Request, @Session() session: Record<string, any>, @Body('collectionName') collectionName: string)
+    createNewCollection(@Session() session: Record<string, any>, @Body('collectionName') collectionName: string)
     {
         return new Promise((success, failure) => {
 

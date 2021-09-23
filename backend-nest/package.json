@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "build:prod": "cd ../Frontend && ionic cordova build browser --prod --output-path ../backend-nest/dist/frontend && cd ../backend-nest && npm run build",
     "debug": "nodemon",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -28,6 +29,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/serve-static": "^2.2.2",
     "@types/mysql": "^2.15.19",
+    "bcryptjs": "^2.4.3",
     "express-session": "^1.17.2",
     "googleapis": "^85.0.0",
     "mysql": "^2.18.1",

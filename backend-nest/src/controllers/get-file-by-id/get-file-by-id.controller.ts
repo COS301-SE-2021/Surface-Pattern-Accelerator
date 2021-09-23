@@ -8,7 +8,7 @@ export class GetFileByIdController {
 
     //TODO catch
     @Post()
-    getFileContentByID(@Req() request: Request, @Session() session: Record<string, any>, @Body('fileID') fileID: string)
+    getFileContentByID(@Session() session: Record<string, any>, @Body('fileID') fileID: string)
     {
         return new Promise((success, failure) => {
             this.googleApiService.getFileByID(session.accessToken, fileID)
