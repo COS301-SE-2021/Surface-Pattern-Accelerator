@@ -167,6 +167,10 @@ function loadObject(stringM) {
     camera.position.z = 80; // Setting the camera position
     camera.position.y = 0;
     camera.position.x = 110;
+  } else if (stringM === 'pillow')
+  {
+    scene.remove(obj);
+    stringV = '../ObjectModels/Pillow.obj';
   }
 
   loader.load(
