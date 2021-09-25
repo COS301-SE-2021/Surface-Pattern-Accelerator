@@ -90,6 +90,12 @@
                   <ion-label class="button-text">Preview</ion-label>
                   <ion-icon name="apps-outline" ></ion-icon>
                 </ion-button>
+
+                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                            (click)="openTabMain($event,'Color')">
+                  <ion-label class="button-text">Color</ion-label>
+                  <ion-icon name="color-fill-outline"></ion-icon>
+                </ion-button>
               </ion-card-header>
 
               <ion-card-content style="overflow-y:scroll;">
@@ -123,16 +129,22 @@
           <ion-col size="12" class="tab-content-main" id="Preview">
             <ion-card>
               <ion-card-header>
-                <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                             (click)="openTabMain($event,'WorkArea')">
                   <ion-label class="button-text">WorkArea</ion-label>
                   <ion-icon name="image-outline"></ion-icon>
                 </ion-button>
 
-                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                <ion-button color="dark" size="medium" fill="clear" class="tab-links"
                             (click)="openTabMain($event,'Preview')" id="Preview1">
                   <ion-label class="button-text">Preview</ion-label>
                   <ion-icon name="apps-outline" ></ion-icon>
+                </ion-button>
+
+                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                            (click)="openTabMain($event,'Color')">
+                  <ion-label class="button-text">Color</ion-label>
+                  <ion-icon name="color-fill-outline"></ion-icon>
                 </ion-button>
               </ion-card-header>
 
@@ -156,6 +168,32 @@
             </ion-card>
           </ion-col>
 
+        <ion-col size="12" class="tab-content-main" id="Color">
+          <ion-card>
+            <ion-card-header>
+              <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                          (click)="openTabMain($event,'WorkArea')">
+                <ion-label class="button-text">WorkArea</ion-label>
+                <ion-icon name="image-outline"></ion-icon>
+              </ion-button>
+
+              <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                          (click)="openTabMain($event,'Preview')">
+                <ion-label class="button-text">Preview</ion-label>
+                <ion-icon name="apps-outline" ></ion-icon>
+              </ion-button>
+
+              <ion-button color="dark" size="medium" fill="clear" class="tab-links"
+                          (click)="openTabMain($event,'Color')" id="Color1">
+                <ion-label class="button-text">Color</ion-label>
+                <ion-icon name="color-fill-outline"></ion-icon>
+              </ion-button>
+            </ion-card-header>
+
+            <ion-card-content style="overflow: hidden">
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
 
     </ion-col>
 
