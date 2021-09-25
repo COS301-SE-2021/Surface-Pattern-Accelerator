@@ -222,3 +222,16 @@ function stopAnimation() {
   }
   render();
 }
+
+function startAnimation() {
+  // Animation
+  render = function () {
+    requestAnimationFrame(render);
+    if (obj != null) {
+      obj.rotation.y += 0.001;
+    }
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  render();
+}
