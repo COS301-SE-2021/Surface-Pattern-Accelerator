@@ -171,6 +171,8 @@ function loadObject(stringM) {
   {
     scene.remove(obj);
     stringV = '../ObjectModels/Pillow.obj';
+    camera.position.x = 270;
+    camera.position.z = 100;
   }
 
   loader.load(
