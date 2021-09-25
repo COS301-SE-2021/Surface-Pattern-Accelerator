@@ -101,6 +101,8 @@ export class PatternComponent implements OnInit {
   caretaker : Caretaker = new Caretaker();
   undoClicked: boolean = false;
 
+  createBackground: boolean = false;
+
 
 
   pcan = (<HTMLInputElement>document.getElementById('imgPreview'));//canvas preview
@@ -128,7 +130,15 @@ export class PatternComponent implements OnInit {
     this.canvas.setHeight(this.width);
     this.canvas.setWidth(this.height);
     this.canvas.selection = false; //disables group selection
-    this.canvas.backgroundColor = null;
+    this.canvas.backgroundColor = "white";
+
+    this.background = true;
+    //this.canvas.backgroundColor = this.color;
+    (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = "white";
+    this.canvas.renderAll();
+
+
+
     this.originator = new Originator();
     this.caretaker = new Caretaker();
 
@@ -506,9 +516,16 @@ export class PatternComponent implements OnInit {
   openTabMain($event: MouseEvent, tabPage: string) {
 
     //Background preselected on, for better viewing of pattern
-    this.background = true;
-    this.canvas.backgroundColor = this.color;
-    (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
+    //this.background = true;
+    //if(this.createBackground === false)
+    //{
+      //this.background = true;
+      //this.createBackground = true;
+    //}
+
+
+    //this.canvas.backgroundColor = this.color;
+    //(<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
     this.canvas.renderAll();
     this.refresh();
 
