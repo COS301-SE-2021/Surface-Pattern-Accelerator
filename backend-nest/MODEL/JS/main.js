@@ -173,6 +173,13 @@ function loadObject(stringM) {
     stringV = '../ObjectModels/Pillow.obj';
     camera.position.x = 270;
     camera.position.z = 100;
+  }else if (stringM === 'mug')
+  {
+    scene.remove(obj);
+    stringV = '../ObjectModels/mug.obj';
+    camera.position.z = 80; // Setting the camera position
+    camera.position.y = 0;
+    camera.position.x = 110;
   }
 
   loader.load(
