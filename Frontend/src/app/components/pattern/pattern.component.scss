@@ -150,17 +150,25 @@ ion-item {
 }
 .MotifImage{
   width: 45%;
-  height: 4cm;
-  //background-color: black;
+  height: 5cm;
+  background-color: white;
   text-align: center;
   //padding :50px;
   margin-top: 5px;
   margin-bottom: 10px;
   margin-left: 5px;
-  border: solid black 1px;
+  border: solid black 3px;
   display: flex;
   align-items: center;
   float: left;
+  box-shadow: 6px 6px 5px white;
+  transition: box-shadow 1s;
+}
+
+.MotifImage:hover
+{
+  box-shadow: 6px 6px 5px grey;
+  background-color: darkgrey;
 }
 
 // Colors
