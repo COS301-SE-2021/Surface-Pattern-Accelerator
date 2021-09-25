@@ -41,7 +41,7 @@ function main(stringModel) {
 
     let xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-    xhr.open('GET', 'http://ec2-18-217-22-218.us-east-2.compute.amazonaws.com:3000/threeDViewer/' + fileName);
+    xhr.open('GET', 'http://localhost:3000/threeDViewer/' + fileName);
     xhr.send()
     xhr.onreadystatechange = () => {
       console.log("fetched")

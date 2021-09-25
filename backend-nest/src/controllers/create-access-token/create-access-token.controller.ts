@@ -10,13 +10,17 @@ export class CreateAccessTokenController {
 
     //creates and stores access token in the user session
     @Post()
-    createAccessToken(@Body() clientResponse: any, @Session() session: Record<string, any>)
+    createAccessToken(@Body() access_token: any,
+                      @Body() expiry_date: any,
+                      @Session() session: Record<string, any>)
     {
+        console.log(access_token.access_token)
+        //console.log(expiry_date)
         session.accessToken = {
-            access_token: clientResponse.userLoginResponse.Zb.access_token,
+            access_token: access_token.access_token,
             scope: "https://www.googleapis.com/auth/drive",
-            token_type: clientResponse.userLoginResponse.Zb.token_type,
-            expiry_date: clientResponse.userLoginResponse.Zb.expires_at
+            token_type: 'Bearer',
+            expiry_date: access_token.expiry_date
         } as ITokenInterface
         return; //sends 201 - OK automatically
     }

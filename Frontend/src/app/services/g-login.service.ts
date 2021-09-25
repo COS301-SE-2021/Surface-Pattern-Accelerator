@@ -99,12 +99,17 @@ export class GLoginService {
     return this.subject.asObservable();
   }
 
-  createAccessTokenOnServer(user: any)
+  createAccessTokenOnServer(user: gapi.auth2.GoogleUser)
   {
     console.log("createAccessToken fired");
-    console.log(user.Zb.access_token);
+    console.log(user);
+    console.log(user.getAuthResponse().access_token)
+    console.log(user.getAuthResponse().expires_at)
     return this.http.post(this.serverLink.getServerLink() + '/api/createAccessToken',
-      { userLoginResponse: user },
+      {
+        access_token: user.getAuthResponse().access_token,
+        expiry_date: user.getAuthResponse().expires_at
+      },
       {withCredentials: true
       })
   }
