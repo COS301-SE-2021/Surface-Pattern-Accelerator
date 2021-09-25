@@ -28,6 +28,7 @@ import {StageColorService} from '../../services/stage-color.service';
 import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.component";
 import {CollectionsServiceService} from "../../services/collections-service.service";
 import {ServerLinkService} from "../../services/server-link.service";
+import {element} from "protractor";
 
 
 
@@ -224,10 +225,15 @@ export class PatternComponent implements OnInit {
       this.undoClicked = false;
     });
 
-    this.canvas.on('object:removed' ,(r) => {
-      this.addState();
-      this.undoClicked = false;
-    });
+    // this.canvas.on('object:removed' ,(r) => {
+    //   this.addState();
+    //   this.undoClicked = false;
+    // });
+    // this.canvas.on('object:removed' ,(r) => {
+    //   this.addState();
+    //   this.undoClicked = false;
+    // });
+
 
 
 
@@ -241,16 +247,16 @@ export class PatternComponent implements OnInit {
     //   // }
     // })
 
-    this.canvas.on('object:moving' ,(r) => {
-      let tempstate;
-      if(this.undoClicked == true){
-        tempstate = this.getState();
-        // this.caretaker.emptyStates();
-        this.canvas.fire('object:moved');
-        this.addStateGivenState(tempstate);
-      }
-
-    })
+    // this.canvas.on('object:moving' ,(r) => {
+    //   let tempstate;
+    //   if(this.undoClicked == true){
+    //     tempstate = this.getState();
+    //     // this.caretaker.emptyStates();
+    //     this.canvas.fire('object:moved');
+    //     this.addStateGivenState(tempstate);
+    //   }
+    //
+    // })
 
 
 
@@ -269,16 +275,16 @@ export class PatternComponent implements OnInit {
     // })
 
     this.canvas.on('object:moved' ,(r) => {
-      let tempstate;
-      if(this.undoClicked == true){
-        tempstate = this.getState();
-        this.addStateGivenState(tempstate);
-      }
-      else{
+      // let tempstate;
+      // if(this.undoClicked == true){
+      //   tempstate = this.getState();
+      //   this.addStateGivenState(tempstate);
+      // }
+      // else{
         this.addState();
-      }
-      //this.addStateGivenState(tempstate);
-      this.undoClicked = false;
+      // }
+      // //this.addStateGivenState(tempstate);
+      // this.undoClicked = false;
     })
 
     //this.frame = document.getElementById('patternFrame');//get div of workarea
@@ -351,7 +357,11 @@ export class PatternComponent implements OnInit {
   addState()
   {
     let state : fabric.Object[] = [];
-    let motifs = this.motifService.getNonSpecialObjects(this.canvas);
+     //let motifs = this.motifService.getNonSpecialObjects(this.canvas);
+    let motifs : fabric.Object[] = [];
+    for(let i = 0 ; i < this.canvas.getObjects().length; i++){
+      motifs[i] = this.canvas._objects[i];
+    }
     for( let i = 0 ; i < motifs.length ; i++ ){
       motifs[i].clone((clone)=>{
         clone.googleDriveID =  motifs[i].googleDriveID;
@@ -362,27 +372,39 @@ export class PatternComponent implements OnInit {
         state.push(clone);
       })
     }
+    console.log("Saved State " );
+    console.log(state);
     this.originator.setState(state);
     this.caretaker.addMemento(this.originator.saveStateToMemento());
-    console.log("Saved State " + state);
+    console.log("Saved State " );
+    console.log(state);
+  }
+
+  getObjects(){
+    console.log(this.canvas.getObjects());
+    console.log(this.motifService.getNonSpecialObjects(this.canvas));
   }
 
   undo()
   {
+    console.log(this.getState());
     this.undoClicked = true;
     if(this.caretaker.notEmpty() == false) return;
     else {
-      const state = this.originator.restoreStateFromMemento(this.caretaker.getMemento())
+      let state = this.originator.restoreStateFromMemento(this.caretaker.getMemento())
       console.log(state);
-
-      this.motifService.motifsOnCanvas = state;
+      this.canvas.getObjects().forEach( (element) =>{
+        this.canvas.remove(element);
+      })
       this.canvas.clear();
+      this.motifService.motifsOnCanvas = state;
+
       this.canvas._objects = [];
       for(let i = 0 ; i < state.length ; i++){
         this.canvas.add(state[i]);
       }
-      //this.renderAllWithSpecial(state);
-      this.canvas.renderAll();
+      //this.canvas.renderAll();
+      this.motifService.renderAllWithSpecial(this.motifService.getNonSpecialObjects(this.canvas), this.canvas)
     }
   }
 
@@ -460,6 +482,11 @@ export class PatternComponent implements OnInit {
   newPattern(patternName: string)
   {
     return this.patternService.newPattern(patternName);
+  }
+  spawn(mot: motif){
+    this.addState();
+    this.motifService.spawnMotifObject(mot, this.canvas);
+    this.addState();
   }
 
 
@@ -613,11 +640,13 @@ export class PatternComponent implements OnInit {
   }
 
   delete(objectID: number) {
+   // this.addState();
     const currentObjects = this.motifService.getNonSpecialObjects(this.canvas);
     const index = this.getMotifIndex(objectID);
     this.canvas.remove(currentObjects[index]);
     this.motifService.motifsOnCanvas = this.motifService.getNonSpecialObjects(this.canvas);
     this.motifService.renderAllWithSpecial(this.canvas._objects, this.canvas);
+    this.addState();
 
   }
 
@@ -626,10 +655,12 @@ export class PatternComponent implements OnInit {
     if(selection == undefined) {return;}
     else
     {
+      this.addState();
       this.canvas.remove(selection);
       this.motifService.motifsOnCanvas = this.motifService.getNonSpecialObjects(this.canvas);
       this.motifService.renderAllWithSpecial(this.canvas._objects, this.canvas);
       this.dissapearContext();
+      this.addState();
     }
   }
 

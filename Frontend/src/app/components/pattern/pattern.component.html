@@ -26,7 +26,7 @@
               <div *ngIf="motifService.cachedMotifs" #parent>
                 <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
 
-                  <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='this.motifService.spawnMotifObject(motif, this.canvas);'>
+                  <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawn(motif)'>
                     <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
                     <br>
                       <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
@@ -208,6 +208,7 @@
             <br>
             <ion-item>
               <ion-button color="medium" style="width: 100%" (click)="undo()">Undo</ion-button>
+              <ion-button (click)="getObjects()">Get Objects</ion-button>
             </ion-item>
             <br>
 

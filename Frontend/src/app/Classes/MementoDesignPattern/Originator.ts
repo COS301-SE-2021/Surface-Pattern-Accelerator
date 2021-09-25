@@ -10,7 +10,9 @@ export class Originator
   }
 
   setState(state: fabric.Object[]){
+    this._state = [];
    for(let i = 0 ; i < state.length ; i++){
+
      this._state[i] = state[i];
    }
   }
@@ -20,6 +22,7 @@ export class Originator
   }
 
   restoreStateFromMemento(memento : Memento){
+    this._state = [];
    let state : fabric.Object[] = memento.getSavedState();
     for(let i = 0 ; i < state.length ; i++){
        this._state[i] = state[i];
