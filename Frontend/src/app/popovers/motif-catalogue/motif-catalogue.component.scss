@@ -59,6 +59,12 @@ ion-card-title{
   overflow:hidden;
   width: 100%;
   //background: #00D2FF
+  transition: background 1s;
+}
+
+
+.buttonUnselected:hover{
+  background: grey;
 }
 
 .buttonSelected{
