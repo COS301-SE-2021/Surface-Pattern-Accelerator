@@ -1,20 +1,23 @@
 import {fabric} from "fabric"
 import {Memento} from "./Memento";
+import {IPatternContentsInterface} from "../../Interfaces/patternContents.interface";
 export class Originator
 {
-  _state : fabric.Object[];
+  _state : IPatternContentsInterface;
 
   constructor()
   {
-    this._state = [];
+    this._state = { patternName: "", patternID: "", motifs: [] };
   }
 
-  setState(state: fabric.Object[]){
-    this._state = [];
-   for(let i = 0 ; i < state.length ; i++){
+  setState(state: IPatternContentsInterface){
+    this._state = { patternName: "", patternID: "", motifs: [] };
+   // for(let i = 0 ; i < state.length ; i++){
+   //
+   //   this._state[i] = state[i];
+   // }
 
-     this._state[i] = state[i];
-   }
+    this._state = state;
   }
 
   saveStateToMemento(){
@@ -22,11 +25,12 @@ export class Originator
   }
 
   restoreStateFromMemento(memento : Memento){
-    this._state = [];
-   let state : fabric.Object[] = memento.getSavedState();
-    for(let i = 0 ; i < state.length ; i++){
-       this._state[i] = state[i];
-    }
+    this._state  = { patternName: "", patternID: "", motifs: [] };
+   let state : IPatternContentsInterface = memento.getSavedState();
+    // for(let i = 0 ; i < state.length ; i++){
+    //    this._state[i] = state[i];
+    // }
+    this._state = state;
     return this._state;
 }
 

@@ -322,8 +322,8 @@
 
 
           <ion-item *ngIf="this.activeObject" style="text-align: center">
-            <ion-button (click)="this.motifService.changeArrayModifierNumber(this.activeObject,1, this.activeObject.ArrayModSpacing, this.canvas)" color="medium" style="width:100%;" >Add</ion-button>
-            <ion-button (click)="this.motifService.changeArrayModifierNumber(this.activeObject,-1, this.activeObject.ArrayModSpacing,this.canvas)" color="medium" style="width:100%;" >Remove</ion-button>
+            <ion-button (click)="updateArrayModifier(this.activeObject,1, this.activeObject.ArrayModSpacing, this.canvas)" color="medium" style="width:100%;" >Add</ion-button>
+            <ion-button (click)="updateArrayModifier(this.activeObject,-1, this.activeObject.ArrayModSpacing,this.canvas)" color="medium" style="width:100%;" >Remove</ion-button>
             {{this.activeObject.nrOfArrayObjects}}
           </ion-item>
           <br>

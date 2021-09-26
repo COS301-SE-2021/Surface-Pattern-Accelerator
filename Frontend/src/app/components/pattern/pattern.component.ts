@@ -77,7 +77,7 @@ export class PatternComponent implements OnInit {
   canvasPre?: fabric.Canvas;
   path?: fabric.Path;
   img?: fabric.Image;
-  motifSaveStates: IMotifStateInterface[] = [];
+  //motifSaveStates: IMotifStateInterface[] = [];
   motifsOnCanvas: {objects: {objectRef: fabric.Object; objectName: string; objectID: string; motifURL: string}[]} = {objects: []};
   motifObjects: motif[] = [];
   canvasMotifs: fabric.Object[] = [];
@@ -356,29 +356,69 @@ export class PatternComponent implements OnInit {
 
   addState()
   {
-    let state : fabric.Object[] = [];
-     //let motifs = this.motifService.getNonSpecialObjects(this.canvas);
-    let motifs : fabric.Object[] = [];
-    for(let i = 0 ; i < this.canvas.getObjects().length; i++){
-      motifs[i] = this.canvas._objects[i];
+
+
+   let motifSaveStates: IMotifStateInterface[] = [];
+   let patternContents: IPatternContentsInterface = { patternName: "", patternID: "", motifs: [] };
+
+    const tempMotifsOnCanvas = this.motifService.motifsOnCanvas; //for performance, to have a local copy and not go to the service each time
+
+    for (const mot in tempMotifsOnCanvas)
+    {
+      //this.motifsOnCanvas.objects[mot].objectRef.
+      motifSaveStates.push({
+        left: tempMotifsOnCanvas[mot].left,
+        top: tempMotifsOnCanvas[mot].top,
+        width: tempMotifsOnCanvas[mot].getScaledWidth(),
+        height: tempMotifsOnCanvas[mot].getScaledHeight(),
+        scale: tempMotifsOnCanvas[mot].getObjectScaling(),
+        rotation: tempMotifsOnCanvas[mot].angle,
+        layer: 0, //Temp
+        motifID: tempMotifsOnCanvas[mot].googleDriveID,
+        motifName: tempMotifsOnCanvas[mot].motifName,
+        motifURL: tempMotifsOnCanvas[mot].motifURL,
+        shouldDisplaySeamless: tempMotifsOnCanvas[mot].shouldDisplaySeamlessMod,
+        nrOfArrayObjects: tempMotifsOnCanvas[mot].nrOfArrayObjects,
+        ArrayModDirection: tempMotifsOnCanvas[mot].ArrayModDirection,
+        ArrayModSpacing: tempMotifsOnCanvas[mot].ArrayModSpacing
+
+      });
     }
-    for( let i = 0 ; i < motifs.length ; i++ ){
-      motifs[i].clone((clone)=>{
-        clone.googleDriveID =  motifs[i].googleDriveID;
-        clone.motifURL =  motifs[i].motifURL;
-        clone.motifName =  motifs[i].motifName;
-        clone.IDOnCanvas = motifs[i].IDOnCanvas;
-        clone.hasReflections = false;
-        state.push(clone);
-      })
-    }
-    console.log("Saved State " );
-    console.log(state);
-    this.originator.setState(state);
+    patternContents.motifs = motifSaveStates;
+
+
+    // let state : fabric.Object[] = [];
+    // let motifs : fabric.Object[] = [];
+    // motifs = this.motifService.getNonSpecialObjects(this.canvas);
+    // // for(let i = 0 ; i < this.canvas.getObjects().length; i++){
+    // //   motifs[i] = this.canvas._objects[i];
+    // // }
+    // for( let i = 0 ; i < motifs.length ; i++ ){
+    //   motifs[i].clone((clone)=>{
+    //     clone.googleDriveID =  motifs[i].googleDriveID;
+    //     clone.motifURL =  motifs[i].motifURL;
+    //     clone.motifName =  motifs[i].motifName;
+    //     clone.IDOnCanvas = motifs[i].IDOnCanvas;
+    //     clone.hasReflections = false;
+    //
+    //     clone.ArrayModSpacing = motifs[i].ArrayModSpacing;
+    //     clone.ArrayModDirection = motifs[i].ArrayModDirection;
+    //     clone.shouldDisplaySeamlessMod = motifs[i].shouldDisplaySeamlessMod;
+    //
+    //     //clone.arrayModifierElements = motifs[i].arrayModifierElements;
+    //
+    //     state.push(clone);
+    //   })
+    // }
+    // console.log("Saved State " );
+    // console.log(state);
+    this.originator.setState(patternContents);
     this.caretaker.addMemento(this.originator.saveStateToMemento());
     console.log("Saved State " );
-    console.log(state);
+   // console.log(state);
   }
+
+
 
   getObjects(){
     console.log(this.canvas.getObjects());
@@ -393,18 +433,19 @@ export class PatternComponent implements OnInit {
     else {
       let state = this.originator.restoreStateFromMemento(this.caretaker.getMemento())
       console.log(state);
-      this.canvas.getObjects().forEach( (element) =>{
-        this.canvas.remove(element);
-      })
+      // this.canvas.getObjects().forEach( (element) =>{
+      //   this.canvas.remove(element);
+      // })
       this.canvas.clear();
-      this.motifService.motifsOnCanvas = state;
-
-      this.canvas._objects = [];
-      for(let i = 0 ; i < state.length ; i++){
-        this.canvas.add(state[i]);
-      }
-      //this.canvas.renderAll();
-      this.motifService.renderAllWithSpecial(this.motifService.getNonSpecialObjects(this.canvas), this.canvas)
+      this.motifService.spawnMotifObjectsFromSaveState(state, this.canvas);
+      // this.motifService.motifsOnCanvas = state;
+      //
+      // this.canvas._objects = [];
+      // for(let i = 0 ; i < state.length ; i++){
+      //   this.canvas.add(state[i]);
+      // }
+      // //this.canvas.renderAll();
+      // this.motifService.renderAllWithSpecial(this.motifService.getNonSpecialObjects(this.canvas), this.canvas);
     }
   }
 
@@ -1171,6 +1212,12 @@ export class PatternComponent implements OnInit {
         imageName: imageName
       }
     })
+  }
+
+  updateArrayModifier(parent: fabric.Object, num: number, distance: number, canvas: fabric.Canvas)
+  {
+    this.addState();
+    this.motifService.changeArrayModifierNumber(parent,num, distance, canvas);
   }
 
 
