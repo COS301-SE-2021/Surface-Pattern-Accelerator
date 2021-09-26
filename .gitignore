@@ -10,3 +10,5 @@
 /Backend/node_modules/
 
 /backend-nest/www3/
+/backend-nest/dist/
+/backend-nest/3dFrames/
