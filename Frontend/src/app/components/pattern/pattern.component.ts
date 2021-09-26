@@ -570,6 +570,9 @@ export class PatternComponent implements OnInit {
   }
 
   openTabSide($event: MouseEvent, tabPage: string) {
+
+    this.refresh();
+    this.changeColor();
     let i; let tabContent; let tabLinks;
     tabContent  = document.getElementsByClassName('tab-content-side');
     for (i = 0; i < tabContent.length; i++) {
