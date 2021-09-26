@@ -3,6 +3,10 @@ ion-card{
   overflow: auto;
 }
 
+body{
+  zoom: 75%;
+}
+
 /* Designing for scroll-bar */
 ::-webkit-scrollbar {
   width: 1px;
