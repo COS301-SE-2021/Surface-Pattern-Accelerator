@@ -156,7 +156,29 @@ ion-card{
   bottom: 20px;
   background: none;
   font-size: 50px;
+  width: 80px;
+  height: 80px;
+  animation: pulse 1.2s ease infinite;
 }
+
+ion-icon {
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+
 #addCollection:hover{
   color: black;
   /* transform: rotateY(180deg); */
