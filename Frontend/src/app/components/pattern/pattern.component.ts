@@ -1181,4 +1181,13 @@ export class PatternComponent implements OnInit {
     return ret;
   }
 
+  rgbToHex(str: string){
+    const rgb = str.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    function hex(x) {
+      return ('0' + parseInt(x, 10).toString(16)).slice(-2);
+    }
+    return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+  }
+
 }
