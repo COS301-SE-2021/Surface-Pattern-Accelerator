@@ -5,32 +5,67 @@
         <ion-card>
           <div class="sidebar">
             <h2>Simply Patterns</h2>
-            <ul class="sidebarList tab-content-side">
-              <li (click)="setActive('Collections')" class="active">
-                <ion-icon name="folder-open-outline"></ion-icon>
-                Collections
-              </li>
-              <li (click)="uploadFilePopover()" class="tab-links">
-                <ion-icon name="grid-outline"></ion-icon>
-                <span>My Icons</span>
-              </li>
-              <li class="tab-links">
-                <ion-icon name="information-circle-outline"></ion-icon>
-                Help
-              </li>
-              <li class="tab-links">
-                <ion-icon name="log-in-outline"></ion-icon>
-               Sign Out
-              </li>
-<!--              <li class="tab-link"-->
-<!--                      (click)="setActive('Color')">-->
-<!--                Color Extractor-->
+
+
+
+              <ion-list style="padding: 5px;">
+
+                <ion-item color="medium">
+                  <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"
+                              (click)="setActive('Collections')">
+                    <ion-icon name="folder-open-outline" style="padding-right: 10px;"></ion-icon>
+                    <ion-label class="button-text" style="text-align : left;">Collections</ion-label>
+                  </ion-button>
+                </ion-item>
+
+                <ion-item color="medium">
+                  <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"
+                              (click)="uploadFilePopover()">
+                    <ion-icon name="grid-outline" style="padding-right: 10px;"></ion-icon>
+                    <ion-label class="button-text" style="text-align : left;">My Icons</ion-label>
+                  </ion-button>
+                </ion-item>
+
+                <ion-item color="medium">
+                  <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"
+                              (click)="uploadFilePopover()">
+                    <ion-icon name="information-circle-outline" style="padding-right: 10px;"></ion-icon>
+                    <ion-label class="button-text" style="text-align : left;">Help</ion-label>
+                  </ion-button>
+                </ion-item>
+
+                <ion-item color="medium">
+                  <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"
+                              (click)="uploadFilePopover()">
+                    <ion-icon name="log-in-outline" style="padding-right: 10px;"></ion-icon>
+                    <ion-label class="button-text" style="text-align : left;">Sign Out</ion-label>
+                  </ion-button>
+                </ion-item>
+              </ion-list>
+
+
+
+<!--            <ul class="sidebarList tab-content-side">-->
+<!--              <li (click)="setActive('Collections')" class="active">-->
+<!--                <ion-icon name="folder-open-outline"></ion-icon>-->
+<!--                Collections-->
 <!--              </li>-->
-<!--              <li class="tab-link"-->
-<!--                      (click)="setActive('Palette')">-->
-<!--                Palette Generator-->
+<!--              <li (click)="uploadFilePopover()" class="tab-links">-->
+<!--                <ion-icon name="grid-outline"></ion-icon>-->
+<!--                <span>My Icons</span>-->
 <!--              </li>-->
-            </ul>
+<!--              <li class="tab-links">-->
+<!--                <ion-icon name="information-circle-outline"></ion-icon>-->
+<!--                Help-->
+<!--              </li>-->
+<!--              <li class="tab-links">-->
+<!--                <ion-icon name="log-in-outline"></ion-icon>-->
+<!--               Sign Out-->
+<!--              </li>-->
+<!--            </ul>-->
+
+
+
           </div>
         </ion-card>
       </ion-col>
