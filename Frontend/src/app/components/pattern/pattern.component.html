@@ -314,7 +314,7 @@
 
           <ion-item *ngIf="this.activeObject">
             <ion-badge>{{this.activeObject.ArrayModDirection}}</ion-badge>
-            <ion-range min="0" max="359" color="medium" [(ngModel)]="this.activeObject.ArrayModDirection" (ionChange)="this.motifService.updateArrModOfSelected(this.activeObject, this.canvas)">
+            <ion-range min="0" max="359" color="medium" [(ngModel)]="this.activeObject.ArrayModDirection" (mouseup)="this.addState() ;" (ionChange)="this.motifService.updateArrModOfSelected(this.activeObject, this.canvas)">
               <ion-label slot="start">0</ion-label>
               <ion-label slot="end">359</ion-label>
             </ion-range>
@@ -329,7 +329,7 @@
           <br>
 
           <div *ngIf="this.activeObject">
-            <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="this.activeObject.ArrayModSpacing" (ionChange)="this.motifService.updateArrModOfSelected(this.activeObject, this.canvas)"></ion-input>
+            <ion-input style="background-color: grey; margin:auto; color: black;" color="medium" type="number" value=distBetweenArrayModElements [(ngModel)]="this.activeObject.ArrayModSpacing" (ionChange)="this.addState() ;this.motifService.updateArrModOfSelected(this.activeObject, this.canvas)"></ion-input>
 
           </div>
 

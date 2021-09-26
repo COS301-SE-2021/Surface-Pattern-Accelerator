@@ -938,6 +938,7 @@ export class PatternComponent implements OnInit {
 
   setSeamlessModifier(event: any) {
     //TODO: initialize hasReflections to fix error in console when changing from undefined to true/false when check box is ticked
+   this.addState();
     if (event.detail.checked === true)
     {
       this.motifService.addReflectionsToObject(this.activeObject, this.canvas);
