@@ -6,6 +6,12 @@ ion-card{
   font-family: 'Oswald', sans-serif;
 }
 
+ion-button{
+  width: 90%;
+}
+
+
+
 .sidebar h2{
   color: black;
   text-align: center;
@@ -109,7 +115,8 @@ ion-card{
   background-color: white;
 }
 .motifImg{
-  height: 100%;
+  height: 90%;
+  padding-bottom: 40px;
 }
 
 .motifNames{
@@ -146,13 +153,16 @@ ion-card{
 }
 .square
 {
-  height: 200px;
-  width: 9cm;
+  height: 300px;
+  width: 400px;
   background: white;
   margin-left: 10px;
   position: relative;
   margin-top: 20px;
 }
+
+//.square:hover
+
 .label
 {
   position: absolute;
@@ -180,9 +190,9 @@ ion-card{
 .gear
 {
   // font-size: 1.5rem;
-  background-color: white;
+  //background-color: lightgray;
   position: absolute;
-  height: 0.6cm;
+  height: 50px;
   top: 1%;
   right: 21%;
 }
