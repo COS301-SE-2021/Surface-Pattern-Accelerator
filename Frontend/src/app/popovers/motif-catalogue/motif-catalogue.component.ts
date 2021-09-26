@@ -27,7 +27,10 @@ export class MotifCatalogueComponent implements OnInit {
       .subscribe(motifs => {
         console.log(motifs)
         this.motifs = motifs;
+        (<HTMLInputElement>document.getElementById('options')).style.height = "10vh";//prevent whitespace at bottom
       })
+
+
   }
 
   closePopover(){
