@@ -43,23 +43,23 @@
           <!--    <ion-searchbar style="float: right"></ion-searchbar>-->
           <div *ngIf="collections" class="collections-menu">
             <div *ngFor="let collection of collections">
-              <div class="square" style="border: 1px solid gray">
+              <div class="square" style="border: 8px solid black">
 
 
                 <div class="left">
                   <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
+
                   <div class="gear">
-                    <ion-button (click)="CollectionOperations($event)" fill="clear">
+                    <ion-button color="medium" (click)="CollectionOperations($event)">
                       <ion-icon name="ellipsis-horizontal-sharp" style="font-size: 0.6cm; color: #0d0d0d"></ion-icon>
                     </ion-button>
                   </div>
                   <div class="label">
 <!--                    <a class="collections"-->
 <!--                       routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">-->
-
-                    <button (click)="loadCollection(collection.collectionID)" id="labelText">
+                    <ion-button color="medium" (click)="loadCollection(collection.collectionID)" id="labelText">
                       {{collection.collectionName}}
-                    </button>
+                    </ion-button>
 <!--                    </a>-->
                   </div>
                 </div>
@@ -68,6 +68,9 @@
                     <p id="patternAmount" style="font-size: 20px;">{{collection.childPatterns.length}}</p>
                     <ion-icon name="copy-sharp" style="font-size: 0.6cm; background-color: white"></ion-icon>
                   </div>
+
+                  <br>
+                  <br>
                 </div>
               </div>
             </div>
