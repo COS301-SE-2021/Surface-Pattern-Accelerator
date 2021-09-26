@@ -2,7 +2,11 @@
   <br>
   <div id="menu">
 
-    <h1 style="text-align:center; padding-top: 10px">Motif Catalogue</h1>
+    <div style="text-align:center; padding: 10px; background-color: white; ">
+      <h1 style="text-align:center; padding-top: 10px; color: black;">Motif Catalogue</h1>
+    </div>
+
+
     <div class="collections-menu">
 
       <div *ngIf="motifs" style="overflow: hidden; text-align: center;">
@@ -19,7 +23,7 @@
 
     </div>
 
-    <div style="text-align: center;">
+    <div style="text-align: center; height: 100vh;" id="options">
       <ion-button color="medium" (click)="addMotifsToCollection()" style="z-index: 1;">Append Motifs</ion-button>
       <ion-button  color="medium" (click)="closePopover()" style="z-index: 1;"> Cancel </ion-button>
     </div>
