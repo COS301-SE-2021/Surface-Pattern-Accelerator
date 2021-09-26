@@ -88,7 +88,7 @@ ion-card-title{
 
 
 #back{
-  background-color: white;
+  //background-color: white;
   height: 100%;
   width: 100%;
   //position:fixed;
@@ -118,7 +118,7 @@ body {
   width: 0px;
   opacity: .75;
   background-color: black;
-  box-shadow: black 0px 0px 20px 2px;//#e9f1f1
+  box-shadow: cornflowerblue 0px 0px 20px 2px;//#e9f1f1
   opacity: 0;
   top: 100vh;
   bottom: 0px;
@@ -275,64 +275,64 @@ body {
   font-size: 2em;
 }
 
-#head1, #head2,#head3, #head4, #head5{
-  opacity: 0;
-}
-
-#head1{
-  -webkit-animation: fadeOut 1 5s ease-in;
-  -moz-animation: fadeOut 1 5s ease-in;
-  -o-animation: fadeOut 1 5s ease-in;
-  animation: fadeOut 1 5s ease-in;
-}
-
-#head2{
-  -webkit-animation: fadeOut 1 5s ease-in;
-  -moz-animation: fadeOut 1 5s ease-in;
-  -o-animation: fadeOut 1 5s ease-in;
-  animation: fadeOut 1 5s ease-in;
-  -webkit-animation-delay: 6s;
-  -moz-animation-delay: 6s;
-  -o-animation-delay: 6s;
-  animation-delay: 6s;
-}
-
-#head3{
-  -webkit-animation: fadeOut 1 5s ease-in;
-  -moz-animation: fadeOut 1 5s ease-in;
-  -o-animation: fadeOut 1 5s ease-in;
-  animation: fadeOut 1 5s ease-in;
-  -webkit-animation-delay: 12s;
-  -moz-animation-delay: 12s;
-  -o-animation-delay: 12s;
-  animation-delay: 12s;
-}
-
-#head4{
-  -webkit-animation: fadeOut 1 5s ease-in;
-  -moz-animation: fadeOut 1 5s ease-in;
-  -o-animation: fadeOut 1 5s ease-in;
-  animation: fadeOut 1 5s ease-in;
-  -webkit-animation-delay: 17s;
-  -moz-animation-delay: 17s;
-  -o-animation-delay: 17s;
-  animation-delay: 17s;
-}
-
-#head5{
-  -webkit-animation: finalFade 1 5s ease-in;
-  -moz-animation: finalFade 1 5s ease-in;
-  -o-animation: finalFade 1 5s ease-in;
-  animation: finalFade 1 5s ease-in;
-  -webkit-animation-fill-mode: forwards;
-  -moz-animation-fill-mode: forwards;
-  -o-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-delay: 22s;
-  -moz-animation-delay: 22s;
-  -o-animation-delay: 22s;
-  animation-delay: 22s;
-}
+//#head1, #head2,#head3, #head4, #head5{
+//  opacity: 0;
+//}
+//
+//#head1{
+//  -webkit-animation: fadeOut 1 5s ease-in;
+//  -moz-animation: fadeOut 1 5s ease-in;
+//  -o-animation: fadeOut 1 5s ease-in;
+//  animation: fadeOut 1 5s ease-in;
+//}
+//
+//#head2{
+//  -webkit-animation: fadeOut 1 5s ease-in;
+//  -moz-animation: fadeOut 1 5s ease-in;
+//  -o-animation: fadeOut 1 5s ease-in;
+//  animation: fadeOut 1 5s ease-in;
+//  -webkit-animation-delay: 6s;
+//  -moz-animation-delay: 6s;
+//  -o-animation-delay: 6s;
+//  animation-delay: 6s;
+//}
+//
+//#head3{
+//  -webkit-animation: fadeOut 1 5s ease-in;
+//  -moz-animation: fadeOut 1 5s ease-in;
+//  -o-animation: fadeOut 1 5s ease-in;
+//  animation: fadeOut 1 5s ease-in;
+//  -webkit-animation-delay: 12s;
+//  -moz-animation-delay: 12s;
+//  -o-animation-delay: 12s;
+//  animation-delay: 12s;
+//}
+//
+//#head4{
+//  -webkit-animation: fadeOut 1 5s ease-in;
+//  -moz-animation: fadeOut 1 5s ease-in;
+//  -o-animation: fadeOut 1 5s ease-in;
+//  animation: fadeOut 1 5s ease-in;
+//  -webkit-animation-delay: 17s;
+//  -moz-animation-delay: 17s;
+//  -o-animation-delay: 17s;
+//  animation-delay: 17s;
+//}
+//
+//#head5{
+//  -webkit-animation: finalFade 1 5s ease-in;
+//  -moz-animation: finalFade 1 5s ease-in;
+//  -o-animation: finalFade 1 5s ease-in;
+//  animation: finalFade 1 5s ease-in;
+//  -webkit-animation-fill-mode: forwards;
+//  -moz-animation-fill-mode: forwards;
+//  -o-animation-fill-mode: forwards;
+//  animation-fill-mode: forwards;
+//  -webkit-animation-delay: 22s;
+//  -moz-animation-delay: 22s;
+//  -o-animation-delay: 22s;
+//  animation-delay: 22s;
+//}
 
 @-webkit-keyframes fadeIn{
   from{opacity: 0;}
@@ -410,14 +410,14 @@ body {
   100%{opacity: 1;}
 }
 
-#footer{
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2em;
-  color: white;
-  position: fixed;
-  -webkit-transform: translate(95vw,90vh);
-  -moz-transform: translate(95vw,90vh);
-  transform: translate(95vw,90vh);
-  transform: translate(95vw,90vh);
-}
+//#footer{
+//  font-family: 'Roboto', sans-serif;
+//  font-size: 1.2em;
+//  color: white;
+//  position: fixed;
+//  -webkit-transform: translate(95vw,90vh);
+//  -moz-transform: translate(95vw,90vh);
+//  transform: translate(95vw,90vh);
+//  transform: translate(95vw,90vh);
+//}
 
