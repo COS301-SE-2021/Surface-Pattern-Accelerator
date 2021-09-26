@@ -45,6 +45,7 @@ export class PatternComponent implements OnInit {
 
   canvasWidth = 600;
   canvasHeight = 600;
+  colourList = [];
 
 
   @ViewChild('parent') private parentRef: ElementRef<HTMLElement>;
@@ -1124,6 +1125,60 @@ export class PatternComponent implements OnInit {
       }
     })
   }
+  patternColour(){
+    const ctx = this.canvas.getContext();
+    const imageDt = ctx.getImageData(0,0,this.canvas.width, this.canvas.height);
+    const data = imageDt.data;
+    let i; let n;
+    let ret = '';
 
+
+    for(i = 0, n = data.length; i < n; i += 4){
+      const r  = data[i];
+      const g  = data[i + 1];
+      const b  = data[i + 2];
+      const hex = this.rgbToHex('rgb('+r+','+g+','+b+')');
+
+      if (!(hex in this.colourList)){
+        this.colourList[hex] = 1;
+      }
+      else {
+        this.colourList[hex]++;
+      }
+    }
+    // keys are the elements are strings corresponding to the enumerable properties found directly upon object
+    const keys = Object.keys(this.colourList);
+
+    keys.sort();
+
+    // remove duplicate keys
+    const used = [];
+    let prev = '';
+
+    console.log('before loop');
+    let count = 0;
+    for (i =1; i < keys.length; i++){
+      console.log('in loop');
+
+      if(!used.includes(this.colourList[keys[i]])){
+        // eslint-disable-next-line eqeqeq
+        if(prev != keys[i].charAt(1)){
+          used.push(this.colourList[keys[i]]);
+
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+          const item = document.querySelector('#item'+ count) as HTMLElement;
+          const hx = document.querySelector('#hx'+ count) as HTMLElement;
+          console.log(keys[i]);
+          item.style.backgroundColor = keys[i];
+          hx.innerHTML = keys[i];
+
+          prev = keys[i].charAt(1);
+          count++;
+          ret += keys[i] + ',';
+        }
+      }
+    }
+    return ret;
+  }
 
 }
