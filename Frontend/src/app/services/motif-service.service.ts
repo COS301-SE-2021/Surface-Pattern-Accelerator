@@ -174,15 +174,8 @@ export class MotifServiceService {
             }
             this.updateArrModOfSelected(clone, canvas);
 
-
-
-
             canvas.add(clone) //the clone is put on the canvas
 
-
-            //clone is pushed to motifsOnCanvas, used for layers and to have a reference of the motifs on canvas
-            //this.motifsOnCanvas.objects.push({objectRef: clone, objectName: cachedMotTemp.motifName, objectID: cachedMotTemp.id, motifURL: cachedMotTemp.motifURL }); //TODO: create interface
-            //console.log(this.motifsOnCanvas.objects[0].objectRef.left)
           })
         }
       }
