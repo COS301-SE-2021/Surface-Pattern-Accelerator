@@ -144,7 +144,15 @@ ion-item {
   height: 100%;
   background-color: white;
   padding: 5px;
+  transition: background-color 1s;
 }
+
+.motifBtn:hover
+{
+  background-color: grey;
+  ion-text-color : white;
+}
+
 
 .motifImg
 {
@@ -181,6 +189,20 @@ ion-item {
   box-shadow: 6px 6px 5px grey;
   background: darkgrey;
 }
+
+.squareContainer{
+  background: white;
+}
+.squareContainer:hover
+{
+  background: grey;
+}
+
+ion-text{
+  color: black;
+}
+
+
 
 // Colors
 $bg-color: hsl(0,1,90);
