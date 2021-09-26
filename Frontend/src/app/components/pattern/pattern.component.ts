@@ -24,7 +24,6 @@ import pixelRatio = Konva.pixelRatio;
 import {Originator} from "../../Classes/MementoDesignPattern/Originator";
 import {Caretaker} from "../../Classes/MementoDesignPattern/Caretaker";
 import {motif} from '../../Classes/motif.class';
-import {StageColorService} from '../../services/stage-color.service';
 import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.component";
 import {CollectionsServiceService} from "../../services/collections-service.service";
 import {ServerLinkService} from "../../services/server-link.service";
@@ -117,7 +116,6 @@ export class PatternComponent implements OnInit {
               private popoverController: PopoverController,
               private http: HttpClient,
               private loadingController: LoadingController,
-              private stageColorService: StageColorService,
               public collectionService: CollectionsServiceService,
               private serverLink: ServerLinkService
               ) {}
@@ -304,17 +302,7 @@ export class PatternComponent implements OnInit {
       opacity: 0.3
     });
 
-    document.getElementById('patternFrame').addEventListener('change', () => {
-      this.sendPattern();
-    });
   }
-
-  sendPattern(){
-    console.log('in send pattern');
-    const canv =document.getElementById('patternFrame') as HTMLCanvasElement;
-    this.stageColorService.sendStage(canv.toDataURL()); // service to send image to color component
-    console.log(this.stageColorService.stage$);
-  };
 
   getState(){
     let state : fabric.Object[] = [];
