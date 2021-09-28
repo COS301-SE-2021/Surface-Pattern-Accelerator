@@ -1,11 +1,9 @@
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
-  background: #f6f7f9;
 }
 ion-card{
   height: fit-content;
-  background-color: white;
 }
 .grid-item {
   padding: 5%;
