@@ -86,7 +86,6 @@
           <div *ngIf="collections" class="collections-menu">
             <div *ngFor="let collection of collections">
               <div class="square" style="z-index: 2;">
-
                 <div class="left">
                   <div class="frameImg">
                   <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
@@ -95,9 +94,9 @@
                   <div class="label">
 <!--                    <a class="collections"-->
 <!--                       routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">-->
-                    <ion-button color="medium" (click)="loadCollection(collection.collectionID)" id="labelText">
+                    <button  (click)="loadCollection(collection.collectionID)" id="labelText">
                       {{collection.collectionName}}
-                    </ion-button>
+                    </button>
 <!--                    </a>-->
                   </div>
                 </div>

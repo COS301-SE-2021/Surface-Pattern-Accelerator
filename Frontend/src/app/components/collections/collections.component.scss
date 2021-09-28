@@ -56,7 +56,7 @@ ion-card{
 }
 #componentCard{
   padding: 0 50px;
-  background: #E0E0E0;
+  background: #F7F7F9;
 }
 
 
@@ -109,7 +109,7 @@ ion-card{
 //  color: white;
 //}
 .right{
-  border-left: black 1px solid;
+ // border-left: black 1px solid;
   width: 20%;
   //float: right;
   height: 100%;
@@ -209,27 +209,33 @@ ion-icon {
   margin-left: 10px;
   position: relative;
   margin-top: 20px;
-  box-shadow: black 0px 0px 20px 2px;//#E0E0E0
+ // box-shadow: black 0px 0px 20px 2px;//#E0E0E0
   //zoom : 100%;
-  transition: 1s;
-  border-radius: 10px;
+  //transition: 1s;
+  border-radius: 8px;
   border: 5px solid white;
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 
 }
 
 .square:hover
 {
-  box-shadow: black 20px 20px 20px 5px;//#E0E0E0
-  //zoom : 120%;
+ border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  animation-name: example;
+  animation-duration: 0.25s;
+  border-left: 8px solid blue;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
 }
+
 
 .label
 {
   position: absolute;
   text-align: center;
   padding: 0.3cm 0;
-  width: 80%;
+  width: 100%;
   bottom: 0;
   background-color: #F7F7F9;
   //margin-bottom: 20px;

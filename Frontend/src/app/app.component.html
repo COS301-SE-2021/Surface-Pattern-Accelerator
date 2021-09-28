@@ -92,6 +92,11 @@ Navigation for the different tabs.
       <ion-label> Image style transfer</ion-label>
     </ion-tab-button>
 
+    <ion-item>
+      <ion-label>Dark Mode</ion-label>
+      <ion-toggle (ionChange)="toggleTheme($event)"></ion-toggle>
+    </ion-item>
+
   </ion-tab-bar>
 </ion-tabs>
 
