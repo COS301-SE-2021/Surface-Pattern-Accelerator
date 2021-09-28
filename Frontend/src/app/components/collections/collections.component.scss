@@ -1,16 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 ion-card{
-  background: #F7F7F9;
   width: 100%;
   height: 100vh;
-  font-family: 'Oswald', sans-serif;
+  //font-family: 'Oswald', sans-serif;
 }
-
-ion-list{
-  background: #F7F7F9;
-}
-
-
 
 ion-button{
   width: 90%;
@@ -48,15 +41,13 @@ ion-items{
 }
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 ion-card{
-  background: #F7F7F9;
   width: 100%;
   min-height:100vh;
   max-height: fit-content;
-  font-family: 'Oswald', sans-serif;
+  //font-family: 'Oswald', sans-serif;
 }
 #componentCard{
   padding: 0 50px;
-  background: #F7F7F9;
 }
 
 
