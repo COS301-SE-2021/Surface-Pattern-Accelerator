@@ -580,8 +580,16 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
-    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
+    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
     //(<HTMLElement>$event.currentTarget).className  += " active";
+
+    //let theme = document.body.getAttribute('color-theme');
+    //console.log("Current theme is: "+ theme);
+
+
+
+
+
   }
 
   openTabMain($event: MouseEvent, tabPage: string) {
@@ -608,7 +616,7 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
-    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','dark');
+    (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 
@@ -958,13 +966,18 @@ export class PatternComponent implements OnInit {
 
   }
 
+  getThemeBtn(){
+
+  }
+
+
 
 
   scaleCanvas3(){
     this.scale = 3;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
-    btn.color = 'dark';
+    btn.color = 'default';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
