@@ -3,6 +3,7 @@ import {ITokenInterface} from "../../../BackendInterfaces/token.interface";
 import {artifactregistry_v1beta2, google} from "googleapis";
 import {IFolderInterface} from "../../../BackendInterfaces/folder.interface";
 import {Stream} from "stream";
+import { GaxiosPromise } from 'gaxios';
 import * as fs from "fs";
 import {createReadStream} from "fs";
 import Schema$File = artifactregistry_v1beta2.Schema$File;
@@ -449,6 +450,15 @@ export class GoogleApiService {
 
         });
 
+    }
+
+    deleteFile(token: ITokenInterface, fileID: string): GaxiosPromise<void>
+    {
+        const auth = this.createAuthObject(token);
+            const drive = google.drive({version: "v3", auth});
+            return drive.files.delete({
+                fileId: fileID
+            });
     }
 
 }

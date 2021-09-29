@@ -110,4 +110,11 @@ export class CollectionsComponent implements OnInit {
     this.collectionsService.currentCollectionID = collectionID;
     this.router.navigate(['pattern']).then()
   }
+
+  deleteCollection(collectionID: string)
+  {
+    this.collectionsService.deleteCollection(collectionID)
+      .subscribe(res => {console.log(res)})
+  }
+
 }
