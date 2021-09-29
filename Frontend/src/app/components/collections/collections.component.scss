@@ -161,11 +161,8 @@ ion-card{
   font-size: 50px;
   width: 80px;
   height: 80px;
-  animation: pulse 5s ease infinite;
-}
-
-#addBtn:hover{
-  animation: none;
+  animation: pulse 5s ease normal;
+  //animation-fill-mode:forwards;
 }
 
 ion-icon {
