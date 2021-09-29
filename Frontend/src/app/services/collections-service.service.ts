@@ -36,12 +36,12 @@ export class CollectionsServiceService {
       {withCredentials: true});
    }
 
-   deleteCollection(collectionID: string)
+   deleteCollection(collectionContent: ICollectionsContent)
    {
      const deleteCollectionURL = this.serverLink.getServerLink() + '/api/deleteCollection';
      console.log(deleteCollectionURL);
      return this.http.post<any>(deleteCollectionURL,
-       {collectionID},
+       {collectionContent},
        //{collectionName: collectionName},
        {withCredentials: true});
    }

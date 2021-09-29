@@ -111,9 +111,9 @@ export class CollectionsComponent implements OnInit {
     this.router.navigate(['pattern']).then()
   }
 
-  deleteCollection(collectionID: string)
+  deleteCollection(collectionContent: ICollectionsContent)
   {
-    this.collectionsService.deleteCollection(collectionID)
+    this.collectionsService.deleteCollection(collectionContent)
       .subscribe(res => {console.log(res)})
   }
 
