@@ -14,6 +14,7 @@ constructor(private router: Router) {
 
   ngOnInit(): void {
   console.log('this.router.url', this.router.url);
+    document.body.setAttribute('color-theme', 'light');//set it automatically for values later
   }
 
   toggleTheme(event){
