@@ -3,6 +3,7 @@ import {ITokenInterface} from "../../../BackendInterfaces/token.interface";
 import {artifactregistry_v1beta2, google} from "googleapis";
 import {IFolderInterface} from "../../../BackendInterfaces/folder.interface";
 import {Stream} from "stream";
+import { GaxiosPromise } from 'gaxios';
 import * as fs from "fs";
 import {createReadStream} from "fs";
 import Schema$File = artifactregistry_v1beta2.Schema$File;
@@ -25,8 +26,8 @@ export class GoogleApiService {
                 '        "token_uri":"https://oauth2.googleapis.com/token",\n' +
                 '        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",\n' +
                 '        "client_secret":"qykE5ojYUpiRNSl3WFTlCIfR",\n' +
-                '        "redirect_uris":["http://localhost:8100/loginResponse"],\n' +
-                '        "javascript_origins":["http://localhost:3000","http://localhost:8100"]\n' +
+                '        "redirect_uris":[],\n' +
+                '        "javascript_origins":["http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3000, http://localhost:3000","http://localhost:8100"]\n' +
                 "    }\n" +
                 "}");
             return this.appCredentials;
@@ -449,6 +450,15 @@ export class GoogleApiService {
 
         });
 
+    }
+
+    deleteFile(token: ITokenInterface, fileID: string): GaxiosPromise<void>
+    {
+        const auth = this.createAuthObject(token);
+            const drive = google.drive({version: "v3", auth});
+            return drive.files.delete({
+                fileId: fileID
+            });
     }
 
 }

@@ -20,13 +20,14 @@ import { SaveImageController } from './controllers/save-image/save-image.control
 import { GetPaymentDetailsController } from './controllers/getPaymentDetails/getPaymentDetails.controller';
 import { PaymentService } from './services/payment/payment.service';
 import { MakePaymentController } from './controllers/make-payment/make-payment.controller';
+import { DeleteCollectionController } from './controllers/delete-collection/delete-collection.controller';
 
 @Module({
   imports: [MulterModule.register({
   dest: './files',
 }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'MODEL'),
+      rootPath: join(__dirname, './', 'frontend'),
 
     })],
   controllers: [AppController,
@@ -42,7 +43,8 @@ import { MakePaymentController } from './controllers/make-payment/make-payment.c
       ThreeDViewerController,
         SaveImageController,
       GetPaymentDetailsController,
-      MakePaymentController],
+      MakePaymentController,
+      DeleteCollectionController],
   providers: [AppService, GoogleApiService, PaymentService],
 })
 export class AppModule {}

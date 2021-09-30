@@ -140,23 +140,6 @@ export class PatternService {
   }
 
   savePattern(patternCanvas: fabric.Canvas, collectionID: string) {
-
-    //Upload thumbnail part
-    // try {
-    //   const formData = new FormData();
-    //   //TODO: append unique ID to file name so the server knows which files belong to which user
-    //   formData.append('files', this.dataURItoBlob(patternCanvas.toDataURL()), 'testName' + '.png');
-    //   this.http.post('http://localhost:3000/api/savePattern', formData, {withCredentials: true})
-    //     .subscribe(response => {
-    //       console.log(response);
-    //     });
-    // }
-    // catch (err)
-    // {
-    //   console.log(err);
-    // }
-    /////////////////////
-
     //TODO: new pattern saving
 
     this.motifSaveStates = [];
