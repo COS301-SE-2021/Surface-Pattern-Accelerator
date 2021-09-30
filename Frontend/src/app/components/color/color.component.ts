@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {StageColorService} from '../../services/stage-color.service';
 
 @Component({
   selector: 'app-color',
@@ -12,26 +11,11 @@ export class ColorComponent implements OnInit {
   svgName: any;
   patternName: any;
   img: any;
-  public imgSrc: string;
 
-  constructor(private stageColorService: StageColorService) { }
+  constructor() { }
 
   ngOnInit() {
     this.colorGenerator();
-
-    this.stageColorService.stage$
-        .subscribe(
-          image => {
-            console.log('image subscription'+ image);
-              this.imgSrc = image;
-            });
-
-    document.getElementById('onlyImage').onload =() => {
-      this.draw();
-      document.getElementById('onlyImage').onclick = ()=>{
-        this.canvasColour();
-      };
-    };
   }
 
   // Modern approach to the equivalent PHP function file_get_contents()
@@ -211,20 +195,20 @@ export class ColorComponent implements OnInit {
     const hashtag = ['#','#','#','#','#','#'];
 
     for (let i=0;i<6;i++){
-      /*
+
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
-       */
+       /* Causing errors
       hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
       hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
       hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
       hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 100)%16)];
       hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
-      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
+      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];*/
     }
 
     for (let i=0;i<codes.length;i++){
@@ -267,88 +251,5 @@ export class ColorComponent implements OnInit {
       next.classList.add('codes');
       elem.innerHTML = 'Lock';
     }
-  }
-  draw(){ //TODO: remove when merged with other canvas
-    console.log('draw executing');
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const canvas = <HTMLCanvasElement> document.getElementById('canvas');
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
-
-    const img = new Image();
-    img.src = this.imgSrc;
-    img.onload = () =>{
-      ctx.drawImage(img,0,0);
-      console.log('image drawn');
-    };
-    console.log('draw called');
-  }
-
-  canvasColour(){
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const canvas = <HTMLCanvasElement> document.getElementById('canvas');
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
-    const imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
-    const data = imageData.data;
-    let i; let n;
-    let ret = '';
-
-
-    for(i = 0, n = data.length; i < n; i += 4){
-      const r  = data[i];
-      const g  = data[i + 1];
-      const b  = data[i + 2];
-      const hex = this.rgbToHex('rgb('+r+','+g+','+b+')');
-
-      if (!(hex in this.colourList)){
-        this.colourList[hex] = 1;
-      }
-      else {
-        this.colourList[hex]++;
-      }
-    }
-    // keys are the elements are strings corresponding to the enumerable properties found directly upon object
-    const keys = Object.keys(this.colourList);
-
-    keys.sort();
-
-    // remove duplicate keys
-    const used = [];
-    let prev = '';
-
-    console.log('before loop');
-    let count = 0;
-    for (i =1; i < keys.length; i++){
-      console.log('in loop');
-
-      if(!used.includes(this.colourList[keys[i]])){
-        // eslint-disable-next-line eqeqeq
-        if(prev != keys[i].charAt(1)){
-          used.push(this.colourList[keys[i]]);
-
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          const item = document.querySelector('#item'+ count) as HTMLElement;
-          const hx = document.querySelector('#hx'+ count) as HTMLElement;
-          console.log(keys[i]);
-          item.style.backgroundColor = keys[i];
-          hx.innerHTML = keys[i];
-
-          prev = keys[i].charAt(1);
-          count++;
-          ret += keys[i] + ',';
-        }
-      }
-    }
-    return ret;
-  }
-
-  rgbToHex(str: string){
-    const rgb = str.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-    function hex(x) {
-      return ('0' + parseInt(x, 10).toString(16)).slice(-2);
-    }
-    return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
   }
 }

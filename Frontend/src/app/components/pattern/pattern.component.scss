@@ -276,3 +276,17 @@ $dot-space: 15px;
 .motifBtn{
   cursor: pointer;
 }
+
+/*Grid for color extractor*/
+.par{
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.grid-item {
+  padding: 1%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

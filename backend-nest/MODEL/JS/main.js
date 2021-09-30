@@ -7,6 +7,8 @@ let obj;
 let camera;
 let urlValue;
 let texture;
+let render;
+let controls;
 
 function main(stringModel) {
 
@@ -26,7 +28,7 @@ function main(stringModel) {
   document.body.appendChild( renderer.domElement );
 
   // Controls
-  let controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   // Light
   const light = new THREE.AmbientLight(0xFFFFFF); // soft white light
@@ -95,7 +97,7 @@ function main(stringModel) {
 
 
 // Animation
-      let render = function () {
+      render = function () {
         requestAnimationFrame(render);
         if (obj != null) {
           obj.rotation.y += 0.01;
@@ -173,6 +175,22 @@ function loadObject(stringM) {
     stringV = '../ObjectModels/Pillow.obj';
     camera.position.x = 270;
     camera.position.z = 100;
+  }else if (stringM === 'mug')
+  {
+    scene.remove(obj);
+    stringV = '../ObjectModels/mug.obj';
+    camera.position.z = 80; // Setting the camera position
+    camera.position.y = 0;
+    camera.position.x = 110;
+  }
+  else if (stringM === 'curtain')
+  {
+    scene.remove(obj);
+    stringV = '../ObjectModels/curtain.obj';
+    camera.position.z = 3; // Setting the camera position
+    camera.position.y = 0;
+    camera.position.x = 0;
+    stopAnimation();
   }
 
   loader.load(
@@ -198,4 +216,31 @@ function loadObject(stringM) {
       console.log( error);
     }
   );
+}
+
+function stopAnimation() {
+  //canvasPicture-46c5canvasPicture.png
+  // Animation
+  render = function () {
+    requestAnimationFrame(render);
+    if (obj != null) {
+      obj.rotation.y += 0.00;
+    }
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  render();
+}
+
+function startAnimation() {
+  // Animation
+  render = function () {
+    requestAnimationFrame(render);
+    if (obj != null) {
+      obj.rotation.y += 0.001;
+    }
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  render();
 }

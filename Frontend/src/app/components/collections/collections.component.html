@@ -68,11 +68,9 @@
 <!--            </ul>-->
             </ion-card-content>
         </ion-card>
-
       </ion-col>
       <ion-col size="9">
         <ion-card id="componentCard" style="height: 100vh; width: 80%" style="overflow-x: hidden">
-          <div class="wrap">
           <div style="font-size: xx-large; padding-top: 3%; margin-bottom: 1cm">
             <ion-icon name="folder-open-sharp"></ion-icon>
             My Collections
@@ -80,16 +78,21 @@
           <!--    <ion-searchbar style="float: right"></ion-searchbar>-->
           <div *ngIf="collections" class="collections-menu">
             <div *ngFor="let collection of collections">
-              <div class="square" style="z-index: 2;">
-                <div class="left">
-                  <div class="frameImg">
-                  <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
-                  </div>
+              <div class="square" style="border: 1px solid gray">
 
+
+                <div class="left">
+                  <img src= {{collection.collectionThumbnail}} alt="motif-image" class="motifImg">
+                  <div class="gear">
+                    <ion-button (click)="deleteCollection(collection)" fill="clear">
+                      <ion-icon name="ellipsis-horizontal-sharp" style="font-size: 0.6cm; color: #0d0d0d"></ion-icon>
+                    </ion-button>
+                  </div>
                   <div class="label">
 <!--                    <a class="collections"-->
 <!--                       routerLink="/pattern/{{collection.collectionID}}/{{collection.collectionName}}">-->
-                    <button  (click)="loadCollection(collection.collectionID)" id="labelText">
+
+                    <button (click)="loadCollection(collection.collectionID)" id="labelText">
                       {{collection.collectionName}}
                     </button>
 <!--                    </a>-->
@@ -119,10 +122,10 @@
               </div>
             </div>
           </div>
-
-          </div>
-
         </ion-card>
+
+
+
 
       </ion-col>
     </ion-row>
