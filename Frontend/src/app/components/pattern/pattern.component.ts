@@ -179,6 +179,10 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on('selection:created',(r) => {
       this.getSelectedObject();
+      document.getElementById('controls').style.display = 'block';
+    });
+    this.canvas.on('selection:cleared',(r) => {
+      document.getElementById('controls').style.display = 'none';
     });
 
     this.canvas.on('selection:updated',(r) => {

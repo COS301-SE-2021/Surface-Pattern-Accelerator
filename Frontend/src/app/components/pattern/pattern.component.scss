@@ -153,6 +153,37 @@ ion-item {
   ion-text-color : white;
 }
 
+//#controls button {
+//  background-color: #04AA6D; /* Green background */
+//  border: 1px solid green; /* Green border */
+//  color: white; /* White text */
+//  padding: 10px 24px; /* Some padding */
+//  cursor: pointer; /* Pointer/hand icon */
+//  float: left; /* Float the buttons side by side */
+//}
+//
+///* Clear floats (clearfix hack) */
+//#controls:after {
+//  /* content: "";
+//   //clear: both;
+//   //display: table;*/
+//}
+//
+//#controls button:not(:last-child) {
+//  //border-right: none; /* Prevent double borders */
+//}
+//
+///* Add a background color on hover */
+//#controls button:hover {
+//  background-color: #3e8e41;
+//}
+
+#controls{
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
 
 .motifImg
 {
