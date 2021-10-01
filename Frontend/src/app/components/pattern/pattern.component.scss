@@ -178,13 +178,6 @@ ion-item {
 //  background-color: #3e8e41;
 //}
 
-#controls{
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-}
-
-
 .motifImg
 {
   height: 80%;
@@ -273,6 +266,15 @@ $dot-space: 15px;
   border: solid grey 1px;
   text-align : center;
   margin: 15px;
+}
+
+
+.controls{
+  //width: 620px;//included borders
+  width: 100%;
+  height: 5vh;//included borders
+  margin: 0px auto;
+  //border: 4px solid grey;
 }
 
 .frame {
