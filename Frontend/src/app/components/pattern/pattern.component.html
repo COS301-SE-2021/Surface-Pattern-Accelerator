@@ -40,36 +40,17 @@
 
     <ion-col size="8">
 
-        <ion-row size="1">
-          <ion-card style="width: 100%">
-            <ion-card-content style="width: 100%">
-              <ion-row>
-                <ion-col size="10">
-                  <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">
+<!--        <ion-row size="1">-->
+<!--          <ion-card style="width: 100%">-->
+<!--            <ion-card-content style="width: 100%">-->
+<!--              -->
 
-                    <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
-                      <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
-                    </ion-select>
+<!--            </ion-card-content>-->
 
-                  </ion-item>
-                </ion-col>
-
-                <ion-col>
-                  <div>
-                    <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
-                    <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> <!--(click)="newPattern(patternName.value); patternName.value=''"-->
-                      New Pattern
-                    </ion-button>
-                  </div>
-                </ion-col>
-              </ion-row>
-
-            </ion-card-content>
-
-          </ion-card>
+<!--          </ion-card>-->
 
 
-        </ion-row>
+<!--        </ion-row>-->
 
 
           <ion-col size="12" class="tab-content-main" id="WorkArea">
@@ -93,7 +74,39 @@
 
               </ion-card-header>
               <br>
-              <ion-card-content style="overflow-y:scroll;" style="background: #F7F7F9">
+              <ion-card-content style="overflow-y:scroll;">
+
+<!--       style="background: #F7F7F9"         -->
+
+                <div>
+
+                <ion-row>
+                  <ion-col size="10">
+                    <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">
+
+                      <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
+                        <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+                      </ion-select>
+
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col>
+                    <div>
+                      <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
+                      <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> <!--(click)="newPattern(patternName.value); patternName.value=''"-->
+                        New Pattern
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+
+                </div>
+
+
+
+
+
 
                 <br>
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
@@ -113,7 +126,12 @@
                 </div>
 
                 <br>
-                <ion-item id="controls" style="position: absolute; left:50%; bottom: -20px; display: none;">
+
+                <ion-row>
+
+                <div class="controls">
+                <ion-item id="controls" style="width: 100%; display: none; margin: auto;">
+
                   <ion-item>
                     Flip
                     <ion-button (click)="this.flipXRightClick()" >X</ion-button>
@@ -126,10 +144,27 @@
                     <ion-button (click)="this.moveDownRightClick()">Down</ion-button>
                   </ion-item>
 
-                  <ion-button  (click)="this.cloneRightClick()">Duplicate</ion-button>
-                  <ion-button  (click)="this.deleteRightClick()">Delete</ion-button>
+                  <ion-item>
+                    <ion-button  (click)="this.cloneRightClick()">Duplicate</ion-button>
+                  </ion-item>
+                  <ion-item>
+                    <ion-button  (click)="this.deleteRightClick()">Delete</ion-button>
+                  </ion-item>
+                  <ion-item>
+                    <ion-button  (click)="this.recenterClick()">Recenter</ion-button>
+                  </ion-item>
 
                 </ion-item>
+
+
+                  <br>
+                  <br>
+                  <br>
+                </div>
+
+
+                  </ion-row>
+
 
                </ion-card-content>
             </ion-card>
@@ -154,20 +189,53 @@
                 </ion-button>
               </ion-card-header>
               <br>
-              <ion-card-content style="overflow: hidden" style="background: #F7F7F9">
+              <ion-card-content style="overflow: hidden">
+<!--style="background: #F7F7F9"-->
+
+
+                <div>
+
+                  <ion-row>
+                    <ion-col size="10">
+                      <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">
+
+                        <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
+                          <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
+                        </ion-select>
+
+                      </ion-item>
+                    </ion-col>
+
+                    <ion-col>
+                      <div>
+                        <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
+                        <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> <!--(click)="newPattern(patternName.value); patternName.value=''"-->
+                          New Pattern
+                        </ion-button>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+
+                </div>
+
 
                 <div class="frame inv">
                   <img id='imgPreview'/>
                 </div>
 
                 <br>
-                <div class="frame">
+                <div class="frame" style="background: #F7F7F9">
                   <canvas id="previewFrame" width="600px" height="600px"></canvas>
                 </div>
                 <br>
 
                 <div class="frame inv">
                   <img style="object-fit:cover; vertical-align: bottom;" id='imgPattern'/>
+                </div>
+
+
+                <div class="controls">
+
                 </div>
 
               </ion-card-content>
