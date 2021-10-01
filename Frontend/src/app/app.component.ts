@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ThemeServiceService} from "./services/theme-service.service";
+import {IonInput} from "@ionic/angular";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,19 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('this.router.url', this.router.url);
-    this.themeService.makeDark(false);
+    if(localStorage.getItem("theme") === "light")
+    {
+      document.body.setAttribute('color-theme', 'light');
+      this.themeService.makeDark(false);
+      this.themeService.darkModeChange.next(false);
+    }
+    else
+    {
+      document.body.setAttribute('color-theme', 'dark');
+      this.themeService.makeDark(true);
+      this.themeService.darkModeChange.next(true);
+    }
+
   }
 
   toggleTheme(event){
@@ -23,11 +36,13 @@ export class AppComponent implements OnInit {
       document.body.setAttribute('color-theme', 'dark');
       this.themeService.makeDark(true);
       this.themeService.darkModeChange.next(true);
+      localStorage.setItem("theme", "dark");
     }
     else{
       document.body.setAttribute('color-theme', 'light');
       this.themeService.makeDark(false);
       this.themeService.darkModeChange.next(false);
+      localStorage.setItem("theme", "light");
     }
 
 

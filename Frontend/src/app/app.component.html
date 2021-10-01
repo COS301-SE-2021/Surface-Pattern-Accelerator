@@ -94,7 +94,7 @@ Navigation for the different tabs.
 
     <ion-item>
       <ion-label>Dark Mode</ion-label>
-      <ion-toggle (load)="toggleTheme($event)" (ionChange)="toggleTheme($event)"></ion-toggle>
+      <ion-toggle [(ngModel)]="themeService.isDarkMode" (load)="toggleTheme($event)" (ionChange)="toggleTheme($event)"></ion-toggle>
     </ion-item>
 
   </ion-tab-bar>
