@@ -447,13 +447,55 @@
             <ion-button id="e5" color="medium" style="width:100%;" (click)="export5()">3000x3000</ion-button>
           </ion-item>
 
-          <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Select what to export: </ion-label>
-          </ion-item>
+<!--          <ion-item>-->
+<!--            <ion-label style="margin: auto; text-align:center;">Select what to export: </ion-label>-->
+<!--          </ion-item>-->
+
+<!--          <ion-item>-->
+<!--            <ion-button id="patternDown" color="medium" style="width:100%;" (click)="pattern()">Pattern</ion-button>-->
+<!--            <ion-button id="frameDown" color="medium" style="width:100%;" (click)="frame()">Frame</ion-button>-->
+<!--          </ion-item>-->
+
+
+
+          <!-- TODO: delete exports popover - not used-->
+          <ion-list>
+            <ion-radio-group value=".PNG" [(ngModel)]="exportFormat">
+              <ion-list-header>
+                <ion-label>Select Export Format:</ion-label>
+              </ion-list-header>
+
+              <ion-item>
+                <ion-label>.PNG</ion-label>
+                <ion-radio slot="start" value=".PNG"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>.SVG</ion-label>
+                <ion-radio slot="start" value=".SVG"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>.PDF</ion-label>
+                <ion-radio slot="start" value=".PDF"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>.DWG</ion-label>
+                <ion-radio slot="start" value=".DWG"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>.DXF</ion-label>
+                <ion-radio slot="start" value=".DXF"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
 
           <ion-item>
-            <ion-button id="patternDown" color="medium" style="width:100%;" (click)="pattern()">Pattern</ion-button>
-            <ion-button id="frameDown" color="medium" style="width:100%;" (click)="frame()">Frame</ion-button>
+            <ion-button color="medium" style="width:100%;" (click)="exportCanvas()" >
+              Export
+            </ion-button>
           </ion-item>
 
           <ion-item>
@@ -463,12 +505,6 @@
           <ion-item>
             <ion-button color="medium" style="width:100%;" (click)="open3DViewer($event)" >
               3D Viewer
-            </ion-button>
-          </ion-item>
-
-          <ion-item>
-            <ion-button color="medium" style="width:100%;" (click)="exportCanvasAsSVG($event)" >
-              Export as SVG
             </ion-button>
           </ion-item>
 

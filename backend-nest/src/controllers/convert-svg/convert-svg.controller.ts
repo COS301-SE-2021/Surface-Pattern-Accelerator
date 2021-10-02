@@ -16,10 +16,10 @@ export class ConvertSvgController {
 
                 switch (convertTo)
                 {
-                    case "dwg":
+                    case ".DWG":
                         converterURL = "https://vector.express/api/v2/public/convert/svg/svg2cad/dwg";
                         break;
-                    case "dxf":
+                    case ".DXF":
                         converterURL = "https://vector.express/api/v2/public/convert/svg/svg2cad/dxf";
                         break;
                     default:

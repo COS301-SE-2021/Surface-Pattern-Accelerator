@@ -47,6 +47,7 @@ import {MotifEditorComponent} from './components/motif-editor/motif-editor.compo
 
 import {PaymentComponent} from "./components/payment/payment.component";
 import {ThreeDLinkComponent} from "./popovers/three-d-link/three-d-link.component";
+import {ExportComponent} from "./popovers/export/export.component"
 
 
 
@@ -77,7 +78,8 @@ import {ThreeDLinkComponent} from "./popovers/three-d-link/three-d-link.componen
     GLoginComponent,
     MotifEditorComponent,
     PaymentComponent,
-    ThreeDLinkComponent
+    ThreeDLinkComponent,
+    ExportComponent
   ],
 
   imports: [
