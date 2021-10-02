@@ -77,7 +77,7 @@
           </div>
           <!--    <ion-searchbar style="float: right"></ion-searchbar>-->
           <div *ngIf="collections" class="collections-menu">
-            <div *ngFor="let collection of collections">
+            <div *ngFor="let collection of collections; let indexOfelement=index;">
               <div class="square" style="border: 1px solid gray">
 
 
@@ -105,7 +105,7 @@
 
 
                     <div class="gear">
-                      <ion-button color="medium" (click)="CollectionOperations($event, collection)">
+                      <ion-button color="medium" (click)="CollectionOperations($event, collection, indexOfelement)">
                         <ion-icon name="ellipsis-horizontal-sharp" style="font-size: 0.6cm; color: #0d0d0d"></ion-icon>
                       </ion-button>
                     </div>
@@ -115,13 +115,14 @@
 
                   <br>
                   <br>
-                  <button id="addBtn" (click)="navigateTo('newCollection');">
-                    <ion-icon name="add-circle-sharp" ></ion-icon>
-                  </button>
+
                 </div>
               </div>
             </div>
           </div>
+          <button id="addBtn" (click)="navigateTo('newCollection');">
+            <ion-icon name="add-circle-sharp" ></ion-icon>
+          </button>
         </ion-card>
 
 
