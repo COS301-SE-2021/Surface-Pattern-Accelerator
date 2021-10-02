@@ -8,3 +8,14 @@ ion-card-header{
   font-size: 150%;
   font-weight: bold;
 }
+.imageHelp{
+  //height: 100px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative;
+  z-index: 99999;
+}
+.imageHelp > img{
+  height: 250px;
+}
