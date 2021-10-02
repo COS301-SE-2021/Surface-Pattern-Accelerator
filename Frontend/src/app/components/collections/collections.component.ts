@@ -10,6 +10,7 @@ import { MenuController } from '@ionic/angular';
 
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component";
 import {CollectionOperationPopoverComponent} from "../../popovers/collection-operation-popover/collection-operation-popover.component";
+import {NewCollectionComponent} from "../../popovers/new-collection/new-collection.component";
 
 @Component({
   selector: 'app-collections',
@@ -42,8 +43,21 @@ export class CollectionsComponent implements OnInit {
   //  this.getCollections();
   }
 
+  newCollectionPopOver(){
+    this.popoverController.create({
+      component: NewCollectionComponent,
+      translucent: true,
+      cssClass: 'fullscreen'
+    }).then(resPop => {
+      resPop.present().then(presentRes => {
+        return presentRes;
+      });
+    })
+  }
+
   async CollectionOperations(ev: any, collection, index )
   {
+
     const collections = document.querySelectorAll('.square');
 
     const popover = await this.popoverController.create({
@@ -55,11 +69,15 @@ export class CollectionsComponent implements OnInit {
 
     popover.onDidDismiss().then((dataReturned) => {
       if (dataReturned !== null) {
-        (<HTMLElement>collections[index]).style.display = 'none';
-        this.loadingController.dismiss();
-        // dataReturned.data;
-        // console.log(dataReturned);
+        if (dataReturned.data == "DELETED") {
+          (<HTMLElement>collections[index]).style.display = 'none';
+
+          // dataReturned.data;
+          // console.log(dataReturned);
+        }
+        // this.loadingController.dismiss();
       }
+
     });
     return await popover.present();
 

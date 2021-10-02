@@ -19,11 +19,15 @@ export class CollectionOperationPopoverComponent implements OnInit {
 
   deleteCollection() {
     this.loadingController.create({
-      message: "Deleing collection..."
+      message: "Deleting collection..."
     }).then(loaderResult => {
       loaderResult.present().then(r => {
         this.collectionsService.deleteCollection(this.key1).subscribe();
-        this.popoverController.dismiss('Deleted');
+        setTimeout(() => {
+          this.loadingController.dismiss();
+        }, 1000);
+
+        this.popoverController.dismiss("DELETED");
 
       })
     })
