@@ -183,15 +183,6 @@ function loadObject(stringM) {
     camera.position.y = 0;
     camera.position.x = 110;
   }
-  else if (stringM === 'curtain')
-  {
-    scene.remove(obj);
-    stringV = '../ObjectModels/curtain.obj';
-    camera.position.z = 3; // Setting the camera position
-    camera.position.y = 0;
-    camera.position.x = 0;
-    stopAnimation();
-  }
 
   loader.load(
     stringV,
