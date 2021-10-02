@@ -1328,8 +1328,8 @@ export class PatternComponent implements OnInit {
     }
     else if (this.exportFormat == ".SVG")
     {
-      const svgData = this.canvas.toSVG();
-      //const preface = '<?xml version="1.0" standalone="no"?>\r\n';
+      const svgData = this.patternService.getCanvasAsSVG(this.canvas)
+
       const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
       const svgUrl = URL.createObjectURL(svgBlob);
       const downloadLink = document.createElement("a");
@@ -1343,9 +1343,9 @@ export class PatternComponent implements OnInit {
     {
       this.frame(); //download as PNG
     }
-
-
   }
+
+
 
   exportPopover(downloadURL: string) {
     let popoverReference:  HTMLIonPopoverElement;

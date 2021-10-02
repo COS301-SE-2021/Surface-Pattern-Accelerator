@@ -288,12 +288,38 @@ export class PatternService {
 
   exportCanvasAsSVG(canvas: fabric.Canvas, format: string)
   {
-    let canvasAsSVG =  canvas.toSVG();
+    let canvasAsSVG: string =  this.getCanvasAsSVG(canvas);
     return this.http.post(this.serverLink.getServerLink() + '/api/convertSVG',
       { canvasAsSVG: canvasAsSVG,
       convertTo: format},
       {withCredentials: true
       })
+  }
+
+  //this function removes junk from the svg that fabric adds
+  getCanvasAsSVG(canvas: fabric.Canvas)
+  {
+    let tempSVG: string = this.replaceAll(canvas.toSVG(), "M 0 0 L 24 0 L 24 24 L 0 24 L 0 0 z", "");
+
+    // console.log(tempSVG.search("<g "))
+    // let firstPosition = tempSVG.search("<g ");
+    // tempSVG = [tempSVG.slice(0, firstPosition), "<!--", tempSVG.slice(firstPosition)].join('');
+    //
+    //
+    // let secondPosition = tempSVG.indexOf(")\"  >", firstPosition)
+    // tempSVG = [tempSVG.slice(0, secondPosition + 5), "-->", tempSVG.slice(secondPosition + 5)].join('');
+
+
+    return tempSVG;
+  }
+
+  escapeRegExp(string)
+  {
+    return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  }
+
+  replaceAll(str, find, replace) {
+    return str.replace(new RegExp(this.escapeRegExp(find), 'g'), replace);
   }
 
 }
