@@ -44,9 +44,8 @@
 
           <ion-card>
 
-
               <ion-card-header>
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+            <ion-button color="default" size="medium" fill="clear" class="tab-links"
                         (click)="openTabMain($event,'WorkArea')" id="WorkArea1">
               <ion-label class="button-text">Build</ion-label>
               <ion-icon name="image-outline"></ion-icon>
@@ -276,36 +275,48 @@
     </ion-col>
 
     <!-- 'Modifiers' Side Menu Tab Component -->
-    <ion-col size="4" class="tab-content-side" id="Modifiers">
+
+    <ion-col size="0.5">
+      <div style="text-align: center">
+
+        <br>
+        <br>
+        <ion-card>
+        <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'MotLib')" id="MotLib1">
+          <!--              <ion-label class="button-text">Motifs</ion-label>-->
+          <ion-icon name="apps-outline"></ion-icon>
+        </ion-button>
+          </ion-card>
+            <ion-card>
+        <ion-button color="default" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
+          <!--              <ion-label class="button-text">Layers</ion-label>-->
+          <ion-icon name="invert-mode-outline"></ion-icon>
+        </ion-button>
+              </ion-card>
+                <ion-card>
+        <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'Changes')" id="Changes1">
+          <!--              <ion-label class="button-text">Modifiers</ion-label>-->
+          <ion-icon name="eyedrop-outline" ></ion-icon>
+        </ion-button>
+              </ion-card>
+                <ion-card>
+        <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'Exports')" id="Exports1">
+          <!--              <ion-label class="button-text">Exports</ion-label>-->
+          <ion-icon name="archive-outline"></ion-icon>
+        </ion-button>
+                  </ion-card>
+
+      </div>
+    </ion-col>
+
+    <ion-col size="3.5" class="tab-content-side" id="Modifiers">
       <ion-card>
 
-        <div style="text-align: center">
 
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                        (click)="openTabSide($event,'MotLib')">
-              <ion-label class="button-text">Motifs</ion-label>
-              <ion-icon name="apps-outline"></ion-icon>
-            </ion-button>
-
-            <ion-button color="default" size="medium" fill="clear" class="tab-links"
-                        (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
-              <ion-label class="button-text">Layers</ion-label>
-              <ion-icon name="invert-mode-outline"></ion-icon>
-            </ion-button>
-
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                        (click)="openTabSide($event,'Changes')">
-              <ion-label class="button-text">Modifiers</ion-label>
-              <ion-icon name="eyedrop-outline" ></ion-icon>
-            </ion-button>
-
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                        (click)="openTabSide($event,'Exports')">
-              <ion-label class="button-text">Exports</ion-label>
-              <ion-icon name="archive-outline"></ion-icon>
-            </ion-button>
-
-        </div>
 
 
 
@@ -360,37 +371,37 @@
     </ion-col>
 
     <!-- 'Changes' Side Menu Tab Component -->
-    <ion-col size="4" class="tab-content-side" id="Changes">
+    <ion-col size="3.5" class="tab-content-side" id="Changes">
       <ion-card>
 
 
-        <div style="text-align: center">
+<!--        <div style="text-align: center">-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'MotLib')">
-            <ion-label class="button-text">Motifs</ion-label>
-            <ion-icon name="apps-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'MotLib')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="apps-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
-                      (click)="openTabSide($event,'Modifiers')">
-            <ion-label class="button-text">Layers</ion-label>
-            <ion-icon name="invert-mode-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
+<!--                      (click)="openTabSide($event,'Modifiers')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Changes')" id="Changes1">
-            <ion-label class="button-text">Modifiers</ion-label>
-            <ion-icon name="eyedrop-outline" ></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Changes')" id="Changes1">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Exports')">
-            <ion-label class="button-text">Exports</ion-label>
-            <ion-icon name="archive-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Exports')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="archive-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-        </div>
+<!--        </div>-->
 
 
 
@@ -473,36 +484,36 @@
       </ion-card>
     </ion-col>
 
-    <ion-col size="4" class="tab-content-side" id="Exports">
+    <ion-col size="3.5" class="tab-content-side" id="Exports">
       <ion-card>
 
-        <div style="text-align: center">
+<!--        <div style="text-align: center">-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'MotLib')">
-            <ion-label class="button-text">Motifs</ion-label>
-            <ion-icon name="apps-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'MotLib')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="apps-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
-                      (click)="openTabSide($event,'Modifiers')">
-            <ion-label class="button-text">Layers</ion-label>
-            <ion-icon name="invert-mode-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
+<!--                      (click)="openTabSide($event,'Modifiers')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Changes')">
-            <ion-label class="button-text">Modifiers</ion-label>
-            <ion-icon name="eyedrop-outline" ></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Changes')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Exports')" id="Exports1">
-            <ion-label class="button-text">Exports</ion-label>
-            <ion-icon name="archive-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Exports')" id="Exports1">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="archive-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-        </div>
+<!--        </div>-->
 
 
         <ion-card-content>
@@ -559,36 +570,36 @@
     </ion-col>
 
 
-    <ion-col size="4" class="tab-content-side" id="MotLib">
+    <ion-col size="3.5" class="tab-content-side" id="MotLib">
       <ion-card>
 
-        <div style="text-align: center">
+<!--        <div style="text-align: center">-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'MotLib')" id="MotLib1">
-            <ion-label class="button-text">Motifs</ion-label>
-            <ion-icon name="apps-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'MotLib')" id="MotLib1">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="apps-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
-                      (click)="openTabSide($event,'Modifiers')">
-            <ion-label class="button-text">Layers</ion-label>
-            <ion-icon name="invert-mode-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
+<!--                      (click)="openTabSide($event,'Modifiers')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Changes')">
-            <ion-label class="button-text">Modifiers</ion-label>
-            <ion-icon name="eyedrop-outline" ></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Changes')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Exports')">
-            <ion-label class="button-text">Exports</ion-label>
-            <ion-icon name="archive-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Exports')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="archive-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-        </div>
+<!--        </div>-->
 
         <ion-card-content>
 
@@ -612,9 +623,11 @@
             <p class="testing">{{values}}</p>
           </ion-toolbar>
 
-          <ion-row id=""testing >
+          <ion-row id=""testing>
+
+            <div style="text-align: center;" class="controls">
             <div *ngIf="motifService.cachedMotifs" #parent>
-              <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
+              <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs" style="text-align: center;">
 
                 <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawn(motif)'>
                   <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
@@ -623,6 +636,15 @@
                 </div>
               </ion-card>
             </div>
+
+
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+            </div>
+
           </ion-row>
         </ion-card-content>
 
