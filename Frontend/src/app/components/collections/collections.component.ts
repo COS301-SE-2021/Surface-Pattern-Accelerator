@@ -9,6 +9,7 @@ import {ICollectionsContent} from '../../Interfaces/collectionContents.interface
 import { MenuController } from '@ionic/angular';
 
 import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component";
+import {CollectionOperationPopoverComponent} from "../../popovers/collection-operation-popover/collection-operation-popover.component";
 
 @Component({
   selector: 'app-collections',
@@ -41,17 +42,20 @@ export class CollectionsComponent implements OnInit {
   //  this.getCollections();
   }
 
-  CollectionOperations(ev: any)
+  CollectionOperations(ev: any, collection )
   {
-    // this.popoverController.create({
-    //   component: CollectionBasicOperationsComponent,
-    //   event: ev,
-    //   translucent: true
-    // }).then(resPop => {
-    //   resPop.present().then(presentRes => {
-    //     return presentRes;
-    //   });
-    // })
+    console.log(collection);
+
+    this.popoverController.create({
+      component: CollectionOperationPopoverComponent,
+      componentProps: {key1: collection},
+      event: ev,
+      translucent: true
+    }).then(resPop => {
+      resPop.present().then(presentRes => {
+        return presentRes;
+      });
+    })
   }
   setActive(component){
     if(this.activeComponent == component)return;

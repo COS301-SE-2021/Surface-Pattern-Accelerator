@@ -32,7 +32,7 @@ import { ExportPopoverComponent } from './components/export-popover/export-popov
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from 'angularx-social-login';
 import { CanvasColoursComponent } from './components/canvas-colours/canvas-colours.component';
 import { ColorPaletteComponent} from './components/color-palette/color-palette.component';
-
+import{ CollectionOperationPopoverComponent} from "./popovers/collection-operation-popover/collection-operation-popover.component";
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatInputModule} from '@angular/material/input';
@@ -77,7 +77,8 @@ import {ThreeDLinkComponent} from "./popovers/three-d-link/three-d-link.componen
     GLoginComponent,
     MotifEditorComponent,
     PaymentComponent,
-    ThreeDLinkComponent
+    ThreeDLinkComponent,
+    CollectionOperationPopoverComponent
   ],
 
   imports: [
