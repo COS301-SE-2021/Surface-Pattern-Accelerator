@@ -113,6 +113,11 @@ ion-grid{
   height: 100%;
 }
 
+.grid-item{
+  text-align: center;
+  margin: auto;
+}
+
 ion-col {
   height: 100%;
   --ion-grid-column-padding: 0px;
