@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionsServiceService } from '../../services/collections-service.service';
 import {Router} from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 
 import {ICollectionsContent} from '../../Interfaces/collectionContents.interface';
@@ -23,7 +23,7 @@ export class CollectionsComponent implements OnInit {
 
   menuController: MenuController;
   // eslint-disable-next-line max-len
-  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController)
+  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController, private modal: ModalController)
   {
 
   }
@@ -42,20 +42,28 @@ export class CollectionsComponent implements OnInit {
   //  this.getCollections();
   }
 
-  CollectionOperations(ev: any, collection )
+  async CollectionOperations(ev: any, collection, index )
   {
-    console.log(collection);
+    const collections = document.querySelectorAll('.square');
 
-    this.popoverController.create({
+    const popover = await this.popoverController.create({
       component: CollectionOperationPopoverComponent,
       componentProps: {key1: collection},
       event: ev,
       translucent: true
-    }).then(resPop => {
-      resPop.present().then(presentRes => {
-        return presentRes;
-      });
     })
+
+    popover.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        (<HTMLElement>collections[index]).style.display = 'none';
+        this.loadingController.dismiss();
+        // dataReturned.data;
+        // console.log(dataReturned);
+      }
+    });
+    return await popover.present();
+
+
   }
   setActive(component){
     if(this.activeComponent == component)return;
