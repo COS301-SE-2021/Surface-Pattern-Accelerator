@@ -326,6 +326,10 @@ export class PatternComponent implements OnInit {
     document.getElementById('patternFrame').addEventListener('change', () => {
       this.sendPattern();
     });
+
+
+
+
   }
 
   sendPattern(){
@@ -584,6 +588,16 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
+
+
+    //reset buttons to normal
+    (<HTMLIonButtonElement>document.getElementById('Changes1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Modifiers1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Exports1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('MotLib1')).setAttribute('color','medium');
+
+
+    //highlight selected button
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
     //(<HTMLElement>$event.currentTarget).className  += " active";
 
