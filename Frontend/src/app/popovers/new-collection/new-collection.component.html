@@ -25,10 +25,13 @@
 
         </ion-card-content>
       </ion-card>
-
+      <ion-button expand="block" color="medium" class="button" type="button" (click)="closePopover()">
+        Cancel
+      </ion-button>
       <ion-button expand="block" color="medium" class="button" type="button" (click)="newCollection(collectionName.value); collectionName.value=''">
         Add Collection
       </ion-button>
+
     </ion-card-content>
   </ion-card>
 </ion-content>

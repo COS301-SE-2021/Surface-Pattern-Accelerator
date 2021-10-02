@@ -4,7 +4,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 
 //components
 import { AppComponent } from './app.component';
-import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
+import { NewCollectionComponent } from './popovers/new-collection/new-collection.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { ColorComponent } from './components/color/color.component';
 

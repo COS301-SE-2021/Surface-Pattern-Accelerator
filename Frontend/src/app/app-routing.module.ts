@@ -10,7 +10,7 @@ import {PreviewComponent} from './components/preview/preview.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginResponseComponent} from './components/login-response/login-response.component';
 import { ColorComponent} from './components/color/color.component';
-import { NewCollectionComponent } from './components/collection-creator/new-collection/new-collection.component';
+import { NewCollectionComponent } from './popovers/new-collection/new-collection.component';
 import { MainComponent } from './components/launchpage/main/main.component';
 import {StyleTransferComponent} from './components/style-transfer/style-transfer.component';
 

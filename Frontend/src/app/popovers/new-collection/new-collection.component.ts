@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectionsServiceService } from '../../../services/collections-service.service';
-import {ICollectionsContent} from "../../../Interfaces/collectionContents.interface"
+import { CollectionsServiceService } from '../../services/collections-service.service';
+import {ICollectionsContent} from "../../Interfaces/collectionContents.interface"
 import {Router} from "@angular/router";
-import { LoadingController } from '@ionic/angular';
-import {MotifServiceService} from "../../../services/motif-service.service";
-import {PatternService} from "../../../services/pattern.service";
+import {LoadingController, PopoverController} from '@ionic/angular';
+import {MotifServiceService} from "../../services/motif-service.service";
+import {PatternService} from "../../services/pattern.service";
 
 @Component({
   selector: 'app-new-collection',
@@ -18,13 +18,17 @@ export class NewCollectionComponent implements OnInit {
               public motifService: MotifServiceService,
               public patternService: PatternService,
               private router: Router,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController,
+              public popoverController: PopoverController) { }
 
   ngOnInit()
   {
       console.log('new collection component created');
       this.motifService.purgeContent();
       this.patternService.purgeContent();
+  }
+  closePopover(){
+    this.popoverController.dismiss();
   }
 
   newCollection(value: string) {
@@ -41,6 +45,7 @@ export class NewCollectionComponent implements OnInit {
             console.log("Temp Collection storage is:");
             console.log(tempCollectionDetailsStorage);
             loaderResult.dismiss().then(dismissResult => {
+              this.popoverController.dismiss();
               this.collectionsService.currentCollectionID = tempCollectionDetailsStorage.collectionID;
               this.router.navigate(['pattern']).then();
             });
