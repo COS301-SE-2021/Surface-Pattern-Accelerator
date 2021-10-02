@@ -5,6 +5,7 @@ ion-card{
 
 .overlap{
   overflow: hidden;
+  scroll-behavior: auto;
 }
 
 
@@ -198,7 +199,7 @@ ion-item {
   text-overflow:ellipsis;
 }
 .MotifImage{
-  width: 40%;
+  width: 100%;
   height: 5cm;
   background-color: white;
   text-align: center;
@@ -279,9 +280,10 @@ $dot-space: 15px;
 
 .controls{
   //width: 620px;//included borders
-  width: 100%;
-  height: 5vh;//included borders
-  margin: 0px auto;
+  width: 60%;
+  padding: 10px;
+  height: 100%;//included borders
+  margin: 1px auto;
   //border: 4px solid grey;
 }
 
