@@ -158,42 +158,34 @@
 
                 <ion-row>
 
-                <div class="controls">
-                <ion-item id="controls" style="width: 100%; display: none; margin: auto;">
-
-                  <ion-item>
-                    Flip
-                    <ion-button (click)="this.flipXRightClick()" >X</ion-button>
-                    <ion-button (click)="this.flipYRightClick()">Y</ion-button>
-                  </ion-item>
-
-                  <ion-item>
-                    Move Layer
-                    <ion-button (click)="this.moveUpRightClick()">Up</ion-button>
-                    <ion-button (click)="this.moveDownRightClick()">Down</ion-button>
-                  </ion-item>
-
-                  <ion-item>
-                    <ion-button  (click)="this.cloneRightClick()">Duplicate</ion-button>
-                  </ion-item>
-                  <ion-item>
-                    <ion-button  (click)="this.deleteRightClick()">Delete</ion-button>
-                  </ion-item>
-                  <ion-item>
-                    <ion-button  (click)="this.recenterClick()">Recenter</ion-button>
-                  </ion-item>
-
-                </ion-item>
+                <div class="controls" style="text-align: center; display:none" id="controls">
 
 
+
+                    <ion-button style="padding: 10px;" size="large" (click)="this.flipXRightClick()" >Flip X</ion-button>
+                    <ion-button style="padding: 10px;" size="large" (click)="this.flipYRightClick()">Flip Y</ion-button>
+
+                    <ion-button style="padding: 10px;" size="large" (click)="this.moveUpRightClick()">Move Up</ion-button>
+                    <ion-button style="padding: 10px;" size="large" (click)="this.moveDownRightClick()">Move Down</ion-button>
+
+                    <ion-button style="padding: 10px;" size="large" (click)="this.cloneRightClick()">Duplicate</ion-button>
+
+                    <ion-button style="padding: 10px;" size="large" (click)="this.deleteRightClick()">Delete</ion-button>
+
+                    <ion-button style="padding: 10px;" size="large" (click)="this.recenterClick()">Recenter</ion-button>
+
+                  <br>
                   <br>
                   <br>
                   <br>
                 </div>
 
-
                   </ion-row>
 
+
+                <div style="height: 10vh;">
+
+                </div>
 
                </ion-card-content>
             </ion-card>
@@ -263,7 +255,7 @@
                 </div>
 
 
-                <div class="controls">
+                <div style="height: 10vh;">
 
                 </div>
 
@@ -281,28 +273,28 @@
 
         <br>
         <br>
-        <ion-card>
+        <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'MotLib')" id="MotLib1">
           <!--              <ion-label class="button-text">Motifs</ion-label>-->
           <ion-icon name="apps-outline"></ion-icon>
         </ion-button>
           </ion-card>
-            <ion-card>
+            <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="default" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
           <!--              <ion-label class="button-text">Layers</ion-label>-->
           <ion-icon name="invert-mode-outline"></ion-icon>
         </ion-button>
               </ion-card>
-                <ion-card>
+                <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'Changes')" id="Changes1">
           <!--              <ion-label class="button-text">Modifiers</ion-label>-->
           <ion-icon name="eyedrop-outline" ></ion-icon>
         </ion-button>
               </ion-card>
-                <ion-card>
+                <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'Exports')" id="Exports1">
           <!--              <ion-label class="button-text">Exports</ion-label>-->
@@ -442,7 +434,7 @@
 
 
           <ion-item>
-           <ion-button id="s3" color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
+           <ion-button id="s3" color="primary" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
            <ion-button id="s6" color="medium" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
            <ion-button id="s9" color="medium" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
           </ion-item>
@@ -535,7 +527,7 @@
 
           <ion-item>
             <ion-button id="e1" color="medium" style="width:100%;" (click)="export1()">600x600</ion-button>
-            <ion-button id="e2" color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>
+            <ion-button id="e2" color="primary" style="width:100%;" (click)="export2()">1200x1200</ion-button>
             <ion-button id="e5" color="medium" style="width:100%;" (click)="export5()">3000x3000</ion-button>
           </ion-item>
 
