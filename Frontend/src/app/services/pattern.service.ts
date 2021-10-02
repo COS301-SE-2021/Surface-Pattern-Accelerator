@@ -286,4 +286,17 @@ export class PatternService {
     //this.currentPattern = {} as IPatternContentsInterface;
   }
 
+  exportCanvasAsSVG(canvas: fabric.Canvas)
+  {
+    let canvasAsSVG =  canvas.toSVG();
+    this.http.post(this.serverLink.getServerLink() + '/api/convertSVG',
+      { canvasAsSVG: canvasAsSVG },
+      {withCredentials: true
+      }).subscribe(res => {
+        console.log(res)
+
+
+    });
+  }
+
 }

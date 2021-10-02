@@ -21,6 +21,7 @@ import { GetPaymentDetailsController } from './controllers/getPaymentDetails/get
 import { PaymentService } from './services/payment/payment.service';
 import { MakePaymentController } from './controllers/make-payment/make-payment.controller';
 import { DeleteCollectionController } from './controllers/delete-collection/delete-collection.controller';
+import { ConvertSvgController } from './controllers/convert-svg/convert-svg.controller';
 
 @Module({
   imports: [MulterModule.register({
@@ -44,7 +45,8 @@ import { DeleteCollectionController } from './controllers/delete-collection/dele
         SaveImageController,
       GetPaymentDetailsController,
       MakePaymentController,
-      DeleteCollectionController],
+      DeleteCollectionController,
+      ConvertSvgController],
   providers: [AppService, GoogleApiService, PaymentService],
 })
 export class AppModule {}
