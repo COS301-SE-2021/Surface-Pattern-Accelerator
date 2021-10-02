@@ -1005,7 +1005,7 @@ export class PatternComponent implements OnInit {
     this.scale = 3;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
-    btn.color = 'default';
+    btn.color = 'primary';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
@@ -1020,7 +1020,7 @@ export class PatternComponent implements OnInit {
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
     btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
-    btn1.color = 'dark';
+    btn1.color = 'primary';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
     btn2.color = 'medium';
 
@@ -1035,7 +1035,7 @@ export class PatternComponent implements OnInit {
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
-    btn2.color = 'dark';
+    btn2.color = 'primary';
 
     this.refresh();
   }
@@ -1130,7 +1130,7 @@ export class PatternComponent implements OnInit {
     console.log('EXPORT LOW RESOLUTION');
     this.pixel = 1;
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
-    btn.color = 'dark';
+    btn.color = 'primary';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
@@ -1146,7 +1146,7 @@ export class PatternComponent implements OnInit {
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
     btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
-    btn1.color = 'dark';
+    btn1.color = 'primary';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
     btn2.color = 'medium';
     //this.download();
@@ -1160,7 +1160,7 @@ export class PatternComponent implements OnInit {
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
-    btn2.color = 'dark';
+    btn2.color = 'primary';
     //this.download();
   }
 
