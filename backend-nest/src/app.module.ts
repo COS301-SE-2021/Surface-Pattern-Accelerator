@@ -22,6 +22,7 @@ import { PaymentService } from './services/payment/payment.service';
 import { MakePaymentController } from './controllers/make-payment/make-payment.controller';
 import { DeleteCollectionController } from './controllers/delete-collection/delete-collection.controller';
 import { ConvertSvgController } from './controllers/convert-svg/convert-svg.controller';
+import {HttpModule} from "@nestjs/axios";
 
 @Module({
   imports: [MulterModule.register({
@@ -30,7 +31,7 @@ import { ConvertSvgController } from './controllers/convert-svg/convert-svg.cont
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, './', 'frontend'),
 
-    })],
+    }), HttpModule],
   controllers: [AppController,
       CreateAccessTokenController,
       GetCollectionsController,
