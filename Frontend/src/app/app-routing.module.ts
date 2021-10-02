@@ -19,6 +19,7 @@ import {GLoginComponent} from './components/g-login/g-login.component';
 import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
 import {PaymentComponent} from "./components/payment/payment.component";
 import{ PaymentGuardGuard} from "./services/payment-guard.guard";
+import { HelpComponent } from "./components/help/help.component";
 
 const routes: Routes = [
 
@@ -39,7 +40,8 @@ const routes: Routes = [
   { path: 'newCollection', component: NewCollectionComponent },
   { path: 'glogin', component: GLoginComponent},
   { path: 'motifEditor', component: MotifEditorComponent}, //TODO: potentially add route same as pattern component
-  { path: 'payment', component: PaymentComponent}
+  { path: 'payment', component: PaymentComponent},
+  { path: 'help', component: HelpComponent}
 ];
 
 @NgModule({
