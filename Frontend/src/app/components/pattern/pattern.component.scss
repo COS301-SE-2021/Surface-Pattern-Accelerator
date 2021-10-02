@@ -3,6 +3,12 @@ ion-card{
   overflow: auto;
 }
 
+.overlap{
+  overflow: hidden;
+}
+
+
+
 body{
   zoom: 75%;
 }
@@ -192,14 +198,16 @@ ion-item {
   text-overflow:ellipsis;
 }
 .MotifImage{
-  width: 45%;
+  width: 40%;
   height: 5cm;
   background-color: white;
   text-align: center;
   //padding :50px;
   margin-top: 5px;
   margin-bottom: 10px;
-  margin-left: 5px;
+  margin-left: 15px;
+  margin-right: 10px;
+
   border: solid black 3px;
   display: flex;
   align-items: center;
