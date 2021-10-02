@@ -620,7 +620,17 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
+
+    //reset to normal
+    (<HTMLIonButtonElement>document.getElementById('WorkArea1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Preview1')).setAttribute('color','medium');
+
+    //change view of selected button
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
+
+
+
+
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 
