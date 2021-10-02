@@ -1292,7 +1292,7 @@ export class PatternComponent implements OnInit {
 
   exportCanvasAsSVG($event: any)
   {
-    this.patternService.exportCanvasAsSVG(this.canvas);
+    this.patternService.exportCanvasAsSVG(this.canvas, "dwg");
   }
 
 }
