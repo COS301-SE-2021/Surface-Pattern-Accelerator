@@ -27,7 +27,7 @@ import { DeleteCollectionController } from './controllers/delete-collection/dele
   dest: './files',
 }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, './', 'frontend'),
+      rootPath: join(__dirname, '..', 'MODEL'),
 
     })],
   controllers: [AppController,
