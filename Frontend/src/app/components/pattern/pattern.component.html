@@ -162,17 +162,17 @@
 
 
 
-                    <ion-button style="padding: 10px;" size="large" (click)="this.flipXRightClick()" >Flip X</ion-button>
-                    <ion-button style="padding: 10px;" size="large" (click)="this.flipYRightClick()">Flip Y</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.flipXRightClick()" >Flip X</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.flipYRightClick()">Flip Y</ion-button>
 
-                    <ion-button style="padding: 10px;" size="large" (click)="this.moveUpRightClick()">Move Up</ion-button>
-                    <ion-button style="padding: 10px;" size="large" (click)="this.moveDownRightClick()">Move Down</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.moveUpRightClick()">Move Up</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.moveDownRightClick()">Move Down</ion-button>
 
-                    <ion-button style="padding: 10px;" size="large" (click)="this.cloneRightClick()">Duplicate</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.cloneRightClick()">Duplicate</ion-button>
 
-                    <ion-button style="padding: 10px;" size="large" (click)="this.deleteRightClick()">Delete</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.deleteRightClick()">Delete</ion-button>
 
-                    <ion-button style="padding: 10px;" size="large" (click)="this.recenterClick()">Recenter</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.recenterClick()">Recenter</ion-button>
 
                   <br>
                   <br>
@@ -536,7 +536,7 @@
 
 
           <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Select Export Dimension options: </ion-label>
+            <ion-label style="margin: auto; text-align:center;">Select PNG Dimension options: </ion-label>
           </ion-item>
 
           <ion-item>
@@ -555,25 +555,21 @@
           </ion-item>
 
           <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Other Export Options: </ion-label>
+            <ion-label style="margin: auto; text-align:center;">Other Options: </ion-label>
           </ion-item>
 
-
-          <ion-item>
-<!--            <ion-button color="medium" style="width:100%;" (click)='sendPattern()'>Extract pattern colors</ion-button>-->
-          </ion-item>
 
           <!-- TODO: delete exports popover - not used-->
           <ion-list>
             <ion-radio-group value=".PNG" [(ngModel)]="exportFormat">
               <ion-list-header>
-                <ion-label>Select Export Format:</ion-label>
+                <ion-label>Select Frame Export Format:</ion-label>
               </ion-list-header>
 
-              <ion-item>
-                <ion-label>.PNG</ion-label>
-                <ion-radio slot="start" value=".PNG"></ion-radio>
-              </ion-item>
+<!--              <ion-item>-->
+<!--                <ion-label>.PNG</ion-label>-->
+<!--                <ion-radio slot="start" value=".PNG"></ion-radio>-->
+<!--              </ion-item>-->
 
               <ion-item>
                 <ion-label>.SVG</ion-label>
@@ -603,9 +599,7 @@
             </ion-button>
           </ion-item>
 
-          <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Other Export Options: </ion-label>
-          </ion-item>
+
 
 <!--          <ion-item>-->
 <!--            <ion-button color="medium" style="width:100%;" (click)="open3DViewer($event)" >-->
