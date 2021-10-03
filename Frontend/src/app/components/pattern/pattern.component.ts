@@ -1332,7 +1332,7 @@ export class PatternComponent implements OnInit {
         message: "Exporting, please wait..."
       }).then(loaderResult => {
         loaderResult.present().then(r => {
-          this.patternService.exportCanvasAsSVG(this.canvas, this.exportFormat)
+          this.patternService.exportCanvasAsSVG(this.getCanvasSVG_disableBG(this.background), this.exportFormat)
             .subscribe((res: any) => {
               console.log(res.resultUrl)
               if (res.format == 'pdf')
@@ -1364,25 +1364,7 @@ export class PatternComponent implements OnInit {
     else if (this.exportFormat == ".SVG")
     {
 
-      let svgData:string;
-
-      if (this.background === true)
-      {
-        (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = null;
-        this.canvas.backgroundColor = null;
-        this.refresh();
-
-        svgData = this.patternService.getCanvasAsSVG(this.canvas);
-
-        (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
-        this.canvas.backgroundColor = this.color;
-        this.refresh();
-
-      }
-
-      else{
-        svgData = this.patternService.getCanvasAsSVG(this.canvas)
-      }
+      let svgData = this.getCanvasSVG_disableBG(this.background)
 
       const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
       const svgUrl = URL.createObjectURL(svgBlob);
@@ -1397,6 +1379,30 @@ export class PatternComponent implements OnInit {
     {
       this.frame(); //download as PNG
     }
+  }
+
+  getCanvasSVG_disableBG(hasBackGround: boolean)
+  {
+    let svgData:string;
+
+    if (hasBackGround === true)
+    {
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = null;
+      this.canvas.backgroundColor = null;
+      this.refresh();
+
+      svgData = this.patternService.getCanvasAsSVG(this.canvas);
+
+      (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
+      this.canvas.backgroundColor = this.color;
+      this.refresh();
+
+    }
+
+    else{
+      svgData = this.patternService.getCanvasAsSVG(this.canvas)
+    }
+    return svgData;
   }
 
 
