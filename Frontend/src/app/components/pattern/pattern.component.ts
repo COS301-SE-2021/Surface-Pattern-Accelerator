@@ -1363,7 +1363,7 @@ export class PatternComponent implements OnInit {
       const svgUrl = URL.createObjectURL(svgBlob);
       const downloadLink = document.createElement("a");
       downloadLink.href = svgUrl;
-      downloadLink.download = "someName";
+      downloadLink.download = "svgFrame";
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
