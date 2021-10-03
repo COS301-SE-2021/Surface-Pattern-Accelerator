@@ -78,7 +78,7 @@ export class ColorComponent implements OnInit {
     const divC  = div.children;
     const svg	= divC[0];
     // Get color value from user
-    const colorPicker = document.getElementById('fav_color') as HTMLInputElement;
+    const colorPicker = document.getElementById('fv_color') as HTMLInputElement;
 
     // Store color value specified by user
     const color	= colorPicker.value;
