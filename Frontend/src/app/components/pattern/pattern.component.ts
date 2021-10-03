@@ -28,6 +28,7 @@ import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.comp
 import {CollectionsServiceService} from "../../services/collections-service.service";
 import {ServerLinkService} from "../../services/server-link.service";
 import {element} from "protractor";
+import {ExportComponent} from "../../popovers/export/export.component";
 
 
 
@@ -46,6 +47,7 @@ export class PatternComponent implements OnInit {
   canvasWidth = 600;
   canvasHeight = 600;
   colourList = [];
+  exportFormat? : string = ".PNG";
 
 
   @ViewChild('parent') private parentRef: ElementRef<HTMLElement>;
@@ -546,6 +548,8 @@ export class PatternComponent implements OnInit {
 
 
 
+
+
   openTab($event: MouseEvent, tabPage: string) {
     let i; let tabContent; let tabLinks;
     tabContent  = document.getElementsByClassName('tab-content');
@@ -1027,6 +1031,7 @@ export class PatternComponent implements OnInit {
 
 
 
+
   download(){
     console.log('downloading');
     //this.refresh();
@@ -1043,8 +1048,6 @@ export class PatternComponent implements OnInit {
 
 
     const dataURL = this.canvasPre.toDataURL();
-
-
 
     if(this.ptn)
     {
@@ -1290,4 +1293,77 @@ export class PatternComponent implements OnInit {
     return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
   }
 
+  exportCanvas()
+  {
+    console.log(this.exportFormat);
+    if (this.exportFormat == ".PDF" || this.exportFormat == ".DWG" || this.exportFormat == ".DXF" )
+    {
+
+      this.loadingController.create({
+        message: "Exporting, please wait..."
+      }).then(loaderResult => {
+        loaderResult.present().then(r => {
+          this.patternService.exportCanvasAsSVG(this.canvas, this.exportFormat)
+            .subscribe((res: any) => {
+              console.log(res.resultUrl)
+              if (res.format == 'pdf')
+              {
+                loaderResult.dismiss().then();
+                window.open(res.resultUrl, '_blank').focus()
+              }
+              else
+              {
+                loaderResult.dismiss().then();
+                console.log("The url is:" + res.resultUrl)
+                this.exportPopover(res.resultUrl)
+              }
+
+
+            });
+
+        })
+      })
+
+
+    }
+    else if (this.exportFormat == ".SVG")
+    {
+      const svgData = this.patternService.getCanvasAsSVG(this.canvas)
+
+      const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+      const svgUrl = URL.createObjectURL(svgBlob);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = svgUrl;
+      downloadLink.download = "someName";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+    else
+    {
+      this.frame(); //download as PNG
+    }
+  }
+
+
+
+  exportPopover(downloadURL: string) {
+    let popoverReference:  HTMLIonPopoverElement;
+    this.popoverController.create({
+      component: ExportComponent,
+      componentProps: {'downloadURL' : downloadURL},
+      translucent: true,
+      cssClass: 'smallScreen'
+    }).then(resPop => {
+      popoverReference = resPop;
+      popoverReference.present().then(presentRes => {
+        popoverReference.onDidDismiss().then();
+
+      });
+    });
+  }
+
+  selectedExportOption(event: any) {
+    console.log(this.exportFormat);
+  }
 }
