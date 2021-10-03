@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import domtoimage from "dom-to-image";
 
 @Component({
   selector: 'app-color-palette',
@@ -12,6 +13,19 @@ export class ColorPaletteComponent implements OnInit {
   ngOnInit() {
     this.colorGen();
   }
+  save(){
+
+      domtoimage
+        .toJpeg(document.querySelector("#palet"), { quality: 0.95 })
+        .then(function (dataUrl) {
+          var link = document.createElement("a");
+          link.download = "color-pallette.jpeg";
+          link.href = dataUrl;
+          link.click();
+        });
+
+  }
+
 
   getRandomIntInclusion(min, max) {
     const randomBuffer = new Uint32Array(1);
