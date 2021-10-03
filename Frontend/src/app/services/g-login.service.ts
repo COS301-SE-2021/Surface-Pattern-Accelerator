@@ -129,6 +129,7 @@ export class GLoginService {
                   }
 
                   else {
+                    sessionStorage.setItem('paid', 'false');
                     console.log("is failure");
                     // let userDetails = {'userDetails': this.userDetails};
                     // sessionStorage.setItem('userDetails', JSON.stringify(userDetails));

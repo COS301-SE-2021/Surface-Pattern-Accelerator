@@ -59,12 +59,20 @@ export class PaymentComponent implements OnInit {
           .subscribe( (resp: any) => {
             console.log("payment success")
             this.gLoginService.hasPaid = true;
-            sessionStorage.setItem('paid', 'true');
+
+            console.log("RESULT IS");
             console.log(resp)
+            if(resp.status == 'failed')
+            {
+              sessionStorage.setItem('paid', 'false');
+            }
+            else{
+              sessionStorage.setItem('paid', 'true');
+            }
             this.router.navigate(['collections']);
           },(errorResp => {
             console.log(errorResp)
-            console.log("failed");
+           // console.log("failed");
           }))
 
       }
