@@ -20,10 +20,11 @@ export class MakePaymentController {
                 connection.query('INSERT INTO payment.userPayments (userID, cardID, stripeID, userEmail, dateLastPayed, freeTrial) VALUES (?, ?, ?, ?, ?, ?);', [userID, cardID, stripeID, userEmail, dateLastPayed, freeTrial], (error, results, fields) => {
                     if (error) {
                         ///response.send(results);
+                        sessionStorage.setItem('paid', 'false');
                         success({status: 'failed', data: ""})
                     } else {
                         //response.send(error);
-
+                        sessionStorage.setItem('paid', 'true');
                         success({status: 'success ok', data: results})
                     }
                 })

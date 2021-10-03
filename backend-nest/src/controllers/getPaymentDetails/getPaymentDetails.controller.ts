@@ -40,10 +40,12 @@ export class GetPaymentDetailsController {
             connection.query('SELECT * FROM payment.userPayments where userID = ? ;', [userID], function(error, details, fields)
             {
                 if (details.length > 0){
+                    sessionStorage.setItem('paid', 'true');
                     success({ status:true, paymentDetails: details })
                 }
                 else{
                     success({ status:false, paymentDetails: "" })
+                    sessionStorage.setItem('paid', 'false');
                 }
             })
         })

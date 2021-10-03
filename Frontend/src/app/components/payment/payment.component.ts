@@ -49,16 +49,17 @@ export class PaymentComponent implements OnInit {
         console.log(this.stripe)
 
         this.http.post(this.serverLink.getServerLink() + '/api/makePayment',{
-          userID:       this.gLoginService.getUserDetails().getId(),
+          userID:       JSON.parse(sessionStorage.getItem('user')).id,
           card_id:      0,
           stripeID:     stripeToken.created,
-          userEmail:    this.gLoginService.getUserDetails().getBasicProfile().getEmail(),
+          userEmail:     JSON.parse(sessionStorage.getItem('user')).email,
           dateLastPayed:"0000-00-00",
           freeTrial:    0
         })
           .subscribe( (resp: any) => {
             console.log("payment success")
             this.gLoginService.hasPaid = true;
+            sessionStorage.setItem('paid', 'true');
             console.log(resp)
             this.router.navigate(['collections']);
           },(errorResp => {
