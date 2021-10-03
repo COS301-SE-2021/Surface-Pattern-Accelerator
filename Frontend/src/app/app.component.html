@@ -90,7 +90,7 @@ Navigation for the different tabs.
 
     <ion-tab-button>
       <ion-label *ngIf="this.singedIn" (click)="gLogin.signOut()">Log Out {{getUserName()}}</ion-label>
-      <ion-label *ngIf="!this.singedIn" >Log In</ion-label>
+      <ion-label *ngIf="!this.singedIn" (click)="gLogin.signIn()" >Log In</ion-label>
     </ion-tab-button>
 
     <ion-item style="position: absolute; right:0; height: 100%">
