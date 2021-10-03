@@ -43,7 +43,8 @@ function main(stringModel) {
 
     let xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-    xhr.open('GET', 'http://localhost:3000/threeDViewer/' + fileName);
+    xhr.open('GET', 'http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3000/threeDViewer/' + fileName); //localhost config
+    //xhr.open('GET', 'http://localhost:3000/threeDViewer/' + fileName); //localhost config
     xhr.send()
     xhr.onreadystatechange = () => {
       console.log("fetched")

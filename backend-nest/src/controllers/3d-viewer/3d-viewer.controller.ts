@@ -13,7 +13,8 @@ export class ThreeDViewerController {
     @Get(":id")
     uploadImage(@Param('id') id, @Res() response: Response, @Req() request: Request)
     {
-        let imageAsBase64 = fs.readFileSync(join(process.cwd(), '../backend-nest/3dFrames/' + id), 'base64');
+        //let imageAsBase64 = fs.readFileSync(join(process.cwd(), '../backend-nest/3dFrames/' + id), 'base64'); //localhost version
+        let imageAsBase64 = fs.readFileSync(join(process.cwd(), '../src/3dFrames/' + id), 'base64'); //online version
         console.log(imageAsBase64)
         response.send('data:image/png;base64,' + imageAsBase64)
     }
@@ -21,8 +22,10 @@ export class ThreeDViewerController {
     @Get()
     displayThreeD(@Res() response: Response, @Req() request: Request)
     {
-        console.log(join(process.cwd(), '../backend-nest/MODEL/3dViewer.html'))
-        response.sendFile(join(process.cwd(), '../backend-nest/MODEL/3dViewer.html'))
+        //localhost version
+        // console.log(join(process.cwd(), '../backend-nest/MODEL/3dViewer.html'))
+        // response.sendFile(join(process.cwd(), '../backend-nest/MODEL/3dViewer.html'))
+        response.sendFile(join(process.cwd(), '../src/frontend/3dViewer.html'))
 
 
     }

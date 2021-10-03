@@ -29,7 +29,7 @@ import {HttpModule} from "@nestjs/axios";
   dest: './files',
 }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'MODEL'),
+      rootPath: join(__dirname, './', 'frontend'),
 
     }), HttpModule],
   controllers: [AppController,

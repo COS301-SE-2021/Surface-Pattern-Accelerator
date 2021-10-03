@@ -8,8 +8,10 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "build:prod": "npm run build && cd ../Frontend && ionic capacitor build browser",
+    "build:prod": "npm run build && cd ../Frontend && ionic capacitor build browser && cd ../backend-nest && (robocopy \"MODEL\" \"dist/src/frontend\" /e) ^& exit 0",
     "build:place": "(robocopy \"MODEL\" \"dist/src/frontend\" /e) ^& exit 0",
+    "build:place2": "cd .. && (robocopy \"backend-nest\" \"backend-nest/dist/src\" package.json) ^& exit 0",
+    "build:place3": "cd .. && (robocopy \"backend-nest\" \"backend-nest/dist/src\" package-lock.json) ^& exit 0",
     "cpdir": "npx copyfiles \"MODEL\" \"dist\" ",
     "debug": "nodemon",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
