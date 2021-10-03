@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 ion-card{
   width: 100%;
-  height: 100vh;
-  //font-family: 'Oswald', sans-serif;
+  //height: 100vh;
+  position: relative;
+  height: auto;
+  min-height: 100vh !important;
+
 }
 
 ion-button{
@@ -42,14 +45,14 @@ ion-items{
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 ion-card{
   width: 100%;
-  min-height:100vh;
-  max-height: fit-content;
   background: #F7F7F9;
   //font-family: 'Oswald', sans-serif;
 }
+
 #componentCard{
   padding: 0 50px;
   background: #F7F7F9;
+
 }
 
 
@@ -129,7 +132,7 @@ ion-card{
 
   text-align: center;
 }
-.color{
+.colorr{
   background-color: var(--mycolor);
 }
 
@@ -207,9 +210,10 @@ ion-icon {
  // box-shadow: black 0px 0px 20px 2px;//#E0E0E0
   //zoom : 100%;
   //transition: 1s;
-  border-radius: 8px;
-  border: 5px solid white;
+  border-radius: 6px;
+  border: 3px solid var(--borderColor);
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+  zoom: 70%;
 
 }
 
@@ -221,6 +225,7 @@ ion-icon {
   animation-duration: 0.25s;
   border-left: 8px solid blue;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  zoom: 70%;
 
 }
 

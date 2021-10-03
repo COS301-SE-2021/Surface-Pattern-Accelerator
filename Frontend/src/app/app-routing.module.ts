@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: '', component: MainComponent},
   { path: 'login', component: LoginComponent},
   // { path: '',    redirectTo: 'login',    pathMatch: 'full'  },
-  { path: 'collections', component: CollectionsComponent}, //if a url matches this path then the appropriate component wil be displayed
+  { path: 'collections', component: CollectionsComponent,canActivate: [PaymentGuardGuard]}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'color-palette', component: ColorPaletteComponent,canActivate: [PaymentGuardGuard]},
   { path: 'pattern', component: PatternComponent},
