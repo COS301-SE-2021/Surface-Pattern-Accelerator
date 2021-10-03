@@ -1381,6 +1381,17 @@ export class PatternComponent implements OnInit {
   }
 
 
+  exportPng(){
+
+    document.getElementById("mainExport").style.display = "none";
+    document.getElementById("pngExport").style.display = "block";
+  }
+
+  exportOther(){
+    document.getElementById("mainExport").style.display = "block";
+    document.getElementById("pngExport").style.display = "none";
+  }
+
 
   exportPopover(downloadURL: string) {
     let popoverReference:  HTMLIonPopoverElement;
