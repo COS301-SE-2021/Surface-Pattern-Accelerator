@@ -685,15 +685,7 @@ let GoogleApiService = class GoogleApiService {
     setPermissions(token, motifContainer) {
         const auth = this.createAuthObject(token);
         try {
-            console.log("the motif ID is: " + motifContainer.motifID);
-            const drive = googleapis_1.google.drive({ version: "v3", auth });
-            return drive.permissions.create({
-                fileId: motifContainer.motifID,
-                requestBody: {
-                    role: "reader",
-                    type: "anyone"
-                }
-            })
+            return this.applyPermission(token, motifContainer.motifID)
                 .then((permissionSuccess) => {
                 motifContainer.linkPermission = "good";
                 return motifContainer;
@@ -705,6 +697,17 @@ let GoogleApiService = class GoogleApiService {
         catch (error) {
             console.log(error.message);
         }
+    }
+    applyPermission(token, itemID) {
+        const auth = this.createAuthObject(token);
+        const drive = googleapis_1.google.drive({ version: "v3", auth });
+        return drive.permissions.create({
+            fileId: itemID,
+            requestBody: {
+                role: "reader",
+                type: "anyone"
+            }
+        });
     }
     getPublicLink(token, itemID) {
         const auth = this.createAuthObject(token);
@@ -1337,15 +1340,18 @@ let SavePatternController = class SavePatternController {
                                 success({ Message: "Pattern Saved" });
                             });
                             let collectionContentPromise = this.googleApiService.getFileByID(session.accessToken, collectionID);
-                            this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
-                                .then(getLinkResult => {
-                                collectionContentPromise
-                                    .then((collectionContent) => {
-                                    collectionContent.collectionThumbnail = getLinkResult.data.webContentLink;
-                                    console.log(collectionContent);
-                                    this.googleApiService.updateJSONFile(session.accessToken, collectionID, JSON.stringify(collectionContent))
-                                        .then(res => {
-                                        console.log("Thumbnail URL added and written back");
+                            this.googleApiService.applyPermission(session.accessToken, onUploaded.data.id)
+                                .then(() => {
+                                this.googleApiService.getPublicLink(session.accessToken, onUploaded.data.id)
+                                    .then(getLinkResult => {
+                                    collectionContentPromise
+                                        .then((collectionContent) => {
+                                        collectionContent.collectionThumbnail = getLinkResult.data.webContentLink;
+                                        console.log(collectionContent);
+                                        this.googleApiService.updateJSONFile(session.accessToken, collectionID, JSON.stringify(collectionContent))
+                                            .then(res => {
+                                            console.log("Thumbnail URL added and written back");
+                                        });
                                     });
                                 });
                             });
@@ -1740,7 +1746,7 @@ module.exports = require("express-session");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("89a1c4788ca8f21c2d0e")
+/******/ 		__webpack_require__.h = () => ("00f6fac1605ea5567d9c")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

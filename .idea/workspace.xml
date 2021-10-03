@@ -3,62 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="0e93bce9-1394-4c1a-9a16-dbe2578a7c23" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/components/payment/payment.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/g-login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/services/g-login.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/src/app/services/payment-guard.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/app/services/payment-guard.guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/.eslintrc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/nest-cli.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.controller.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.module.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/app.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/test/app.e2e-spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/test/jest-e2e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/tsconfig.build.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/component/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.controller.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.controller.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.module.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.module.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.module.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.service.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.service.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/app.service.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/main.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/component/src/main.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.controller.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.controller.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.module.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.module.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.module.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.service.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.service.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/app.service.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/controllers/login/login.controller.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/controllers/login/login.controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/controllers/login/login.controller.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/main.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/src/main.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/MODEL/JS/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/MODEL/JS/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/MODEL/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/MODEL/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/dist/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/dist/tsconfig.build.tsbuildinfo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend-nest/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/get-collections/get-collections.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/get-collections/get-collections.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/get-file-by-id/get-file-by-id.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/get-file-by-id/get-file-by-id.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/getPaymentDetails/getPaymentDetails.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/getPaymentDetails/getPaymentDetails.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/controllers/save-pattern/save-pattern.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/controllers/save-pattern/save-pattern.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/services/google-api/google-api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend-nest/src/services/google-api/google-api.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-nest/src/services/google-api/style-transfer/styleTransfer.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +23,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Frontend/src/app/components/pattern/pattern.component.scss" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Frontend/src/app/components/pattern/pattern.component.html" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1yMk8UlM5sia7TLKr1HXqvn84He" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -86,7 +43,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/backend-nest/src/controllers" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Users\Delta\Documents\Development\Surface-Pattern-Accelerator2\backend-nest\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\oluwa\OneDrive\Desktop\Surface-Pattern-Accelerator\backend-nest\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
