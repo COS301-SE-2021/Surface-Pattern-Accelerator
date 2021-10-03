@@ -3,7 +3,7 @@
   <app-navbar></app-navbar>
 -->
 <ion-content id="colorComponentWrapper" style="height: 100%">
-<ion-grid style="height: 50%">
+<ion-grid>
   <ion-row style="height: 100%"> <!-- Row1 -->
    <ion-col size="8" style="height: 100%">
       <ion-card style="height: 100%">
@@ -11,20 +11,6 @@
           <ion-card-title>Expanded View {{svgName}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <!--
-          <svg id="example" width="300" height="300">
-          <circle id="example3" cx="105" cy="105" r="100" stroke="green" stroke-width="4" fill="yellow" />
-          </svg>
-          -->
-          <!--
-            This image element is not visible on the UI. It is used by the import function.
-          -->
-          <img id="output" alt="SVG Image" width="100" src="" style="display: none"/>
-          <!--
-            The imported or selected SVG will be inserted in the inner html of this div.
-          -->
-          <div id="divOutput"></div>
-
             <form>
               <ion-item>
                 <ion-label for="fav_color">Select a color: </ion-label>
@@ -43,6 +29,8 @@
               <ion-button id="saveBtn" color="medium" (click)="saveSvg()">Save SVG</ion-button>
             </form>
 
+          <img id="output" alt="SVG Image" src="" style="display: none"/>
+          <div id="divOutput"></div>
           </ion-card-content>
         </ion-card>
       </ion-col>

@@ -164,6 +164,7 @@ export class ColorComponent implements OnInit {
         try {
           // Loads the uploaded file to the html src attribute
           image.src = URL.createObjectURL(file);
+          image.style.height = "100px";
           // Changes the pattern name in the UI
           this.svgName  = ' : ' + file.name;
           // Display the image html that was hidden
