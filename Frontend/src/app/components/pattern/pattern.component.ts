@@ -1348,6 +1348,12 @@ export class PatternComponent implements OnInit {
               }
 
 
+            }, error => {
+              console.log("Too big")
+              loaderResult.dismiss().then(() => {
+                alert("The combined file size of canvas elements are too big");
+              });
+
             });
 
         })
