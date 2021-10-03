@@ -14,23 +14,10 @@ export class PaymentGuardGuard implements CanActivate {
   constructor(public router: Router, private gLoginService: GLoginService, private http: HttpClient,private serverLink: ServerLinkService) {}
   canActivate(){
 
-    if(this.gLoginService.getUserDetails() && this.gLoginService.getUserDetails().isSignedIn())
+    //if(this.gLoginService.getUserDetails() && this.gLoginService.getUserDetails().isSignedIn())
+    if(sessionStorage.getItem('token'))
     {
-
-        // this.http.post(this.serverURL + '/api/payment' ,
-        //   { email: this.gLoginService.getUserDetails().getBasicProfile().getEmail()},
-        //   {withCredentials: true})
-        //   .subscribe((data:any)=>{
-        //     if(data.status == 'success ok'){
-        //       console.log(data);
-        //       return true;
-        //     }
-        //     else{
-        //       this.router.navigate(['payment']);
-        //       return false;
-        //     }
-        //   })
-      if (this.gLoginService.hasPaid == false)
+      if (!sessionStorage.getItem('paid') || sessionStorage.getItem('paid') == 'false')
       {
         alert("Please make a payment to access these features");
         this.router.navigate(['payment']);
