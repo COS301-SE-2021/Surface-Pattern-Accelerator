@@ -180,6 +180,10 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on('selection:created',(r) => {
       this.getSelectedObject();
+      document.getElementById('controls').style.display = 'block';
+    });
+    this.canvas.on('selection:cleared',(r) => {
+      document.getElementById('controls').style.display = 'none';
     });
 
     this.canvas.on('selection:updated',(r) => {
@@ -573,6 +577,17 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
+
+
+    //reset buttons to normal
+    (<HTMLIonButtonElement>document.getElementById('Changes1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Modifiers1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Exports1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('MotLib1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Color1')).setAttribute('color','medium');
+
+
+    //highlight selected button
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
     //(<HTMLElement>$event.currentTarget).className  += " active";
 
@@ -609,7 +624,17 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
+
+    //reset to normal
+    (<HTMLIonButtonElement>document.getElementById('WorkArea1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Preview1')).setAttribute('color','medium');
+
+    //change view of selected button
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
+
+
+
+
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 
@@ -970,7 +995,7 @@ export class PatternComponent implements OnInit {
     this.scale = 3;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
-    btn.color = 'default';
+    btn.color = 'primary';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
@@ -985,7 +1010,7 @@ export class PatternComponent implements OnInit {
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
     btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
-    btn1.color = 'dark';
+    btn1.color = 'primary';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
     btn2.color = 'medium';
 
@@ -1000,7 +1025,7 @@ export class PatternComponent implements OnInit {
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
-    btn2.color = 'dark';
+    btn2.color = 'primary';
 
     this.refresh();
   }
@@ -1094,7 +1119,7 @@ export class PatternComponent implements OnInit {
     console.log('EXPORT LOW RESOLUTION');
     this.pixel = 1;
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
-    btn.color = 'dark';
+    btn.color = 'primary';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
@@ -1110,7 +1135,7 @@ export class PatternComponent implements OnInit {
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
     btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
-    btn1.color = 'dark';
+    btn1.color = 'primary';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
     btn2.color = 'medium';
     //this.download();
@@ -1124,7 +1149,7 @@ export class PatternComponent implements OnInit {
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
-    btn2.color = 'dark';
+    btn2.color = 'primary';
     //this.download();
   }
 
@@ -1227,6 +1252,10 @@ export class PatternComponent implements OnInit {
   {
     this.addState();
     this.motifService.changeArrayModifierNumber(parent,num, distance, canvas);
+  }
+
+  refreshColor(){
+    this.patternColour();
   }
 
   patternColour(){

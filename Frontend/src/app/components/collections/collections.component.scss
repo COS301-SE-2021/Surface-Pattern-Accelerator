@@ -44,10 +44,12 @@ ion-card{
   width: 100%;
   min-height:100vh;
   max-height: fit-content;
+  background: #F7F7F9;
   //font-family: 'Oswald', sans-serif;
 }
 #componentCard{
   padding: 0 50px;
+  background: #F7F7F9;
 }
 
 
@@ -105,6 +107,7 @@ ion-card{
   //float: right;
   height: 100%;
   background-color: #f5f5f5;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,6 +117,7 @@ ion-card{
   float: left;
 
   height: 100%;
+ // background-color: white;
   background-color: #f5f5f5;
 }
 .motifImg{
@@ -124,6 +128,9 @@ ion-card{
   padding-bottom: 50px;
 
   text-align: center;
+}
+.color{
+  background-color: var(--mycolor);
 }
 
 .frameImg{
@@ -138,7 +145,7 @@ ion-card{
 
 
 #patternAmount{
-  background-color: #f5f5f5;
+ // background-color: #f5f5f5;
   text-align: center;
 }
 #addCollection{
