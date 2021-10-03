@@ -4,12 +4,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link rel="icon" type="image/x-icon" href="3D.ico">
 	<title>3D Viewer</title>
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body onload="main('shirt')">
 
-<div id="sidebar">
+<button class="openbtn" onclick="openNav()">☰</button>
+
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <button class="button button2" onclick="loadImage()">Apply Image</button>
   <button class="button button2" onclick="stopAnimation()">Stop Rotation</button>
   <button class="button button2" onclick="startAnimation()">Start Rotation</button>
@@ -18,15 +22,15 @@
   <button class=" button button1 imgButtons" onclick="loadObject('shirt')">
     <img src="../btnShirt.png" height="25px">
   </button>
-
+  <br>
   <button class="button button1 imgButtons" onclick="loadObject('cat')">
     <img src="../btnCat.png" height="25px">
   </button>
-
+  <br>
     <button class="button button1 imgButtons" onclick="loadObject('pillow')">
         <img src="../btnPillow.png" height="25px">
     </button>
-
+  <br>
     <button class="button button1 imgButtons" onclick="loadObject('mug')">
         <img src="../btnMug.png" height="25px">
     </button>
