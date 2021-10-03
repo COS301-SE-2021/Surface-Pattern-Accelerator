@@ -63,18 +63,7 @@ export class CollectionsComponent implements OnInit, OnDestroy {
    this.subscription.unsubscribe();
   }
 
-  CollectionOperations(ev: any)
-  {
-    // this.popoverController.create({
-    //   component: CollectionBasicOperationsComponent,
-    //   event: ev,
-    //   translucent: true
-    // }).then(resPop => {
-    //   resPop.present().then(presentRes => {
-    //     return presentRes;
-    //   });
-    // })
-  }
+
   setActive(component){
     if(this.activeComponent == component)return;
     this.activeComponent = component;
@@ -150,8 +139,8 @@ export class CollectionsComponent implements OnInit, OnDestroy {
       }
       let r = document.querySelector(':root');
       (<HTMLElement>r).style.setProperty('--mycolor', this.secondaryBackground_light);
-      (<HTMLElement>r).style.setProperty('--shadowcolorDark', 'rgba(0,0,0,0.25)');
-      (<HTMLElement>r).style.setProperty('--shadowcolorLight', 'rgba(0,0,0,0.23)');
+      (<HTMLElement>r).style.setProperty('--borderColor', 'grey');
+
       // for(let i = 0 ; i < left.length ; i++){
       //   (<HTMLElement> left[i]).style.backgroundColor = this.secondaryBackground_light;
       //
@@ -173,8 +162,7 @@ export class CollectionsComponent implements OnInit, OnDestroy {
       // }
       let r = document.querySelector(':root');
       (<HTMLElement>r).style.setProperty('--mycolor', this.secondaryBackground_dark);
-      (<HTMLElement>r).style.setProperty('--shadowcolorDark', 'rgba(255,255,255,0.25)');
-      (<HTMLElement>r).style.setProperty('--shadowcolorLight', 'rgba(255,255,255,0.23)');
+      (<HTMLElement>r).style.setProperty('--borderColor', '#FFF');
       (<HTMLElement> heading).style.color = "white";
       (<HTMLElement> button).style.color = "white";
     }
