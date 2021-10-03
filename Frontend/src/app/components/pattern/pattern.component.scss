@@ -3,6 +3,13 @@ ion-card{
   overflow: auto;
 }
 
+.overlap{
+  overflow: hidden;
+  scroll-behavior: auto;
+}
+
+
+
 body{
   zoom: 75%;
 }
@@ -106,6 +113,11 @@ ion-grid{
   height: 100%;
 }
 
+.grid-item{
+  text-align: center;
+  margin: auto;
+}
+
 ion-col {
   height: 100%;
   --ion-grid-column-padding: 0px;
@@ -153,6 +165,30 @@ ion-item {
   ion-text-color : white;
 }
 
+//#controls button {
+//  background-color: #04AA6D; /* Green background */
+//  border: 1px solid green; /* Green border */
+//  color: white; /* White text */
+//  padding: 10px 24px; /* Some padding */
+//  cursor: pointer; /* Pointer/hand icon */
+//  float: left; /* Float the buttons side by side */
+//}
+//
+///* Clear floats (clearfix hack) */
+//#controls:after {
+//  /* content: "";
+//   //clear: both;
+//   //display: table;*/
+//}
+//
+//#controls button:not(:last-child) {
+//  //border-right: none; /* Prevent double borders */
+//}
+//
+///* Add a background color on hover */
+//#controls button:hover {
+//  background-color: #3e8e41;
+//}
 
 .motifImg
 {
@@ -168,14 +204,16 @@ ion-item {
   text-overflow:ellipsis;
 }
 .MotifImage{
-  width: 45%;
+  width: 100%;
   height: 5cm;
   background-color: white;
   text-align: center;
   //padding :50px;
   margin-top: 5px;
   margin-bottom: 10px;
-  margin-left: 5px;
+  margin-left: 15px;
+  margin-right: 10px;
+
   border: solid black 3px;
   display: flex;
   align-items: center;
@@ -244,11 +282,23 @@ $dot-space: 15px;
   margin: 15px;
 }
 
+
+.controls{
+  //width: 620px;//included borders
+  width: 90%;
+  padding: 10px;
+  height: 100%;//included borders
+  margin: 1px auto;
+  //border: 4px solid grey;
+}
+
 .frame {
   width: 608px;//included borders
   height: 608px;//included borders
   margin: 0px auto;
   border: 4px solid grey;
+
+  //zoom: 75%;
 }
 
 .inv{
@@ -277,12 +327,6 @@ $dot-space: 15px;
   cursor: pointer;
 }
 
-/*Grid for color extractor*/
-.par{
-  background-color: #ffffff;
-  color: #000000;
-}
-
 .grid-item {
   padding: 1%;
   text-align: center;
@@ -290,3 +334,10 @@ $dot-space: 15px;
   justify-content: center;
   align-items: center;
 }
+
+.par{
+  background-color: #ffffff;
+  color: #000000;
+}
+
+

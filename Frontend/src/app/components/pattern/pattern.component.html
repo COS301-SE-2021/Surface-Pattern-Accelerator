@@ -1,51 +1,17 @@
 
 <ion-grid>
-  <ion-row class="maxHeight">
-    <ion-col size="3">
-      <ion-card id="leftSidebar">
-        <ion-card-header>
-          <ion-card-title>Motif Library</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list>
-            <ion-item>
-              <ion-button color="medium" style="width: 100%" (click)="uploadFilePopover()">Import new Motif</ion-button>
-            </ion-item>
-            <br>
-            <ion-item>
-              <ion-button color="medium" style="width: 100%" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
-            </ion-item>
-          </ion-list>
 
-          <ion-toolbar>
-            <ion-searchbar (keyup)="onKey($event)" ></ion-searchbar>
-            <p class="testing">{{values}}</p>
-          </ion-toolbar>
+  <ion-row>
 
-            <ion-row id=""testing >
-              <div *ngIf="motifService.cachedMotifs" #parent>
-                <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs">
+        <ion-col size="8">
 
-                  <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawn(motif)'>
-                    <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
-                    <br>
-                      <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
-                  </div>
-                </ion-card>
-              </div>
-            </ion-row>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
+          <ion-card>
 
-    <ion-col size="6">
+            <div>
 
-        <ion-row size="1">
-          <ion-card style="width: 100%">
-            <ion-card-content style="width: 100%">
               <ion-row>
                 <ion-col size="10">
-                  <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">
+                  <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()">
 
                     <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
                       <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
@@ -64,12 +30,56 @@
                 </ion-col>
               </ion-row>
 
-            </ion-card-content>
+            </div>
+
+
 
           </ion-card>
 
+        </ion-col>
 
-        </ion-row>
+
+
+        <ion-col size="4">
+
+          <ion-card>
+
+              <ion-card-header>
+            <ion-button color="default" size="medium" fill="clear" class="tab-links"
+                        (click)="openTabMain($event,'WorkArea')" id="WorkArea1">
+              <ion-label class="button-text">Build</ion-label>
+              <ion-icon name="image-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                        (click)="openTabMain($event,'Preview')" id="Preview1">
+              <ion-label class="button-text">2D Preview</ion-label>
+              <ion-icon name="apps-outline" ></ion-icon>
+            </ion-button>
+
+            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                        (click)="open3DViewer($event)">
+              <ion-label class="button-text">3D Preview</ion-label>
+              <ion-icon name="eye-outline" ></ion-icon>
+            </ion-button>
+                </ion-card-header>
+
+
+          </ion-card>
+        </ion-col>
+
+
+
+
+
+
+
+  </ion-row>
+
+
+  <ion-row class="maxHeight">
+    <ion-col size="8">
+
 
 
           <ion-col size="12" class="tab-content-main" id="WorkArea">
@@ -78,27 +88,54 @@
             <ion-card>
 
 
-              <ion-card-header>
-                <ion-button color="default" size="medium" fill="clear" class="tab-links"
-                            (click)="openTabMain($event,'WorkArea')" id="WorkArea1">
-                  <ion-label class="button-text">WorkArea</ion-label>
-                  <ion-icon name="image-outline"></ion-icon>
-                </ion-button>
+<!--              <ion-card-header>-->
+<!--                <ion-button color="default" size="medium" fill="clear" class="tab-links"-->
+<!--                            (click)="openTabMain($event,'WorkArea')" id="WorkArea1">-->
+<!--                  <ion-label class="button-text">WorkArea</ion-label>-->
+<!--                  <ion-icon name="image-outline"></ion-icon>-->
+<!--                </ion-button>-->
 
-                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                            (click)="openTabMain($event,'Preview')">
-                  <ion-label class="button-text">Preview</ion-label>
-                  <ion-icon name="apps-outline" ></ion-icon>
-                </ion-button>
+<!--                <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                            (click)="openTabMain($event,'Preview')">-->
+<!--                  <ion-label class="button-text">Preview</ion-label>-->
+<!--                  <ion-icon name="apps-outline" ></ion-icon>-->
+<!--                </ion-button>-->
 
-                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                            (click)="openTabMain($event,'Color'); patternColour()">
-                  <ion-label class="button-text">Color</ion-label>
-                  <ion-icon name="color-fill-outline"></ion-icon>
-                </ion-button>
-              </ion-card-header>
-              <br>
-              <ion-card-content style="overflow-y:scroll;" style="background: #F7F7F9">
+<!--              </ion-card-header>-->
+<!--              <br>-->
+              <ion-card-content style="overflow-y:scroll;">
+
+<!--       style="background: #F7F7F9"         -->
+
+<!--                <div>-->
+
+<!--                <ion-row>-->
+<!--                  <ion-col size="10">-->
+<!--                    <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">-->
+
+<!--                      <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >-->
+<!--                        <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>-->
+<!--                      </ion-select>-->
+
+<!--                    </ion-item>-->
+<!--                  </ion-col>-->
+
+<!--                  <ion-col>-->
+<!--                    <div>-->
+<!--                      &lt;!&ndash;                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>&ndash;&gt;-->
+<!--                      <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> &lt;!&ndash;(click)="newPattern(patternName.value); patternName.value=''"&ndash;&gt;-->
+<!--                        New Pattern-->
+<!--                      </ion-button>-->
+<!--                    </div>-->
+<!--                  </ion-col>-->
+<!--                </ion-row>-->
+
+<!--                </div>-->
+
+
+
+
+
 
                 <br>
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
@@ -119,43 +156,96 @@
 
                 <br>
 
+                <ion-row>
+
+                <div class="controls" style="text-align: center; display:none" id="controls">
+
+
+
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.flipXRightClick()" >Flip X</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.flipYRightClick()">Flip Y</ion-button>
+
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.moveUpRightClick()">Move Up</ion-button>
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.moveDownRightClick()">Move Down</ion-button>
+
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.cloneRightClick()">Duplicate</ion-button>
+
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.deleteRightClick()">Delete</ion-button>
+
+                    <ion-button style="padding: 10px; height: 50px;" (click)="this.recenterClick()">Recenter</ion-button>
+
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                </div>
+
+                  </ion-row>
+
+
+                <div style="height: 10vh;">
+
+                </div>
+
                </ion-card-content>
             </ion-card>
 
           </ion-col>
 
 
-
+<!--12-->
           <ion-col size="12" class="tab-content-main" id="Preview">
             <ion-card>
-              <ion-card-header>
-                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                            (click)="openTabMain($event,'WorkArea')">
-                  <ion-label class="button-text">WorkArea</ion-label>
-                  <ion-icon name="image-outline"></ion-icon>
-                </ion-button>
+<!--              <ion-card-header>-->
+<!--                <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                            (click)="openTabMain($event,'WorkArea')">-->
+<!--                  <ion-label class="button-text">WorkArea</ion-label>-->
+<!--                  <ion-icon name="image-outline"></ion-icon>-->
+<!--                </ion-button>-->
 
-                <ion-button color="default" size="medium" fill="clear" class="tab-links"
-                            (click)="openTabMain($event,'Preview')" id="Preview1">
-                  <ion-label class="button-text">Preview</ion-label>
-                  <ion-icon name="apps-outline" ></ion-icon>
-                </ion-button>
+<!--                <ion-button color="default" size="medium" fill="clear" class="tab-links"-->
+<!--                            (click)="openTabMain($event,'Preview')" id="Preview1">-->
+<!--                  <ion-label class="button-text">Preview</ion-label>-->
+<!--                  <ion-icon name="apps-outline" ></ion-icon>-->
+<!--                </ion-button>-->
+<!--              </ion-card-header>-->
+<!--              <br>-->
+              <ion-card-content style="overflow: hidden">
+<!--style="background: #F7F7F9"-->
 
-                <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                            (click)="openTabMain($event,'Color'); patternColour()">
-                  <ion-label class="button-text">Color</ion-label>
-                  <ion-icon name="color-fill-outline"></ion-icon>
-                </ion-button>
-              </ion-card-header>
-              <br>
-              <ion-card-content style="overflow: hidden" style="background: #F7F7F9">
+
+<!--                <div>-->
+
+<!--                  <ion-row>-->
+<!--                    <ion-col size="10">-->
+<!--                      <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">-->
+
+<!--                        <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >-->
+<!--                          <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>-->
+<!--                        </ion-select>-->
+
+<!--                      </ion-item>-->
+<!--                    </ion-col>-->
+
+<!--                    <ion-col>-->
+<!--                      <div>-->
+<!--                        &lt;!&ndash;                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>&ndash;&gt;-->
+<!--                        <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> &lt;!&ndash;(click)="newPattern(patternName.value); patternName.value=''"&ndash;&gt;-->
+<!--                          New Pattern-->
+<!--                        </ion-button>-->
+<!--                      </div>-->
+<!--                    </ion-col>-->
+<!--                  </ion-row>-->
+
+<!--                </div>-->
+
 
                 <div class="frame inv">
                   <img id='imgPreview'/>
                 </div>
 
                 <br>
-                <div class="frame">
+                <div class="frame" style="background: #F7F7F9">
                   <canvas id="previewFrame" width="600px" height="600px"></canvas>
                 </div>
                 <br>
@@ -164,97 +254,79 @@
                   <img style="object-fit:cover; vertical-align: bottom;" id='imgPattern'/>
                 </div>
 
+
+                <div style="height: 10vh;">
+
+                </div>
+
               </ion-card-content>
             </ion-card>
           </ion-col>
 
-        <ion-col size="12" class="tab-content-main" id="Color">
-          <ion-card>
-            <ion-card-header>
-              <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                          (click)="openTabMain($event,'WorkArea')">
-                <ion-label class="button-text">WorkArea</ion-label>
-                <ion-icon name="image-outline"></ion-icon>
-              </ion-button>
-
-              <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                          (click)="openTabMain($event,'Preview')">
-                <ion-label class="button-text">Preview</ion-label>
-                <ion-icon name="apps-outline" ></ion-icon>
-              </ion-button>
-
-              <ion-button color="dark" size="medium" fill="clear" class="tab-links"
-                          (click)="openTabMain($event,'Color'); patternColour()" id="Color1">
-                <ion-label class="button-text">Color</ion-label>
-                <ion-icon name="color-fill-outline"></ion-icon>
-              </ion-button>
-            </ion-card-header>
-
-            <ion-card-content style="overflow: hidden">
-              <ion-grid class="grid-container">
-                <ion-row id="item0" class="grid-item"><p class="par" id="hx0"></p></ion-row>
-                <ion-row id="item1" class="grid-item"><p class="par" id="hx1"></p></ion-row>
-                <ion-row id="item2" class="grid-item"><p class="par" id="hx2"></p></ion-row>
-                <ion-row id="item3" class="grid-item"><p class="par" id="hx3"></p></ion-row>
-                <ion-row id="item4" class="grid-item"><p class="par" id="hx4"></p></ion-row>
-                <ion-row id="item5" class="grid-item"><p class="par" id="hx5"></p></ion-row>
-                <ion-row id="item6" class="grid-item"><p class="par" id="hx6"></p></ion-row>
-                <ion-row id="item7" class="grid-item"><p class="par" id="hx7"></p></ion-row>
-                <ion-row id="item8" class="grid-item"><p class="par" id="hx8"></p></ion-row>
-                <ion-row id="item9" class="grid-item"><p class="par" id="hx9"></p></ion-row>
-                <ion-row id="item10" class="grid-item"><p class="par" id="hx10"></p></ion-row>
-                <ion-row id="item11" class="grid-item"><p class="par" id="hx11"></p></ion-row>
-                <ion-row id="item12" class="grid-item"><p class="par" id="hx12"></p></ion-row>
-                <ion-row id="item13" class="grid-item"><p class="par" id="hx13"></p></ion-row>
-                <ion-row id="item14" class="grid-item"><p class="par" id="hx14"></p></ion-row>
-                <ion-row id="item15" class="grid-item"><p class="par" id="hx15"></p></ion-row>
-                <ion-row id="item16" class="grid-item"><p class="par" id="hx16"></p></ion-row>
-                <ion-row id="item17" class="grid-item"><p class="par" id="hx17"></p></ion-row>
-                <ion-row id="item18" class="grid-item"><p class="par" id="hx18"></p></ion-row>
-                <ion-row id="item19" class="grid-item"><p class="par" id="hx19"></p></ion-row>
-              </ion-grid>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
 
     </ion-col>
 
     <!-- 'Modifiers' Side Menu Tab Component -->
-    <ion-col size="3" class="tab-content-side" id="Modifiers">
+
+    <ion-col size="0.5">
+      <div style="text-align: center">
+
+        <br>
+        <br>
+        <ion-card style="overflow :hidden; width: 100%; height: 100%;">
+        <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'MotLib')" id="MotLib1">
+          <!--              <ion-label class="button-text">Motifs</ion-label>-->
+          <ion-icon name="apps-outline"></ion-icon>
+        </ion-button>
+          </ion-card>
+            <ion-card style="overflow :hidden; width: 100%; height: 100%;">
+        <ion-button color="default" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
+          <!--              <ion-label class="button-text">Layers</ion-label>-->
+          <ion-icon name="invert-mode-outline"></ion-icon>
+        </ion-button>
+              </ion-card>
+                <ion-card style="overflow :hidden; width: 100%; height: 100%;">
+        <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'Changes')" id="Changes1">
+          <!--              <ion-label class="button-text">Modifiers</ion-label>-->
+          <ion-icon name="eyedrop-outline" ></ion-icon>
+        </ion-button>
+              </ion-card>
+                <ion-card style="overflow :hidden; width: 100%; height: 100%;">
+        <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                    (click)="openTabSide($event,'Exports')" id="Exports1">
+          <!--              <ion-label class="button-text">Exports</ion-label>-->
+          <ion-icon name="archive-outline"></ion-icon>
+        </ion-button>
+                  </ion-card>
+        <ion-card style="overflow :hidden; width: 100%; height: 100%;">
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'Color'); patternColour()" id="Color1">
+            <!--              <ion-label class="button-text">Exports</ion-label>-->
+            <ion-icon name="color-fill-outline"></ion-icon>
+          </ion-button>
+        </ion-card>
+
+
+
+      </div>
+    </ion-col>
+
+    <ion-col size="3.5" class="tab-content-side" id="Modifiers">
       <ion-card>
 
-        <div style="text-align: center">
 
-            <ion-button color="default" size="medium" fill="clear" class="tab-links"
-                        (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
-              <ion-label class="button-text">Layers</ion-label>
-              <ion-icon name="invert-mode-outline"></ion-icon>
-            </ion-button>
-
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                        (click)="openTabSide($event,'Changes')">
-              <ion-label class="button-text">Modifiers</ion-label>
-              <ion-icon name="eyedrop-outline" ></ion-icon>
-            </ion-button>
-
-            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                        (click)="openTabSide($event,'Exports')">
-              <ion-label class="button-text">Exports</ion-label>
-              <ion-icon name="archive-outline"></ion-icon>
-            </ion-button>
-
-        </div>
 
 
 
         <ion-card-content>
           <div>
 
-            <ion-list>
-              <ion-list-header>
-                <ion-title style="text-align:center;">Layers</ion-title>
-              </ion-list-header>
-            </ion-list>
+            <ion-card-header>
+              <ion-card-title>Layers</ion-card-title>
+            </ion-card-header>
 
 
             <ion-item>
@@ -295,45 +367,60 @@
               </div>
             </div>
           </div> <!-- .layerNumbers -->
+
+          <div style="height: 15vh;">
+
+          </div>
+
         </ion-card-content>
       </ion-card>
     </ion-col>
 
     <!-- 'Changes' Side Menu Tab Component -->
-    <ion-col size="3" class="tab-content-side" id="Changes">
+    <ion-col size="3.5" class="tab-content-side" id="Changes">
       <ion-card>
 
 
-        <div style="text-align: center">
+<!--        <div style="text-align: center">-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
-                      (click)="openTabSide($event,'Modifiers')">
-            <ion-label class="button-text">Layers</ion-label>
-            <ion-icon name="invert-mode-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'MotLib')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="apps-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Changes')" id="Changes1">
-            <ion-label class="button-text">Modifiers</ion-label>
-            <ion-icon name="eyedrop-outline" ></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
+<!--                      (click)="openTabSide($event,'Modifiers')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Exports')">
-            <ion-label class="button-text">Exports</ion-label>
-            <ion-icon name="archive-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Changes')" id="Changes1">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
+<!--          </ion-button>-->
 
-        </div>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Exports')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="archive-outline"></ion-icon>-->
+<!--          </ion-button>-->
+
+<!--        </div>-->
 
 
 
         <ion-card-content>
-          <ion-list>
-            <ion-list-header>
-              <ion-title style="text-align:center;">Modifiers</ion-title>
-            </ion-list-header>
-          </ion-list>
+<!--          <ion-list>-->
+<!--            <ion-list-header>-->
+<!--              <ion-title style="text-align:center;">Modifiers</ion-title>-->
+<!--            </ion-list-header>-->
+<!--          </ion-list>-->
+
+          <ion-card-header>
+            <ion-card-title>Modifiers</ion-card-title>
+          </ion-card-header>
 
           <ion-item>
             <ion-button id="pre" color="medium" style="width:100%;" (click)="refresh()" >Refresh Preview</ion-button>
@@ -361,7 +448,7 @@
 
 
           <ion-item>
-           <ion-button id="s3" color="dark" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
+           <ion-button id="s3" color="primary" style="width:100%;" (click)="scaleCanvas3()">3x3</ion-button>
            <ion-button id="s6" color="medium" style="width:100%;" (click)="scaleCanvas6()">6x6</ion-button>
            <ion-button id="s9" color="medium" style="width:100%;" (click)="scaleCanvas9()">9x9</ion-button>
           </ion-item>
@@ -403,47 +490,58 @@
       </ion-card>
     </ion-col>
 
-    <ion-col size="3" class="tab-content-side" id="Exports">
+    <ion-col size="3.5" class="tab-content-side" id="Exports">
       <ion-card>
 
-        <div style="text-align: center">
+<!--        <div style="text-align: center">-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-link"
-                      (click)="openTabSide($event,'Modifiers')">
-            <ion-label class="button-text">Layers</ion-label>
-            <ion-icon name="invert-mode-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'MotLib')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="apps-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Changes')">
-            <ion-label class="button-text">Modifiers</ion-label>
-            <ion-icon name="eyedrop-outline" ></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
+<!--                      (click)="openTabSide($event,'Modifiers')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
+<!--          </ion-button>-->
 
-          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                      (click)="openTabSide($event,'Exports')" id="Exports1">
-            <ion-label class="button-text">Exports</ion-label>
-            <ion-icon name="archive-outline"></ion-icon>
-          </ion-button>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Changes')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
+<!--          </ion-button>-->
 
-        </div>
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Exports')" id="Exports1">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="archive-outline"></ion-icon>-->
+<!--          </ion-button>-->
+
+<!--        </div>-->
 
 
         <ion-card-content>
 
-          <ion-list>
-            <ion-list-header>
-              <ion-title style="text-align:center;">Exports</ion-title>
-            </ion-list-header>
-          </ion-list>
+<!--          <ion-list>-->
+<!--            <ion-list-header>-->
+<!--              <ion-title style="text-align:center;">Exports</ion-title>-->
+<!--            </ion-list-header>-->
+<!--          </ion-list>-->
+
+          <ion-card-header>
+            <ion-card-title>Exports</ion-card-title>
+          </ion-card-header>
+
 
           <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Select Export Dimension options: </ion-label>
+            <ion-label style="margin: auto; text-align:center;">Select PNG Dimension options: </ion-label>
           </ion-item>
 
           <ion-item>
             <ion-button id="e1" color="medium" style="width:100%;" (click)="export1()">600x600</ion-button>
-            <ion-button id="e2" color="dark" style="width:100%;" (click)="export2()">1200x1200</ion-button>
+            <ion-button id="e2" color="primary" style="width:100%;" (click)="export2()">1200x1200</ion-button>
             <ion-button id="e5" color="medium" style="width:100%;" (click)="export5()">3000x3000</ion-button>
           </ion-item>
 
@@ -457,20 +555,199 @@
           </ion-item>
 
           <ion-item>
-            <ion-label style="margin: auto; text-align:center;">Other Export Options: </ion-label>
+            <ion-label style="margin: auto; text-align:center;">Other Options: </ion-label>
           </ion-item>
 
+
+          <!-- TODO: delete exports popover - not used-->
+          <ion-list>
+            <ion-radio-group value=".PNG" [(ngModel)]="exportFormat">
+              <ion-list-header>
+                <ion-label>Select Frame Export Format:</ion-label>
+              </ion-list-header>
+
+<!--              <ion-item>-->
+<!--                <ion-label>.PNG</ion-label>-->
+<!--                <ion-radio slot="start" value=".PNG"></ion-radio>-->
+<!--              </ion-item>-->
+
+              <ion-item>
+                <ion-label>.SVG</ion-label>
+                <ion-radio slot="start" value=".SVG"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>.PDF</ion-label>
+                <ion-radio slot="start" value=".PDF"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>.DWG</ion-label>
+                <ion-radio slot="start" value=".DWG"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>.DXF</ion-label>
+                <ion-radio slot="start" value=".DXF"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+
           <ion-item>
-            <ion-button color="medium" style="width:100%;" (click)="open3DViewer($event)" >
-              3D Viewer
+            <ion-button color="medium" style="width:100%;" (click)="exportCanvas()" >
+              Export
             </ion-button>
           </ion-item>
+
+
+
+<!--          <ion-item>-->
+<!--            <ion-button color="medium" style="width:100%;" (click)="open3DViewer($event)" >-->
+<!--              3D Viewer-->
+<!--            </ion-button>-->
+<!--          </ion-item>-->
 
         </ion-card-content>
 
       </ion-card>
 
     </ion-col>
+
+
+    <ion-col size="3.5" class="tab-content-side" id="MotLib">
+      <ion-card>
+
+<!--        <div style="text-align: center">-->
+
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'MotLib')" id="MotLib1">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="apps-outline"></ion-icon>-->
+<!--          </ion-button>-->
+
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
+<!--                      (click)="openTabSide($event,'Modifiers')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
+<!--          </ion-button>-->
+
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Changes')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
+<!--          </ion-button>-->
+
+<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
+<!--                      (click)="openTabSide($event,'Exports')">-->
+<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
+<!--            <ion-icon name="archive-outline"></ion-icon>-->
+<!--          </ion-button>-->
+
+<!--        </div>-->
+
+        <ion-card-content>
+
+          <ion-card-header>
+            <ion-card-title>Motif Library</ion-card-title>
+          </ion-card-header>
+
+
+          <ion-list>
+            <ion-item>
+              <ion-button color="medium" style="width: 100%" (click)="uploadFilePopover()">Import new Motif</ion-button>
+            </ion-item>
+            <br>
+            <ion-item>
+              <ion-button color="medium" style="width: 100%" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
+            </ion-item>
+          </ion-list>
+
+          <ion-toolbar>
+            <ion-searchbar (keyup)="onKey($event)" ></ion-searchbar>
+            <p class="testing">{{values}}</p>
+          </ion-toolbar>
+
+          <ion-row id=""testing>
+
+            <div style="text-align: center;" class="controls">
+            <div *ngIf="motifService.cachedMotifs" #parent>
+              <ion-card class="squareContainer MotifImage" *ngFor="let motif of motifService.cachedMotifs" style="text-align: center;">
+
+                <div style="overflow:hidden;" class="motifBtn"  mat-raised-button (click)='spawn(motif)'>
+                  <img src= {{motif.motifURL}} alt="motif-image" class="motifImg"> <!-- does resolve, ignore warning -->
+                  <br>
+                  <ion-text class="motifNames"> {{motif.motifName}} </ion-text>
+                </div>
+              </ion-card>
+
+            </div>
+
+            </div>
+
+          </ion-row>
+
+          <div style="height: 10vh;">
+
+          </div>
+
+        </ion-card-content>
+
+
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="3.5" class="tab-content-side" id="Color">
+      <ion-card>
+
+        <ion-card-content style="overflow: hidden">
+
+          <ion-card-header>
+            <ion-card-title>Colors</ion-card-title>
+          </ion-card-header>
+
+
+          <div style="text-align: center;">
+          <br>
+          <ion-button color="medium" style="width: 80%" (click)="refreshColor()">Refresh</ion-button>
+          <br>
+          <br>
+
+          <ion-grid class="grid-container">
+
+            <ion-row id="item0" class="grid-item"><p class="par" id="hx0"></p></ion-row>
+            <ion-row id="item1" class="grid-item"><p class="par" id="hx1"></p></ion-row>
+            <ion-row id="item2" class="grid-item"><p class="par" id="hx2"></p></ion-row>
+            <ion-row id="item3" class="grid-item"><p class="par" id="hx3"></p></ion-row>
+            <ion-row id="item4" class="grid-item"><p class="par" id="hx4"></p></ion-row>
+            <ion-row id="item5" class="grid-item"><p class="par" id="hx5"></p></ion-row>
+            <ion-row id="item6" class="grid-item"><p class="par" id="hx6"></p></ion-row>
+            <ion-row id="item7" class="grid-item"><p class="par" id="hx7"></p></ion-row>
+            <ion-row id="item8" class="grid-item"><p class="par" id="hx8"></p></ion-row>
+            <ion-row id="item9" class="grid-item"><p class="par" id="hx9"></p></ion-row>
+            <ion-row id="item10" class="grid-item"><p class="par" id="hx10"></p></ion-row>
+            <ion-row id="item11" class="grid-item"><p class="par" id="hx11"></p></ion-row>
+            <ion-row id="item12" class="grid-item"><p class="par" id="hx12"></p></ion-row>
+            <ion-row id="item13" class="grid-item"><p class="par" id="hx13"></p></ion-row>
+            <ion-row id="item14" class="grid-item"><p class="par" id="hx14"></p></ion-row>
+            <ion-row id="item15" class="grid-item"><p class="par" id="hx15"></p></ion-row>
+            <ion-row id="item16" class="grid-item"><p class="par" id="hx16"></p></ion-row>
+            <ion-row id="item17" class="grid-item"><p class="par" id="hx17"></p></ion-row>
+            <ion-row id="item18" class="grid-item"><p class="par" id="hx18"></p></ion-row>
+            <ion-row id="item19" class="grid-item"><p class="par" id="hx19"></p></ion-row>
+          </ion-grid>
+
+          </div>
+
+        </ion-card-content>
+
+
+
+
+
+      </ion-card>
+    </ion-col>
+
+
 
   </ion-row>
 </ion-grid>

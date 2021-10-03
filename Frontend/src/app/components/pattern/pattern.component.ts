@@ -28,6 +28,7 @@ import {ThreeDLinkComponent} from "../../popovers/three-d-link/three-d-link.comp
 import {CollectionsServiceService} from "../../services/collections-service.service";
 import {ServerLinkService} from "../../services/server-link.service";
 import {element} from "protractor";
+import {ExportComponent} from "../../popovers/export/export.component";
 
 
 
@@ -46,6 +47,7 @@ export class PatternComponent implements OnInit {
   canvasWidth = 600;
   canvasHeight = 600;
   colourList = [];
+  exportFormat? : string = ".PNG";
 
 
   @ViewChild('parent') private parentRef: ElementRef<HTMLElement>;
@@ -178,6 +180,10 @@ export class PatternComponent implements OnInit {
 
     this.canvas.on('selection:created',(r) => {
       this.getSelectedObject();
+      document.getElementById('controls').style.display = 'block';
+    });
+    this.canvas.on('selection:cleared',(r) => {
+      document.getElementById('controls').style.display = 'none';
     });
 
     this.canvas.on('selection:updated',(r) => {
@@ -546,6 +552,8 @@ export class PatternComponent implements OnInit {
 
 
 
+
+
   openTab($event: MouseEvent, tabPage: string) {
     let i; let tabContent; let tabLinks;
     tabContent  = document.getElementsByClassName('tab-content');
@@ -569,6 +577,17 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
+
+
+    //reset buttons to normal
+    (<HTMLIonButtonElement>document.getElementById('Changes1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Modifiers1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Exports1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('MotLib1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Color1')).setAttribute('color','medium');
+
+
+    //highlight selected button
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
     //(<HTMLElement>$event.currentTarget).className  += " active";
 
@@ -605,7 +624,17 @@ export class PatternComponent implements OnInit {
     }
 
     document.getElementById(tabPage).style.display  = 'block';
+
+    //reset to normal
+    (<HTMLIonButtonElement>document.getElementById('WorkArea1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('Preview1')).setAttribute('color','medium');
+
+    //change view of selected button
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
+
+
+
+
     //(<HTMLElement>$event.currentTarget).className  += " active";
   }
 
@@ -966,7 +995,7 @@ export class PatternComponent implements OnInit {
     this.scale = 3;
 
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
-    btn.color = 'default';
+    btn.color = 'primary';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
@@ -981,7 +1010,7 @@ export class PatternComponent implements OnInit {
     const btn	= (<HTMLIonButtonElement>document.getElementById('s3'));
     btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
-    btn1.color = 'dark';
+    btn1.color = 'primary';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
     btn2.color = 'medium';
 
@@ -996,7 +1025,7 @@ export class PatternComponent implements OnInit {
     const btn1	= (<HTMLIonButtonElement>document.getElementById('s6'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('s9'));
-    btn2.color = 'dark';
+    btn2.color = 'primary';
 
     this.refresh();
   }
@@ -1008,6 +1037,7 @@ export class PatternComponent implements OnInit {
 
   //takes objects array as parameter to render
   //The reflections are added to the array and then displayed
+
 
 
 
@@ -1043,8 +1073,6 @@ export class PatternComponent implements OnInit {
 
 
     const dataURL = this.canvasPre.toDataURL();
-
-
 
     if(this.ptn)
     {
@@ -1091,7 +1119,7 @@ export class PatternComponent implements OnInit {
     console.log('EXPORT LOW RESOLUTION');
     this.pixel = 1;
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
-    btn.color = 'dark';
+    btn.color = 'primary';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
@@ -1107,7 +1135,7 @@ export class PatternComponent implements OnInit {
     const btn	= (<HTMLIonButtonElement>document.getElementById('e1'));
     btn.color = 'medium';
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
-    btn1.color = 'dark';
+    btn1.color = 'primary';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
     btn2.color = 'medium';
     //this.download();
@@ -1121,7 +1149,7 @@ export class PatternComponent implements OnInit {
     const btn1	= (<HTMLIonButtonElement>document.getElementById('e2'));
     btn1.color = 'medium';
     const btn2	= (<HTMLIonButtonElement>document.getElementById('e5'));
-    btn2.color = 'dark';
+    btn2.color = 'primary';
     //this.download();
   }
 
@@ -1226,6 +1254,10 @@ export class PatternComponent implements OnInit {
     this.motifService.changeArrayModifierNumber(parent,num, distance, canvas);
   }
 
+  refreshColor(){
+    this.patternColour();
+  }
+
   patternColour(){
     const ctx = this.canvas.getContext();
     const imageDt = ctx.getImageData(0,0,this.canvas.width, this.canvas.height);
@@ -1290,4 +1322,77 @@ export class PatternComponent implements OnInit {
     return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
   }
 
+  exportCanvas()
+  {
+    console.log(this.exportFormat);
+    if (this.exportFormat == ".PDF" || this.exportFormat == ".DWG" || this.exportFormat == ".DXF" )
+    {
+
+      this.loadingController.create({
+        message: "Exporting, please wait..."
+      }).then(loaderResult => {
+        loaderResult.present().then(r => {
+          this.patternService.exportCanvasAsSVG(this.canvas, this.exportFormat)
+            .subscribe((res: any) => {
+              console.log(res.resultUrl)
+              if (res.format == 'pdf')
+              {
+                loaderResult.dismiss().then();
+                window.open(res.resultUrl, '_blank').focus()
+              }
+              else
+              {
+                loaderResult.dismiss().then();
+                console.log("The url is:" + res.resultUrl)
+                this.exportPopover(res.resultUrl)
+              }
+
+
+            });
+
+        })
+      })
+
+
+    }
+    else if (this.exportFormat == ".SVG")
+    {
+      const svgData = this.patternService.getCanvasAsSVG(this.canvas)
+
+      const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+      const svgUrl = URL.createObjectURL(svgBlob);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = svgUrl;
+      downloadLink.download = "svgFrame";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+    else
+    {
+      this.frame(); //download as PNG
+    }
+  }
+
+
+
+  exportPopover(downloadURL: string) {
+    let popoverReference:  HTMLIonPopoverElement;
+    this.popoverController.create({
+      component: ExportComponent,
+      componentProps: {'downloadURL' : downloadURL},
+      translucent: true,
+      cssClass: 'smallScreen'
+    }).then(resPop => {
+      popoverReference = resPop;
+      popoverReference.present().then(presentRes => {
+        popoverReference.onDidDismiss().then();
+
+      });
+    });
+  }
+
+  selectedExportOption(event: any) {
+    console.log(this.exportFormat);
+  }
 }
