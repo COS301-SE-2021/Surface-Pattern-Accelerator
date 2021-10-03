@@ -149,6 +149,9 @@ export class CollectionsComponent implements OnInit, OnDestroy {
     this.router.navigate([componentName]);
   }
 
+
+
+
   getCollections(): void //this func gets called each time this component gets initialized
   {
     this.loadingController.create({

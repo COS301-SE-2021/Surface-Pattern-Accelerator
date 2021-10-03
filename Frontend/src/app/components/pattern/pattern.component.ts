@@ -1363,7 +1363,26 @@ export class PatternComponent implements OnInit {
     }
     else if (this.exportFormat == ".SVG")
     {
-      const svgData = this.patternService.getCanvasAsSVG(this.canvas)
+
+      let svgData:string;
+
+      if (this.background === true)
+      {
+        (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = null;
+        this.canvas.backgroundColor = null;
+        this.refresh();
+
+        svgData = this.patternService.getCanvasAsSVG(this.canvas);
+
+        (<HTMLInputElement>document.getElementById('patternFrame')).style.backgroundColor = this.color;
+        this.canvas.backgroundColor = this.color;
+        this.refresh();
+
+      }
+
+      else{
+        svgData = this.patternService.getCanvasAsSVG(this.canvas)
+      }
 
       const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
       const svgUrl = URL.createObjectURL(svgBlob);
