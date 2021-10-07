@@ -1,0 +1,18 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-button routerLink="collections">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item style="height: 100%">
+        <ion-label>Dark Mode</ion-label>
+        <ion-toggle [(ngModel)]="themeService.isDarkMode" (load)="toggleTheme($event)" (ionChange)="toggleTheme($event)"></ion-toggle>
+      </ion-item>
+
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>
