@@ -16,11 +16,15 @@ Surface Pattern Accelerator is a vector graphics editor that is built under a li
 
 Our vision is to develop a specialized software package capable of creating patterns comparable to patterns created in software like Inkscape and Adobe Illustrator. The system should cater for all users, regardless of their experience in design. This software will have features exclusively geared towards pattern generation; it will only be able to generate patterns but in having such a specific vision it will do it in a much more efficient way than other software not meant to create patterns but used as such.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Industry Mentor: 
-<img src="https://camo.githubusercontent.com/1fbe80b5af10f8edec22ac7bb548fb599e03d2a81cd728a20baab83fe22cd576/68747470733a2f2f7777772e6570697573652e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031382f31302f46756c6c2d4c6f676f2e706e67"/>
+#
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Stakeholders:
+<img src="https://camo.githubusercontent.com/1fbe80b5af10f8edec22ac7bb548fb599e03d2a81cd728a20baab83fe22cd576/68747470733a2f2f7777772e6570697573652e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031382f31302f46756c6c2d4c6f676f2e706e67">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/COS301-SE-2021/Smart-Student-Handbook/master/.github/images/UP_CS.jpg">
+</p>
+
+#
 
 # Documentation
 
@@ -48,7 +52,8 @@ Method: monorepo with gitflow
 - We have release brances for different versions of our working prototypes
 - We have a master branch for our most recent working prototype
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+
 
 # Technolody Stack
 
@@ -81,7 +86,8 @@ Method: monorepo with gitflow
 
 ## Testing
 ![Jasmine](https://img.shields.io/badge/-Jasmine-%238A4182?style=for-the-badge&logo=Jasmine&logoColor=white)
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#
 
 # Team Members
 
@@ -94,4 +100,8 @@ Method: monorepo with gitflow
 <img src="https://user-images.githubusercontent.com/82371348/120223078-4a4aa200-c241-11eb-8352-4a603aaa4d3d.jpg" width="300"> <br/> Reghardt Maree <br/> | [GitHub](https://github.com/Reghardt) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/reghardt-maree-7151b6210/) <br/> | <ul> <li> NodeJS, Angular, Typescript</li> <li> MySQL </li> <li> Unreal Engine 4, Blender</li> <li> Arduino development, KiCad </li> <li> C++, Python,Java</li> </ul>|
 <img src="https://user-images.githubusercontent.com/82371348/120223110-5afb1800-c241-11eb-8763-0323bd9cfb11.PNG" width="300"> <br/> Johan Coetzer <br/> | [GitHub](https://github.com/JohanDC-CS) <br/> [Profile Page](https://XXXXXX.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/johan-coetzer-59aa1a20b) <br/> |<ul> <li> HTML, PHP, JavaScript, CSS </li> <li> MySQL, MongoDB </li> <li> C++, Java, Python</li> <li> Adobe Illustrator, TypeScript </li> </ul> |
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#
+
+# Contact us:
+deltadevs2021@gmail.com
