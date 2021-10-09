@@ -17,20 +17,22 @@ import {StyleTransferComponent} from './components/style-transfer/style-transfer
 //import { ExportPopoverComponent } from './components/export-popover/export-popover.component';
 import {GLoginComponent} from './components/g-login/g-login.component';
 import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
-import {PaymentComponent} from "./components/payment/payment.component";
-import{ PaymentGuardGuard} from "./services/payment-guard.guard";
-import { HelpComponent } from "./components/help/help.component";
+import {PaymentComponent} from './components/payment/payment.component';
+import{ PaymentGuardGuard} from './services/payment-guard.guard';
+import { HelpComponent } from './components/help/help.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
 
 const routes: Routes = [
 
   { path: '', component: MainComponent},
   { path: 'login', component: LoginComponent},
-  // { path: '',    redirectTo: 'login',    pathMatch: 'full'  },
+  // eslint-disable-next-line max-len
   { path: 'collections', component: CollectionsComponent,canActivate: [PaymentGuardGuard]}, //if a url matches this path then the appropriate component wil be displayed
   { path: 'collectionCreator', component: CollectionCreatorComponent},
   { path: 'color-palette', component: ColorPaletteComponent,canActivate: [PaymentGuardGuard]},
   { path: 'pattern', component: PatternComponent},
-
+  { path: 'navbar', component: NavbarComponent },
   { path: 'loginResponse', component: LoginResponseComponent },
   { path: 'canvasColours', component: CanvasColoursComponent,canActivate: [PaymentGuardGuard] },
   { path: 'preview', component: PreviewComponent },
@@ -41,7 +43,8 @@ const routes: Routes = [
   { path: 'glogin', component: GLoginComponent},
   { path: 'motifEditor', component: MotifEditorComponent}, //TODO: potentially add route same as pattern component
   { path: 'payment', component: PaymentComponent},
-  { path: 'help', component: HelpComponent}
+  { path: 'help', component: HelpComponent},
+  { path: 'settings', component: SettingsComponent}
 ];
 
 @NgModule({
