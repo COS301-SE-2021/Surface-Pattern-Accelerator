@@ -55,8 +55,8 @@ ion-grid{
   position: relative;
   top: 2px;
   right: 2px;
-  width: 600px;
-  height: 600px;
+  width: 450px;
+  height: 450px;
   border: 1px solid grey;
   background-color: lightgray;
   display:none;
@@ -70,8 +70,8 @@ ion-grid{
 
 #can{
   border: solid black 3px;
-  width: 600px;
-  height: 600px;
+  width: 450px;
+  height: 450px;
   margin: 15px;
   background-color: white;
 }
@@ -79,6 +79,16 @@ ion-grid{
   background-color: white;
   border: solid black 3px;
   text-align : center;
+}
+
+#divOutput{
+  //background-color: grey;
+  margin: auto;
+  //border: solid black 3px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 
@@ -240,7 +250,9 @@ ion-text{
   color: black;
 }
 
-
+.par{
+  background-color: #ffffff;
+}
 
 // Colors
 $bg-color: hsl(0,1,90);
@@ -263,8 +275,8 @@ $dot-space: 15px;
 .workArea{
   //margin-left: 280px;
   //background-color: aqua;
-  width: 600px;
-  height: 600px;
+  width: 450px;
+  height: 450px;
   //border-radius: 10px;
   border: solid grey 1px;
   text-align : center;
@@ -274,8 +286,8 @@ $dot-space: 15px;
 .view{
   //margin-left: 280px;
   //background-color: aqua;
-  width: 600px;
-  height: 600px;
+  width: 450px;
+  height: 450px;
   //border-radius: 10px;
   border: solid grey 1px;
   text-align : center;
@@ -293,8 +305,8 @@ $dot-space: 15px;
 }
 
 .frame {
-  width: 608px;//included borders
-  height: 608px;//included borders
+  width: 458px;//included borders
+  height: 458px;//included borders
   margin: 0px auto;
   border: 4px solid grey;
 

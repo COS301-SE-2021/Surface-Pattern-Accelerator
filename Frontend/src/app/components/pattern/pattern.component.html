@@ -140,7 +140,7 @@
                 <br>
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
                 <div class="frame" (contextmenu)="contextMenu($event)" (click)="dissapearContext();">
-                  <canvas id="patternFrame" width="600px" height="600px"></canvas>
+                  <canvas id="patternFrame" width="450px" height="450px"></canvas>
                 </div>
                 <div #menu class="customContext" (click)="stopPropagation($event)">
                   <ul>
@@ -246,7 +246,7 @@
 
                 <br>
                 <div class="frame" style="background: #F7F7F9">
-                  <canvas id="previewFrame" width="600px" height="600px"></canvas>
+                  <canvas id="previewFrame" width="450px" height="450px"></canvas>
                 </div>
                 <br>
 
@@ -274,12 +274,12 @@
         <br>
         <br>
         <ion-card style="overflow :hidden; width: 100%; height: 100%;">
-        <ion-button color="medium" size="medium" fill="clear" class="tab-links"
-                    (click)="openTabSide($event,'MotLib')" id="MotLib1">
-          <!--              <ion-label class="button-text">Motifs</ion-label>-->
-          <ion-icon name="apps-outline"></ion-icon>
-        </ion-button>
-          </ion-card>
+            <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                        (click)="openTabSide($event,'MotLib')" id="MotLib1">
+              <!--              <ion-label class="button-text">Motifs</ion-label>-->
+              <ion-icon name="apps-outline"></ion-icon>
+            </ion-button>
+        </ion-card>
             <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="default" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
@@ -309,7 +309,21 @@
           </ion-button>
         </ion-card>
 
+        <ion-card style="overflow :hidden; width: 100%; height: 100%;">
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'colorPalette')" id="colorPalette1">
+            <!--              <ion-label class="button-text">Motifs</ion-label>-->
+            <ion-icon name="color-palette-outline"></ion-icon>
+          </ion-button>
+        </ion-card>
 
+        <ion-card style="overflow :hidden; width: 100%; height: 100%;">
+          <ion-button color="medium" size="medium" fill="clear" class="tab-links"
+                      (click)="openTabSide($event,'motifColor')" id="motifColor1">
+            <!--              <ion-label class="button-text">Motifs</ion-label>-->
+            <ion-icon name="brush-outline"></ion-icon>
+          </ion-button>
+        </ion-card>
 
       </div>
     </ion-col>
@@ -485,7 +499,9 @@
 <!--            </ion-button>-->
 <!--          </div>-->
 
-          <br>
+          <div style="height: 15vh;">
+
+          </div>
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -592,9 +608,9 @@
             </ion-item>
 
             <ion-item>
-              <ion-button id="e1" color="medium" style="width:100%;" (click)="export1()">600x600</ion-button>
-              <ion-button id="e2" color="primary" style="width:100%;" (click)="export2()">1200x1200</ion-button>
-              <ion-button id="e5" color="medium" style="width:100%;" (click)="export5()">3000x3000</ion-button>
+              <ion-button id="e1" color="medium" style="width:100%;" (click)="export1()">450x450</ion-button>
+              <ion-button id="e2" color="primary" style="width:100%;" (click)="export2()">900x900</ion-button>
+              <ion-button id="e5" color="medium" style="width:100%;" (click)="export5()">2250x2250</ion-button>
             </ion-item>
 
             <ion-item>
@@ -703,7 +719,7 @@
 
           </ion-row>
 
-          <div style="height: 10vh;">
+          <div style="height: 15vh;">
 
           </div>
 
@@ -755,15 +771,95 @@
 
           </div>
 
+
+          <div style="height: 15vh;">
+
+          </div>
+
         </ion-card-content>
-
-
-
-
-
       </ion-card>
     </ion-col>
 
+
+    <ion-col size="3.5" class="tab-content-side" id="colorPalette">
+      <ion-card>
+
+        <ion-card-content style="overflow: hidden">
+          <ion-card>
+            <ion-card-header>
+              Color Palette
+            </ion-card-header>
+
+            <ion-card-content>
+              <br>
+              <ion-item class="colorBox">
+                <div class="colors" style="width: 100%; height: 90%"></div>
+                <ion-button id="locks1" color="medium" (click)="lockColor('locks1')">Lock</ion-button>
+                <p class="codes">#4cae3a</p>
+              </ion-item>
+              <br>
+              <ion-item class="colorBox">
+                <div class="colors" style="width: 100%; height: 90%"></div>
+                <ion-button id="locks2" color="medium" (click)="lockColor('locks2')">Lock</ion-button>
+                <p class="codes">#4cae3a</p>
+              </ion-item>
+              <br>
+              <ion-item class="colorBox">
+                <div class="colors" style="width: 100%; height: 90%"></div>
+                <ion-button id="locks3" color="medium" (click)="lockColor('locks3')">Lock</ion-button>
+                <p class="codes">#4cae3a</p>
+              </ion-item>
+              <br>
+              <ion-item class="colorBox">
+                <div class="colors" style="width: 100%; height: 90%"></div>
+                <ion-button id="locks4" color="medium" (click)="lockColor('locks4')">Lock</ion-button>
+                <p class="codes">#4cae3a</p>
+              </ion-item>
+              <br>
+              <ion-button id="genBtn" color="medium" expand="block" (click)="colorGenerator()">Generate</ion-button>
+            </ion-card-content>
+          </ion-card>
+
+
+          <div style="height: 15vh;">
+
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="3.5" class="tab-content-side" id="motifColor">
+      <ion-card>
+        <ion-card-header>
+          Change Icon Color
+        </ion-card-header>
+        <ion-card-content>
+          <form>
+            <div style="text-align: center;">
+            <ion-button id="importBtn" color="medium" style="width: 80%"  (click)="importSVG()">Import SVG</ion-button> <br>
+
+            <ion-item>
+              <ion-label>Enter a color: </ion-label>
+              <input type="text" id="textColor" name="textColor" value="#ff0000" style="background-color: #FFFFFF; border: 1px solid #000000; padding-left: 2%; color: #000000">
+            </ion-item>
+
+            <ion-button id="changeTextBtn" color="medium" style="width: 80%"  (click)="changeFillText()">Change Color</ion-button> <br>
+            <input type="file" id="c-upload-file" accept="image/svg+xml/*" hidden>
+            <ion-button id="saveBtn" color="medium" style="width: 80%"  (click)="saveSvg()">Save SVG</ion-button>
+            </div>
+          </form>
+          <img id="output" alt="SVG Image" src="" style="display: none"/>
+          <div id="divOutput" style="max-height: 90%; max-width: 90%;"></div>
+
+          <div style="height: 15vh;">
+
+          </div>
+
+
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
 
 
   </ion-row>
