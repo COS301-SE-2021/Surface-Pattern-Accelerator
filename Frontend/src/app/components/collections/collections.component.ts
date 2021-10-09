@@ -8,14 +8,15 @@ import {ICollectionsContent} from '../../Interfaces/collectionContents.interface
 
 import { MenuController } from '@ionic/angular';
 
-import {MotifUploadComponent} from "../../popovers/motif-upload/motif-upload.component";
-import {ThemeServiceService} from "../../services/theme-service.service";
-import {CollectionOperationPopoverComponent} from "../../popovers/collection-operation-popover/collection-operation-popover.component";
-import {NewCollectionComponent} from "../../popovers/new-collection/new-collection.component";
+import {MotifUploadComponent} from '../../popovers/motif-upload/motif-upload.component';
+import {ThemeServiceService} from '../../services/theme-service.service';
+import {CollectionOperationPopoverComponent} from '../../popovers/collection-operation-popover/collection-operation-popover.component';
+import {NewCollectionComponent} from '../../popovers/new-collection/new-collection.component';
 
 
 
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
+import {GLoginService} from '../../services/g-login.service';
 
 @Component({
   selector: 'app-collections',
@@ -36,8 +37,12 @@ export class CollectionsComponent implements OnInit, OnDestroy {
   secondaryBackground_dark: string = "#404040";
   secondaryBackground_light: string = "white";
   listener;
+  listener_signin;
+  singedIn;
+  listener_payment;
+  payed;
   // eslint-disable-next-line max-len
-  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController, private themeService: ThemeServiceService , private modal: ModalController)
+  constructor(private collectionsService: CollectionsServiceService, private router: Router, public loadingController: LoadingController, private popoverController: PopoverController, private themeService: ThemeServiceService , private modal: ModalController, private gLogin: GLoginService)
   {
 
   }
@@ -46,6 +51,21 @@ export class CollectionsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void
   {
+    this.singedIn = this.gLogin.singedIn;
+    this.listener_signin = this.gLogin.singedIn.subscribe(value=>{
+      this.singedIn = value;
+      console.log('value changed to');
+      console.log(value);
+
+    });
+
+    this.payed = this.gLogin.hasPaid;
+    this.listener_payment = this.gLogin.payed.subscribe(value=>{
+      this.payed = value;
+      console.log('value changed to');
+      console.log(value);
+
+    });
     this.listener = this.themeService.darkModeChange;
 
     this.menuController = new MenuController();
@@ -226,6 +246,38 @@ export class CollectionsComponent implements OnInit, OnDestroy {
       (<HTMLElement>r).style.setProperty('--borderColor', '#FFF');
       (<HTMLElement> heading).style.color = "white";
       (<HTMLElement> button).style.color = "white";
+    }
+  }
+
+  details(){
+    const user: gapi.auth2.GoogleUser = JSON.parse(sessionStorage.getItem('user')).user;
+    console.log(user.getId());
+  }
+
+  hasPaid(){
+    console.log(this.gLogin.hasPaid);
+  }
+
+  getUserName(){
+    if(sessionStorage.getItem('token'))
+    {return JSON.parse(sessionStorage.getItem('token')).name;}
+    else
+    {this.gLogin.singedIn.next(false);}
+  }
+
+
+  toggleTheme(event){
+    if(event.detail.checked){
+      document.body.setAttribute('color-theme', 'dark');
+      this.themeService.makeDark(true);
+      this.themeService.darkModeChange.next(true);
+      localStorage.setItem('theme', 'dark');
+    }
+    else{
+      document.body.setAttribute('color-theme', 'light');
+      this.themeService.makeDark(false);
+      this.themeService.darkModeChange.next(false);
+      localStorage.setItem('theme', 'light');
     }
   }
 }

@@ -21,7 +21,6 @@ import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component'
 import { PatternComponent } from './components/pattern/pattern.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ColorComponent } from './components/color/color.component';
 import { MainComponent } from './components/launchpage/main/main.component';
 import { BodyComponent } from './components/launchpage/body/body.component';
 
@@ -63,7 +62,6 @@ import {SettingsComponent} from './components/settings/settings.component';
     CanvasColoursComponent,
     NewCollectionComponent,
     NavbarComponent,
-    ColorComponent,
     MainComponent,
     BodyComponent,
     MotifUploadComponent,
