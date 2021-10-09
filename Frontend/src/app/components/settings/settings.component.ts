@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ThemeServiceService} from '../../services/theme-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -8,7 +9,7 @@ import {ThemeServiceService} from '../../services/theme-service.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private themeService: ThemeServiceService) {}
+  constructor(private themeService: ThemeServiceService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -25,5 +26,9 @@ export class SettingsComponent implements OnInit {
       this.themeService.darkModeChange.next(false);
       localStorage.setItem('theme', 'light');
     }
+  }
+
+  collectionRoute(){
+    this.router.navigate(['collections']);
   }
 }
