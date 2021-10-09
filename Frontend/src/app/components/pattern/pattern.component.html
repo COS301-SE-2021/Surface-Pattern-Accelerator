@@ -499,7 +499,9 @@
 <!--            </ion-button>-->
 <!--          </div>-->
 
-          <br>
+          <div style="height: 15vh;">
+
+          </div>
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -717,7 +719,7 @@
 
           </ion-row>
 
-          <div style="height: 10vh;">
+          <div style="height: 15vh;">
 
           </div>
 
@@ -769,6 +771,11 @@
 
           </div>
 
+
+          <div style="height: 15vh;">
+
+          </div>
+
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -809,9 +816,15 @@
                 <p class="codes">#4cae3a</p>
               </ion-item>
               <br>
-              <ion-button id="genBtn" expand="block" (click)="colorGenerator()">Generate</ion-button>
+              <ion-button id="genBtn" color="medium" expand="block" (click)="colorGenerator()">Generate</ion-button>
             </ion-card-content>
           </ion-card>
+
+
+          <div style="height: 15vh;">
+
+          </div>
+
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -823,19 +836,27 @@
         </ion-card-header>
         <ion-card-content>
           <form>
-            <ion-button id="importBtn" color="medium" (click)="importSVG()">Import SVG</ion-button> <br>
+            <div style="text-align: center;">
+            <ion-button id="importBtn" color="medium" style="width: 80%"  (click)="importSVG()">Import SVG</ion-button> <br>
 
             <ion-item>
               <ion-label>Enter a color: </ion-label>
               <input type="text" id="textColor" name="textColor" value="#ff0000" style="background-color: #FFFFFF; border: 1px solid #000000; padding-left: 2%; color: #000000">
             </ion-item>
 
-            <ion-button id="changeTextBtn" color="medium" (click)="changeFillText()">Change Color</ion-button> <br>
+            <ion-button id="changeTextBtn" color="medium" style="width: 80%"  (click)="changeFillText()">Change Color</ion-button> <br>
             <input type="file" id="c-upload-file" accept="image/svg+xml/*" hidden>
-            <ion-button id="saveBtn" color="medium" (click)="saveSvg()">Save SVG</ion-button>
+            <ion-button id="saveBtn" color="medium" style="width: 80%"  (click)="saveSvg()">Save SVG</ion-button>
+            </div>
           </form>
           <img id="output" alt="SVG Image" src="" style="display: none"/>
-          <div id="divOutput" style="max-height: 300px"></div>
+          <div id="divOutput" style="max-height: 90%; max-width: 90%;"></div>
+
+          <div style="height: 15vh;">
+
+          </div>
+
+
         </ion-card-content>
       </ion-card>
     </ion-col>

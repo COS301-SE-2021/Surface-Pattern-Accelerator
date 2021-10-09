@@ -588,7 +588,8 @@ export class PatternComponent implements OnInit {
     (<HTMLIonButtonElement>document.getElementById('Exports1')).setAttribute('color','medium');
     (<HTMLIonButtonElement>document.getElementById('MotLib1')).setAttribute('color','medium');
     (<HTMLIonButtonElement>document.getElementById('Color1')).setAttribute('color','medium');
-
+    (<HTMLIonButtonElement>document.getElementById('colorPalette1')).setAttribute('color','medium');
+    (<HTMLIonButtonElement>document.getElementById('motifColor1')).setAttribute('color','medium');
 
     //highlight selected button
     (<HTMLIonButtonElement>document.getElementById(tabPage+'1')).setAttribute('color','default');
@@ -1490,6 +1491,10 @@ export class PatternComponent implements OnInit {
       next.classList.remove('codes');
       next.classList.add('new-codes');
       elem.innerHTML = 'Unlock';
+
+      (<HTMLIonButtonElement>document.getElementById(id)).setAttribute('color','primary');
+
+
     } else if (prev.className === 'stay-colors') {
       prev.classList.remove('stay-colors');
       prev.classList.add('colors');
@@ -1497,6 +1502,8 @@ export class PatternComponent implements OnInit {
       next.classList.remove('new-codes');
       next.classList.add('codes');
       elem.innerHTML = 'Lock';
+
+      (<HTMLIonButtonElement>document.getElementById(id)).setAttribute('color','medium');
     }
   }
 
@@ -1514,7 +1521,9 @@ export class PatternComponent implements OnInit {
     // Mimicking working with an uploaded SVG source file
     const imageCC = document.getElementById('output') as HTMLImageElement;
     // Gets SVG source code and inserts it into the html
-    const out = this.fileGetContents(imageCC.src, console.log);
+    let out = this.fileGetContents(imageCC.src, console.log);
+
+
     // Access the inserted svg element
     const divCC = document.getElementById('divOutput') as HTMLElement;
     const divChildren = divCC.children;
