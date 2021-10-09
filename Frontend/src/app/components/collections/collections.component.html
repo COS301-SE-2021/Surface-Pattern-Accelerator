@@ -10,44 +10,44 @@
               <ion-list style="padding: 5px;">
 
                 <ion-item (click)="setActive('collections')">
-                  <ion-icon name="folder-open-outline" style="padding-right: 10px; color: red"></ion-icon>
+                  <ion-icon name="folder-open-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> Collections</ion-label>
                 </ion-item>
 
                 <ion-item  (click)="uploadFilePopover()">
-                  <ion-icon name="grid-outline" style="padding-right: 10px; color: orangered"></ion-icon>
+                  <ion-icon name="grid-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> My Icons </ion-label>
                 </ion-item>
 
                 <ion-item (click)="navigateTo('canvasColours')">
-                  <ion-icon name="brush-outline" style="padding-right: 10px; color: yellow"></ion-icon>
+                  <ion-icon name="brush-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> Color Extractor </ion-label>
                 </ion-item>
 
                 <ion-item (click)="navigateTo('color-palette')">
-                  <ion-icon name="color-filter-outline" style="padding-right: 10px; color: greenyellow"></ion-icon>
+                  <ion-icon name="color-filter-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Color Palette</ion-label>
                 </ion-item>
 
                 <ion-item  (click)="navigateTo('style-transfer')">
-                  <ion-icon name="color-wand-outline" style="padding-right: 10px; color: blue"></ion-icon>
+                  <ion-icon name="color-wand-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
   <!--                <a href="https://simplypatterns.ngrok.io/index.php" target="_blank" style="text-decoration: none; color: #808080; font-size: 14px"><ion-label> Image Style Transfer</ion-label></a>-->
   <!--                <ion-icon name="color-wand-outline"></ion-icon>-->
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Image Style Transfer</ion-label>
                 </ion-item>
 
                 <ion-item (click)="navigateTo('settings')">
-                  <ion-icon name="cog" style="padding-right: 10px; color: purple"></ion-icon>
+                  <ion-icon name="cog" style="padding-right: 10px; color: #92929c"></ion-icon>
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Settings</ion-label>
                 </ion-item>
 
                 <ion-item (click)="navigateTo('help')">
-                  <ion-icon name="information-circle-outline" style="padding-right: 10px; color: deeppink"></ion-icon>
+                  <ion-icon name="information-circle-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Help</ion-label>
                 </ion-item>
 
                 <ion-item>
-                  <ion-label *ngIf="this.singedIn" (click)="gLogin.signOut()">Log Out {{getUserName()}}</ion-label>
+                  <ion-label style="color: #92929c" *ngIf="this.singedIn" (click)="gLogin.signOut()">Log Out {{getUserName()}}</ion-label>
                 </ion-item>
 
               </ion-list>
