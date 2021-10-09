@@ -46,8 +46,9 @@
                   <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Help</ion-label>
                 </ion-item>
 
-                <ion-item>
-                  <ion-label style="color: #92929c" *ngIf="this.singedIn" (click)="gLogin.signOut()">Log Out {{getUserName()}}</ion-label>
+                <ion-item *ngIf="this.singedIn" (click)="gLogin.signOut()">
+                  <ion-icon name="exit"></ion-icon>
+                  <ion-label style="color: #92929c; cursor: pointer;" >Log Out {{getUserName()}}</ion-label>
                 </ion-item>
 
               </ion-list>
