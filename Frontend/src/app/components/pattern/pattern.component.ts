@@ -1514,7 +1514,9 @@ export class PatternComponent implements OnInit {
     // Mimicking working with an uploaded SVG source file
     const imageCC = document.getElementById('output') as HTMLImageElement;
     // Gets SVG source code and inserts it into the html
-    const out = this.fileGetContents(imageCC.src, console.log);
+    let out = this.fileGetContents(imageCC.src, console.log);
+
+
     // Access the inserted svg element
     const divCC = document.getElementById('divOutput') as HTMLElement;
     const divChildren = divCC.children;
