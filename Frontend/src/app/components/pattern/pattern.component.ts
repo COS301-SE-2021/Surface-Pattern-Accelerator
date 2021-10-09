@@ -44,8 +44,8 @@ export class PatternComponent implements OnInit {
   values = [];
   searchableMotifs=[];
 
-  canvasWidth = 600;
-  canvasHeight = 600;
+  canvasWidth = 450;
+  canvasHeight = 450;
   colourList = [];
   exportFormat? : string = ".PNG";
   svgName: any;
@@ -88,8 +88,8 @@ export class PatternComponent implements OnInit {
   seamlessClones: fabric.Object[] = [];
   motifCount: number = 0;
   scale: number = 3;
-  width: number = 600;
-  height: number = 600;
+  width: number = 450;
+  height: number = 450;
   undoLimit: number = 20;
   pixel: number = 2;
   opacity: number = 1;
@@ -500,8 +500,8 @@ export class PatternComponent implements OnInit {
     if( this.canvas.getActiveObjects().length == 1 )
     {
       this.menu.nativeElement.style.display = 'block';
-      if(e.pageY > 600)
-      {this.menu.nativeElement.style.top = '600px';}
+      if(e.pageY > 450)
+      {this.menu.nativeElement.style.top = '450px';}
       else
       {this.menu.nativeElement.style.top = e.pageY + 'px';}
       this.menu.nativeElement.style.left = e.pageX + 'px';
