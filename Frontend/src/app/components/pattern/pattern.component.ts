@@ -968,6 +968,26 @@ export class PatternComponent implements OnInit {
 
   }
 
+  mobileSeamless(){
+    this.addState();
+
+    if(this.activeObject.shouldDisplaySeamlessMod === true)
+    {
+      this.activeObject.reflections = [];
+      this.activeObject.shouldDisplaySeamlessMod = false;
+    }
+
+    else{
+      this.motifService.addReflectionsToObject(this.activeObject, this.canvas);
+      this.activeObject.shouldDisplaySeamlessMod = true;
+    }
+
+    this.motifService.renderAllWithSpecial(this.motifService.getNonSpecialObjects(this.canvas), this.canvas);
+
+  }
+
+
+
 
   setSeamlessModifier(event: any) {
     //TODO: initialize hasReflections to fix error in console when changing from undefined to true/false when check box is ticked
