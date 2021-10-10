@@ -19,7 +19,6 @@ import {MotifEditorComponent} from './components/motif-editor/motif-editor.compo
 import {PaymentComponent} from './components/payment/payment.component';
 import{ PaymentGuardGuard} from './services/payment-guard.guard';
 import { HelpComponent } from './components/help/help.component';
-import {SettingsComponent} from './components/settings/settings.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 
 const routes: Routes = [
@@ -41,8 +40,7 @@ const routes: Routes = [
   { path: 'glogin', component: GLoginComponent},
   { path: 'motifEditor', component: MotifEditorComponent}, //TODO: potentially add route same as pattern component
   { path: 'payment', component: PaymentComponent},
-  { path: 'help', component: HelpComponent},
-  { path: 'settings', component: SettingsComponent}
+  { path: 'help', component: HelpComponent}
 ];
 
 @NgModule({

@@ -47,7 +47,6 @@ import {MotifEditorComponent} from './components/motif-editor/motif-editor.compo
 import {PaymentComponent} from './components/payment/payment.component';
 import {ThreeDLinkComponent} from './popovers/three-d-link/three-d-link.component';
 import {ExportComponent} from './popovers/export/export.component';
-import {SettingsComponent} from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +74,6 @@ import {SettingsComponent} from './components/settings/settings.component';
     ThreeDLinkComponent,
     CollectionOperationPopoverComponent,
     ExportComponent,
-    SettingsComponent
   ],
 
   imports: [
