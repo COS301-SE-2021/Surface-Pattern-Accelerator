@@ -1,3 +1,26 @@
-<h1>Your file is ready:</h1>
+<ion-content>
+  <br>
+  <br>
+  <br>
+  <ion-card id="exp">
+    <ion-card-header>Your file is ready:</ion-card-header>
 
-<a href="{{this.downloadURL}}">Download</a>
+    <ion-item>
+
+
+<!--      <div style="background-color: grey; padding: 5px; border-radius: 5px;">-->
+<!--  <a href="{{this.downloadURL}}">Download</a>-->
+<!--      </div>-->
+
+<!--      <ion-button color="medium" href>Download-->
+<!--          <a href="{{this.downloadURL}}"></a>-->
+<!--      </ion-button>-->
+
+      <a ion-button color="medium" href="{{this.downloadURL}}">Download
+      </a>
+
+
+      <ion-button color="medium" (click)="closePopover()">Cancel</ion-button>
+    </ion-item>
+  </ion-card>
+</ion-content>
