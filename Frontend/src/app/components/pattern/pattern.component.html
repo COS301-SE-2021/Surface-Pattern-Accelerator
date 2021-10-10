@@ -134,12 +134,12 @@
 
 <!--                </div>-->
 
-
-
-
-
-
-                <br>
+                <div style="width: 50%; height: 60px; text-align: center; margin: auto;">
+                <ion-item style="height: 100%;">
+                  <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionService.currentCollectionID)" style="width:100%; padding:0px;">Save Frame</ion-button>
+                  <ion-button color="medium" style="width: 100%; padding:0px;" (click)="undo()">Undo</ion-button>
+                </ion-item>
+                </div>
 <!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
                 <div class="frame" (contextmenu)="contextMenu($event)" (click)="dissapearContext();">
                   <canvas id="patternFrame" width="450px" height="450px"></canvas>
@@ -247,11 +247,17 @@
 <!--                </div>-->
 
 
+                <div style="width: 50%; height: 60px; text-align: center; margin: auto;">
+                  <ion-item style="height: 100%;">
+                    <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionService.currentCollectionID)" style="width:100%; padding:0px;">Save Frame</ion-button>
+                  </ion-item>
+                </div>
+
+
                 <div class="frame inv">
                   <img id='imgPreview'/>
                 </div>
 
-                <br>
                 <div class="frame" style="background: #F7F7F9">
                   <canvas id="previewFrame" width="450px" height="450px"></canvas>
                 </div>
