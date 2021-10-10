@@ -1,18 +1,18 @@
-<app-navbar></app-navbar>
 <ion-grid>
 
   <ion-row>
 
         <ion-col size="8">
-
           <ion-card>
 
             <div>
 
               <ion-row>
-                <ion-col size="10">
+                <ion-col size="1">
+                  <ion-back-button default-href="collections"></ion-back-button>
+                </ion-col>
+                <ion-col size="7">
                   <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()">
-
                     <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
                       <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
                     </ion-select>
@@ -20,7 +20,7 @@
                   </ion-item>
                 </ion-col>
 
-                <ion-col>
+                <ion-col size="4">
                   <div>
                     <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
                     <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> <!--(click)="newPattern(patternName.value); patternName.value=''"-->
