@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {LoadingController, PopoverController} from '@ionic/angular';
 
 @Component({
   selector: 'app-export',
@@ -9,8 +10,14 @@ export class ExportComponent implements OnInit {
 
   @Input() downloadURL: string;
 
-  constructor() { }
+  constructor(private popoverController: PopoverController) { }
 
   ngOnInit() {}
+
+  closePopover(){
+    this.popoverController.dismiss();
+  }
+
+
 
 }
