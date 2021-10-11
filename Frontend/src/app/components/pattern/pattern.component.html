@@ -16,21 +16,25 @@
                   </ion-toolbar>
                 </ion-col>
                 <ion-col size="7">
+                  <ion-toolbar>
                   <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()">
                     <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
                       <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
                     </ion-select>
 
                   </ion-item>
+                    </ion-toolbar>
                 </ion-col>
 
                 <ion-col size="4">
+                  <ion-toolbar>
                   <div>
                     <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
                     <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> <!--(click)="newPattern(patternName.value); patternName.value=''"-->
                       New Pattern
                     </ion-button>
                   </div>
+                    </ion-toolbar>
                 </ion-col>
               </ion-row>
 
@@ -657,6 +661,11 @@
 <!--            </ion-button>-->
 <!--          </ion-item>-->
 
+          <div style="height: 15vh;">
+
+          </div>
+
+
         </ion-card-content>
 
       </ion-card>
@@ -698,17 +707,17 @@
         <ion-card-content>
 
           <ion-card-header>
-            <ion-card-title>Motif Library</ion-card-title>
+            <ion-card-title>Icon Library</ion-card-title>
           </ion-card-header>
 
 
           <ion-list>
             <ion-item>
-              <ion-button color="medium" style="width: 100%" (click)="uploadFilePopover()">Import new Motif</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)="uploadFilePopover()">Import new Icons</ion-button>
             </ion-item>
             <br>
             <ion-item>
-              <ion-button color="medium" style="width: 100%" (click)='collectionCataloguePopover()'>Append motifs</ion-button>
+              <ion-button color="medium" style="width: 100%" (click)='collectionCataloguePopover()'>Append icons</ion-button>
             </ion-item>
           </ion-list>
 
