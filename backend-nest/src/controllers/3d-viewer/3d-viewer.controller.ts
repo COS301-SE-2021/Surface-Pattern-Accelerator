@@ -25,7 +25,7 @@ export class ThreeDViewerController {
         //localhost version
         // console.log(join(process.cwd(), '../backend-nest/MODEL/3dViewer.html'))
         // response.sendFile(join(process.cwd(), '../backend-nest/MODEL/3dViewer.html'))
-        response.sendFile(join(process.cwd(), '../src/frontend/3dViewer.html'))
+        response.sendFile(join(process.cwd(), '../src/frontend/public/3dViewer.html'))
 
 
     }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body onload="main('shirt')">
+    <button class="openbtn" onclick="openNav()">☰</button>
+
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <button class="button button2" onclick="loadImage()">Apply Image</button>
+    <button class="button button2" onclick="stopAnimation()">Stop Rotation</button>
+    <button class="button button2" onclick="startAnimation()">Start Rotation</button>
+    <button class="button button2" onclick="exportObject()">Download Model</button>
+
+    <button class=" button button2 imgButtons" onclick="loadObject('shirt')">
+      <img src="./btnShirt.png">
+    </button>
+
+    <button class="button button2 imgButtons" onclick="loadObject('cat')">
+      <img src="./btnCat.png">
+    </button>
+
+    <button class="button button2 imgButtons" onclick="loadObject('pillow')">
+        <img src="./btnPillow.png">
+    </button>
+
+    <button class="button button2 imgButtons" onclick="loadObject('mug')">
+        <img src="./btnMug.png">
+    </button>
+
+    <input type="file" id="upload-file" accept="image/*" style="opacity: 0;">
+  </div>
+
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+    <script src="controls.js"></script>
+    <script src="OBJExporter.js"></script>
+    <script  src="main.js"></script>
+  <script>
+  </script>
+    
+  </body>
+</html>

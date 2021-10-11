@@ -9,8 +9,8 @@ export class ServerLinkService {
 
   getServerLink()
   {
-    //return "http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3000"
-    return "http://localhost:3000"
+    return "http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3000"
+    //return "http://localhost:3000"
 
   }
 }

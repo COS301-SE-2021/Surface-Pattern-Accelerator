@@ -1219,7 +1219,7 @@ export class PatternComponent implements OnInit {
             .then(resPop => {
               resPop.present().then(() => {
                 resPop.onDidDismiss().then(() => {
-                  window.open(this.serverLink.getServerLink() + '/threeDViewer', '_blank').focus();
+                  window.open('http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3001', '_blank').focus();
                 })
                 }
 

@@ -1,0 +1,122 @@
+/*
+	remove unnecessary scroll bars
+*/
+body {
+  margin: 0;
+  height: 100vh;
+  background: url(../room.jpg) no-repeat center center;
+  background-size: cover;
+  font-family: "Lato", sans-serif;
+}
+
+#sidebar {
+  background: rgba(107, 107, 107, 0.2);
+  float: top;
+}
+
+.imgButtons {
+  display: inline-block;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button2 {
+  background-color: #111;
+  color: white;
+  font-size: 18px;
+  /*
+  border: 2px solid #008CBA;
+   */
+}
+
+.button2 img {
+  width: 60px;
+}
+
+.button2:hover {
+  background-color: #007DDB;
+  color: white;
+}
+
+/* New Sidebar */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.closebtn {
+  background-color: transparent;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 40px;
+  cursor: pointer;
+  background-color: transparent;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+
