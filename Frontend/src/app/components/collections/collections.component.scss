@@ -8,6 +8,10 @@ ion-card{
 
 }
 
+.menu-items{
+  color: #007DDB;
+}
+
 ion-button{
   width: 90%;
 }
@@ -23,11 +27,9 @@ ion-items{
   text-align: center;
   margin-top: 20px;
   padding-bottom: 20px;
-  border-bottom: black 1px solid;
 }
 .sidebar ul{
   list-style-type: none;
-  color: black;
 }
 .sidebar ul ion-icon{
   margin-right: 5px;

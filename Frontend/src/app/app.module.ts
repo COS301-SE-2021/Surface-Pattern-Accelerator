@@ -21,7 +21,6 @@ import {NewPatternComponent} from './popovers/new-pattern/new-pattern.component'
 import { PatternComponent } from './components/pattern/pattern.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ColorComponent } from './components/color/color.component';
 import { MainComponent } from './components/launchpage/main/main.component';
 import { BodyComponent } from './components/launchpage/body/body.component';
 
@@ -32,7 +31,7 @@ import { ExportPopoverComponent } from './components/export-popover/export-popov
 import { GoogleLoginProvider, /*SocialAuthService,*/ SocialLoginModule} from 'angularx-social-login';
 import { CanvasColoursComponent } from './components/canvas-colours/canvas-colours.component';
 import { ColorPaletteComponent} from './components/color-palette/color-palette.component';
-import{ CollectionOperationPopoverComponent} from "./popovers/collection-operation-popover/collection-operation-popover.component";
+import{ CollectionOperationPopoverComponent} from './popovers/collection-operation-popover/collection-operation-popover.component';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatInputModule} from '@angular/material/input';
@@ -40,19 +39,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MotifCatalogueComponent} from './popovers/motif-catalogue/motif-catalogue.component';
-import { MaterialModule } from './material/material.module';
+
 import {StyleTransferComponent} from './components/style-transfer/style-transfer.component';
 import {GLoginComponent} from './components/g-login/g-login.component';
 import {MotifEditorComponent} from './components/motif-editor/motif-editor.component';
 
-import {PaymentComponent} from "./components/payment/payment.component";
-import {ThreeDLinkComponent} from "./popovers/three-d-link/three-d-link.component";
-import {ExportComponent} from "./popovers/export/export.component"
-
-
-
-
-
+import {PaymentComponent} from './components/payment/payment.component';
+import {ThreeDLinkComponent} from './popovers/three-d-link/three-d-link.component';
+import {ExportComponent} from './popovers/export/export.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +61,6 @@ import {ExportComponent} from "./popovers/export/export.component"
     CanvasColoursComponent,
     NewCollectionComponent,
     NavbarComponent,
-    ColorComponent,
     MainComponent,
     BodyComponent,
     MotifUploadComponent,
@@ -80,7 +73,7 @@ import {ExportComponent} from "./popovers/export/export.component"
     PaymentComponent,
     ThreeDLinkComponent,
     CollectionOperationPopoverComponent,
-    ExportComponent
+    ExportComponent,
   ],
 
   imports: [

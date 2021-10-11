@@ -1,76 +1,53 @@
 <ion-content class="main">
-  <ion-grid >
+  <ion-grid>
     <ion-row style="height: 100%">
+
       <ion-col size="3">
         <ion-card class="card">
           <div class="sidebar">
-            <h2 id="heading">Simply Patterns</h2>
+            <h2 id="heading">Menu</h2>
 
+              <ion-list style="padding: 5px;">
 
+                <ion-item (click)="setActive('collections')">
+                  <ion-icon name="folder-open-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
+                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> Collections</ion-label>
+                </ion-item>
 
-            <ion-list style="padding: 5px;">
+                <ion-item  (click)="uploadFilePopover()">
+                  <ion-icon name="grid-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
+                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> My Icons </ion-label>
+                </ion-item>
 
-              <ion-item color="medium">
-                <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"
-                            (click)="setActive('Collections')">
-                  <ion-icon name="folder-open-outline" style="padding-right: 10px;"></ion-icon>
-                  <ion-label class="button-text" style="text-align : left;">Collections</ion-label>
-                </ion-button>
-              </ion-item>
+                <ion-item (click)="navigateTo('canvasColours')">
+                  <ion-icon name="brush-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
+                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> Color Extractor </ion-label>
+                </ion-item>
 
-              <ion-item color="medium">
-                <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"
-                            (click)="uploadFilePopover()">
-                  <ion-icon name="grid-outline" style="padding-right: 10px;"></ion-icon>
-                  <ion-label class="button-text" style="text-align : left;">My Icons</ion-label>
-                </ion-button>
-              </ion-item>
+                <ion-item (click)="navigateTo('color-palette')">
+                  <ion-icon name="color-filter-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
+                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Color Palette</ion-label>
+                </ion-item>
 
-              <ion-item color="medium">
-                <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"
-                            (click)="navigateTo('help')">
-                  <ion-icon name="information-circle-outline" style="padding-right: 10px;"></ion-icon>
-                  <ion-label class="button-text" style="text-align : left;">Help</ion-label>
-                </ion-button>
-              </ion-item>
+                <ion-item  (click)="navigateTo('style-transfer')">
+                  <ion-icon name="color-wand-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
+  <!--                <a href="https://simplypatterns.ngrok.io/index.php" target="_blank" style="text-decoration: none; color: #808080; font-size: 14px"><ion-label> Image Style Transfer</ion-label></a>-->
+  <!--                <ion-icon name="color-wand-outline"></ion-icon>-->
+                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Image Style Transfer</ion-label>
+                </ion-item>
 
-<!--              <ion-item color="medium">-->
-<!--                <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"-->
-<!--                            (click)="uploadFilePopover()">-->
-<!--                  <ion-icon name="log-in-outline" style="padding-right: 10px;"></ion-icon>-->
-<!--                  <ion-label class="button-text" style="text-align : left;">Sign Out</ion-label>-->
-<!--                </ion-button>-->
-<!--              </ion-item>-->
-            </ion-list>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div style="margin : auto; text-align: center; float: bottom;" >
-              <img src="assets/online.svg" alt="Missing.avi" width = 300px;>
-            </div>
-            <!--            <ul class="sidebarList tab-content-side">-->
-            <!--              <li (click)="setActive('Collections')" class="active">-->
-            <!--                <ion-icon name="folder-open-outline"></ion-icon>-->
-            <!--                Collections-->
-            <!--              </li>-->
-            <!--              <li (click)="uploadFilePopover()" class="tab-links">-->
-            <!--                <ion-icon name="grid-outline"></ion-icon>-->
-            <!--                <span>My Icons</span>-->
-            <!--              </li>-->
-            <!--              <li class="tab-links">-->
-            <!--                <ion-icon name="information-circle-outline"></ion-icon>-->
-            <!--                Help-->
-            <!--              </li>-->
-            <!--              <li class="tab-links">-->
-            <!--                <ion-icon name="log-in-outline"></ion-icon>-->
-            <!--               Sign Out-->
-            <!--              </li>-->
-            <!--            </ul>-->
+                <ion-item (click)="navigateTo('help')">
+                  <ion-icon name="information-circle-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
+                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Help</ion-label>
+                </ion-item>
 
-
+              </ion-list>
+              <br>
+              <br>
+              <br>
+              <div style="margin : auto; text-align: center; float: bottom;">
+                <img src="assets/online.svg" alt="Missing.avi" width = 300px;>
+              </div>
 
           </div>
         </ion-card>
@@ -105,7 +82,6 @@
 
                     <div class="patterblock colorr" >
 
-
                     <div class="gear">
                       <ion-button color="medium" (click)="CollectionOperations($event, collection, indexOfelement)">
                         <ion-icon name="ellipsis-horizontal-sharp" style="font-size: 0.6cm; color: #0d0d0d"></ion-icon>
@@ -114,7 +90,6 @@
                     <p id="patternAmount" style="font-size: 20px;">{{collection.childPatterns.length}}</p>
                     <ion-icon name="copy-sharp" style="font-size: 0.6cm;"></ion-icon>
                   </div>
-
                     <br>
                     <br>
                   </div>
@@ -127,11 +102,8 @@
 
           </div>
         </ion-card>
-
-
-
-
       </ion-col>
+
     </ion-row>
   </ion-grid>
 </ion-content>
