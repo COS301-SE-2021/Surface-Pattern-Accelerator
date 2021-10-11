@@ -9,36 +9,42 @@
 
               <ion-list style="padding: 5px;">
 
-                <ion-item (click)="setActive('collections')">
-                  <ion-icon name="folder-open-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
-                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> Collections</ion-label>
+                <ion-item color="primary" (click)="setActive('collections')" id="collect" (mouseover)="highlight('collect',true)" (mouseout)="highlight('extract',false)">
+                  <ion-icon name="folder-open-outline" style="padding-right: 10px;"></ion-icon>
+                  <ion-label style="margin-right: auto; cursor: pointer;"> Collections</ion-label>
                 </ion-item>
 
-                <ion-item  (click)="uploadFilePopover()">
-                  <ion-icon name="grid-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
-                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> My Icons </ion-label>
+                <ion-item color="none" (click)="uploadFilePopover()" id="icons" (mouseover)="highlight('icons',true)" (mouseout)="highlight('extract',false)">
+                  <ion-icon name="grid-outline" style="padding-right: 10px;"></ion-icon>
+                  <ion-label style="margin-right: auto; cursor: pointer;"> My Icons </ion-label>
                 </ion-item>
 
-                <ion-item (click)="navigateTo('canvasColours')">
-                  <ion-icon name="brush-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
-                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> Color Extractor </ion-label>
+<!--                <ion-item  (click)="uploadFilePopover()">-->
+<!--                  <ion-icon name="grid-outline" style="padding-right: 10px; color: #92929c"></ion-icon>-->
+<!--                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;"> My Icons </ion-label>-->
+<!--                </ion-item>-->
+
+
+                <ion-item color="none" (click)="navigateTo('canvasColours')" id="extract" (mouseover)="highlight('extract',true)" (mouseout)="highlight('extract',false)">
+                  <ion-icon name="brush-outline" style="padding-right: 10px;"></ion-icon>
+                  <ion-label style="margin-right: auto; cursor: pointer;"> Color Extractor </ion-label>
                 </ion-item>
 
-                <ion-item (click)="navigateTo('color-palette')">
-                  <ion-icon name="color-filter-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
-                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Color Palette</ion-label>
+                <ion-item color="none" (click)="navigateTo('color-palette')" id="palette" (mouseover)="highlight('palette',true)" (mouseout)="highlight('extract',false)">
+                  <ion-icon name="color-filter-outline" style="padding-right: 10px;"></ion-icon>
+                  <ion-label style="margin-right: auto; cursor: pointer;">Color Palette</ion-label>
                 </ion-item>
 
-                <ion-item  (click)="navigateTo('style-transfer')">
-                  <ion-icon name="color-wand-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
+                <ion-item color="none" (click)="navigateTo('style-transfer')" id="transfer" (mouseover)="highlight('transfer',true)" (mouseout)="highlight('extract',false)">
+                  <ion-icon name="color-wand-outline" style="padding-right: 10px;"></ion-icon>
   <!--                <a href="https://simplypatterns.ngrok.io/index.php" target="_blank" style="text-decoration: none; color: #808080; font-size: 14px"><ion-label> Image Style Transfer</ion-label></a>-->
   <!--                <ion-icon name="color-wand-outline"></ion-icon>-->
-                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Image Style Transfer</ion-label>
+                  <ion-label style="margin-right: auto; cursor: pointer;">Image Style Transfer</ion-label>
                 </ion-item>
 
-                <ion-item (click)="navigateTo('help')">
-                  <ion-icon name="information-circle-outline" style="padding-right: 10px; color: #92929c"></ion-icon>
-                  <ion-label style="margin-right: auto; color: #92929c; cursor: pointer;">Help</ion-label>
+                <ion-item color="none" (click)="navigateTo('help')" id="help" (mouseover)="highlight('help',true)" (mouseout)="highlight('extract',false)">
+                  <ion-icon name="information-circle-outline" style="padding-right: 10px;"></ion-icon>
+                  <ion-label style="margin-right: auto; cursor: pointer;">Help</ion-label>
                 </ion-item>
 
               </ion-list>
@@ -96,6 +102,11 @@
                 </div>
               </div>
             </div>
+
+            <div style="height: 15vh;">
+
+            </div>
+
             <button id="addBtn" (click)="newCollectionPopOver()">
               <ion-icon name="add-circle-sharp" ></ion-icon>
             </button>

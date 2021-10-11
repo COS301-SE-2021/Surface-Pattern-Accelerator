@@ -280,4 +280,30 @@ export class CollectionsComponent implements OnInit, OnDestroy {
       localStorage.setItem('theme', 'light');
     }
   }
+
+  highlight(name, check)
+  {
+
+
+    (<HTMLIonButtonElement>document.getElementById('collect')).setAttribute('color','none');
+    (<HTMLIonButtonElement>document.getElementById('icons')).setAttribute('color','none');
+    (<HTMLIonButtonElement>document.getElementById('extract')).setAttribute('color','none');
+    (<HTMLIonButtonElement>document.getElementById('palette')).setAttribute('color','none');
+    (<HTMLIonButtonElement>document.getElementById('transfer')).setAttribute('color','none');
+    (<HTMLIonButtonElement>document.getElementById('help')).setAttribute('color','none');
+
+
+    if(check===true)
+    {
+      (<HTMLIonButtonElement>document.getElementById(name)).setAttribute('color','primary');
+    }
+    else{
+      (<HTMLIonButtonElement>document.getElementById('collect')).setAttribute('color','primary');
+    }
+  }
+
+
+
+
+
 }
