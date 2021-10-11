@@ -758,22 +758,36 @@ export class PatternComponent implements OnInit {
   }
 
   cloneRightClick(){
-    const selection = this.canvas.getActiveObject();
-    if(selection == undefined) {return;}
-    else
+    let motifSaveStates: IMotifStateInterface[] = [];
+    let patternContents: IPatternContentsInterface = { patternName: "", patternID: "", motifs: [] };
+
+    const tempMotifsOnCanvas =  this.canvas.getActiveObjects();
+
+    for (const mot in tempMotifsOnCanvas)
     {
-      selection.clone((clone)=>{
-        clone.googleDriveID = selection.googleDriveID;
-        clone.motifURL = selection.motifURL;
-        clone.motifName = selection.motifName;
-        clone.hasReflections = false;
-        clone.IDOnCanvas = this.motifService.motifIndexIncValue++;
-        clone.set('left', selection.left + 50);
-        this.canvas.add(clone);
-        this.motifService.motifsOnCanvas.push(clone);
-        this.dissapearContext();
+      //this.motifsOnCanvas.objects[mot].objectRef.
+        motifSaveStates.push({
+        left: tempMotifsOnCanvas[mot].left+20,
+        top: tempMotifsOnCanvas[mot].top,
+        width: tempMotifsOnCanvas[mot].getScaledWidth(),
+        height: tempMotifsOnCanvas[mot].getScaledHeight(),
+        scale: tempMotifsOnCanvas[mot].getObjectScaling(),
+        rotation: tempMotifsOnCanvas[mot].angle,
+        layer: 0, //Temp
+        motifID: tempMotifsOnCanvas[mot].googleDriveID,
+        motifName: tempMotifsOnCanvas[mot].motifName,
+        motifURL: tempMotifsOnCanvas[mot].motifURL,
+        shouldDisplaySeamless: tempMotifsOnCanvas[mot].shouldDisplaySeamlessMod,
+        nrOfArrayObjects: tempMotifsOnCanvas[mot].nrOfArrayObjects,
+        ArrayModDirection: tempMotifsOnCanvas[mot].ArrayModDirection,
+        ArrayModSpacing: tempMotifsOnCanvas[mot].ArrayModSpacing
+
       });
     }
+    patternContents.motifs = motifSaveStates;
+    // this.canvas.clear();
+    this.motifService.spawnMotifObjectsFromSaveState(patternContents, this.canvas);
+
   }
 
   recenterClick(){
