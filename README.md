@@ -29,8 +29,8 @@ Our vision is to develop a specialized software package capable of creating patt
 # Documentation
 
 * :scroll: [User manual](https://www.overleaf.com/read/tcnzswypsdzd)
-* :floppy_disk: [Technical Installation Guide](https://www.overleaf.com/read/dnvytdqmtcsg)
-* :open_file_folder: [Testing policy](https://docs.google.com/document/d/1TF5pPD1M0NFL45D0B6Yg3EivnswMIRCQ1nKlwwUCfno/edit?usp=sharing)
+* :floppy_disk: [Technical Installation Manual](https://www.overleaf.com/read/dnvytdqmtcsg)
+* :open_file_folder: [Testing policy](https://drive.google.com/file/d/1BJUgmBtVAnV6oL7f9CcuJl3cjUc_MMWx/view?usp=sharing)
 * :open_book: [Software Requirements Specification (4 versions)](https://www.overleaf.com/read/mkwjqmjkhzry)
 * :curly_loop: [Coding Standards](https://www.overleaf.com/read/gcjfyjhhsrhg)
 
