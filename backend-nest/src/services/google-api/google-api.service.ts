@@ -19,17 +19,7 @@ export class GoogleApiService {
         if (this.appCredentials == undefined)
         {
             //TODO: replace with environment variables
-            this.appCredentials = JSON.parse("{\n" +
-                '    "installed":{\n' +
-                '        "client_id":"838530253471-o3arioj6ta566o6eg8140npcvb7a59tv.apps.googleusercontent.com",\n' +
-                '        "project_id":"spadd-6","auth_uri":"https://accounts.google.com/o/oauth2/auth",\n' +
-                '        "token_uri":"https://oauth2.googleapis.com/token",\n' +
-                '        "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",\n' +
-                '        "client_secret":"qykE5ojYUpiRNSl3WFTlCIfR",\n' +
-                '        "redirect_uris":[],\n' +
-                '        "javascript_origins":["http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3000, http://localhost:3000","http://localhost:8100"]\n' +
-                "    }\n" +
-                "}");
+            this.appCredentials = JSON.parse("");
             return this.appCredentials;
         }
         else
