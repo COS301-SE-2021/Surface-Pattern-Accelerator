@@ -52,16 +52,9 @@ export class ColorPaletteComponent implements OnInit {
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
       hashtag[i]+=letters[Math.floor(Math.random()*16)];
 
-     /* hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
-      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
-      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
-      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 100)%16)];
-      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];
-      hashtag[i]+=letters[Math.floor(this.getRandomIntInclusion(0, 16))];*/
     }
 
     for (let i=0;i<code.length;i++){
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const c = <HTMLElement> color[i];
       c.style.backgroundColor = hashtag[i];
       code[i].innerHTML = hashtag[i];

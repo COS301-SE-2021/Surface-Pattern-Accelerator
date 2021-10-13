@@ -46,9 +46,6 @@ export class CollectionsComponent implements OnInit, OnDestroy {
   {
 
   }
-
-
-
   ngOnInit(): void
   {
     this.singedIn = this.gLogin.singedIn;
@@ -73,9 +70,6 @@ export class CollectionsComponent implements OnInit, OnDestroy {
     this.getCollections();
     this.activeComponent = 'Collections';
     this.setActive("Collections");
-
-
-
     this.changeTheme();
 
 
@@ -101,8 +95,6 @@ export class CollectionsComponent implements OnInit, OnDestroy {
     })
   }
 
-
-
   ngOnDestroy() {
    this.subscription.unsubscribe();
   }
@@ -123,11 +115,7 @@ export class CollectionsComponent implements OnInit, OnDestroy {
       if (dataReturned !== null) {
         if (dataReturned.data == "DELETED") {
           (<HTMLElement>collections[index]).style.display = 'none';
-
-          // dataReturned.data;
-          // console.log(dataReturned);
         }
-        // this.loadingController.dismiss();
       }
 
     });
@@ -139,16 +127,6 @@ export class CollectionsComponent implements OnInit, OnDestroy {
   setActive(component){
     if(this.activeComponent == component)return;
     this.activeComponent = component;
-    // let els = document.querySelector(".tab-links");
-    // (<HTMLElement> els).style.color = "blue";
-    // if(component == 'Color'){
-    //   let container = document.getElementById('temp');
-    //   container.innerText = '<app-color></app-color>';
-    // }
-    // else{
-    //   let container = document.getElementById('temp');
-    //   container.style.content = '<app-collection-layout></app-collection-layout> '
-    // }
   }
 
   uploadFilePopover()
@@ -169,16 +147,13 @@ export class CollectionsComponent implements OnInit, OnDestroy {
     this.router.navigate([componentName]);
   }
 
-
-
-
   getCollections(): void //this func gets called each time this component gets initialized
   {
     this.loadingController.create({
       message: "Fetching collections..."
     }).then(loaderResult => {
       loaderResult.present().then(r => {
-        this.collectionsService.getCollections()                      //this is an asynchronous operation
+        this.collectionsService.getCollections() //this is an asynchronous operation
           .subscribe(collections =>
           {
             console.log(collections)
@@ -222,15 +197,8 @@ export class CollectionsComponent implements OnInit, OnDestroy {
       (<HTMLElement>r).style.setProperty('--mycolor', this.secondaryBackground_light);
       (<HTMLElement>r).style.setProperty('--borderColor', 'grey');
 
-      // for(let i = 0 ; i < left.length ; i++){
-      //   (<HTMLElement> left[i]).style.backgroundColor = this.secondaryBackground_light;
-      //
-      // }
-
       (<HTMLElement> heading).style.color = "black";
       (<HTMLElement> button).style.color = "blue";
-
-
 
     }
     else{
@@ -238,9 +206,7 @@ export class CollectionsComponent implements OnInit, OnDestroy {
         (<HTMLElement> card[i]).style.backgroundColor = "#181818";
         console.log('dark');
       }
-      // for(let i = 0 ; i < left.length ; i++){
-      //   (<HTMLElement> left[i]).style.backgroundColor = this.secondaryBackground_dark;
-      // }
+
       let r = document.querySelector(':root');
       (<HTMLElement>r).style.setProperty('--mycolor', this.secondaryBackground_dark);
       (<HTMLElement>r).style.setProperty('--borderColor', '#FFF');

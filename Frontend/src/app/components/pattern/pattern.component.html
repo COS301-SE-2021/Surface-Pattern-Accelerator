@@ -1,12 +1,11 @@
 <ion-grid>
-
   <ion-row>
+
+<!--    Column for pattern name, new pattern and pattern switching-->
 
         <ion-col size="8">
           <ion-card>
-
             <div>
-
               <ion-row>
                 <ion-col size="1">
                   <ion-toolbar>
@@ -21,37 +20,27 @@
                     <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >
                       <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>
                     </ion-select>
-
                   </ion-item>
                     </ion-toolbar>
                 </ion-col>
-
                 <ion-col size="4">
                   <ion-toolbar>
                   <div>
-                    <!--                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>-->
-                    <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> <!--(click)="newPattern(patternName.value); patternName.value=''"-->
+                    <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()">
                       New Pattern
                     </ion-button>
                   </div>
                     </ion-toolbar>
                 </ion-col>
               </ion-row>
-
             </div>
-
-
-
           </ion-card>
-
         </ion-col>
 
-
+<!-- Column for displaying tab to switch between build, preview, 3d preview-->
 
         <ion-col size="4">
-
           <ion-card>
-
               <ion-card-header style="padding: 5px;">
             <ion-button color="default" size="medium" fill="clear" class="tab-links"
                         (click)="openTabMain($event,'WorkArea')" id="WorkArea1">
@@ -70,88 +59,37 @@
               <ion-label class="button-text">3D Preview</ion-label>
               <ion-icon name="eye-outline" ></ion-icon>
             </ion-button>
-
                 <br>
                 </ion-card-header>
-
-
           </ion-card>
         </ion-col>
 
-
-
-
-
-
-
   </ion-row>
+
+<!--  Main Section for containing the build Workspace and 2d preview Canvas-->
+
 
 
   <ion-row class="maxHeight">
     <ion-col size="8">
 
-
+<!--        Main Tab for Workspace Build-->
 
           <ion-col size="12" class="tab-content-main" id="WorkArea">
-
-
             <ion-card>
-
-
-<!--              <ion-card-header>-->
-<!--                <ion-button color="default" size="medium" fill="clear" class="tab-links"-->
-<!--                            (click)="openTabMain($event,'WorkArea')" id="WorkArea1">-->
-<!--                  <ion-label class="button-text">WorkArea</ion-label>-->
-<!--                  <ion-icon name="image-outline"></ion-icon>-->
-<!--                </ion-button>-->
-
-<!--                <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                            (click)="openTabMain($event,'Preview')">-->
-<!--                  <ion-label class="button-text">Preview</ion-label>-->
-<!--                  <ion-icon name="apps-outline" ></ion-icon>-->
-<!--                </ion-button>-->
-
-<!--              </ion-card-header>-->
-<!--              <br>-->
               <ion-card-content style="overflow-y:scroll;">
-
-<!--       style="background: #F7F7F9"         -->
-
-<!--                <div>-->
-
-<!--                <ion-row>-->
-<!--                  <ion-col size="10">-->
-<!--                    <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">-->
-
-<!--                      <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >-->
-<!--                        <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>-->
-<!--                      </ion-select>-->
-
-<!--                    </ion-item>-->
-<!--                  </ion-col>-->
-
-<!--                  <ion-col>-->
-<!--                    <div>-->
-<!--                      &lt;!&ndash;                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>&ndash;&gt;-->
-<!--                      <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> &lt;!&ndash;(click)="newPattern(patternName.value); patternName.value=''"&ndash;&gt;-->
-<!--                        New Pattern-->
-<!--                      </ion-button>-->
-<!--                    </div>-->
-<!--                  </ion-col>-->
-<!--                </ion-row>-->
-
-<!--                </div>-->
-
                 <div style="width: 50%; height: 60px; text-align: center; margin: auto;">
                 <ion-item style="height: 100%;">
                   <ion-button color="medium" (click)="this.patternService.savePattern(this.canvas, this.collectionService.currentCollectionID)" style="width:100%; padding:0px;">Save Frame</ion-button>
                   <ion-button color="medium" style="width: 100%; padding:0px;" (click)="undo()">Undo</ion-button>
                 </ion-item>
                 </div>
-<!--              <div class="workArea" id="container" style="margin: auto;"(contextmenu)="contextMenu($event)" (click)="dissapearContext(); "></div>-->
                 <div class="frame" (contextmenu)="contextMenu($event)" (click)="dissapearContext();">
                   <canvas id="patternFrame" width="450px" height="450px"></canvas>
                 </div>
+
+<!--                Right Click Menu for PC-->
+
                 <div #menu class="customContext" (click)="stopPropagation($event)">
                   <ul>
                     <li (click)="cloneRightClick()" >Clone</li>
@@ -160,7 +98,6 @@
                     <li (click)="moveDownRightClick()" >Move Down</li>
                     <li (click)="flipXRightClick()">FlipX</li>
                     <li (click)="flipYRightClick()">FlipY</li>
-
                     <li (click)="recenterClick()">Recenter</li>
                     <li (click)="mobileSeamless()">Seamless</li>
                   </ul>
@@ -172,7 +109,7 @@
 
                 <div class="controls" style="text-align: center; display:none" id="controls">
 
-
+<!--                    Buttons for mobile users to use in exchange of right Click menu-->
 
                     <ion-button style="padding: 10px; height: 50px;" (click)="this.flipXRightClick()" >Flip X</ion-button>
 
@@ -198,6 +135,7 @@
 
                   </ion-row>
 
+<!--                Ensure space at bottom of screen for different screen sizes-->
 
                 <div style="height: 10vh;">
 
@@ -208,53 +146,11 @@
 
           </ion-col>
 
+<!--Main Section for the 2D Preview-->
 
-<!--12-->
           <ion-col size="12" class="tab-content-main" id="Preview">
             <ion-card>
-<!--              <ion-card-header>-->
-<!--                <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                            (click)="openTabMain($event,'WorkArea')">-->
-<!--                  <ion-label class="button-text">WorkArea</ion-label>-->
-<!--                  <ion-icon name="image-outline"></ion-icon>-->
-<!--                </ion-button>-->
-
-<!--                <ion-button color="default" size="medium" fill="clear" class="tab-links"-->
-<!--                            (click)="openTabMain($event,'Preview')" id="Preview1">-->
-<!--                  <ion-label class="button-text">Preview</ion-label>-->
-<!--                  <ion-icon name="apps-outline" ></ion-icon>-->
-<!--                </ion-button>-->
-<!--              </ion-card-header>-->
-<!--              <br>-->
               <ion-card-content style="overflow: hidden">
-<!--style="background: #F7F7F9"-->
-
-
-<!--                <div>-->
-
-<!--                  <ion-row>-->
-<!--                    <ion-col size="10">-->
-<!--                      <ion-item class="patternSelect" *ngIf="patternService.checkIfPatternsExistAndSetDefault()" style="height: 45px">-->
-
-<!--                        <ion-select interface="popover"  [(ngModel)]="patternService.selectedPatternID" (ionChange)="this.patternService.getAndLoadSavedPattern(patternService.selectedPatternID, this.canvas);emptyState()" >-->
-<!--                          <ion-select-option value="{{pattern.patternID}}" *ngFor="let pattern of patternService.currentCollection.childPatterns">{{pattern.patternName}}</ion-select-option>-->
-<!--                        </ion-select>-->
-
-<!--                      </ion-item>-->
-<!--                    </ion-col>-->
-
-<!--                    <ion-col>-->
-<!--                      <div>-->
-<!--                        &lt;!&ndash;                <ion-input type="text" class="inputField" style="background-color: darkgrey; color: black; padding : 5px; width: 500px; margin: auto;" #patternName></ion-input>&ndash;&gt;-->
-<!--                        <ion-button class="button" color="medium" style="width: 90%" (click)="newPatternPopover()"> &lt;!&ndash;(click)="newPattern(patternName.value); patternName.value=''"&ndash;&gt;-->
-<!--                          New Pattern-->
-<!--                        </ion-button>-->
-<!--                      </div>-->
-<!--                    </ion-col>-->
-<!--                  </ion-row>-->
-
-<!--                </div>-->
-
 
                 <div style="width: 50%; height: 60px; text-align: center; margin: auto;">
                   <ion-item style="height: 100%;">
@@ -262,6 +158,7 @@
                   </ion-item>
                 </div>
 
+<!--                Creating Canvas and other canvas for scaling-->
 
                 <div class="frame inv">
                   <img id='imgPreview'/>
@@ -276,6 +173,7 @@
                   <img style="object-fit:cover; vertical-align: bottom;" id='imgPattern'/>
                 </div>
 
+<!--                For ensuring space remains for different screen resolutions-->
 
                 <div style="height: 10vh;">
 
@@ -288,7 +186,7 @@
 
     </ion-col>
 
-    <!-- 'Modifiers' Side Menu Tab Component -->
+    <!-- Side Bar Icon List -->
 
     <ion-col size="0.5">
       <div style="text-align: center">
@@ -298,35 +196,30 @@
         <ion-card style="overflow :hidden; width: 100%; height: 100%;">
             <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                         (click)="openTabSide($event,'MotLib')" id="MotLib1">
-              <!--              <ion-label class="button-text">Motifs</ion-label>-->
               <ion-icon name="apps-outline"></ion-icon>
             </ion-button>
         </ion-card>
             <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="default" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'Modifiers')" id="Modifiers1">
-          <!--              <ion-label class="button-text">Layers</ion-label>-->
           <ion-icon name="invert-mode-outline"></ion-icon>
         </ion-button>
               </ion-card>
                 <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'Changes')" id="Changes1">
-          <!--              <ion-label class="button-text">Modifiers</ion-label>-->
           <ion-icon name="eyedrop-outline" ></ion-icon>
         </ion-button>
               </ion-card>
                 <ion-card style="overflow :hidden; width: 100%; height: 100%;">
         <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                     (click)="openTabSide($event,'Exports')" id="Exports1">
-          <!--              <ion-label class="button-text">Exports</ion-label>-->
           <ion-icon name="archive-outline"></ion-icon>
         </ion-button>
                   </ion-card>
         <ion-card style="overflow :hidden; width: 100%; height: 100%;">
           <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                       (click)="openTabSide($event,'Color'); patternColour()" id="Color1">
-            <!--              <ion-label class="button-text">Exports</ion-label>-->
             <ion-icon name="color-fill-outline"></ion-icon>
           </ion-button>
         </ion-card>
@@ -334,7 +227,6 @@
         <ion-card style="overflow :hidden; width: 100%; height: 100%;">
           <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                       (click)="openTabSide($event,'colorPalette')" id="colorPalette1">
-            <!--              <ion-label class="button-text">Motifs</ion-label>-->
             <ion-icon name="color-palette-outline"></ion-icon>
           </ion-button>
         </ion-card>
@@ -342,7 +234,6 @@
         <ion-card style="overflow :hidden; width: 100%; height: 100%;">
           <ion-button color="medium" size="medium" fill="clear" class="tab-links"
                       (click)="openTabSide($event,'motifColor')" id="motifColor1">
-            <!--              <ion-label class="button-text">Motifs</ion-label>-->
             <ion-icon name="brush-outline"></ion-icon>
           </ion-button>
         </ion-card>
@@ -350,12 +241,12 @@
       </div>
     </ion-col>
 
+
+<!--    Modifiers Side Tab-->
+
+
     <ion-col size="3.5" class="tab-content-side" id="Modifiers">
       <ion-card>
-
-
-
-
 
         <ion-card-content>
           <div>
@@ -376,12 +267,10 @@
             <br>
             <ion-item>
               <ion-button color="medium" style="width: 100%" (click)="undo()">Undo</ion-button>
-<!--              <ion-button color="medium" style="width: 100%" (click)="getObjects()">Get Objects</ion-button>-->
             </ion-item>
             <br>
 
           </div>
-
 
           <div class="layerNumbers">
             <div class="layerBorder">
@@ -402,7 +291,7 @@
                 </div>
               </div>
             </div>
-          </div> <!-- .layerNumbers -->
+          </div>
 
           <div style="height: 15vh;">
 
@@ -415,44 +304,7 @@
     <!-- 'Changes' Side Menu Tab Component -->
     <ion-col size="3.5" class="tab-content-side" id="Changes">
       <ion-card>
-
-
-<!--        <div style="text-align: center">-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'MotLib')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="apps-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
-<!--                      (click)="openTabSide($event,'Modifiers')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'Changes')" id="Changes1">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'Exports')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="archive-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--        </div>-->
-
-
-
         <ion-card-content>
-<!--          <ion-list>-->
-<!--            <ion-list-header>-->
-<!--              <ion-title style="text-align:center;">Modifiers</ion-title>-->
-<!--            </ion-list-header>-->
-<!--          </ion-list>-->
 
           <ion-card-header>
             <ion-card-title>Modifiers</ion-card-title>
@@ -515,12 +367,6 @@
 
           </div>
 
-<!--          <div>-->
-<!--            <ion-button (click)="uploadThumbnail()">-->
-<!--              Generate Thumbnail-->
-<!--            </ion-button>-->
-<!--          </div>-->
-
           <div style="height: 15vh;">
 
           </div>
@@ -531,54 +377,13 @@
     <ion-col size="3.5" class="tab-content-side" id="Exports">
       <ion-card>
 
-<!--        <div style="text-align: center">-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'MotLib')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="apps-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
-<!--                      (click)="openTabSide($event,'Modifiers')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'Changes')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'Exports')" id="Exports1">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="archive-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--        </div>-->
-
 
         <ion-card-content>
-
-<!--          <ion-list>-->
-<!--            <ion-list-header>-->
-<!--              <ion-title style="text-align:center;">Exports</ion-title>-->
-<!--            </ion-list-header>-->
-<!--          </ion-list>-->
 
           <ion-card-header>
             <ion-card-title>Exports</ion-card-title>
           </ion-card-header>
 
-
-<!--          <ion-item>-->
-<!--            <ion-label style="margin: auto; text-align:center;">Other Options: </ion-label>-->
-<!--          </ion-item>-->
-
-
-          <!-- TODO: delete exports popover - not used-->
           <ion-list>
             <ion-radio-group value=".PNG" [(ngModel)]="exportFormat">
               <ion-list-header>
@@ -646,22 +451,6 @@
 
           </div>
 
-
-
-
-
-
-
-
-
-
-
-<!--          <ion-item>-->
-<!--            <ion-button color="medium" style="width:100%;" (click)="open3DViewer($event)" >-->
-<!--              3D Viewer-->
-<!--            </ion-button>-->
-<!--          </ion-item>-->
-
           <div style="height: 15vh;">
 
           </div>
@@ -677,33 +466,6 @@
     <ion-col size="3.5" class="tab-content-side" id="MotLib">
       <ion-card>
 
-<!--        <div style="text-align: center">-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'MotLib')" id="MotLib1">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Motifs</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="apps-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-link"-->
-<!--                      (click)="openTabSide($event,'Modifiers')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Layers</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="invert-mode-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'Changes')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Modifiers</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="eyedrop-outline" ></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--          <ion-button color="medium" size="medium" fill="clear" class="tab-links"-->
-<!--                      (click)="openTabSide($event,'Exports')">-->
-<!--&lt;!&ndash;            <ion-label class="button-text">Exports</ion-label>&ndash;&gt;-->
-<!--            <ion-icon name="archive-outline"></ion-icon>-->
-<!--          </ion-button>-->
-
-<!--        </div>-->
 
         <ion-card-content>
 
