@@ -25,17 +25,18 @@ export class ThreeDLinkComponent implements OnInit {
 
   copyToClipboard(){
     /* Get the text field */
-    let copyText = document.getElementById("myInput") as HTMLInputElement;
-
-    /* Select the text field */
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    // let copyText = document.getElementById("myInput") as HTMLInputElement;
+    //
+    // /* Select the text field */
+    // copyText.select();
+    // copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
     /* Copy the text inside the text field */
-    navigator.clipboard.writeText(copyText.value);
+    // navigator.clipboard.writeText(copyText.value);
+    navigator.clipboard.writeText(this.imageName);
 
     /* Alert the copied text */
-    alert("Copied the text: " + copyText.value);
+    alert("Copied the text: " + this.imageName);
   }
 
 }
