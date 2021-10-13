@@ -38,6 +38,7 @@ export class StyleTransferComponent implements OnInit {
   * This function allows the user to upload and display their content image
   */
   upload(){
+    document.getElementById('resultContainer').style.display = 'none';
     const upload = document.getElementById('readImg') as HTMLInputElement;
     if(upload.files[0]){
       const reader = new FileReader();
@@ -63,7 +64,6 @@ export class StyleTransferComponent implements OnInit {
   * */
   selectStyle(style: string, name: string) {
     if(style === 'style1.jpg') {
-      // eslint-disable-next-line max-len
       this.styleBase64 = 'http://images.fineartamerica.com/images/artworkimages/mediumlarge/3/starry-night-print-by-vincent-van-gogh-vincent-van-gogh.jpg';
       document.getElementById('selectedStyle').setAttribute('src', this.styleBase64);
     }
@@ -99,7 +99,17 @@ export class StyleTransferComponent implements OnInit {
   /**
    * This function is used to process image downloads
    */
-  downloadImage(){
+  async downloadImage(){
+    const imgLink = document.getElementById('generatedImg') as HTMLImageElement;
+    const image = await fetch(imgLink.src);
+    const blob =await image.blob();
+    const url = URL.createObjectURL(blob);
 
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'generated.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
