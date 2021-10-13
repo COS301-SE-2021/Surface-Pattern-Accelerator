@@ -87,6 +87,10 @@ Method: monorepo with gitflow
 ## Testing
 ![Jasmine](https://img.shields.io/badge/-Jasmine-%238A4182?style=for-the-badge&logo=Jasmine&logoColor=white)
 
+## Design
+![Adobe XD](https://img.shields.io/badge/Adobe%20XD-470137?style=for-the-badge&logo=Adobe%20XD&logoColor=#FF61F6)
+* :scroll: [Application Design](https://xd.adobe.com/view/d2c9db9f-dd4f-4631-8966-34502e470ed4-879a/screen/f0a9551d-b9e7-4a3d-907e-26e5f085b846/?fullscreen)
+
 #
 
 # Team Members
