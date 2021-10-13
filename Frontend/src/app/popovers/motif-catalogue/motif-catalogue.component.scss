@@ -80,7 +80,7 @@ ion-card-title{
   width: 80%;
   height: 100%;
   margin: auto;
-  //background-color: #FFFFFF;//REMOVE THIS IF YOU WANT ANIMATIONS FOR CATALOGUE
+  //background-color: #FFFFFF;//ADD THIS IF YOU WANT ANIMATIONS FOR CATALOGUE
   //background-color: grey;
   padding: 5%;
   overflow: hidden;
@@ -93,8 +93,12 @@ ion-card-title{
   width: 100%;
   //position:fixed;
 }
+
+
 //used code from here for animations
 //https://codepen.io/beshoooo/pen/jmbGNd
+
+
 body {
   margin: 0;
   height: 100vh;
@@ -109,9 +113,6 @@ body {
   -o-animation: fadeIn 1 1s ease-out;
   animation: fadeIn 1 1s ease-out;
 }
-
-
-
 
 .light {
   position: absolute;
@@ -275,65 +276,6 @@ body {
   font-size: 2em;
 }
 
-//#head1, #head2,#head3, #head4, #head5{
-//  opacity: 0;
-//}
-//
-//#head1{
-//  -webkit-animation: fadeOut 1 5s ease-in;
-//  -moz-animation: fadeOut 1 5s ease-in;
-//  -o-animation: fadeOut 1 5s ease-in;
-//  animation: fadeOut 1 5s ease-in;
-//}
-//
-//#head2{
-//  -webkit-animation: fadeOut 1 5s ease-in;
-//  -moz-animation: fadeOut 1 5s ease-in;
-//  -o-animation: fadeOut 1 5s ease-in;
-//  animation: fadeOut 1 5s ease-in;
-//  -webkit-animation-delay: 6s;
-//  -moz-animation-delay: 6s;
-//  -o-animation-delay: 6s;
-//  animation-delay: 6s;
-//}
-//
-//#head3{
-//  -webkit-animation: fadeOut 1 5s ease-in;
-//  -moz-animation: fadeOut 1 5s ease-in;
-//  -o-animation: fadeOut 1 5s ease-in;
-//  animation: fadeOut 1 5s ease-in;
-//  -webkit-animation-delay: 12s;
-//  -moz-animation-delay: 12s;
-//  -o-animation-delay: 12s;
-//  animation-delay: 12s;
-//}
-//
-//#head4{
-//  -webkit-animation: fadeOut 1 5s ease-in;
-//  -moz-animation: fadeOut 1 5s ease-in;
-//  -o-animation: fadeOut 1 5s ease-in;
-//  animation: fadeOut 1 5s ease-in;
-//  -webkit-animation-delay: 17s;
-//  -moz-animation-delay: 17s;
-//  -o-animation-delay: 17s;
-//  animation-delay: 17s;
-//}
-//
-//#head5{
-//  -webkit-animation: finalFade 1 5s ease-in;
-//  -moz-animation: finalFade 1 5s ease-in;
-//  -o-animation: finalFade 1 5s ease-in;
-//  animation: finalFade 1 5s ease-in;
-//  -webkit-animation-fill-mode: forwards;
-//  -moz-animation-fill-mode: forwards;
-//  -o-animation-fill-mode: forwards;
-//  animation-fill-mode: forwards;
-//  -webkit-animation-delay: 22s;
-//  -moz-animation-delay: 22s;
-//  -o-animation-delay: 22s;
-//  animation-delay: 22s;
-//}
-
 @-webkit-keyframes fadeIn{
   from{opacity: 0;}
   to{opacity: 1;}
@@ -409,15 +351,4 @@ body {
   80%{opacity: .9;}
   100%{opacity: 1;}
 }
-
-//#footer{
-//  font-family: 'Roboto', sans-serif;
-//  font-size: 1.2em;
-//  color: white;
-//  position: fixed;
-//  -webkit-transform: translate(95vw,90vh);
-//  -moz-transform: translate(95vw,90vh);
-//  transform: translate(95vw,90vh);
-//  transform: translate(95vw,90vh);
-//}
 

@@ -50,16 +50,9 @@ stripe:any
             console.log(errorResp)
             console.log("failed");
           }))
-       /// this.callService();
-       /* this.collectionsService.getCollections().subscribe(collections => {
-          console.log(collections)
-        })*/
 
-        //////////make API call to send details**********
-        ///this.callService(stripeToken);
 
         console.log("makePayment")
-        ///alert('Stripe token generated!');
       }
     });
 

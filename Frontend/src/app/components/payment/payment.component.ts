@@ -26,18 +26,6 @@ export class PaymentComponent implements OnInit {
     this.invokeStripe();
 
   }
-///{ data: amount},{withCredentials: true}
-//   async callService(amount) {
-//     console.log("making call")
-//     await this.http.post(this.serverAPIURL,{})
-//       .subscribe( (resp: any) => {
-//         console.log("dfdsfjdshfs")
-//         console.log(resp)
-//       },(errorResp => {
-//         console.log(errorResp)
-//         console.log("failed");
-//       }))
-//   }
 
   makePayment(amount) {
     const paymentHandler = (<any>window).StripeCheckout.configure({

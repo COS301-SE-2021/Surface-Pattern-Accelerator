@@ -42,8 +42,6 @@ export class PreviewComponent implements OnInit {
       strokeWidth: 1
     });
 
-
-
     circle.draggable(true);
     circle1.draggable(true);
 
@@ -59,11 +57,6 @@ export class PreviewComponent implements OnInit {
     this.layer2.add(tr2);
     tr2.nodes([circle1]);
 
-    // var tr3 = new Konva.Transformer();
-    // layer2.add(tr3);
-    // tr3.nodes([rect]);
-
-    // console.log(theContainer[3]);
     let layerr = new Konva.Layer();
     for(var i = 0 ; i < this.theContainer.length; i++)
     {
@@ -79,13 +72,11 @@ export class PreviewComponent implements OnInit {
 
     layerr = this.layer2.clone();
 
-    // add the layer to the stage
-    // stage.add(this.layerr);
     this.stage1.add(this.layer2);
 
   }
 
-/* In Konva make this a layer */
+// Konva Code
   addGrid(e) {
     const canvas = <HTMLCanvasElement> document.getElementById('myCanvas');
     const context = canvas.getContext('2d');
@@ -99,9 +90,6 @@ export class PreviewComponent implements OnInit {
         context.moveTo(0, y);
         context.lineTo(500, y);
       }
-
-
-
       context.strokeStyle = "rgba(0,0,0,0.1)";
       context.stroke();
 
@@ -137,8 +125,6 @@ export class PreviewComponent implements OnInit {
     if(one.attrs.y > 80  ) yOffset1 = one.attrs.y - 100;
     if(two.attrs.x > 80 ) xOffset2 = two.attrs.x - 100;
     if(two.attrs.y > 80  ) xOffset2 = two.attrs.y - 100;
-    // if(three.attrs.x > 80 ) xOffset3 = three.attrs.x - 100;
-    // if(three.attrs.y > 80  ) xOffset3 = three.attrs.y - 100;
 
 
     let l = 100;
@@ -167,14 +153,7 @@ export class PreviewComponent implements OnInit {
         xx++;
 
       }
-
-
     }
     this.stage.add(this.layerr);
-
-
   }
-
-
-
 }
