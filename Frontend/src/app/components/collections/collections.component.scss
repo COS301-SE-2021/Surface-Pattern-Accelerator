@@ -5,7 +5,12 @@ ion-card{
   position: relative;
   height: auto;
   min-height: 100vh !important;
+  border: none;
 
+}
+
+.menu-items{
+  color: #007DDB;
 }
 
 ion-button{
@@ -23,11 +28,9 @@ ion-items{
   text-align: center;
   margin-top: 20px;
   padding-bottom: 20px;
-  border-bottom: black 1px solid;
 }
 .sidebar ul{
   list-style-type: none;
-  color: black;
 }
 .sidebar ul ion-icon{
   margin-right: 5px;

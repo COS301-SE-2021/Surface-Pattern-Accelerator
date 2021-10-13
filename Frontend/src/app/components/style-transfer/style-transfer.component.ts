@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import * as  deepai from 'deepai';
 
 @Component({
   selector: 'app-style-transfer',
@@ -10,14 +12,33 @@ export class StyleTransferComponent implements OnInit {
   styleImage: any;
   contentImage: any;
   generatedImage: any;
-  constructor() { }
+  styleBase64: string;
+  constructor(private http: HttpClient) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  async style(){
+
+    // working
+    deepai.setApiKey('c4fee479-a394-40ca-84d7-e166c67d520c');
+    console.log('content' + document.getElementById('uploadedImage'));
+    console.log('style' + document.getElementById('selectedStyle'));
+
+    const resp = await deepai.callStandardApi('fast-style-transfer', {
+      content: document.getElementById('readImg'),
+      style: this.styleBase64,
+    });
+    console.log(resp);
+    document.getElementById('generatedImg').setAttribute('src', resp.output_url);
+  }
 
   /*
   * This function allows the user to upload and display their content image
   */
   upload(){
+    document.getElementById('resultContainer').style.display = 'none';
     const upload = document.getElementById('readImg') as HTMLInputElement;
     if(upload.files[0]){
       const reader = new FileReader();
@@ -28,6 +49,7 @@ export class StyleTransferComponent implements OnInit {
       reader.addEventListener('load', (event) => {
         this.contentImage.src = event.target.result as string;
 
+        console.log('contentImage: ' + this.contentImage.src);
         //display the image
         document.getElementById('uploadedImage').setAttribute('src', this.contentImage.src);
         document.getElementById('contentContainer').style.display = 'block';
@@ -41,28 +63,32 @@ export class StyleTransferComponent implements OnInit {
   * style he/she would like to add to their uploaded image
   * */
   selectStyle(style: string, name: string) {
+    if(style === 'style1.jpg') {
+      this.styleBase64 = 'http://images.fineartamerica.com/images/artworkimages/mediumlarge/3/starry-night-print-by-vincent-van-gogh-vincent-van-gogh.jpg';
+      document.getElementById('selectedStyle').setAttribute('src', this.styleBase64);
+    }
+    else{
+      this.styleBase64 = 'http://afremov.com/images/product/image_938.jpeg';
+      document.getElementById('selectedStyle').setAttribute('src', this.styleBase64);
+    }
     this.styleImage = new Image();
     this.styleImage.setAttribute('src', '../../../assets/style-transfer/images/'+style);
     document.getElementById('stylesHeader').innerText = name+' selected';
+
+    console.log('image' + style);
   }
 
 
   /*
   * This function checks if the images are set then it will
-  *  send the images to a folder in the backend with the py file
+  * call style()
   *  */
   processGeneratedImage(){
     if(this.styleImage && this.contentImage){
-      // 1. pass the style and content image as parameters in the server request
-      // 2. save the images as style.jpg and content.jpg respectively, in the folder with the python file
-      // 3. call python function (which generates the generated.png in the same directory as the py file)
-      // 4. get the generated image (generated.png) from the folder (backend) and assign it to this.generatedImage (frontend)
 
-      // When the image is saved in this.generatedImage execute the block of code bellow
-      // this.generatedImage = ----- add response image here;
-      // document.getElementById('contentContainer').style.display = 'none';
-      // document.getElementById('resultContainer').style.display = 'block';
-      // document.getElementById('generatedImg').setAttribute('src', this.styleImage.src);
+      this.style().then();
+      document.getElementById('contentContainer').style.display = 'none';
+      document.getElementById('resultContainer').style.display = 'block';
       // window.alert('Running.... **add processing for backend**'); //remove this later
     }
     else if(!this.styleImage && this.contentImage){
@@ -70,4 +96,20 @@ export class StyleTransferComponent implements OnInit {
     }
   }
 
+  /**
+   * This function is used to process image downloads
+   */
+  async downloadImage(){
+    const imgLink = document.getElementById('generatedImg') as HTMLImageElement;
+    const image = await fetch(imgLink.src);
+    const blob =await image.blob();
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'generated.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }

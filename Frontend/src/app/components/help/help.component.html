@@ -1,59 +1,12 @@
-<ion-content class="main">
-  <ion-grid >
-    <ion-row style="height: 100%">
-      <ion-col size="3">
-        <ion-card>
-          <ion-card-content>
-          <ion-list style="padding: 5px;">
+<ion-header>
+  <ion-toolbar>
+    <ion-tab-button tab="collections" style="margin-right: auto">
+      <ion-icon name="arrow-back" style="margin-right: auto"></ion-icon>
+    </ion-tab-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
 
-          <ion-item color="medium">
-          <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-link"
-                      (click)="navigateTo('collections')">
-            <ion-icon name="folder-open-outline" style="padding-right: 10px;"></ion-icon>
-            <ion-label class="button-text" style="text-align : left;">Collections</ion-label>
-          </ion-button>
-          </ion-item>
-
-
-<!--        <ion-item color="medium">-->
-<!--          <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"-->
-<!--                      routerLink="/collections">-->
-<!--            <ion-icon name="grid-outline" style="padding-right: 10px;"></ion-icon>-->
-<!--            <ion-label class="button-text" style="text-align : left;">My Icons</ion-label>-->
-<!--          </ion-button>-->
-<!--        </ion-item>-->
-
-<!--        <ion-item color="medium">-->
-<!--          <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links"-->
-<!--                      routerLink="/help">-->
-<!--            <ion-icon name="information-circle-outline" style="padding-right: 10px;"></ion-icon>-->
-<!--            <ion-label class="button-text" style="text-align : left;">Help</ion-label>-->
-<!--          </ion-button>-->
-<!--        </ion-item>-->
-
-<!--        <ion-item color="medium">-->
-<!--          <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links">-->
-<!--            <ion-icon name="log-in-outline" style="padding-right: 10px;"></ion-icon>-->
-<!--            <ion-label class="button-text" style="text-align : left;">Sign Out</ion-label>-->
-<!--          </ion-button>-->
-<!--        </ion-item>-->
-      </ion-list>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div style="margin : auto; text-align: center; float: bottom;" >
-        <img src="assets/online.svg" alt="Missing.avi" width = 300px;>
-      </div>
-    </ion-card-content>
-  </ion-card>
-</ion-col>
-
-
-
-<ion-col size="9">
 <ion-card>
   <ion-card-content>
     <ion-card-header> FAQs and useful links</ion-card-header>
@@ -75,19 +28,15 @@
       </ion-button>
 
       <ion-button color="dark" style="width: 100%;" size="medium" fill="clear" class="tab-links">
-        <ion-router-link href="https://github.com/COS301-SE-2021/Surface-Pattern-Accelerator" target = "_blank"><ion-label class="button-text" style="text-align : left;"> Contact us</ion-label></ion-router-link>
+        <ion-router-link href="mailto:deltadevs2021@gmail.com" target = "_blank"><ion-label class="button-text" style="text-align : left;"> Contact us</ion-label></ion-router-link>
       </ion-button>
 
     </ion-list>
+
+    <div class="imageHelp">
+      <img src="https://user-images.githubusercontent.com/82371348/136061411-0a95bcbf-d604-4a9c-a053-83e32338ec74.png" style="align-items: center">
+    </div>
+
   </ion-card-content>
 </ion-card>
-  <div class="imageHelp">
-    <img src="assets/no-background.png" style="align-items: center">
-  </div>
-
-</ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>
-
-<!--<img src="assets/deltadevs.jpg." alt="">-->
