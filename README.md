@@ -83,7 +83,8 @@ Method: monorepo with gitflow
 
 ## Deployment
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) 
-[Deployment link](http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3000/)
+
+📺:[Deployment link](http://ec2-13-244-75-255.af-south-1.compute.amazonaws.com:3000/)
 
 ## Continuous Integration
 ![GitHub Actions](https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
