@@ -28,14 +28,14 @@ Our vision is to develop a specialized software package capable of creating patt
 
 # Documentation
 
-* :scroll: [User manual](https://www.overleaf.com/read/tcnzswypsdzd)
+* :scroll: [User manual](https://drive.google.com/file/d/1f0iOPOgGVZCDSQ_bqmBMXqW6fHzwpzLA/view?usp=sharing)
 * :floppy_disk: [Technical Installation Manual](https://drive.google.com/file/d/1-3f8dDegmtK77fIF17FF0cVibVNaNU-_/view?usp=sharing)
 * :open_file_folder: [Testing policy](https://drive.google.com/file/d/1BJUgmBtVAnV6oL7f9CcuJl3cjUc_MMWx/view?usp=sharing)
 * :open_book: [Software Requirements Specification (Version 1)](https://drive.google.com/file/d/1tFV_Nyc5PXqisZfGh9h-3PfsSDmJ1j8K/view?usp=sharing)
 * :open_book: [Software Requirements Specification (Version 2)](https://drive.google.com/file/d/1bDAnW5cEfRJMYLU6OuP37OCnuB0yT7T7/view?usp=sharing)
 * :open_book: [Software Requirements Specification (Version 3)](https://drive.google.com/file/d/1cYXVVPjCPWcxl4zRSXDHe8qW5J4I1swD/view?usp=sharing)
 * :open_book: [Software Requirements Specification (Version 4)](https://drive.google.com/file/d/15p7aX8L4moUM13rLlS651r2NwhkAvtY2/view?usp=sharing)
-* :curly_loop: [Coding Standards](https://www.overleaf.com/read/gcjfyjhhsrhg)
+* :curly_loop: [Coding Standards](https://drive.google.com/file/d/1sKnp16C8USj1UqFR-dAh2Vcy6j2JsZ3L/view?usp=sharing)
 
 ## Project Management Tools
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) <br>
