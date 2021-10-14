@@ -28,7 +28,7 @@ describe('ColorPaletteComponent', () => {
     btnElement.click();
 
     fixture.whenStable().then(() => {
-      //expect(component.colorGen).toHaveBeenCalled();//FIX THIS
+      expect(component.colorGen).toHaveBeenCalled();
     });
   });
 

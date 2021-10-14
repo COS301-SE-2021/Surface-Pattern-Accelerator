@@ -31,9 +31,8 @@ beforeEach(waitForAsync(() => {
     btn.click();
 
     fixture.whenStable().then(()=>{
-      //expect(component.newCollection).toHaveBeenCalled();//FIX THIS
+      expect(component.newCollection).toHaveBeenCalled();
     });
-    expect().nothing();
   });
 
 
